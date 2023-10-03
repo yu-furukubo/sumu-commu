@@ -30,7 +30,12 @@
 - 不用品をもらってほしい時
 ​
 ## 設計書
-後ほど作成予定
+- UIFlows(会員側)<br>
+https://drive.google.com/open?id=10eH6mr6H2E_8CLAh1s5OBrq0PwI623W5&usp=drive_copy
+- UIFlows(管理者側)<br>
+https://drive.google.com/open?id=1FAPX8l87_KmWGmyyyU-NRI7pm26M-oqw&usp=drive_copy
+- ER図<br>
+https://drive.google.com/open?id=1lZx_jQUj3-OOjQPxxRtqhokbA4TxgXy4&usp=drive_copy
 ​
 ## 開発環境
 - OS：Linux(CentOS)

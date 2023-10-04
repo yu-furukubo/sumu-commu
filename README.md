@@ -12,7 +12,7 @@
 リアルでは難しくてもオンラインなら可能かも？
 じゃあ、住民限定のコミュニケーションサイトをつくろう！
 でも、みんな使ってくれるかな？
-あ、エントランスにあるような掲示板機能や理事会の連絡機能を付ければ、必要インフラにできるかも！？
+あ、エントランスにあるような掲示板機能や落とし物の連絡機能を付ければ、必要インフラにできるかも！？
 
 という経緯で、今回のポートフォリオテーマを決定しました。
 なお、同様のサービスがすでに存在していますが、どれも管理者目線でのサービスであり、私の想定する住人目線のものがありませんでいたので、差別化できるものと考えます。
@@ -23,19 +23,16 @@
 - 自分たちの住む地域やマンションを住みやすいものにしたいと思っている人
 ​
 ### 主な利用シーン
-- 自治会や理事会などの会議を行う時
 - 回覧板や掲示板として情報を共有する必要がある時
 - 住人発信でイベント企画した時
 - 落とし物を拾った時
 - 不用品をもらってほしい時
 ​
 ## 設計書
-- UIFlows(会員側)<br>
-https://drive.google.com/open?id=10eH6mr6H2E_8CLAh1s5OBrq0PwI623W5&usp=drive_copy
-- UIFlows(管理者側)<br>
-https://drive.google.com/open?id=1FAPX8l87_KmWGmyyyU-NRI7pm26M-oqw&usp=drive_copy
-- ER図<br>
-https://drive.google.com/open?id=1lZx_jQUj3-OOjQPxxRtqhokbA4TxgXy4&usp=drive_copy
+- [UIFlows(会員側)](https://drive.google.com/open?id=10eH6mr6H2E_8CLAh1s5OBrq0PwI623W5&usp=drive_copy)<br>
+- [UIFlows(管理者側)](https://drive.google.com/open?id=1FAPX8l87_KmWGmyyyU-NRI7pm26M-oqw&usp=drive_copy)<br>
+- [ER図](https://drive.google.com/open?id=1lZx_jQUj3-OOjQPxxRtqhokbA4TxgXy4&usp=drive_copy)<br>
+- [テーブル定義図](https://docs.google.com/spreadsheets/d/1IKEIIgF9gjkuLv1vAXWJtswVwj657ZDvpVJUSlZzbV0/edit?usp=sharing)
 ​
 ## 開発環境
 - OS：Linux(CentOS)

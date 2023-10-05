@@ -32,7 +32,7 @@
 - [UIFlows(会員側)](https://drive.google.com/open?id=10eH6mr6H2E_8CLAh1s5OBrq0PwI623W5&usp=drive_copy)<br>
 - [UIFlows(管理者側)](https://drive.google.com/open?id=1FAPX8l87_KmWGmyyyU-NRI7pm26M-oqw&usp=drive_copy)<br>
 - [ER図](https://drive.google.com/open?id=1lZx_jQUj3-OOjQPxxRtqhokbA4TxgXy4&usp=drive_copy)<br>
-- [テーブル定義図](https://docs.google.com/spreadsheets/d/1IKEIIgF9gjkuLv1vAXWJtswVwj657ZDvpVJUSlZzbV0/edit?usp=sharing)
+- [テーブル定義図](https://docs.google.com/spreadsheets/d/1JW-pdQx_lVtHHt6C_rwsXll3rNI_0wXy/edit#gid=22058163)
 - [アプリケーション詳細](https://docs.google.com/spreadsheets/d/1E1s8JcwEfRgItM2AjXiQ6y3PKEaBap27/edit#gid=1238038031)
 ​
 ## 開発環境

@@ -1,0 +1,2 @@
+module Public::FacilitiesHelper
+end

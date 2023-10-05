@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  residence_id: 1
+  name: MyString
+  body: MyText
+  is_cercular: false
+
+two:
+  residence_id: 1
+  name: MyString
+  body: MyText
+  is_cercular: false

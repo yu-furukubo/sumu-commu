@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-md">
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item mr-3">
+      <%= link_to "マイページ", member_public_members_path, class: "nav-link text-white btn btn-outline-primary btn btn-success" %>
+    </li>
+    <li class="nav-item mr-3">
+      <%= link_to "掲示板", public_boards_path, class: "nav-link text-white btn btn-success" %>
+    </li>
+    <li class="nav-item mr-3">
+      <%= link_to "コミュニティ", public_communities_path, class: "nav-link text-white btn btn-success" %>
+    </li>
+        <li class="nav-item mr-3">
+      <%= link_to "イベント", public_events_path, class: "nav-link text-white btn btn-success" %>
+    </li>
+    <li class="nav-item mr-3">
+      <%= link_to "譲り合い", public_exchanges_path, class: "nav-link text-white btn btn-success" %>
+    </li>
+    <li class="nav-item mr-3">
+      <%= link_to "備品設備予約", public_reservations_path, class: "nav-link text-white btn btn-success" %>
+    </li>
+    <li class="nav-item mr-3">
+      <%= link_to "落とし物", public_lost_items_path, class: "nav-link text-white btn btn-success" %>
+    </li>
+    <li class="nav-item mr-3">
+      <%= link_to "予定", public_plans_path, class: "nav-link text-white btn btn-success" %>
+    </li>
+    <% if member_signed_in? %>
+      <li class="nav-item mr-3">
+        <%= link_to "ログアウト", destroy_member_session_path, method: :delete, class: "nav-link text-white btn btn-success" %>
+      </li>
+    <% else %>
+      <li class="nav-item mr-3">
+        <%= link_to "ログイン", new_member_session_path, class: "nav-link text-white btn btn-success" %>
+      </li>
+    <% end %>
+    <li class="nav-item mr-3">
+      <%= link_to "管理者ログイン", new_admin_session_path, class: "nav-link text-white btn btn-secondary" %>
+    </li>
+  </ul>
+</nav>

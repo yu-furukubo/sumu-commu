@@ -16,4 +16,9 @@ class Member < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  # プロフィール画像が未設定だった場合、no_imageを表示
+  def get_profile_image
+    (profile_image.attached?) ? profile_image : "no_image.jpg"
+  end
 end

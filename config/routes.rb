@@ -17,7 +17,11 @@ Rails.application.routes.draw do
     resources :facilities
     resources :equipments
     resources :events
-    resources :members, exept: [:new, :create]
+    resources :members, exept: [:new, :create] do
+      collection do
+        get "residence/:id" => "members#residence_search" ,as: "residence_search"
+      end
+    end
     resources :boards
     resources :residences, only: [:new, :create]
     resources :admins, only: [:show, :edit, :update]

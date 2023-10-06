@@ -1,4 +1,5 @@
 class Public::ResidencesController < ApplicationController
-  def choice
+  def index
+    @residences = Residence.all
   end
 end

@@ -1,0 +1,4 @@
+<% @residences.each do |residence| %>
+  <%= residence.name %>
+  <%= link_to "会員登録へ進む", new_member_registration_path(residence) %>
+<% end %>

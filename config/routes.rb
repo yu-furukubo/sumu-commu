@@ -56,6 +56,7 @@ Rails.application.routes.draw do
         delete "information" => "members#destroy", as: "member_destroy"
       end
     end
+    resources :residences, only: [:index, :show]
   end
 
   devise_for :admin, skip: [:passwords], controllers: {

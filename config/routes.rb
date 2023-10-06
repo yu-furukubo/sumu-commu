@@ -22,7 +22,11 @@ Rails.application.routes.draw do
         get "residence/:id" => "members#residence_search" ,as: "residence_search"
       end
     end
-    resources :boards
+    resources :boards do
+      collection do
+        get "residence/:id" => "boards#residence_search" ,as: "residence_search"
+      end
+    end
     resources :residences, only: [:new, :create]
     resources :admins, only: [:show, :edit, :update]
   end

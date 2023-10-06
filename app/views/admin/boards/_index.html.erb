@@ -1,0 +1,19 @@
+<table class='table table-bordered'>
+  <thead>
+    <tr>
+      <th>居住地</th>
+      <th>名称</th>
+      <th>本文</th>
+      <th>回覧</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% boards.each do |board| %>
+      <tr>
+        <td><%= board.residence.name %></td>
+        <td><%= link_to board.name, admin_board_path(board) %></td>
+        <td><%= board.body %></td>
+        <td><%= board.is_circular %></td>
+    <% end %>
+  </tbody>
+</table>

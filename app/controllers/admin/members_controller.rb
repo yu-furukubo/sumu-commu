@@ -1,11 +1,12 @@
 class Admin::MembersController < ApplicationController
   def index
-    @members = Member.all
-    @residences = Residence.all
+    @residences = current_admin.residences
+    @residence_id_array = @residences.pluck(:id)
+    @members = Member.where(residence_id: @residence_id_array)
   end
 
   def residence_search
-    @residences = Residence.all
+    @residences = current_admin.residences
     @residence = Residence.find(params[:id])
     @members = @residence.members
   end
@@ -27,7 +28,6 @@ class Admin::MembersController < ApplicationController
     end
   end
 
-# 削除時エラー出るので追って解消
   def destroy
     member = Member.find(params[:id])
     if member.destroy

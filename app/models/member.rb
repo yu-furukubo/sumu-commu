@@ -3,7 +3,7 @@ class Member < ApplicationRecord
   belongs_to :residence
   has_many :plans, dependent: :destroy
   has_many :reads, dependent: :destroy
-  has_many :cercular_members, dependent: :destroy
+  has_many :circular_members, dependent: :destroy
   has_many :exchanges, dependent: :destroy
   has_many :community_comments, dependent: :destroy
   has_many :community_members, dependent: :destroy

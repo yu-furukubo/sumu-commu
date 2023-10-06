@@ -1,2 +1,46 @@
-<h1>Admin::Admins#show</h1>
-<p>Find me in app/views/admin/admins/show.html.erb</p>
+<div class='container p-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-10 offset-md-1'>
+      <div class="ml-5 mb-3">
+        <h2>管理者情報</h2>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="offset-1">
+            <table class='table table-borderless'>
+              <tr><th>管理者名</th><td><%= @admin.name %></td><td><%= link_to "編集する", edit_admin_admin_path, class: "btn btn-success" %></td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="ml-5 mb-3">
+        <h2>管理居住地</h2>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="offset-1">
+            <table class='table table-bordered'>
+              <thead>
+                <tr>
+                  <th>名称</th>
+                  <th>住居タイプ</th>
+                  <th>住所</th>
+                  <th>使用世帯数</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @residences.each do |residence| %>
+                  <tr>
+                    <td><%= residence.name %></td>
+                    <td><%= residence.housing_type %></td>
+                    <td><%= residence.address %></td>
+                    <td><%= residence.members.count %></td>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+     </div>
+  </div>
+</div>

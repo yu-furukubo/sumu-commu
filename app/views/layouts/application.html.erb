@@ -6,11 +6,50 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <script src="https://kit.fontawesome.com/02d3b10da1.js" crossorigin="anonymous"></script>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="d-flex flex-column">
+    <header class="border-bottom border-dark">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-2 pl-5">
+            <div class="logo">
+              <%= link_to "すむこみゅ", root_path, class: "lead" %>
+            </div>
+          </div>
+          <div class="col-3 offset-1 my-auto">
+           <div class="text-center text-dark pb-3">
+              <% if member_signed_in? %>
+                <%= image_tag current_member.get_profile_image, width: '50px' %>
+                <%= current_member.name %>
+              <% end %>
+            </div>
+          </div>
+          <div class="col-6 pr-5">
+            <% if admin_signed_in? %>
+              <%= render 'layouts/admin_header' %>
+            <% else %>
+              <%= render 'layouts/member_header' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div>
+        <%= flash[:notice] %>
+      </div>
+      <%= yield %>
+    </main>
+
+    <footer class="text-center border-top border-dark">
+      <div class="m-3">
+        <p>CopyRight すむこみゅ<SUMU-COMMU></p>
+      </div>
+    </footer>
   </body>
 </html>

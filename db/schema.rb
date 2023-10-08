@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(version: 2023_10_05_091539) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
+    t.integer "record_id", null: false
+    t.integer "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2023_10_05_091539) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.bigint "blob_id", null: false
+    t.integer "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2023_10_05_091539) do
 
   create_table "boards", force: :cascade do |t|
     t.integer "residence_id", null: false
+    t.integer "member_id"
     t.string "name", null: false
     t.text "body", null: false
     t.boolean "is_circular", default: false, null: false
@@ -72,6 +73,7 @@ ActiveRecord::Schema.define(version: 2023_10_05_091539) do
 
   create_table "communities", force: :cascade do |t|
     t.integer "residence_id", null: false
+    t.integer "member_id", null: false
     t.string "name", null: false
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
@@ -117,6 +119,7 @@ ActiveRecord::Schema.define(version: 2023_10_05_091539) do
 
   create_table "events", force: :cascade do |t|
     t.integer "residence_id", null: false
+    t.integer "member_id", null: false
     t.string "name", null: false
     t.text "description", null: false
     t.datetime "started_at", null: false
@@ -128,6 +131,7 @@ ActiveRecord::Schema.define(version: 2023_10_05_091539) do
 
   create_table "exchange_comments", force: :cascade do |t|
     t.integer "exchange_id", null: false
+    t.integer "member_id", null: false
     t.text "comment", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -164,6 +168,7 @@ ActiveRecord::Schema.define(version: 2023_10_05_091539) do
 
   create_table "lost_item_comments", force: :cascade do |t|
     t.integer "lost_item_id", null: false
+    t.integer "member_id", null: false
     t.text "comment", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

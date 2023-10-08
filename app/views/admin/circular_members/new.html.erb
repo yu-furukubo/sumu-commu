@@ -1,0 +1,16 @@
+<table class='table table-borderless'>
+  <% @members.each do |member| %>
+    <tr>
+      <td style="width:30%"><%= member.name %></td>
+      <% if @board.circular_members.exists?(member_id: member.id) %>
+        <td><%= link_to "削除", admin_board_circular_member_path(@board.id, member.id), method: :delete, class: 'btn btn-danger' %></td>
+      <% else %>
+        <%= form_with model:@circular_member, url: admin_board_circular_members_path(@board), local: true do |f| %>
+          <td><%= f.text_field :board_id, :value => params[:board_id] %></td>
+          <td><%= f.text_field :member_id, :value => member.id %></td>
+          <td><%= f.submit "追加", class: 'btn btn-success' %></td>
+        <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

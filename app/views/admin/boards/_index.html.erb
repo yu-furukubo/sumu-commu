@@ -2,6 +2,7 @@
   <thead>
     <tr>
       <th>居住地</th>
+      <th>作成者</th>
       <th>名称</th>
       <th>本文</th>
       <th>回覧</th>
@@ -11,8 +12,13 @@
     <% boards.each do |board| %>
       <tr>
         <td><%= board.residence.name %></td>
+        <% if board.member_id == 0 %>
+          <td>管理人</td>
+        <% else %>
+          <td><%= board.member.name %></td>
+        <% end %>
         <td><%= link_to board.name, admin_board_path(board) %></td>
-        <td><%= board.body %></td>
+        <td><%= board.body.truncate(40) %></td>
         <td><%= board.is_circular %></td>
     <% end %>
   </tbody>

@@ -13,10 +13,22 @@ class Admin::BoardsController < ApplicationController
 
   def show
     @board = Board.find(params[:id])
+    @circular_members = CircularMember.where(board_id: @board.id)
+    @board_checked_members = @circular_members.where(is_checked: true)
   end
 
   def new
     @board = Board.new
+  end
+
+  def create
+    @board = Board.new(board_params)
+    @board.member_id = 0
+    if @board.save
+      redirect_to new_admin_board_circular_member_path(@board)
+    else
+      render "new"
+    end
   end
 
   def edit
@@ -35,7 +47,7 @@ class Admin::BoardsController < ApplicationController
   def destroy
     board = Board.find(params[:id])
     if board.destroy
-      redirect_to admin_borads_path
+      redirect_to admin_boards_path
     else
       flash.now[:notice] = "削除に失敗しました"
       render "show"
@@ -45,7 +57,7 @@ class Admin::BoardsController < ApplicationController
   private
 
   def board_params
-    params.require(:board).permit(:name, :body)
+    params.require(:board).permit(:name, :body, :residence_id, :is_circular, :member_id)
   end
 
 end

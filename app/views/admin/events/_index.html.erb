@@ -1,0 +1,28 @@
+<table class='table table-bordered'>
+  <thead>
+    <tr>
+      <th>居住地</th>
+      <th>作成者</th>
+      <th>イベント名</th>
+      <th>説明</th>
+      <th>開催期間</th>
+      <th>開催場所</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% events.each do |event| %>
+      <tr>
+        <td><%= event.residence.name %></td>
+        <% if event.member_id == 0 %>
+          <td>管理人</td>
+        <% else %>
+          <td><%= event.member.name %></td>
+        <% end %>
+        <td><%= link_to event.name, admin_event_path(event) %></td>
+        <td><%= event.description %></td>
+        <td><%= event.started_at %> ~ <%= event.finished_at %></td>
+        <td><%= event.venue %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

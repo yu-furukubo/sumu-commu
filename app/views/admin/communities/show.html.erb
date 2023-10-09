@@ -1,2 +1,91 @@
-<h1>Admin::Communities#show</h1>
-<p>Find me in app/views/admin/communities/show.html.erb</p>
+<div class='container p-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-10 offset-md-1'>
+      <div class="ml-5 mb-3">
+        <h2>コミュニティ詳細</h2>
+      </div>
+      <div class="container">
+        <div class="offset-1">
+          <table class='table table-borderless'>
+            <tr><th style="width: 20%">作成者名</th><td><%= @community.member.name %></td></tr>
+            <tr><th>居住地</th><td><%= @community.residence.name %></td></tr>
+            <tr><th>コミュニティ名</th><td><%= @community.name %></td></tr>
+            <tr><th>説明</th><td><%= @community.description %></td></tr>
+          </table>
+          <div class="row">
+            <div class="mx-auto">
+              <%= link_to "編集する", edit_admin_community_path, class: "btn btn-success" %>&emsp;&emsp;
+              <%= link_to "削除する", admin_community_path, method: :delete,
+                data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
+            </div>
+          </div>
+          <div class="row">
+            <!--参加メンバー表示用の記述-->
+            <div class="col-6 mt-5">
+              <div class="row mb-3 d-flex align-items-center">
+                <h4>参加メンバー</h4>&emsp;
+                <span class="text-primary font-weight-bold"><%= @community_members.count %>人</span>
+              </div>
+              <table class='table table-borderless'>
+                <tbody>
+                  <% @community_members.each do |community_member| %>
+                    <tr>
+                      <td style="width: 35%"><%= community_member.member.name %></td>
+                      <% if community_member.is_admin == true %>
+                        <td class="text-danger">管理者</td>
+                        <%= form_with model: CommunityMember.new, url: admin_community_community_member_path(@community, community_member), method: :patch, local: true do |f| %>
+                          <td>
+                            <%= f.hidden_field :is_admin, :value => false %>
+                            <%= f.submit "メンバーに変更", class: 'btn btn-sm btn-success' %>
+                          </td>
+                        <% end %>
+                      <% else %>
+                        <td class="text-success">メンバー</td>
+                        <%= form_with model: CommunityMember.new, url: admin_community_community_member_path(@community, community_member), method: :patch, local: true do |f| %>
+                          <td>
+                            <%= f.hidden_field :is_admin, :value => true %>
+                            <%= f.submit "管理者に変更", class: 'btn btn-sm btn-danger' %>
+                          </td>
+                        <% end %>
+                      <% end %>
+                      <td>
+                        <%= link_to admin_community_community_member_path(@community, community_member), method: :delete, class: 'btn btn-sm btn-secondary' do %>
+                          <i class="fa-solid fa-trash-can fa-2xs"></i>
+                        <% end %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+            <!--参加メンバー表示用の記述ここまで-->
+  
+            <!--コメント表示用の記述-->
+            <div class="col-6 mt-5">
+              <div class="row mb-3 d-flex align-items-center">
+                <h4>コメント</h4>&emsp;
+                <span class="text-primary font-weight-bold"><%= @community_comments.count %>件</span>
+              </div>
+              <table class='table table-borderless'>
+                <tbody>
+                  <% @community_comments.each do |community_comment| %>
+                    <tr>
+                      <td style="width: 35%"><%= community_comment.member.name %></td>
+                      <td><%= community_comment.comment %></td>
+                      <td>
+                        <%= link_to admin_community_community_comment_path(@community, community_comment), method: :delete, class: 'btn btn-sm btn-secondary' do %>
+                          <i class="fa-solid fa-trash-can fa-2xs"></i>
+                        <% end %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+            <!--コメント表示用の記述ここまで-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

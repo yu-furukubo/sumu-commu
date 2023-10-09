@@ -1,40 +1,60 @@
 <nav class="navbar navbar-expand-md">
   <ul class="navbar-nav ml-auto">
     <li class="nav-item mr-3">
-      <%= link_to "マイページ", member_public_members_path, class: "nav-link text-white btn btn-outline-primary btn btn-success" %>
+      <%= link_to member_public_members_path, class: "nav-link text-white btn btn-sm btn-info" do %>
+        <i class="fa-solid fa-user"></i> マイページ
+      <% end %>
     </li>
     <li class="nav-item mr-3">
-      <%= link_to "掲示板", public_boards_path, class: "nav-link text-white btn btn-success" %>
+      <%= link_to public_boards_path, class: "nav-link text-white btn btn-sm btn-info" do %>
+        <i class="fa-solid fa-circle-exclamation"></i> 掲示板
+      <% end %>
     </li>
     <li class="nav-item mr-3">
-      <%= link_to "コミュニティ", public_communities_path, class: "nav-link text-white btn btn-success" %>
+      <%= link_to public_communities_path, class: "nav-link text-white btn btn-sm btn-info" do %>
+        <i class="fa-solid fa-users"></i> コミュニティ
+      <% end %>
     </li>
         <li class="nav-item mr-3">
-      <%= link_to "イベント", public_events_path, class: "nav-link text-white btn btn-success" %>
+      <%= link_to public_events_path, class: "nav-link text-white btn btn-sm btn-info" do %>
+        <i class="fa-solid fa-icons"></i> イベント
+      <% end %>
     </li>
     <li class="nav-item mr-3">
-      <%= link_to "譲り合い", public_exchanges_path, class: "nav-link text-white btn btn-success" %>
+      <%= link_to public_exchanges_path, class: "nav-link text-white btn btn-sm btn-info" do %>
+        <i class="fa-solid fa-repeat"></i> 譲り合い
+      <% end %>
     </li>
     <li class="nav-item mr-3">
-      <%= link_to "備品設備予約", public_reservations_path, class: "nav-link text-white btn btn-success" %>
+      <%= link_to public_reservations_path, class: "nav-link text-white btn btn-sm btn-info" do %>
+        <i class="fa-solid fa-bookmark"></i> 予約
+      <% end %>
     </li>
     <li class="nav-item mr-3">
-      <%= link_to "落とし物", public_lost_items_path, class: "nav-link text-white btn btn-success" %>
+      <%= link_to public_lost_items_path, class: "nav-link text-white btn btn-sm btn-info" do %>
+        <i class="fa-solid fa-hand-holding-droplet"></i> 落とし物
+      <% end %>
     </li>
     <li class="nav-item mr-3">
-      <%= link_to "予定", public_plans_path, class: "nav-link text-white btn btn-success" %>
+      <%= link_to public_plans_path, class: "nav-link text-white btn btn-sm btn-info" do %>
+        <i class="fa-regular fa-calendar"></i> 予定
+      <% end %>
     </li>
     <% if member_signed_in? %>
       <li class="nav-item mr-3">
-        <%= link_to "ログアウト", destroy_member_session_path, method: :delete, class: "nav-link text-white btn btn-success" %>
+        <%= link_to destroy_member_session_path, method: :delete, class: "nav-link text-white btn btn-sm btn-info" do %>
+          <i class="fa-solid fa-right-from-bracket"></i> ログアウト
+        <% end %>
       </li>
     <% else %>
       <li class="nav-item mr-3">
-        <%= link_to "ログイン", new_member_session_path, class: "nav-link text-white btn btn-success" %>
+        <%= link_to new_member_session_path, class: "nav-link text-white btn btn-sm btn-info" do %>
+          <i class="fa-solid fa-right-to-bracket"></i> ログイン
+        <% end %>
       </li>
     <% end %>
     <li class="nav-item mr-3">
-      <%= link_to "管理者ログイン", new_admin_session_path, class: "nav-link text-white btn btn-secondary" %>
+      <%= link_to "管理者ログイン", new_admin_session_path, class: "nav-link text-white btn btn-sm btn-secondary" %>
     </li>
   </ul>
 </nav>

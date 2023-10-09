@@ -25,7 +25,7 @@ class Admin::BoardsController < ApplicationController
     @board = Board.new(board_params)
     @board.member_id = 0
     if @board.save
-      redirect_to new_admin_board_circular_member_path(@board)
+      redirect_to admin_board_path(@board)
     else
       render "new"
     end

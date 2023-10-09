@@ -1,0 +1,22 @@
+<table class='table table-bordered'>
+  <thead>
+    <tr>
+      <th>居住地</th>
+      <th>作成者</th>
+      <th>コミュニティ名</th>
+      <th>説明</th>
+      <th>メンバー数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% communities.each do |community| %>
+      <tr>
+        <td><%= community.residence.name %></td>
+        <td><%= community.member.name %></td>
+        <td><%= link_to community.name, admin_community_path(community) %></td>
+        <td><%= community.description %></td>
+        <td><%= community.community_members.count %> 人</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

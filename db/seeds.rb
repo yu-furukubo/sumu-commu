@@ -33,8 +33,16 @@ Member.create!(
   password: '111111'
   )
 
+Member.create!(
+  residence_id: '1',
+  name: 'テストメンバー3',
+  house_address: '305',
+  email: 'member3@test',
+  password: '111111'
+  )
+
 Board.create!(
-  residence_id: '2',
+  residence_id: '1',
   member_id: '1',
   name: 'テスト掲示板',
   body: 'あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。またそのなかでいっしょになったたくさんのひとたち、ファゼーロとロザーロ、羊飼のミーロや、顔の赤いこどもたち、地主のテーモ、山猫博士のボーガント・デストゥパーゴなど、いまこの暗い巨きな石の建物のなかで考えていると、みんなむかし風のなつかしい青い幻燈のように思われます。',
@@ -45,4 +53,57 @@ CircularMember.create!(
   board_id: '1',
   member_id: '1',
   is_checked: 'true'
+  )
+
+Community.create!(
+  residence_id: '1',
+  member_id: '3',
+  name: 'テストコミュニティ',
+  description: 'テスト用に作成したコミュニティです。'
+  )
+
+CommunityMember.create!(
+  community_id: '1',
+  member_id: '1',
+  is_admin: 'true'
+  )
+
+CommunityMember.create!(
+  community_id: '1',
+  member_id: '3',
+  is_admin: 'false'
+  )
+
+CommunityComment.create!(
+  community_id: '1',
+  member_id: '1',
+  comment: 'テストコメント'
+  )
+
+CommunityComment.create!(
+  community_id: '1',
+  member_id: '3',
+  comment: 'テストコメント2'
+  )
+
+Event.create!(
+  residence_id: '1',
+  member_id: '0',
+  name: 'テストイベント',
+  description: 'テスト用に作成したイベントです。',
+  started_at: '2023-10-10 09:00:00',
+  finished_at: '2023-10-10 18:00:00',
+  venue: 'エントランス脇スペース'
+  )
+
+EventMember.create!(
+  event_id: '1',
+  member_id: '1',
+  is_admin: 'false'
+  )
+
+EventMember.create!(
+  event_id: '1',
+  member_id: '3',
+  is_admin: 'false'
   )

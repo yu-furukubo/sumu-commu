@@ -16,6 +16,16 @@
             <tr><th>件名</th><td><%= @board.name %></td></tr>
             <tr><th>本文</th><td><%= @board.body %></td></tr>
           </table>
+
+          <div class="row">
+            <div class="mx-auto">
+              <%= link_to "編集する", edit_admin_board_path, class: "btn btn-success" %>&emsp;&emsp;
+              <%= link_to "削除する", admin_board_path, method: :delete,
+                data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
+            </div>
+          </div>
+
+          <!--回覧メンバー表示用の記述-->
           <% if @board.is_circular == true %>
             <div class="mt-5">
               <div class="row mb-3 d-flex align-items-center">
@@ -27,12 +37,13 @@
                 <% else %>
                   <span>&emsp;確認済：<%= @board_checked_members.count %>人（<%= @circular_members.count %>人中）</span>
                 <% end %>
+                <%= link_to ">>回覧メンバーを編集する", admin_board_circular_members_path(@board), class: "text-success" %>
               </div>
               <table class='table table-borderless'>
                 <tbody>
                   <% @circular_members.each do |circular_member| %>
                     <tr>
-                      <td style="width: 20%"><%= circular_member.member.name %></td>
+                      <td style="width: 30%"><%= circular_member.member.name %></td>
                       <% if circular_member.is_checked == true %>
                         <td class="text-primary"><i class="fa-solid fa-check"></i></td>
                       <% else %>
@@ -44,13 +55,8 @@
               </table>
             </div>
           <% end %>
-          <div class="row">
-            <div class="mx-auto">
-              <%= link_to "編集する", edit_admin_board_path, class: "btn btn-success" %>&emsp;&emsp;
-              <%= link_to "削除する", admin_board_path, method: :delete,
-                data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
-            </div>
-          </div>
+          <!--回覧メンバー表示用の記述ここまで-->
+
         </div>
       </div>
      </div>

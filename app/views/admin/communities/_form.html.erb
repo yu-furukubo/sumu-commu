@@ -1,6 +1,6 @@
 <div class="ml-5 mb-3">
-  <%= form_with model:board, url: path, local: true do |f| %>
-    <%= render 'layouts/errors', obj: board %>
+  <%= form_with model:community, url: path, local: true do |f| %>
+    <%= render 'layouts/errors', obj: community %>
     <table class="table table-borderless">
       <tbody>
         <div class="form-group">
@@ -15,29 +15,14 @@
         </div>
         <div class="form-group">
           <tr>
-            <td style="width: 20%"><%= f.label :件名 %></td>
+            <td style="width: 20%"><%= f.label :コミュニティ名 %></td>
             <td style="width: 70%"><%= f.text_field :name, placeholder: "件名", class: 'form-control ' %></td>
           </tr>
         </div>
         <div class="form-group">
           <tr>
             <td><%= f.label :本文 %></td>
-            <td><%= f.text_area :body, placeholder: "ここに本文を記述します", class: 'form-control', rows: "10" %></td>
-          </tr>
-        </div>
-        <div class="form-group">
-          <tr>
-            <td><%= f.label :回覧板に設定しますか？ %></td>
-            <td>
-              <div class="form_check form-check-inline">
-                <%= f.radio_button :is_circular, true, class: "form-check-input" %>
-                <%= f.label :is_circular_true, "はい" %>
-              </div>
-              <div class="form_check form-check-inline">
-                <%= f.radio_button :is_circular, false, class: "form-check-input" %>
-                <%= f.label :is_circular_false, "いいえ" %>
-              </div>
-            </td>
+            <td><%= f.text_area :description, placeholder: "コミュニティの説明を記述します", class: 'form-control', rows: "5" %></td>
           </tr>
         </div>
       </tbody>

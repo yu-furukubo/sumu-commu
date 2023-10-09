@@ -7,11 +7,12 @@ Rails.application.routes.draw do
   root to: "public/homes#top"
 
   namespace :admin do
-    resources :communities do
+    resources :communities, except: [:new]  do
       collection do
         get "residence/:id" => "communities#residence_search" ,as: "residence_search"
       end
       resources :community_comments, only: [:destroy]
+      resources :community_members, only: [:update, :destroy]
     end
     resources :exchanges, except: [:new] do
       collection do
@@ -25,12 +26,12 @@ Rails.application.routes.draw do
       end
       resources :lost_item_comments, only: [:destroy]
     end
-    resources :genres, only: [:index, :create, :edit, :update] do
+    resources :genres, only: [:index, :create, :edit, :update, :destroy] do
       collection do
         get "residence/:id" => "genres#residence_search" ,as: "residence_search"
       end
     end
-    resources :reservations, exept: [:new] do
+    resources :reservations, except: [:new] do
       collection do
         get "residence/:id" => "reservations#residence_search" ,as: "residence_search"
       end
@@ -49,8 +50,9 @@ Rails.application.routes.draw do
       collection do
         get "residence/:id" => "events#residence_search" ,as: "residence_search"
       end
+      resources :event_members, only: [:destroy]
     end
-    resources :members, exept: [:new, :create] do
+    resources :members, except: [:new, :create] do
       collection do
         get "residence/:id" => "members#residence_search" ,as: "residence_search"
       end
@@ -80,7 +82,9 @@ Rails.application.routes.draw do
     resources :equipments, only: [:index, :show]
     resources :facilities, only: [:index, :show]
     resources :boards do
-      resources :circular_members, only: [:index, :new, :update], on: :member
+      member do
+        resources :circular_members, only: [:index, :new, :update]
+      end
       resource :reads, only: [:create, :destroy]
     end
     resources :communities do
@@ -98,7 +102,11 @@ Rails.application.routes.draw do
         delete "information" => "members#destroy", as: "member_destroy"
       end
     end
-    resources :residences, only: [:index, :show]
+    resources :residences, only: [:index, :show] do
+      devise_scope :members do
+        get "member/sign_up" => "devise/registrations#new", as: "new_member_registration"
+      end
+    end
   end
 
   devise_for :admin, skip: [:passwords], controllers: {
@@ -110,7 +118,7 @@ Rails.application.routes.draw do
     sessions: 'public/sessions'
   }
   devise_scope :members do
-    get "member/sign_up/:id" => "devise/registrations#new", as: "new_member_registration"
+    # get "member/sign_up/:id" => "devise/registrations#new", as: "new_member_registration"
     get "member/edit" => "devise/registrations#edit", as: "edit_member_registration"
     patch "member" => "devise/registrations#update", as: "update_member_registration"
     delete "member" => "devise/registrations#destroy", as: "destroy_member_registration"

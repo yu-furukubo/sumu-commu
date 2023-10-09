@@ -1,0 +1,54 @@
+<div class="ml-5 mb-3">
+  <%= form_with model:event, url: path, local: true do |f| %>
+    <%= render 'layouts/errors', obj: event %>
+    <table class="table table-borderless">
+      <tbody>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :居住地 %></td>
+            <td>
+              <%= f.select :residence_id,
+              options_from_collection_for_select(current_admin.residences, :id, :name), {prompt: "選択してください"},
+              class: 'form-control' %>
+            </td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td style="width: 20%"><%= f.label :イベント名 %></td>
+            <td style="width: 70%"><%= f.text_field :name, placeholder: "イベント名", class: 'form-control ' %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :説明 %></td>
+            <td><%= f.text_area :description, placeholder: "イベントの説明を記述します", class: 'form-control', rows: "5" %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :開始日時 %></td>
+            <td><%= f.datetime_select :started_at, class: 'form-control' %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :終了日時 %></td>
+            <td><%= f.datetime_select :finished_at, class: 'form-control' %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :開催場所 %></td>
+            <td><%= f.text_field :venue, placeholder: "開催場所", class: 'form-control' %></td>
+          </tr>
+        </div>
+      </tbody>
+    </table>
+    <div class="form-group text-center">
+      <tr>
+        <td class="text-center"><%= f.submit class: 'btn btn-success' %></td>
+      </tr>
+    </div>
+  <% end %>
+</div>

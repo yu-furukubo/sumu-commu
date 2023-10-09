@@ -1,2 +1,10 @@
-<h1>Admin::Events#edit</h1>
-<p>Find me in app/views/admin/events/edit.html.erb</p>
+<div class='container p-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-10 offset-md-1'>
+      <div class="ml-5 mb-3">
+        <h2>イベント編集</h2>
+      </div>
+      <%= render 'admin/events/form', event: @event, path: admin_event_path %>
+    </div>
+  </div>
+</div>

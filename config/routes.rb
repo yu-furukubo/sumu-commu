@@ -63,7 +63,7 @@ Rails.application.routes.draw do
       end
       resources :circular_members, only: [:index, :new, :create, :update, :destroy]
     end
-    resources :residences, only: [:new, :create]
+    resources :residences, except: [:index, :show]
     resources :admins, only: [:show, :edit, :update]
   end
 

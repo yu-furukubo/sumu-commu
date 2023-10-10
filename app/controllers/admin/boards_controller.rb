@@ -1,4 +1,6 @@
 class Admin::BoardsController < ApplicationController
+  include Admin::BoardsHelper
+
   def index
     @residences = current_admin.residences
     @residence_id_array = @residences.pluck(:id)

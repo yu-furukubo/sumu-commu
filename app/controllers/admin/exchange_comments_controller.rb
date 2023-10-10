@@ -6,7 +6,7 @@ class Admin::ExchangeCommentsController < ApplicationController
       redirect_to admin_exchange_path(exchange)
     else
       flash.now[:notice] = "削除に失敗しました"
-      render "exchanges#show"
+      render template: "admin/exchanges/show"
     end
   end
 end

@@ -1,6 +1,9 @@
 <div class='container p-5 px-sm-0'>
   <div class='row'>
-    <div class='col-md-10 offset-md-1'>
+    <div class="col-3">
+      <%= render 'layouts/residence_search', residences: @residences %>
+    </div>
+    <div class='col-md-9'>
       <div class="ml-5 mb-3">
         <h2>ジャンル追加</h2>
       </div>
@@ -11,9 +14,6 @@
       <!--ジャンルの新規登録機能ここまで-->
       <div class="ml-5 mb-3">
         <h2>ジャンル一覧</h2>
-      </div>
-      <div class="ml-5 mb-3">
-        <%= render 'admin/genres/residence_search', residences: @residences %>
       </div>
 
       <!--ジャンルの一覧表示-->

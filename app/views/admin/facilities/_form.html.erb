@@ -1,0 +1,59 @@
+<div class="ml-5 mb-3">
+  <%= form_with model:facility, url: path, local: true do |f| %>
+    <%= render 'layouts/errors', obj: facility %>
+    <table class="table table-borderless">
+      <tbody>
+        <div class="form-group">
+          <tr>
+            <td>居住地</td>
+            <td><%= residence.name %></td>
+            <%= f.hidden_field :residence_id, :value => residence.id %>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :写真 %></td>
+            <td><%= f.file_field :facility_images %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td style="width: 20%"><%= f.label :名称 %></td>
+            <td style="width: 70%"><%= f.text_field :name, placeholder: "設備名", class: 'form-control ' %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :説明 %></td>
+            <td><%= f.text_area :description, placeholder: "設備の説明を記述します", class: 'form-control', rows: "5" %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :ジャンル %></td>
+            <td>
+              <%= f.select :genre_id,
+              options_from_collection_for_select(residence.genres, :id, :name), {prompt: "ジャンルを選択してください"},
+              class: 'form-control' %>
+            </td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :メモ %></td>
+            <td><%= f.text_field :note, placeholder: "メモ", class: 'form-control' %></td>
+          </tr>
+        </div>
+      </tbody>
+    </table>
+    <div class="form-group text-center">
+      <tr>
+        <% if facility.new_record? %>
+          <td class="text-center"><%= f.submit "新規登録", class: 'btn btn-success' %></td>
+        <% else %>
+          <td class="text-center"><%= f.submit "変更を保存", class: 'btn btn-success' %></td>
+        <% end %>
+      </tr>
+    </div>
+  <% end %>
+</div>

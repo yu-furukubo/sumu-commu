@@ -35,7 +35,7 @@ class Admin::EquipmentsController < ApplicationController
 
   def update
     @equipment = Equipment.find(params[:id])
-    if @event.update(equipment_params)
+    if @equipment.update(equipment_params)
       redirect_to admin_equipment_path(@equipment)
     else
       render "edit"

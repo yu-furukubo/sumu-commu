@@ -1,0 +1,22 @@
+<table class='table table-bordered'>
+  <thead>
+    <tr>
+      <th>居住地</th>
+      <th>名称</th>
+      <th>説明</th>
+      <th>ジャンル</th>
+      <th>メモ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% facilities.each do |facility| %>
+      <tr>
+        <td><%= facility.residence.name %></td>
+        <td><%= link_to facility.name, admin_facility_path(facility) %></td>
+        <td><%= facility.description %></td>
+        <td><%= facility.genre.name %></td>
+        <td><%= facility.note %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

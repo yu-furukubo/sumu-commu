@@ -128,7 +128,7 @@ Exchange.create!(
   price: '0',
   deadline: '2023-11-10 18:00:00',
   is_finished: 'false'
-  )
+)
 
 ExchangeComment.create!(
   exchange_id: '1',

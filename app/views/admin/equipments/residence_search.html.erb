@@ -1,6 +1,9 @@
 <div class='container p-5 px-sm-0'>
   <div class='row'>
-    <div class='col-md-10 offset-md-1'>
+    <div class="col-3">
+      <%= render 'layouts/residence_search', residences: @residences %>
+    </div>
+    <div class='col-md-9'>
       <div class="row ml-5 mb-3">
         <h2><%= @residence.name %>の備品一覧</h2>
         <div class="ml-auto">
@@ -9,9 +12,6 @@
               <%= f.submit ">> "+@residence.name+"の備品を登録", class: 'btn btn-sm btn-success' %>
           <% end %>
         </div>
-      </div>
-      <div class="ml-5 mb-3">
-        <%= render 'admin/equipments/residence_search', residences: @residences %>
       </div>
       <div class="container">
         <div class="row">

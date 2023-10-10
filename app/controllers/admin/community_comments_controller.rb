@@ -6,7 +6,7 @@ class Admin::CommunityCommentsController < ApplicationController
       redirect_to admin_community_path(community)
     else
       flash.now[:notice] = "削除に失敗しました"
-      render "communities#show"
+      render template: "admin/communities/show"
     end
   end
 end

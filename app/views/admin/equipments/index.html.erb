@@ -1,8 +1,12 @@
 <div class='container p-5 px-sm-0'>
   <div class='row'>
-    <div class='col-md-10 offset-md-1'>
+    <div class="col-3">
+      <%= render 'layouts/residence_search', residences: @residences %>
+    </div>
+    <div class='col-md-9'>
       <div class="row ml-5 mb-3">
         <h2>備品一覧</h2>
+        <%= link_to ">> 設備一覧へ", admin_facilities_path %>
         <div class="ml-auto">
           <table><tr>
           <%= form_with model: Equipment, url: new_admin_equipment_path, method: :get, local: true do |f| %>
@@ -16,9 +20,6 @@
           <% end %>
           </tr></table>
         </div>
-      </div>
-      <div class="ml-5 mb-3">
-        <%= render 'admin/equipments/residence_search', residences: @residences %>
       </div>
       <div class="container">
         <div class="row">

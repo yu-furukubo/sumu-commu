@@ -9,7 +9,7 @@
           <table class='table table-borderless'>
             <tr><th style="width: 20%">作成者名</th><td><%= @community.member.name %></td></tr>
             <tr><th>居住地</th><td><%= @community.residence.name %></td></tr>
-            <tr><th>コミュニティ名</th><td><%= @community.name %></td></tr>
+            <tr><th>コミュニティ名</th><td><%= image_tag @community.get_community_image, width: '50px' %><%= @community.name %></td></tr>
             <tr><th>説明</th><td><%= @community.description %></td></tr>
           </table>
           <div class="row">
@@ -59,7 +59,7 @@
               </table>
             </div>
             <!--参加メンバー表示用の記述ここまで-->
-  
+
             <!--コメント表示用の記述-->
             <div class="col-6 mt-5">
               <div class="row mb-3 d-flex align-items-center">

@@ -107,3 +107,31 @@ EventMember.create!(
   member_id: '3',
   is_admin: 'false'
   )
+
+exchange1 = Exchange.new(
+  residence_id: '1',
+  member_id: '1',
+  name: 'テストゆずりあい',
+  description: 'テスト用に作成したゆずりあいです。',
+  price: '1000',
+  deadline: '2023-10-10 18:00:00',
+  is_finished: 'true'
+)
+exchange1.exchange_item_images.attach(io: File.open(Rails.root.join('app/assets/images/curryplanet.jpg')), filename: 'curryplanet.jpg')
+exchange1.save!
+
+Exchange.create!(
+  residence_id: '1',
+  member_id: '3',
+  name: 'テストゆずりあい2',
+  description: 'テスト用に作成したゆずりあいその２です。',
+  price: '0',
+  deadline: '2023-11-10 18:00:00',
+  is_finished: 'false'
+  )
+
+ExchangeComment.create!(
+  exchange_id: '1',
+  member_id: '3',
+  comment: 'ほしいです！'
+  )

@@ -1,0 +1,34 @@
+<table class='table table-bordered'>
+  <thead>
+    <tr>
+      <th>居住地</th>
+      <th>作成者</th>
+      <th>品名</th>
+      <th>説明</th>
+      <th style="width:13%">費用</th>
+      <th>掲載期限</th>
+      <th style="width:13%">募集状況</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% exchanges.each do |exchange| %>
+      <tr>
+        <td><%= exchange.residence.name %></td>
+        <td><%= exchange.member.name %></td>
+        <td><%= link_to exchange.name, admin_exchange_path(exchange) %></td>
+        <td><%= exchange.description %></td>
+        <% if exchange.price == 0 %>
+          <td class="text-center">無償</td>
+        <% else %>
+          <td class="text-center"><%= exchange.price.to_s(:delimited) %>円</td>
+        <% end %>
+        <td><%= exchange.deadline %></td>
+        <% if exchange.is_finished == false %>
+          <td class="text-success text-center">募集中</td>
+        <% else %>
+          <td class="text-secondary text-center">募集終了</td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

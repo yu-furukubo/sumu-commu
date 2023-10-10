@@ -1,2 +1,28 @@
-<h1>Admin::Facilities#show</h1>
-<p>Find me in app/views/admin/facilities/show.html.erb</p>
+<div class='container p-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-10 offset-md-1'>
+      <div class="ml-5 mb-3">
+        <h2>設備詳細</h2>
+      </div>
+      <div class="container">
+        <div class="offset-1">
+          <table class='table table-borderless'>
+            <tr><th style="width: 20%">居住地</th><td><%= @facility.residence.name %></td></tr>
+            <tr><th>設備名</th><td><%= image_tag @facility.get_facility_image, width: '50px' %><%= @facility.name %></td></tr>
+            <tr><th>説明</th><td><%= @facility.description %></td></tr>
+            <tr><th>説明</th><td><%= @facility.genre.name %></td></tr>
+            <tr><th>説明</th><td><%= @facility.note %></td></tr>
+          </table>
+          <div class="row">
+            <div class="mx-auto">
+              <%= link_to "編集する", edit_admin_facility_path, class: "btn btn-success" %>&emsp;&emsp;
+              <%= link_to "削除する", admin_facility_path, method: :delete,
+                data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger"
+              %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

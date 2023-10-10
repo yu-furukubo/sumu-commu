@@ -44,7 +44,11 @@
     </table>
     <div class="form-group text-center">
       <tr>
-        <td class="text-center"><%= f.submit class: 'btn btn-success' %></td>
+        <% if board.new_record? %>
+          <td class="text-center"><%= f.submit "新規登録", class: 'btn btn-success' %></td>
+        <% else %>
+          <td class="text-center"><%= f.submit "変更を保存", class: 'btn btn-success' %></td>
+        <% end %>
       </tr>
     </div>
   <% end %>

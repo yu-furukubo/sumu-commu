@@ -4,14 +4,13 @@
       <%= render 'layouts/residence_search', residences: @residences %>
     </div>
     <div class='col-md-9'>
-      <div class="row ml-5 mb-3">
-        <h2>落とし物一覧</h2>
-        <div class="ml-auto"><%= link_to "新規投稿", new_admin_lost_item_path, class: "btn btn-primary" %></div>
+      <div class="ml-5 mb-3">
+        <h2><%= @residence.name %>のゆずりあい一覧</h2>
       </div>
       <div class="container">
         <div class="row">
           <div class="offset-1">
-            <%= render 'admin/lost_items/index', lost_items: @lost_items %>
+            <%= render 'admin/exchanges/index', exchanges: @exchanges %>
           </div>
         </div>
       </div>

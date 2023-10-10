@@ -1,2 +1,10 @@
-<h1>Admin::Equipments#new</h1>
-<p>Find me in app/views/admin/equipments/new.html.erb</p>
+<div class='container p-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-10 offset-md-1'>
+      <div class="ml-5 mb-3">
+        <h2>備品新規登録</h2>
+      </div>
+      <%= render 'admin/equipments/form', equipment: @equipment, path: admin_equipments_path, residence: @residence %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<%= form_with model:genre, url: admin_genres_path, local: true do |f| %>
+  <%= render 'layouts/errors', obj: genre %>
+  <div class="form-group align-items-center">
+    <table class="table table-borderless">
+      <div class="form-group">
+        <tr>
+          <td><%= f.label :所在地 %></td>
+          <td>
+            <%= f.select :residence_id,
+            options_from_collection_for_select(current_admin.residences, :id, :name), {prompt: "選択してください"},
+            class: 'form-control' %>
+          </td>
+        </tr>
+      </div>
+      <div class="form-group">
+        <tr>
+          <td style="width: 20%"><%= f.label :ジャンル名 %></td>
+          <td style="width: 70%"><%= f.text_field :name, placeholder: "ジャンル名", class: 'form-control ' %></td>
+        </tr>
+      </div>
+    </table>
+    <div class="form-group text-center">
+      <%= f.submit class: 'btn btn-success' %>
+    </div>
+  </div>
+<% end %>

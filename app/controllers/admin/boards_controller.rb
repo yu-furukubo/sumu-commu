@@ -1,5 +1,4 @@
 class Admin::BoardsController < ApplicationController
-  include Admin::BoardsHelper
 
   def index
     @residences = current_admin.residences

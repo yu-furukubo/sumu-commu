@@ -1,6 +1,6 @@
 class Admin::ResidencesController < ApplicationController
   def new
-    @residence = Resindece.new
+    @residence = Residence.new
   end
 
   def create

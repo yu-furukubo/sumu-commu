@@ -135,3 +135,21 @@ ExchangeComment.create!(
   member_id: '3',
   comment: 'ほしいです！'
   )
+
+LostItem.create!(
+  residence_id: '1',
+  member_id: '1',
+  name: 'テスト落とし物',
+  description: 'テスト用に作成した落とし物です。',
+  picked_up_location: 'エントランス',
+  picked_up_at: '2023-11-10 18:00:00',
+  storage_location: '拾得者自宅',
+  deadline: '2023-11-20 18:00:00',
+  is_finished: 'false'
+)
+
+LostItemComment.create!(
+  lost_item_id: '1',
+  member_id: '3',
+  comment: '私のかもしれません！'
+  )

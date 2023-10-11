@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 2023_10_05_091539) do
     t.integer "community_id", null: false
     t.integer "member_id", null: false
     t.text "comment", null: false
+    t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -133,6 +134,7 @@ ActiveRecord::Schema.define(version: 2023_10_05_091539) do
     t.integer "exchange_id", null: false
     t.integer "member_id", null: false
     t.text "comment", null: false
+    t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -162,6 +164,7 @@ ActiveRecord::Schema.define(version: 2023_10_05_091539) do
   create_table "genres", force: :cascade do |t|
     t.integer "residence_id", null: false
     t.string "name", null: false
+    t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -170,6 +173,7 @@ ActiveRecord::Schema.define(version: 2023_10_05_091539) do
     t.integer "lost_item_id", null: false
     t.integer "member_id", null: false
     t.text "comment", null: false
+    t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

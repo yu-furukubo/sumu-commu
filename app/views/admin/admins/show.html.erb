@@ -33,9 +33,16 @@
                 <% @residences.each do |residence| %>
                   <tr>
                     <td><%= residence.name %></td>
-                    <td><%= residence.housing_type %></td>
+                    <td><%= residence.housing_type_i18n %></td>
                     <td><%= residence.address %></td>
                     <td><%= residence.members.count %></td>
+                    <td><%= link_to "編集", edit_admin_residence_path(residence), class: "btn btn-primary" %></td>
+                    <td>
+                      <%= form_with model: Member, url: new_member_registration_path, method: :get, local: true do |f| %>
+                        <%= f.hidden_field :residence_id, :value => residence.id %>
+                        <%= f.submit "会員登録画面へ", class: 'btn btn-sm btn-success' %>
+                      <% end %>
+                    </td>
                 <% end %>
               </tbody>
             </table>

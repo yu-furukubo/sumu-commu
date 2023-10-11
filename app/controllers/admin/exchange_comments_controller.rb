@@ -1,12 +1,18 @@
 class Admin::ExchangeCommentsController < ApplicationController
-  def destroy
+  def update
+    exchange = Exchange.find(params[:exchange_id])
     exchange_comment = ExchangeComment.find(params[:id])
-    exchange = exchange_comment.exchange
-    if exchange_comment.destroy
+    if exchange_comment.update(exchange_comment_params)
       redirect_to admin_exchange_path(exchange)
     else
-      flash.now[:notice] = "削除に失敗しました"
+      flash.now[:notice] = "更新に失敗しました"
       render template: "admin/exchanges/show"
     end
+  end
+
+  private
+
+  def exchange_comment_params
+    params.require(:exchange_comment).permit(:is_deleted)
   end
 end

@@ -4,9 +4,16 @@
     <table class="table table-borderless">
       <tbody>
         <div class="form-group">
+          <tr>
+            <td>居住地</td>
+            <td><%= residence.name %></td>
+            <%= f.hidden_field :residence_id, :value => residence.id %>
+          </tr>
+        </div>
+        <div class="form-group">
           <% if @lost_item.lost_item_images.attached? %>
             <tr>
-              <td><%= f.label :写真 %></td>
+              <td></td>
               <td>
                 <% @lost_item.lost_item_images.each do |image| %>
                   <%= f.check_box :image_ids, { multiple: true }, image.id, false %>
@@ -19,7 +26,7 @@
             <span class="text-info">削除したい画像にチェックを付けてください</span>
           <% end %>
           <tr>
-            <td></td>
+            <td>写真</td>
             <td><%= f.file_field :lost_item_images, multiple: true %></td>
           </tr>
         </div>
@@ -27,16 +34,6 @@
           <tr>
             <td style="width: 20%"><%= f.label :落とし物名 %></td>
             <td style="width: 70%"><%= f.text_field :name, placeholder: "落とし物名", class: 'form-control' %></td>
-          </tr>
-        </div>
-        <div class="form-group">
-          <tr>
-            <td><%= f.label :居住地 %></td>
-            <td>
-              <%= f.select :residence_id,
-              options_from_collection_for_select(current_admin.residences, :id, :name), {prompt: "選択してください"},
-              class: 'form-control' %>
-            </td>
           </tr>
         </div>
         <div class="form-group">
@@ -87,9 +84,7 @@
       </tbody>
     </table>
     <div class="form-group text-center">
-      <tr>
-        <td class="text-center"><%= f.submit "変更を保存", class: 'btn btn-success' %></td>
-      </tr>
+      <%= f.submit "変更を保存", class: 'btn btn-success' %>
     </div>
   <% end %>
 </div>

@@ -4,21 +4,21 @@
       <%= render 'layouts/residence_search', residences: @residences %>
     </div>
     <div class='col-md-9'>
-      <div class="ml-5 mb-3">
+      <div class="mb-3">
         <h2>ジャンル追加</h2>
       </div>
       <!--ジャンルの新規登録機能-->
-      <div class="ml-5 mb-3">
-        <%= render 'admin/genres/new', genre: @genre %>
+      <div class="ml-3 mb-3">
+        <%= render 'admin/genres/form', genre: @genre %>
       </div>
       <!--ジャンルの新規登録機能ここまで-->
-      <div class="ml-5 mb-3">
+      <div class="mb-3">
         <h2>ジャンル一覧</h2>
       </div>
 
       <!--ジャンルの一覧表示-->
       <div class="container">
-        <div class="offset-1">
+        <div class="ml-3">
           <%= render 'admin/genres/index', genres: @genres %>
         </div>
       </div>

@@ -11,20 +11,20 @@ Rails.application.routes.draw do
       collection do
         get "residence/:id" => "communities#residence_search" ,as: "residence_search"
       end
-      resources :community_comments, only: [:destroy]
+      resources :community_comments, only: [:update]
       resources :community_members, only: [:update, :destroy]
     end
     resources :exchanges, except: [:new] do
       collection do
         get "residence/:id" => "exchanges#residence_search" ,as: "residence_search"
       end
-      resources :exchange_comments, only: [:destroy]
+      resources :exchange_comments, only: [:update]
     end
     resources :lost_items do
       collection do
         get "residence/:id" => "lost_items#residence_search" ,as: "residence_search"
       end
-      resources :lost_item_comments, only: [:destroy]
+      resources :lost_item_comments, only: [:update]
     end
     resources :genres, only: [:index, :create, :edit, :update, :destroy] do
       collection do
@@ -94,19 +94,11 @@ Rails.application.routes.draw do
         resources :community_members, only: [:index, :create, :update, :destroy]
       end
     end
-    resources :members do
-      collection do
-        get "information" => "members#show", as: "member"
-        get "information/edit" => "members#edit", as: "member_edit"
-        patch "information" => "members#update", as: "member_update"
-        delete "information" => "members#destroy", as: "member_destroy"
-      end
-    end
-    resources :residences, only: [:index, :show] do
-      devise_scope :members do
-        get "member/sign_up" => "devise/registrations#new", as: "new_member_registration"
-      end
-    end
+    get "member/information" => "members#show", as: "member_information"
+    get "member/information/edit" => "members#edit", as: "edit_member_information"
+    patch "member/information" => "members#update", as: "update_member_information"
+    delete "member/information" => "members#destroy", as: "destroy_member_information"
+    resources :residences, only: [:index, :show]
   end
 
   devise_for :admin, skip: [:passwords], controllers: {
@@ -114,14 +106,8 @@ Rails.application.routes.draw do
     sessions: "admin/sessions"
   }
 
-  devise_for :members, skip: [:passwords, :registrations], controllers: {
+  devise_for :members, skip: [:passwords], controllers: {
+    registrations: "public/registrations",
     sessions: 'public/sessions'
   }
-  devise_scope :members do
-    # get "member/sign_up/:id" => "devise/registrations#new", as: "new_member_registration"
-    get "member/edit" => "devise/registrations#edit", as: "edit_member_registration"
-    patch "member" => "devise/registrations#update", as: "update_member_registration"
-    delete "member" => "devise/registrations#destroy", as: "destroy_member_registration"
-    post "member" => "devise/registrations#create", as: "member_registration"
-  end
 end

@@ -31,6 +31,7 @@
                   <% @community_members.each do |community_member| %>
                     <tr>
                       <td style="width: 35%"><%= community_member.member.name %></td>
+                      <!--管理者かどうかの確認と切り替え処理-->
                       <% if community_member.is_admin == true %>
                         <td class="text-danger">管理者</td>
                         <%= form_with model: CommunityMember.new, url: admin_community_community_member_path(@community, community_member), method: :patch, local: true do |f| %>
@@ -48,6 +49,7 @@
                           </td>
                         <% end %>
                       <% end %>
+                      <!--管理者かどうかの確認と切り替え処理ここまで-->
                       <td>
                         <%= link_to admin_community_community_member_path(@community, community_member), method: :delete, class: 'btn btn-sm btn-secondary' do %>
                           <i class="fa-solid fa-trash-can fa-2xs"></i>
@@ -59,7 +61,6 @@
               </table>
             </div>
             <!--参加メンバー表示用の記述ここまで-->
-
             <!--コメント表示用の記述-->
             <div class="col-6 mt-5">
               <div class="row mb-3 d-flex align-items-center">
@@ -72,11 +73,18 @@
                     <tr>
                       <td style="width: 35%"><%= community_comment.member.name %></td>
                       <td><%= community_comment.comment %></td>
-                      <td>
-                        <%= link_to admin_community_community_comment_path(@community, community_comment), method: :delete, class: 'btn btn-sm btn-secondary' do %>
-                          <i class="fa-solid fa-trash-can fa-2xs"></i>
+                      <!--コメントを論理削除するための処理-->
+                      <% if community_comment.is_deleted == true %>
+                        <td class="text-danger">削除済み</td>
+                      <% else %>
+                        <%= form_with model: CommunityComment.new, url: admin_community_community_comment_path(@community, community_comment), method: :patch, local: true do |f| %>
+                          <td>
+                            <%= f.hidden_field :is_deleted, :value => true %>
+                            <%= f.submit "コメントを削除する", class: 'btn btn-sm btn-danger' %>
+                          </td>
                         <% end %>
-                      </td>
+                      <% end %>
+                      <!--コメントを論理削除するための処理ここまで-->
                     </tr>
                   <% end %>
                 </tbody>

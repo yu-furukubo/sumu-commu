@@ -19,6 +19,7 @@ class Admin::BoardsController < ApplicationController
 
   def new
     @board = Board.new
+    @residence = Residence.find(params[:board][:residence_id])
   end
 
   def create
@@ -33,6 +34,7 @@ class Admin::BoardsController < ApplicationController
 
   def edit
     @board = Board.find(params[:id])
+    @residence = @board.residence
   end
 
   def update

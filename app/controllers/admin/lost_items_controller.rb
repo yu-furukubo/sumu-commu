@@ -18,6 +18,7 @@ class Admin::LostItemsController < ApplicationController
 
   def new
     @lost_item = LostItem.new
+    @residence = Residence.find(params[:lost_item][:residence_id])
   end
 
   def create

@@ -4,9 +4,8 @@
       <%= render 'layouts/residence_search', residences: @residences %>
     </div>
     <div class='col-md-9'>
-      <div class="row ml-5 mb-3">
+      <div class="row mr-3 mb-3">
         <h2>備品一覧</h2>
-        <%= link_to ">> 設備一覧へ", admin_facilities_path %>
         <div class="ml-auto">
           <table><tr>
           <%= form_with model: Equipment, url: new_admin_equipment_path, method: :get, local: true do |f| %>
@@ -22,10 +21,8 @@
         </div>
       </div>
       <div class="container">
-        <div class="row">
-          <div class="offset-1">
-            <%= render 'admin/equipments/index', equipments: @equipments %>
-          </div>
+        <div class="ml-3">
+          <%= render 'admin/equipments/index', equipments: @equipments %>
         </div>
       </div>
     </div>

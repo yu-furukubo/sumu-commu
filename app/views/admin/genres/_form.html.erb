@@ -20,7 +20,11 @@
       </div>
     </table>
     <div class="form-group text-center">
-      <%= f.submit class: 'btn btn-success' %>
+      <% if genre.new_record? %>
+        <%= f.submit "新規登録", class: 'btn btn-success' %>
+      <% else %>
+        <%= f.submit "変更を保存", class: 'btn btn-success' %>
+      <% end %>
     </div>
   </div>
 <% end %>

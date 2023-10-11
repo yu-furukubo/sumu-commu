@@ -20,5 +20,6 @@ module SumuCommu
     # config.eager_load_paths << Rails.root.join("extras")
     config.active_storage.replace_on_assign_to_many = false
     config.action_controller.include_all_helpers = false
+    config.i18n.default_locale = :ja
   end
 end

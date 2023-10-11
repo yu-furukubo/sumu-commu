@@ -12,4 +12,6 @@ class Residence < ApplicationRecord
   has_many :facilities, dependent: :destroy
   has_many :genres, dependent: :destroy
 
+  enum housing_type: { apartment: 0, house: 1 }
+
 end

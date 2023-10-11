@@ -33,7 +33,7 @@
             <td><%= f.label :ジャンル %></td>
             <td>
               <%= f.select :genre_id,
-              options_from_collection_for_select(residence.genres, :id, :name), {prompt: "ジャンルを選択してください"},
+              options_from_collection_for_select(genres, :id, :name), {prompt: "ジャンルを選択してください"},
               class: 'form-control' %>
             </td>
           </tr>
@@ -47,13 +47,11 @@
       </tbody>
     </table>
     <div class="form-group text-center">
-      <tr>
-        <% if facility.new_record? %>
-          <td class="text-center"><%= f.submit "新規登録", class: 'btn btn-success' %></td>
-        <% else %>
-          <td class="text-center"><%= f.submit "変更を保存", class: 'btn btn-success' %></td>
-        <% end %>
-      </tr>
-    </div>
+      <% if facility.new_record? %>
+        <%= f.submit "新規登録", class: 'btn btn-success' %>
+      <% else %>
+        <%= f.submit "変更を保存", class: 'btn btn-success' %>
+      <% end %>
+  </div>
   <% end %>
 </div>

@@ -65,9 +65,18 @@
                     <td style="width: 35%"><%= lost_item_comment.member.name %></td>
                     <td><%= lost_item_comment.comment %></td>
                     <td>
-                      <%= link_to admin_lost_item_lost_item_comment_path(@lost_item, lost_item_comment), method: :delete, class: 'btn btn-sm btn-secondary' do %>
-                        <i class="fa-solid fa-trash-can fa-2xs"></i>
+                      <!--コメントを論理削除するための処理-->
+                      <% if lost_item_comment.is_deleted == true %>
+                        <td class="text-danger">削除済み</td>
+                      <% else %>
+                        <%= form_with model: LostItemComment.new, url: admin_lost_item_lost_item_comment_path(@lost_item, lost_item_comment), method: :patch, local: true do |f| %>
+                          <td>
+                            <%= f.hidden_field :is_deleted, :value => true %>
+                            <%= f.submit "コメントを削除する", class: 'btn btn-sm btn-danger' %>
+                          </td>
+                        <% end %>
                       <% end %>
+                      <!--コメントを論理削除するための処理ここまで-->
                     </td>
                   </tr>
                 <% end %>

@@ -13,6 +13,7 @@ class Admin::EventsController < ApplicationController
 
   def new
     @event = Event.new
+    @residence = Residence.find(params[:event][:residence_id])
   end
 
   def create
@@ -32,6 +33,7 @@ class Admin::EventsController < ApplicationController
 
   def edit
     @event = Event.find(params[:id])
+    @residence = @event.residence
   end
 
   def update

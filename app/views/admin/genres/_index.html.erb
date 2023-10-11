@@ -8,10 +8,17 @@
   <tbody>
     <% genres.each do |genre| %>
       <tr>
-        <td><%= genre.residence.name %></td>
-        <td><%= genre.name %></td>
-        <td class="table-borderless text-center"><%= link_to "編集する", edit_admin_genre_path(genre), class: 'btn btn-success' %></td>
-        <td class="table-borderless text-center"><%= link_to "削除する", admin_genre_path(genre), method: :delete, class: 'btn btn-danger' %></td>
+        <% if genre.is_deleted == false %>
+          <td><%= genre.residence.name %></td>
+          <td><%= genre.name %></td>
+          <td class="table-borderless text-center"><%= link_to "編集する", edit_admin_genre_path(genre), class: 'btn btn-sm btn-success' %></td>
+          <%= form_with model: Genre.new, url: admin_genre_path(genre), method: :patch, local: true do |f| %>
+            <td>
+              <%= f.hidden_field :is_deleted, :value => true %>
+              <%= f.submit "削除", class: 'btn btn-sm btn-danger' %>
+            </td>
+          <% end %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

@@ -4,15 +4,25 @@
       <%= render 'layouts/residence_search', residences: @residences %>
     </div>
     <div class='col-md-9'>
-      <div class="row ml-5 mb-3">
+      <div class="row mr-3 mb-3">
         <h2>イベント一覧</h2>
-        <div class="ml-auto"><%= link_to "新規投稿", new_admin_event_path, class: "btn btn-primary" %></div>
+        <div class="ml-auto">
+          <table><tr>
+            <%= form_with model: Event, url: new_admin_event_path, method: :get, local: true do |f| %>
+              <td><%=
+                f.select :residence_id,
+                options_from_collection_for_select(current_admin.residences, :id, :name), {prompt: "選択してください"},
+                required: true,
+                class: 'form-control'
+              %></td>
+              <td><%= f.submit "選択した居住地にイベントを登録", class: 'btn btn-sm btn-success' %></td>
+            <% end %>
+          </tr></table>
+        </div>
       </div>
       <div class="container">
-        <div class="row">
-          <div class="offset-1">
-            <%= render 'admin/events/index', events: @events %>
-          </div>
+        <div class="ml-3">
+          <%= render 'admin/events/index', events: @events %>
         </div>
       </div>
     </div>

@@ -9,14 +9,14 @@
       <th>拾った日時</th>
       <th>保管場所</th>
       <th>掲載期限</th>
-      <th style="width:13%">募集状況</th>
+      <th style="width:13%">保管状況</th>
     </tr>
   </thead>
   <tbody>
     <% lost_items.each do |lost_item| %>
       <tr>
         <td><%= lost_item.residence.name %></td>
-        <% if lost_item.member == 0 %>
+        <% if lost_item.member_id == 0 %>
           <td>管理人</td>
         <% else %>
           <td><%= lost_item.member.name %></td>
@@ -28,9 +28,9 @@
         <td><%= lost_item.storage_location %></td>
         <td><%= lost_item.deadline %></td>
         <% if lost_item.is_finished == false %>
-          <td class="text-success text-center">募集中</td>
+          <td class="text-success text-center">保管中</td>
         <% else %>
-          <td class="text-secondary text-center">募集終了</td>
+          <td class="text-secondary text-center">返却済み</td>
         <% end %>
       </tr>
     <% end %>

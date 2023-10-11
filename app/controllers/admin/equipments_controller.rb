@@ -14,6 +14,7 @@ class Admin::EquipmentsController < ApplicationController
   def new
     @equipment = Equipment.new
     @residence = Residence.find(params[:equipment][:residence_id])
+    @genres = @residence.genres.where(is_deleted: false)
   end
 
   def create
@@ -31,6 +32,8 @@ class Admin::EquipmentsController < ApplicationController
 
   def edit
     @equipment = Equipment.find(params[:id])
+    @residence = @equipment.genre.residence
+    @genres = @residence.genres.where(is_deleted: false)
   end
 
   def update

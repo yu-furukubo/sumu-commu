@@ -4,28 +4,25 @@
       <%= render 'layouts/residence_search', residences: @residences %>
     </div>
     <div class='col-md-9'>
-      <div class="row ml-5 mb-3">
+      <div class="row mr-3 mb-3">
         <h2>設備一覧</h2>
-        <%= link_to ">> 備品一覧へ", admin_equipments_path %>
         <div class="ml-auto">
           <table><tr>
-          <%= form_with model: Facility, url: new_admin_facility_path, method: :get, local: true do |f| %>
-            <td><%=
-              f.select :residence_id,
-              options_from_collection_for_select(current_admin.residences, :id, :name), {prompt: "選択してください"},
-              required: true,
-              class: 'form-control'
-            %></td>
-            <td><%= f.submit "選択した居住地に設備を登録", class: 'btn btn-sm btn-success' %></td>
-          <% end %>
+            <%= form_with model: Facility, url: new_admin_facility_path, method: :get, local: true do |f| %>
+              <td><%=
+                f.select :residence_id,
+                options_from_collection_for_select(current_admin.residences, :id, :name), {prompt: "選択してください"},
+                required: true,
+                class: 'form-control'
+              %></td>
+              <td><%= f.submit "選択した居住地に設備を登録", class: 'btn btn-sm btn-success' %></td>
+            <% end %>
           </tr></table>
         </div>
       </div>
       <div class="container">
-        <div class="row">
-          <div class="offset-1">
-            <%= render 'admin/facilities/index', facilities: @facilities %>
-          </div>
+        <div class="ml-3">
+          <%= render 'admin/facilities/index', facilities: @facilities %>
         </div>
       </div>
     </div>

@@ -53,7 +53,7 @@ class Admin::GenresController < ApplicationController
   private
 
   def genre_params
-    params.require(:genre).permit(:name, :residence_id)
+    params.require(:genre).permit(:name, :residence_id, :is_deleted)
   end
 
 end

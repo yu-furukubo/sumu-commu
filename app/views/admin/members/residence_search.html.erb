@@ -4,16 +4,14 @@
       <%= render 'layouts/residence_search', residences: @residences %>
     </div>
     <div class='col-md-9'>
-      <div class="ml-5 mb-3">
-        <h2><%= @residence.name %>の会員一覧</h2>
+      <div class="mb-3">
+        <h2>会員一覧(<%= @residence.name %>)</h2>
       </div>
       <div class="container">
-        <div class="row">
-          <div class="offset-1">
-            <%= render 'admin/members/index', members: @members %>
-          </div>
+        <div class="ml-3">
+          <%= render 'admin/members/index', members: @members %>
         </div>
       </div>
-     </div>
+    </div>
   </div>
 </div>

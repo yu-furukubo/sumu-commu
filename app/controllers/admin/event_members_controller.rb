@@ -1,4 +1,6 @@
 class Admin::EventMembersController < ApplicationController
+  before_action :authenticate_admin!
+
   def destroy
     event = Event.find(params[:event_id])
     event_member = event.event_members.find(params[:id])

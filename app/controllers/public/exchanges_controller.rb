@@ -1,4 +1,6 @@
 class Public::ExchangesController < ApplicationController
+  before_action :authenticate_member!
+
   def index
   end
 

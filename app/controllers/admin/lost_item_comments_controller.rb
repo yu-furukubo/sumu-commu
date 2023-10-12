@@ -1,4 +1,6 @@
 class Admin::LostItemCommentsController < ApplicationController
+  before_action :authenticate_admin!
+
   def update
     lost_item = LostItem.find(params[:lost_item_id])
     lost_item_comment = LostItemComment.find(params[:id])

@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-  namespace :admin do
-    get 'circular_member/index'
-    get 'circular_member/new'
-  end
   root to: "public/homes#top"
 
   namespace :admin do
@@ -61,7 +57,7 @@ Rails.application.routes.draw do
       collection do
         get "residence/:id" => "boards#residence_search" ,as: "residence_search"
       end
-      resources :circular_members, only: [:index, :new, :create, :update, :destroy]
+      resources :circular_members, only: [:index, :create, :destroy]
     end
     resources :residences, except: [:index, :show]
     resources :admins, only: [:show, :edit, :update]
@@ -82,17 +78,13 @@ Rails.application.routes.draw do
     resources :equipments, only: [:index, :show]
     resources :facilities, only: [:index, :show]
     resources :boards do
-      member do
-        resources :circular_members, only: [:index, :new, :update]
-      end
+      resources :circular_members, only: [:index, :create, :update, :destroy]
       resource :reads, only: [:create, :destroy]
     end
     resources :communities do
-      member do
-        patch "join" => "communities#join"
-        resources :community_comments, only: [:index, :create, :destroy]
-        resources :community_members, only: [:index, :create, :update, :destroy]
-      end
+      patch "join" => "communities#join"
+      resources :community_comments, only: [:index, :create, :destroy]
+      resources :community_members, only: [:index, :create, :update, :destroy]
     end
     get "member/information" => "members#show", as: "member_information"
     get "member/information/edit" => "members#edit", as: "edit_member_information"

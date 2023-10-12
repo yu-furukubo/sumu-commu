@@ -1,4 +1,6 @@
 class Admin::CircularMembersController < ApplicationController
+  before_action :authenticate_admin!
+
   def index
     @board = Board.find(params[:board_id])
     @members = @board.residence.members

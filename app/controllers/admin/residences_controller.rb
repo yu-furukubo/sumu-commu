@@ -1,4 +1,6 @@
 class Admin::ResidencesController < ApplicationController
+  before_action :authenticate_admin!
+
   def new
     @residence = Residence.new
   end

@@ -1,4 +1,6 @@
 class Admin::ExchangeCommentsController < ApplicationController
+  before_action :authenticate_admin!
+
   def update
     exchange = Exchange.find(params[:exchange_id])
     exchange_comment = ExchangeComment.find(params[:id])

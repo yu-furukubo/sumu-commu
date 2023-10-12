@@ -1,5 +1,6 @@
 class Public::ResidencesController < ApplicationController
+  before_action :authenticate_member!
+
   def index
-    @residences = Residence.all
   end
 end

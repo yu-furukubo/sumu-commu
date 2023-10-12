@@ -1,2 +1,10 @@
-<h1>Public::Boards#edit</h1>
-<p>Find me in app/views/public/boards/edit.html.erb</p>
+<div class='container p-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-10 offset-md-1'>
+      <div class="ml-5 mb-3">
+        <h2>掲示板投稿内容編集</h2>
+      </div>
+      <%= render 'public/boards/form', board: @board, path: public_board_path %>
+    </div>
+  </div>
+</div>

@@ -1,2 +1,94 @@
-<h1>Public::Communities#show</h1>
-<p>Find me in app/views/public/communities/show.html.erb</p>
+<div class='container p-5 px-sm-0'>
+  <div class="row ml-5 mb-3">
+    <h2>コミュニティ詳細</h2>
+    <div class="ml-auto">
+      <%= render 'public/communities/join', community: @community %>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-8 offset-1">
+        <div>
+          <table class='table table-borderless'>
+            <tr><th>作成者名</th><td><%= @community.member.name %></td></tr>
+            <tr><th style="width: 20%">コミュニティ名</th><td><%= image_tag @community.get_community_image, width: '50px' %><%= @community.name %></td></tr>
+            <tr><th>説明</th><td><%= @community.description %></td></tr>
+          </table>
+          <% if @community_members.find_by(member_id: current_member.id) && @community_member.is_admin == true %>
+            <div class="row">
+              <div class="mx-auto">
+                <%= link_to "編集する", edit_public_community_path, class: "btn btn-success" %>&emsp;&emsp;
+                <%= link_to "削除する", public_community_path, method: :delete,
+                  data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <!--コメント表示用の記述-->
+      <div class="mt-5">
+        <div class="row mb-3 d-flex align-items-center">
+          <h4>コメント</h4>&emsp;
+          <span class="text-primary font-weight-bold"><%= @community_comments.count - @community_comments.where(is_deleted: true).count %>件</span>
+        </div>
+        <table class='table table-borderless'>
+          <tbody>
+            <% @community_comments.each do |community_comment| %>
+              <tr>
+                <% if community_comment.is_deleted == true %>
+                  <td class="text-secondary", style="width: 35% "><%= community_comment.member.name %></td>
+                  <td class="text-secondary">このコメントは管理者によって削除されました</td>
+                <% else %>
+                  <td style="width: 35%"><%= community_comment.member.name %></td>
+                  <td><%= community_comment.comment %></td>
+                <% end %>
+                <!--コメントを論理削除するための処理-->
+                <% if @community_members.find_by(member_id: current_member.id) && @community_member.is_admin == true %>
+                  <% if community_comment.is_deleted == true %>
+                    <td></td>
+                  <% else %>
+                    <%= form_with model: CommunityComment.new, url: public_community_community_comment_path(@community, community_comment), method: :patch, local: true do |f| %>
+                      <td>
+                        <%= f.hidden_field :is_deleted, :value => true %>
+                        <%= f.submit "コメントを削除する", class: 'btn btn-sm btn-danger' %>
+                      </td>
+                    <% end %>
+                  <% end %>
+                <% end %>
+                <!--コメントを論理削除するための処理ここまで-->
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <!--コメント表示用の記述ここまで-->
+    </div>
+
+
+
+        <!--参加メンバー表示用の記述-->
+        <div class="col-3">
+          <div class="row mb-3 d-flex align-items-center">
+            <h4>参加メンバー</h4>&emsp;
+            <%= link_to public_community_community_members_path(@community) do %>
+              <span class="text-primary font-weight-bold"><%= @community_members.count %>人</span>
+            <% end %>
+          </div>
+          <table class='table table-borderless table-sm'>
+            <tbody>
+              <% @community_members.each do |community_member| %>
+                <tr>
+                  <td style="width: 65%"><%= community_member.member.name %></td>
+                  <% if community_member.is_admin == true %>
+                    <td class="text-danger">管理者</td>
+                  <% else %>
+                    <td class="text-success">メンバー</td>
+                  <% end %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <!--参加メンバー表示用の記述ここまで-->
+    </div>
+  </div>
+</div>

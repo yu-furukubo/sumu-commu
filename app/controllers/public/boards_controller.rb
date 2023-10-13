@@ -5,14 +5,14 @@ class Public::BoardsController < ApplicationController
     @boards = Board.where(residence_id: current_member.residence.id)
     @boards_mine = @boards.where(member_id: current_member.id)
     @boards_others = @boards.where.not(member_id: current_member.id)
+    @reads = Read.all
   end
 
   def show
     @board = Board.find(params[:id])
-    @circular_members = CircularMember.where(board_id: @board.id)
-    @circular_member = @circular_members.find_by(member_id: current_member.id)
-    @board_checked_members = @circular_members.where(is_checked: true)
-    @board_unchecked_members = @circular_members.where(is_checked: false)
+    @circular_members = @board.circular_members
+    @board_checked_members = Read.where(board_id: @board.id, member_id: @circular_members.pluck(:member_id))
+    @reads = Read.all
     @read = Read.find_by(board_id: @board.id , member_id: current_member.id)
   end
 

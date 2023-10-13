@@ -17,16 +17,6 @@ class Public::CircularMembersController < ApplicationController
     end
   end
 
-  def update
-    board = Board.find(params[:board_id])
-    circular_member = board.circular_members.find_by(member_id: params[:id])
-    if circular_member.update(circular_member_params)
-      redirect_to public_board_path(board)
-    else
-      render "index"
-    end
-  end
-
   def destroy
     board = Board.find(params[:board_id])
     circular_member = board.circular_members.find_by(member_id: params[:id])
@@ -40,7 +30,7 @@ class Public::CircularMembersController < ApplicationController
   private
 
   def circular_member_params
-    params.require(:circular_member).permit(:board_id, :member_id, :is_checked)
+    params.require(:circular_member).permit(:board_id, :member_id)
   end
 
 end

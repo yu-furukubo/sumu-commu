@@ -25,11 +25,13 @@
               </div>
             </div>
           <% else %>
+          <!--既読チェックボタン-->
             <div class="row">
               <div class="mx-auto">
                 <%= render 'public/boards/read', board: @board, read: @read %>
               </div>
             </div>
+          <!--既読チェックボタンここまで-->
           <% end %>
 
           <!--回覧メンバー表示用の記述-->
@@ -53,24 +55,10 @@
                   <% @circular_members.each do |circular_member| %>
                     <tr>
                       <td style="width: 30%"><%= circular_member.member.name %></td>
-                      <% if circular_member.is_checked == true %>
+                      <% if @reads.find_by(board_id: @board.id, member_id: circular_member.member_id).present? %>
                         <td class="text-primary"><i class="fa-solid fa-check"></i></td>
                       <% else %>
                         <td class="text-secondary"><i class="fa-solid fa-xmark"></i></td>
-                      <% end %>
-
-                      <% if circular_member.id == current_member.id %>
-                        <% if circular_member.is_checked == false %>
-                          <%= form_with model:@circular_member, url: public_board_circular_member_path(@board, @circular_member), local: true do |f| %>
-                            <%= f.hidden_field :is_checked, :value => true %>
-                            <td><%= f.submit "確認済みにする", class: 'btn btn-sm btn-success' %></td>
-                          <% end %>
-                        <% else %>
-                          <%= form_with model:@circular_member, url: public_board_circular_member_path(@board, @circular_member), local: true do |f| %>
-                            <%= f.hidden_field :is_checked, :value => false %>
-                            <td><%= f.submit "未確認に戻す", class: 'btn btn-sm btn-secondary' %></td>
-                          <% end %>
-                        <% end %>
                       <% end %>
                     </tr>
                   <% end %>

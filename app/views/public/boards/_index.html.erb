@@ -1,10 +1,10 @@
-<table class='table table-borderless table-hover text-center'>
+<table class='table table-borderless table-hover'>
   <thead>
     <tr>
-      <th></th>
+      <th style="width:5%"></th>
       <th style="width:50%">タイトル</th>
       <th style="width:20%">作成者</th>
-      <th style="width:10%">回覧</th>
+      <th class="text-center", style="width:10%">回覧</th>
       <th></th>
     </tr>
   </thead>
@@ -23,10 +23,10 @@
             <td class="text-center text-weight-bold text-success"><i class="fa-solid fa-check"></i></td>
             <% if board.circular_members.count == 0 %>
               <td>回覧メンバー未設定</td>
-            <% elsif board.circular_members.where(is_checked: true) == board.circular_members %>
+            <% elsif reads.where(board_id: board.id, member_id: board.circular_members.pluck(:member_id)).count == board.circular_members.count && board.circular_members.exists? %>
               <td class="text-success">全員確認済み</td>
             <% else %>
-              <td>確認済み<%= board.circular_members.where(is_checked: true).count %>/<%= board.circular_members.count %></td>
+              <td>確認済み<%= Read.where(board_id: board.id, member_id: board.circular_members.pluck(:member_id)).count %>/<%= board.circular_members.count %></td>
             <% end %>
           <% else %>
             <td class="text-center">-</td>
@@ -46,10 +46,10 @@
             <td class="text-center text-weight-bold text-success"><i class="fa-solid fa-check"></i></td>
             <% if board.circular_members.count == 0 %>
               <td>回覧メンバー未設定</td>
-            <% elsif board.circular_members.where(is_checked: true) == board.circular_members %>
+            <% elsif reads.where(board_id: board.id, member_id: board.circular_members.pluck(:member_id)).count == board.circular_members.count && board.circular_members.exists? %>
               <td class="text-success">全員確認済み</td>
             <% else %>
-              <td>確認済み<%= board.circular_members.where(is_checked: true).count %>/<%= board.circular_members.count %></td>
+              <td>確認済み<%= Read.where(board_id: board.id, member_id: board.circular_members.pluck(:member_id)).count %>/<%= board.circular_members.count %></td>
             <% end %>
           <% else %>
             <td class="text-center">-</td>

@@ -1,6 +1,6 @@
 class Admin::CommunityCommentsController < ApplicationController
   before_action :authenticate_admin!
-
+  
   def update
     community = Community.find(params[:community_id])
     community_comment = CommunityComment.find(params[:id])

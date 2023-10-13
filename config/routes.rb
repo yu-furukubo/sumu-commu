@@ -78,12 +78,11 @@ Rails.application.routes.draw do
     resources :equipments, only: [:index, :show]
     resources :facilities, only: [:index, :show]
     resources :boards do
-      resources :circular_members, only: [:index, :create, :update, :destroy]
+      resources :circular_members, only: [:index, :create, :destroy]
       resource :reads, only: [:create, :destroy]
     end
     resources :communities do
-      patch "join" => "communities#join"
-      resources :community_comments, only: [:index, :create, :destroy]
+      resources :community_comments, only: [:create, :update, :destroy]
       resources :community_members, only: [:index, :create, :update, :destroy]
     end
     get "member/information" => "members#show", as: "member_information"

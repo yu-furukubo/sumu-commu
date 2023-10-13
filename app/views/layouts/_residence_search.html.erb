@@ -1,14 +1,19 @@
 <strong>居住地切り替え</strong>
-<table class="table table-borderless table-sm">
+<table class="table table-borderless table-sm table-hover">
   <% residences.each do |residence| %>
     <tr>
-      <%= link_to my_link_to(residence.id), :style => "color:black" do %>
+      <td class="text-center">
         <% if residence.housing_type == Residence.housing_types.key(0) %>
-          <td class="text-center"><i class="fa-solid fa-building"></i></td><td><%= residence.name %></td>
+          <i class="fa-solid fa-building"></i>
         <% else %>
-          <td class="text-center"><i class="fa-solid fa-house"></i></td><td><%= residence.name %></td>
+          <i class="fa-solid fa-house"></i>
         <% end %>
-      <% end %>
+      </td>
+      <td>
+        <%= link_to my_link_to(residence.id), :style => "color:black" do %>
+          <%= residence.name %>
+        <% end %>
+      </td>
     </tr>
   <% end %>
 </table>

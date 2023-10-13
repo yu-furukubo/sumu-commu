@@ -3,7 +3,7 @@ class Public::CommunityCommentsController < ApplicationController
 
   def create
     community = Community.find(params[:community_id])
-    community_comment = CommunityCommnet.new(community_comment_params)
+    community_comment = CommunityComment.new(community_comment_params)
     if community_comment.save
       redirect_to public_community_path(community)
     else

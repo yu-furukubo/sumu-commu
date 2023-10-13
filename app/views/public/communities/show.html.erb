@@ -24,71 +24,105 @@
             </div>
           <% end %>
         </div>
-      <!--コメント表示用の記述-->
-      <div class="mt-5">
-        <div class="row mb-3 d-flex align-items-center">
-          <h4>コメント</h4>&emsp;
-          <span class="text-primary font-weight-bold"><%= @community_comments.count - @community_comments.where(is_deleted: true).count %>件</span>
-        </div>
-        <table class='table table-borderless'>
-          <tbody>
-            <% @community_comments.each do |community_comment| %>
-              <tr>
-                <% if community_comment.is_deleted == true %>
-                  <td class="text-secondary", style="width: 35% "><%= community_comment.member.name %></td>
-                  <td class="text-secondary">このコメントは管理者によって削除されました</td>
-                <% else %>
-                  <td style="width: 35%"><%= community_comment.member.name %></td>
-                  <td><%= community_comment.comment %></td>
-                <% end %>
-                <!--コメントを論理削除するための処理-->
-                <% if @community_members.find_by(member_id: current_member.id) && @community_member.is_admin == true %>
+        <!--コメント表示用の記述-->
+        <div class="mt-5">
+          <div class="row mb-3 d-flex align-items-center">
+            <h4>コメント</h4>&emsp;
+            <span class="text-primary font-weight-bold"><%= @community_comments.count - @community_comments.where(is_deleted: true).count %>件</span>
+          </div>
+          <%= form_with model: CommunityComment.new, url: public_community_community_comments_path(@community), method: :post, local: true do |f| %>
+            <td>
+              <%= f.hidden_field :community_id, :value => @community.id %>
+              <%= f.hidden_field :member_id, :value => current_member.id %>
+              <%= f.text_area :comment, class: "form-control" %>
+              <div class="mt-2 text-center">
+                <%= f.submit "コメントする", class: 'btn btn-sm btn-danger' %>
+              </div>
+            </td>
+          <% end %>
+
+          <div class="mt-2">
+              <% @community_comments.each do |community_comment| %>
                   <% if community_comment.is_deleted == true %>
-                    <td></td>
+                    <% if community_comment.member == current_member %>
+                      <div class="text-right">
+                        <span class="text-light bg-secondary">このコメントは管理者によって削除されました</span>
+                        <div class="text-right">
+                          <span class="ml-auto text-secondary mr-2">(<%= community_comment.created_at %></spna>
+                          <span class="text-secondary"><%= community_comment.member.name %>)</span>
+                        </div>
+                      </div>
+                    <% else %>
+                      <div>
+                        <span class="text-light bg-secondary">このコメントは管理者によって削除されました</span>
+                        <div>
+                          <span class="text-secondary mr-2">(<%= community_comment.created_at %></span>
+                          <span class="text-secondary"><%= community_comment.member.name %>)</span>
+                        </div>
+                      </div>
+                    <% end %>
                   <% else %>
-                    <%= form_with model: CommunityComment.new, url: public_community_community_comment_path(@community, community_comment), method: :patch, local: true do |f| %>
-                      <td>
-                        <%= f.hidden_field :is_deleted, :value => true %>
-                        <%= f.submit "コメントを削除する", class: 'btn btn-sm btn-danger' %>
-                      </td>
+                    <% if community_comment.member == current_member %>
+                      <div class="text-right">
+                        <span class="text-light bg-info"><%= community_comment.comment %></span>
+                        <div class="text-right">
+                          <span class="ml-auto mr-2">(<%= community_comment.created_at %></span>
+                          <span><%= community_comment.member.name %>)</span>
+                        </div>
+                      </div>
+                    <% else %>
+                      <div>
+                        <span class="text-light bg-info"><%= community_comment.comment %></span>
+                        <div>
+                          <span class="mr-2">(<%= community_comment.created_at %></spna>
+                          <span><%= community_comment.member.name %>)</span>
+                        </div>
+                      </div>
                     <% end %>
                   <% end %>
+                  <!--コメントを論理削除するための処理-->
+                  <% if @community_members.find_by(member_id: current_member.id) && @community_member.is_admin == true %>
+                    <% if community_comment.is_deleted == true %>
+
+                    <% else %>
+                      <%= form_with model: CommunityComment.new, url: public_community_community_comment_path(@community, community_comment), method: :patch, local: true do |f| %>
+                        <div>
+                          <%= f.hidden_field :is_deleted, :value => true %>
+                          <%= f.submit "コメントを削除する", class: 'btn btn-sm btn-danger' %>
+                        </div>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                  <!--コメントを論理削除するための処理ここまで-->
+              <% end %>
+            </div>
+        </div>
+        <!--コメント表示用の記述ここまで-->
+      </div>
+      <!--参加メンバー表示用の記述-->
+      <div class="col-3">
+        <div class="row mb-3 d-flex align-items-center">
+          <h4>参加メンバー</h4>&emsp;
+          <%= link_to public_community_community_members_path(@community) do %>
+            <span class="text-primary font-weight-bold"><%= @community_members.count %>人</span>
+          <% end %>
+        </div>
+        <table class='table table-borderless table-sm'>
+          <tbody>
+            <% @community_members.each do |community_member| %>
+              <tr>
+                <td style="width: 65%"><%= community_member.member.name %></td>
+                <% if community_member.is_admin == true %>
+                  <td class="text-danger">管理者</td>
+                <% else %>
+                  <td class="text-success">メンバー</td>
                 <% end %>
-                <!--コメントを論理削除するための処理ここまで-->
               </tr>
             <% end %>
           </tbody>
         </table>
       </div>
-    <!--コメント表示用の記述ここまで-->
-    </div>
-
-
-
-        <!--参加メンバー表示用の記述-->
-        <div class="col-3">
-          <div class="row mb-3 d-flex align-items-center">
-            <h4>参加メンバー</h4>&emsp;
-            <%= link_to public_community_community_members_path(@community) do %>
-              <span class="text-primary font-weight-bold"><%= @community_members.count %>人</span>
-            <% end %>
-          </div>
-          <table class='table table-borderless table-sm'>
-            <tbody>
-              <% @community_members.each do |community_member| %>
-                <tr>
-                  <td style="width: 65%"><%= community_member.member.name %></td>
-                  <% if community_member.is_admin == true %>
-                    <td class="text-danger">管理者</td>
-                  <% else %>
-                    <td class="text-success">メンバー</td>
-                  <% end %>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-        <!--参加メンバー表示用の記述ここまで-->
+      <!--参加メンバー表示用の記述ここまで-->
     </div>
   </div>
 </div>

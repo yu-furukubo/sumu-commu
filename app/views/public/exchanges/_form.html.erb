@@ -1,0 +1,77 @@
+<div class="ml-5 mb-3">
+  <%= form_with model:exchange, url: path, local: true do |f| %>
+    <%= render 'layouts/errors', obj: exchange %>
+    <table class="table table-borderless">
+      <tbody>
+        <%= f.hidden_field :residence_id, :value => current_member.residence.id %>
+        <%= f.hidden_field :member_id, :value => current_member.id %>
+        <div class="form-group">
+          <% if @exchange.exchange_item_images.attached? %>
+            <tr>
+              <td></td>
+              <td>
+                <% @exchange.exchange_item_images.each do |image| %>
+                  <%= f.check_box :image_ids, { multiple: true }, image.id, false %>
+                  <label for="image_ids_<%= image.id %>" >
+                    <%= image_tag image, width: '100px' %>
+                  </label>
+                <% end %>
+              </td>
+            </tr>
+            <span class="text-info">削除したい画像にチェックを付けてください</span>
+          <% end %>
+          <tr>
+            <td>写真</td>
+            <td><%= f.file_field :exchange_item_images, multiple: true %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td style="width: 20%"><%= f.label :落とし物名 %></td>
+            <td style="width: 70%"><%= f.text_field :name, placeholder: "ゆずりあい品名", class: 'form-control' %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :説明 %></td>
+            <td><%= f.text_area :description, placeholder: "ゆずりあい品の説明、受け渡し方法などを記述", class: 'form-control', rows: "5" %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :費用（円） %></td>
+            <td><%= f.text_field :price, placeholder: "必要な費用", class: 'form-control' %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :掲載期限 %></td>
+            <td><%= f.datetime_select :deadline, class: 'form-control' %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :完了しましたか？ %></td>
+            <td>
+              <div class="form_check form-check-inline">
+                <%= f.radio_button :is_finished, true, class: "form-check-input" %>
+                <%= f.label :is_finished_true, "はい" %>
+              </div>
+              <div class="form_check form-check-inline">
+                <%= f.radio_button :is_finished, false, class: "form-check-input" %>
+                <%= f.label :is_finished_false, "いいえ" %>
+              </div>
+            </td>
+          </tr>
+        </div>
+      </tbody>
+    </table>
+    <div class="form-group text-center">
+      <% if exchange.new_record? %>
+        <%= f.submit "新規登録", class: 'btn btn-success' %>
+      <% else %>
+        <%= f.submit "変更を保存", class: 'btn btn-success' %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

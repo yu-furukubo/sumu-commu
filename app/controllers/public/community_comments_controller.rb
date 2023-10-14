@@ -8,7 +8,7 @@ class Public::CommunityCommentsController < ApplicationController
       redirect_to public_community_path(community)
     else
       flash.now[:notice] = "コメントの投稿に失敗しました"
-      render template: "admin/communities/show"
+      render template: "public/communities/show"
     end
   end
 
@@ -19,20 +19,20 @@ class Public::CommunityCommentsController < ApplicationController
       redirect_to public_community_path(community)
     else
       flash.now[:notice] = "コメントの更新に失敗しました"
-      render template: "admin/communities/show"
+      render template: "public/communities/show"
     end
   end
 
-  def destroy
-    community = Community.find(params[:community_id])
-    community_comment = CommunityComment.find(params[:id])
-    if community_comment.destroy
-      redirect_to public_community_path(community)
-    else
-      flash.now[:notice] = "更新に失敗しました"
-      render template: "admin/communities/show"
-    end
-  end
+  # def destroy
+  #   community = Community.find(params[:community_id])
+  #   community_comment = CommunityComment.find(params[:id])
+  #   if community_comment.destroy
+  #     redirect_to public_community_path(community)
+  #   else
+  #     flash.now[:notice] = "更新に失敗しました"
+  #     render template: "public/communities/show"
+  #   end
+  # end
 
   private
 

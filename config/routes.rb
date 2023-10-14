@@ -69,10 +69,10 @@ Rails.application.routes.draw do
       resources :event_members, only: [:create, :destroy]
     end
     resources :lost_items do
-      resources :lost_item_comments, only: [:create, :destroy]
+      resources :lost_item_comments, only: [:create, :update, :destroy]
     end
     resources :exchanges do
-      resources :exchange_comments, only: [:create, :destroy]
+      resources :exchange_comments, only: [:create, :update, :destroy]
     end
     resources :reservations
     resources :equipments, only: [:index, :show]

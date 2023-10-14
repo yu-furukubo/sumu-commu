@@ -7,6 +7,12 @@
         <%= f.hidden_field :member_id, :value => current_member.id %>
         <div class="form-group">
           <tr>
+            <td>コミュニティ画像</td>
+            <td><%= f.file_field :community_image %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
             <td style="width: 20%"><%= f.label :コミュニティ名 %></td>
             <td style="width: 70%"><%= f.text_field :name, placeholder: "コミュニティ名", class: 'form-control ' %></td>
           </tr>

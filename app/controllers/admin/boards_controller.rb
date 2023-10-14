@@ -16,7 +16,7 @@ class Admin::BoardsController < ApplicationController
   def show
     @board = Board.find(params[:id])
     @circular_members = CircularMember.where(board_id: @board.id)
-    @board_checked_members = @circular_members.where(is_checked: true)
+    @board_checked_members = Read.where(board_id: @board.id, member_id: @circular_members.pluck(:member_id))
   end
 
   def new

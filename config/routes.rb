@@ -66,7 +66,9 @@ Rails.application.routes.draw do
   namespace :public do
     resources :plans
     resources :events do
-      resources :event_members, only: [:create, :destroy]
+      resources :event_members, only: [:index, :create, :update, :destroy]
+      post "event_members/participate" => "event_members#participate", as: "event_members_participate"
+      delete "event_members/observe/:id" => "event_members#observe", as: "event_member_observe"
     end
     resources :lost_items do
       resources :lost_item_comments, only: [:create, :update, :destroy]

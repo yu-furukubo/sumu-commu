@@ -30,7 +30,7 @@ class Admin::CircularMembersController < ApplicationController
   private
 
   def circular_member_params
-    params.require(:circular_member).permit(:board_id, :member_id, :is_checked)
+    params.require(:circular_member).permit(:board_id, :member_id)
   end
 
 end

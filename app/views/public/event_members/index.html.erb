@@ -1,0 +1,36 @@
+<div class='container p-5 px-sm-0'>
+    <div class='col-md-10 offset-md-1'>
+      <div class="row ml-5 mb-3">
+        <h2>イベントメンバー</h2>
+      </div>
+      <div class="ml-5 mb-3">
+        <table class='table table-borderless'>
+          <% @members.each do |member| %>
+            <tr>
+              <% if member != @event.member %>
+                <% if member != current_member %>
+                  <td style="width:30%"><%= member.name %></td>
+                <% end %>
+                <% if @event.member == current_member %>
+                  <% if @event.event_members.where(member_id: member.id).present? %>
+                    <td><%= link_to "招待を取り消す", public_event_event_member_path(@event.id, member.id), method: :delete, class: "btn btn-secondary" %></td>
+                  <% else %>
+                    <td>
+                      <%= form_with model:EventMember.new, url: public_event_event_members_path(@event), local: true do |f| %>
+                        <%= f.hidden_field :event_id, :value => @event.id %>
+                        <%= f.hidden_field :member_id, :value => member.id %>
+                        <%= f.submit "招待する", class: "btn btn-info" %>
+                      <% end %>
+                    </td>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </tr>
+          <% end %>
+        </table>
+        <div class="text-right">
+          <%= link_to "イベント詳細へ", public_event_path(@event) %>
+        </div>
+      </div>
+    </div>
+</div>

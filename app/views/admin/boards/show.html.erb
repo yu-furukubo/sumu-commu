@@ -44,7 +44,7 @@
                   <% @circular_members.each do |circular_member| %>
                     <tr>
                       <td style="width: 30%"><%= circular_member.member.name %></td>
-                      <% if circular_member.is_checked == true %>
+                      <% if Read.where(board_id: @board.id, member_id: circular_member.member_id).present? %>
                         <td class="text-primary"><i class="fa-solid fa-check"></i></td>
                       <% else %>
                         <td class="text-secondary"><i class="fa-solid fa-xmark"></i></td>

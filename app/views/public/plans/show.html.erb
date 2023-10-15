@@ -1,2 +1,26 @@
-<h1>Public::Plans#show</h1>
-<p>Find me in app/views/public/plans/show.html.erb</p>
+<div class='container p-5 px-sm-0'>
+  <div class="row ml-5 mb-3">
+    <h2>予定詳細</h2>
+  </div>
+  <div class="container">
+    <div class="mx-auto">
+      <div class="offset-1">
+        <div>
+          <table class='table table-borderless'>
+            <tr><th style="width: 20%">予定名</th><td><%= @plan.subject %></td></tr>
+            <tr><th>日程</th><td><%= l @plan.started_at %> ~ <%= l @plan.finished_at %></td></tr>
+            <tr><th>場所</th><td><%= @plan.venue %></td></tr>
+            <tr><th>メモ</th><td><%= @plan.memo %></td></tr>
+          </table>
+            <div class="row">
+              <div class="mx-auto">
+                <%= link_to "編集する", edit_public_plan_path, class: "btn btn-success" %>&emsp;&emsp;
+                <%= link_to "削除する", public_plan_path, method: :delete,
+                  data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

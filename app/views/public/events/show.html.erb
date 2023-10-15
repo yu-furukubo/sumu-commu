@@ -17,6 +17,8 @@
             <% end %>
             <tr><th style="width: 20%">イベント名</th><td><%= @event.name %></td></tr>
             <tr><th>説明</th><td><%= @event.description %></td></tr>
+            <tr><th>開催期間</th><td><%= l @event.started_at %> ~ <%= l @event.finished_at %></td></tr>
+            <tr><th>開催場所</th><td><%= @event.venue %></td></tr>
           </table>
           <% if @event.member == current_member %>
             <div class="row">

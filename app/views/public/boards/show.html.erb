@@ -8,11 +8,12 @@
         <div class="offset-1">
           <table class='table table-borderless'>
             <% if @board.member_id == 0 %>
-              <tr><th style="width: 20%">投降者名</th><td>管理人</td></tr>
+              <tr><th style="width: 20%">作成者名</th><td>管理人</td></tr>
             <% else %>
-              <tr><th style="width: 20%">投降者名</th><td><%= @board.member.name %></td></tr>
+              <tr><th style="width: 20%">作成者名</th><td><%= @board.member.name %></td></tr>
             <% end %>
-            <tr><th>件名</th><td><%= @board.name %></td></tr>
+            <tr><th>作成日時</th><td><%= l @board.created_at %></td></tr>
+            <tr><th>タイトル</th><td><%= @board.name %></td></tr>
             <tr><th>本文</th><td><%= @board.body %></td></tr>
           </table>
 

@@ -30,9 +30,9 @@
         <% end %>
         <td><%= lost_item.description %></td>
         <td><%= lost_item.picked_up_location %></td>
-        <td><%= lost_item.picked_up_at %></td>
+        <td><%= l lost_item.picked_up_at %></td>
         <td><%= lost_item.storage_location %></td>
-        <td><%= lost_item.deadline %></td>
+        <td><%= l lost_item.deadline %></td>
         <td><%= lost_item.is_finished %></td>
       </tr>
     <% end %>

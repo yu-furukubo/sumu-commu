@@ -2,8 +2,9 @@
   <thead>
     <tr>
       <th style="width:5%"></th>
-      <th style="width:50%">タイトル</th>
-      <th style="width:20%">作成者</th>
+      <th style="width:40%">タイトル</th>
+      <th style="width:15%">作成者</th>
+      <th>作成日時</th>
       <th class="text-center", style="width:10%">回覧</th>
       <th></th>
     </tr>
@@ -19,6 +20,7 @@
           <% else %>
             <td><%= board.member.name %></td>
           <% end %>
+          <td><%= l board.created_at %></td>
           <% if board.is_circular == true %>
             <td class="text-center text-weight-bold text-success"><i class="fa-solid fa-check"></i></td>
             <% if board.circular_members.count == 0 %>
@@ -42,6 +44,7 @@
           <% else %>
             <td><%= board.member.name %></td>
           <% end %>
+          <td><%= l board.created_at %></td>
           <% if board.is_circular == true %>
             <td class="text-center text-weight-bold text-success"><i class="fa-solid fa-check"></i></td>
             <% if board.circular_members.count == 0 %>

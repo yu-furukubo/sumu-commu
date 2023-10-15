@@ -21,5 +21,6 @@ module SumuCommu
     config.active_storage.replace_on_assign_to_many = false
     config.action_controller.include_all_helpers = false
     config.i18n.default_locale = :ja
+    config.time_zone = 'Tokyo'
   end
 end

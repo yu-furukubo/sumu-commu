@@ -1,2 +1,10 @@
-<h1>Public::Plans#new</h1>
-<p>Find me in app/views/public/plans/new.html.erb</p>
+<div class='container p-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-10 offset-md-1'>
+      <div class="ml-5 mb-3">
+        <h2>予定作成</h2>
+      </div>
+      <%= render 'public/plans/form', plan: @plan, path: public_plans_path %>
+    </div>
+  </div>
+</div>

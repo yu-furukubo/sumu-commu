@@ -24,7 +24,7 @@
         <td><%= exchange.member.name %></td>
         <td><%= exchange.description %></td>
         <td><%= exchange.price.to_s(:delimited) %>円</td>
-        <td><%= exchange.deadline %></td>
+        <td><%= l exchange.deadline %></td>
         <td><%= exchange.is_finished %></td>
       </tr>
     <% end %>

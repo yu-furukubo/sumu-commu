@@ -23,7 +23,7 @@
           <span class="text-light bg-info"><%= comment.comment %></span>
         <% end %>
         <div class="text-right">
-          <span class="ml-auto text-secondary mr-2">(<%= comment.created_at %></spna>
+          <span class="ml-auto text-secondary mr-2">(<%= l comment.created_at, format: :short %></spna>
           <span class="text-secondary"><%= comment.member.name %>)</span>
         </div>
       </div>
@@ -35,7 +35,7 @@
           <span class="text-light bg-info"><%= comment.comment %></span>
         <% end %>
         <div>
-          <span class="text-secondary mr-2">(<%= comment.created_at %></span>
+          <span class="text-secondary mr-2">(<%= l comment.created_at, format: :short %></span>
           <span class="text-secondary"><%= comment.member.name %>)</span>
         </div>
       </div>

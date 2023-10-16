@@ -52,7 +52,6 @@ Board.create!(
 CircularMember.create!(
   board_id: '1',
   member_id: '1',
-  is_checked: 'true'
   )
 
 Community.create!(
@@ -99,13 +98,11 @@ Event.create!(
 EventMember.create!(
   event_id: '1',
   member_id: '1',
-  is_admin: 'false'
   )
 
 EventMember.create!(
   event_id: '1',
   member_id: '3',
-  is_admin: 'false'
   )
 
 exchange1 = Exchange.new(

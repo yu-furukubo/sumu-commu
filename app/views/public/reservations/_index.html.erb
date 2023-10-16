@@ -1,25 +1,19 @@
 <table class='table table-bordered'>
   <thead>
     <tr>
-      <th>イベント名</th>
-      <th>作成者</th>
-      <th>概要</th>
-      <th>開催日時</th>
-      <th>開催場所</th>
+      <th>予定名</th>
+      <th>日程</th>
+      <th>場所</th>
+      <th>メモ</th>
     </tr>
   </thead>
   <tbody>
-    <% events.each do |event| %>
+    <% plans.each do |plan| %>
       <tr>
-        <td><%= link_to event.name, public_event_path(event) %></td>
-        <% if event.member_id == 0 %>
-          <td>管理者</td>
-        <% else %>
-          <td><%= event.member.name %></td>
-        <% end %>
-        <td><%= event.description %></td>
-        <td><%= event.started_at %> ~ <%= event.finished_at %></td>
-        <td><%= event.venue %></td>
+        <td><%= link_to plan.subject, public_plan_path(plan) %></td>
+        <td><%= l plan.started_at %> ~ <%= l plan.finished_at %></td>
+        <td><%= plan.venue %></td>
+        <td><%= plan.memo %></td>
       </tr>
     <% end %>
   </tbody>

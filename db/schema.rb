@@ -209,7 +209,9 @@ ActiveRecord::Schema.define(version: 2023_10_05_091539) do
   create_table "plans", force: :cascade do |t|
     t.integer "member_id", null: false
     t.string "subject", null: false
+    t.date "start_date", null: false
     t.datetime "started_at", null: false
+    t.date "finish_date", null: false
     t.datetime "finished_at", null: false
     t.string "venue", null: false
     t.text "memo"
@@ -229,7 +231,9 @@ ActiveRecord::Schema.define(version: 2023_10_05_091539) do
     t.integer "member_id", null: false
     t.integer "equipment_id"
     t.integer "facility_id"
+    t.date "start_date", null: false
     t.datetime "started_at", null: false
+    t.date "finish_date", null: false
     t.datetime "finished_at", null: false
     t.integer "using_status", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false

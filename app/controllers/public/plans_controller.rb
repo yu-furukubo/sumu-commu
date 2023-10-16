@@ -48,7 +48,7 @@ class Public::PlansController < ApplicationController
   private
 
   def plan_params
-    params.require(:plan).permit(:subject, :started_at, :finished_at, :venue, :memo, :member_id)
+    params.require(:plan).permit(:subject, :start_date, :started_at, :finish_date, :finished_at, :venue, :memo, :member_id)
   end
 
 end

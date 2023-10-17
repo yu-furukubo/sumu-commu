@@ -31,16 +31,16 @@ class Public::ReservationsController < ApplicationController
     # elsif params[:reservation][:facility_id].present?
     #   reservations = Reservation.where(facility_id: params[:reservation][:facility_id])
     # end
-    reservation = Reservation.new(reservation_params)
-    set_the_day_implement(reservation)
-    pp "--------------------------", reservation, reservation.started_at, reservation.finished_at
+    @reservation = Reservation.new(reservation_params)
+    set_the_day_implement(@reservation)
+    pp "--------------------------", @reservation, @reservation.started_at, @reservation.finished_at
     # if reservations.where('finished_at > ? and ? > started_at', reservation.started_at, reservation.finished_at).exists?
     #   flash.now[:notice] = "その期間にはすでに予約があります"
     #   errors.add(:started_at, :finished_at, 'その期間にはすでに予約があります')
     # end
 
-    if reservation.save
-      redirect_to public_reservation_path(reservation)
+    if @reservation.save
+      redirect_to public_reservation_path(@reservation)
     else
       render "new"
     end

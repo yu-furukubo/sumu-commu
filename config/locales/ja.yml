@@ -4,6 +4,11 @@
         housing_type:
           apartment: "集合住宅"
           house: "一軒家"
+      reservation:
+        using_status:
+          reserved: "予約完了"
+          using: "使用中"
+          returned: "返却済み"
     activerecord:
       errors:
         messages:
@@ -11,6 +16,13 @@
           restrict_dependent_destroy:
             has_one: "%{record}が存在しているので削除できません"
             has_many: "%{record}が存在しているので削除できません"
+    models:
+      board: "掲示板"
+    attributes:
+      board:
+        name: "タイトル"
+        body: "本文"
+
     date:
       abbr_day_names:
       - 日

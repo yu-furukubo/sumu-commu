@@ -1,19 +1,19 @@
 <table class='table table-bordered'>
   <thead>
     <tr>
-      <th>予定名</th>
+      <th>予約</th>
       <th>日程</th>
-      <th>場所</th>
-      <th>メモ</th>
     </tr>
   </thead>
   <tbody>
-    <% plans.each do |plan| %>
+    <% reservations.each do |reservation| %>
       <tr>
-        <td><%= link_to plan.subject, public_plan_path(plan) %></td>
-        <td><%= l plan.started_at %> ~ <%= l plan.finished_at %></td>
-        <td><%= plan.venue %></td>
-        <td><%= plan.memo %></td>
+        <% if reservation.equipment_id.present? %>
+          <td><%= link_to reservation.equipment.name, public_reservation_path(reservation) %></td>
+        <% elsif reservation.facility_id.present? %>
+          <td><%= link_to reservation.facility.name, public_reservation_path(reservation) %></td>
+        <% end %>
+        <td><%= l reservation.started_at %> ~ <%= l reservation.finished_at %></td>
       </tr>
     <% end %>
   </tbody>

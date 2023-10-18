@@ -11,7 +11,11 @@
     <% communities.each do |community| %>
       <tr>
         <td><%= link_to community.name, public_community_path(community) %></td>
-        <td><%= community.member.name %></td>
+        <% if community.member.present? %>
+          <td><%= community.member.name %></td>
+        <% else %>
+          <td>退会済み会員</td>
+        <% end %>
         <td><%= community.description %></td>
         <td><%= community.community_members.count %> 人</td>
       </tr>

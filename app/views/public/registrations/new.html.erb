@@ -24,7 +24,14 @@
 
               <div class="form-group">
                 <tr>
-                  <td><%= f.label :氏名 %></td>
+                  <td>プロフィール画像</td>
+                  <td><%= f.file_field :profile_image %></td>
+                </tr>
+              </div>
+
+              <div class="form-group">
+                <tr>
+                  <td><%= f.label :氏名 %><span class="small text-danger">(必須)</span></td>
                   <td><%= f.text_field :name, autofocus: true, class: 'form-control' %></td>
                 </tr>
               </div>
@@ -32,9 +39,9 @@
               <div class="form-group">
                 <tr>
                   <% if Residence.find(params[:member][:residence_id]).housing_type == Residence.housing_types.key(0) %>
-                  <td><%= f.label :部屋番号 %></td>
+                  <td><%= f.label :部屋番号 %><span class="small text-danger">(必須)</span></td>
                   <% else %>
-                  <td><%= f.label :番地 %></td>
+                  <td><%= f.label :番地 %><span class="small text-danger">(必須)</span></td>
                   <% end %>
                   <td><%= f.text_field :house_address, class: 'form-control' %></td>
                 </tr>
@@ -42,7 +49,7 @@
 
               <div class="form-group">
                 <tr>
-                  <td><%= f.label :メールアドレス %></td>
+                  <td><%= f.label :メールアドレス %><span class="small text-danger">(必須)</span></td>
                   <td><%= f.email_field :email, autocomplete: "email", class: 'form-control' %></td>
                 </tr>
               </div>
@@ -50,7 +57,7 @@
               <div class="form-group">
                 <tr>
                   <td>
-                    <%= f.label :パスワード %>
+                    <%= f.label :パスワード %><span class="small text-danger">(必須)</span>
                     <span class="small">
                       <% if @minimum_password_length %>
                         (半角英数字<%= @minimum_password_length %>文字以上)
@@ -63,7 +70,7 @@
 
               <div class="form-group">
                 <tr>
-                  <td><%= f.label :パスワード %><span class="small">(確認用)</span></td>
+                  <td><%= f.label :パスワード %><span class="small">(確認用)</span><span class="small text-danger">(必須)</span></td>
                   <td><%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %></td>
                 </tr>
               </div>

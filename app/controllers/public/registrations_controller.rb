@@ -7,7 +7,16 @@ class Public::RegistrationsController < Devise::RegistrationsController
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :house_address, :residence_id])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :house_address, :residence_id, :profile_image])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :house_address, :residence_id, :profile_image])
+  end
+
+  def after_update_path_for(resource)
+    public_member_information_path(current_member)
+  end
+
+  def update_resource(resource, params)
+    resource.update_without_current_password(params)
   end
 
   # before_action :configure_sign_up_params, only: [:create]

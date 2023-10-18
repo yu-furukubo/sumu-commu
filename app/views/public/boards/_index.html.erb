@@ -17,8 +17,10 @@
           <td><%= link_to board.name.truncate(40), public_board_path(board) %></td>
           <% if board.member_id == 0 %>
             <td>管理人</td>
-          <% else %>
+          <% elsif board.member.present? %>
             <td><%= board.member.name %></td>
+          <% else %>
+            <td>退会済み会員</td>
           <% end %>
           <td><%= l board.created_at %></td>
           <% if board.is_circular == true %>
@@ -41,8 +43,10 @@
           <td><%= link_to board.name.truncate(40), public_board_path(board) %></td>
           <% if board.member_id == 0 %>
             <td>管理人</td>
-          <% else %>
+          <% elsif board.member.present? %>
             <td><%= board.member.name %></td>
+          <% else %>
+            <td>退会済み会員</td>
           <% end %>
           <td><%= l board.created_at %></td>
           <% if board.is_circular == true %>

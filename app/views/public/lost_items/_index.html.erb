@@ -25,15 +25,21 @@
         <td><%= link_to lost_item.name, public_lost_item_path(lost_item) %></td>
         <% if lost_item.member_id == 0 %>
           <td>管理人</td>
-        <% else %>
+        <% elsif lost_item.member.present? %>
           <td><%= lost_item.member.name %></td>
+        <% else %>
+          <td class="text-secondary">退会済み会員</td>
         <% end %>
         <td><%= lost_item.description %></td>
         <td><%= lost_item.picked_up_location %></td>
         <td><%= l lost_item.picked_up_at %></td>
         <td><%= lost_item.storage_location %></td>
         <td><%= l lost_item.deadline %></td>
-        <td><%= lost_item.is_finished %></td>
+        <% if lost_item.is_finished == false %>
+          <td class="text-success">保管中</td>
+        <% else %>
+          <td class="text-secondary">保管終了</td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

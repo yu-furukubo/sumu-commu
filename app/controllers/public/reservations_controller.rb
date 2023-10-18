@@ -35,27 +35,36 @@ class Public::ReservationsController < ApplicationController
     @reservation = Reservation.new(reservation_params)
     set_the_day_implement(@reservation)
 
+    if @reservation.started_at > @reservation.finished_at
+      flash.now[:notice] = "使用完了日時は使用開始日時より後の日時を指定してください"
+      render "new"
+      return
+    end
+
     if reservations.where('finished_at > ? and ? > started_at', @reservation.started_at, @reservation.finished_at).exists?
       if @reservation.equipment_id.present?
         count = reservations.where('finished_at > ? and ? > started_at', @reservation.started_at, @reservation.finished_at).count
         if @reservation.equipment.stock <= count
           flash.now[:notice] = "その期間には別の予約が入っています。空き時間をご確認ください"
           render "new"
+          return
         else
           @reservation.save
           redirect_to public_reservation_path(@reservation)
+          return
         end
       else
         flash.now[:notice] = "その期間には別の予約が入っています。空き時間をご確認ください"
         render "new"
+        return
       end
+    end
+
+    if @reservation.save
+      redirect_to public_reservation_path(@reservation)
     else
-      if @reservation.save
-        redirect_to public_reservation_path(@reservation)
-      else
-        flash.now[:notice] = "予約に失敗しました"
-        render "new"
-      end
+      flash.now[:notice] = "予約に失敗しました"
+      render "new"
     end
   end
 
@@ -65,7 +74,7 @@ class Public::ReservationsController < ApplicationController
 
   def update
     @reservation = Reservation.find(params[:id])
-    if reservation.update(reservation_params)
+    if @reservation.update(reservation_params)
       redirect_to public_reservation_path(@reservation)
     else
       flash.now[:notice] = "予約内容の更新に失敗しました"
@@ -75,7 +84,7 @@ class Public::ReservationsController < ApplicationController
 
   def destroy
     @reservation = Reservation.find(params[:id])
-    if reservation.destroy
+    if @reservation.destroy
       redirect_to public_reservations_path
     else
       flash.now[:notice] = "予約の削除に失敗しました"

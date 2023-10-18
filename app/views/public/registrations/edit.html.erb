@@ -13,6 +13,13 @@
 
               <div class="form-group">
                 <tr>
+                  <td>プロフィール画像</td>
+                  <td><%= f.file_field :profile_image %></td>
+                </tr>
+              </div>
+
+              <div class="form-group">
+                <tr>
                   <td><%= f.label :氏名 %></td>
                   <td><%= f.text_field :name, autofocus: true, class: 'form-control' %></td>
                 </tr>

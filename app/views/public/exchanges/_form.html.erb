@@ -46,24 +46,28 @@
         <div class="form-group">
           <tr>
             <td><%= f.label :掲載期限 %></td>
-            <td><%= f.datetime_select :deadline, class: 'form-control' %></td>
+            <td><%= f.datetime_field :deadline, min: Date.today, class: 'form-control' %></td>
           </tr>
         </div>
-        <div class="form-group">
-          <tr>
-            <td><%= f.label :完了しましたか？ %></td>
-            <td>
-              <div class="form_check form-check-inline">
-                <%= f.radio_button :is_finished, true, class: "form-check-input" %>
-                <%= f.label :is_finished_true, "はい" %>
-              </div>
-              <div class="form_check form-check-inline">
-                <%= f.radio_button :is_finished, false, class: "form-check-input" %>
-                <%= f.label :is_finished_false, "いいえ" %>
-              </div>
-            </td>
-          </tr>
-        </div>
+        <% if exchange.new_record? %>
+          <%= f.hidden_field :is_finished, :value => false %>
+        <% else %>
+          <div class="form-group">
+            <tr>
+              <td><%= f.label :完了しましたか？ %></td>
+              <td>
+                <div class="form_check form-check-inline">
+                  <%= f.radio_button :is_finished, true, class: "form-check-input" %>
+                  <%= f.label :is_finished_true, "はい" %>
+                </div>
+                <div class="form_check form-check-inline">
+                  <%= f.radio_button :is_finished, false, class: "form-check-input" %>
+                  <%= f.label :is_finished_false, "いいえ" %>
+                </div>
+              </td>
+            </tr>
+          </div>
+        <% end %>
       </tbody>
     </table>
     <div class="form-group text-center">

@@ -15,7 +15,7 @@
             <td><%= f.label :開始日時 %></td>
             <td>
               <%= f.date_field :start_date, min: Date.today %>
-              <%= f.time_select :started_at, {:include_blank => true, :minute_step => 30} %>
+              <%= f.time_select :started_at, {:include_blank => true, :minute_step => 15} %>
             </td>
           </tr>
         </div>
@@ -24,7 +24,7 @@
             <td><%= f.label :終了日時 %></td>
             <td>
               <%= f.date_field :finish_date, min: Date.today %>
-              <%= f.time_select :finished_at, {:include_blank => true, :minute_step => 30} %></td>
+              <%= f.time_select :finished_at, {:include_blank => true, :minute_step => 15} %></td>
           </tr>
         </div>
         <div class="form-group">

@@ -1,0 +1,29 @@
+<div class='container p-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-10 offset-md-1'>
+      <div class="ml-5 mb-3">
+        <h2>会員情報</h2>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="offset-1">
+            <table class='table table-borderless'>
+              <tr><th>会員名</th><td><%= @member.name %></td></tr>
+              <tr><th>部屋番号</th><td><%= @member.house_address %></td></tr>
+              <tr><th>メールアドレス</th><td><%= @member.email %></td></tr>
+            </table>
+            <div class="row">
+              <div class="mx-5">
+                <%= link_to "編集する", edit_admin_member_path, class: "btn btn-success" %>
+              </div>
+              <div>
+                <%= link_to "削除する", admin_member_path, method: :delete,
+                  data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

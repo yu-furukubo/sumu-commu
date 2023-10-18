@@ -1,0 +1,45 @@
+<div class="ml-5 mb-3">
+  <%= form_with model:@board, url: path, local: true do |f| %>
+    <%= render 'layouts/errors', obj: board %>
+    <table class="table table-borderless">
+      <tbody>
+        <%= f.hidden_field :residence_id, :value => current_member.residence.id %>
+        <%= f.hidden_field :member_id, :value => current_member.id %>
+        <div class="form-group">
+          <tr>
+            <td style="width: 20%"><%= f.label :タイトル %></td>
+            <td style="width: 70%"><%= f.text_field :name, placeholder: "タイトル", class: 'form-control ' %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :本文 %></td>
+            <td><%= f.text_area :body, placeholder: "ここに本文を記述します", class: 'form-control', rows: "10" %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :回覧板に設定しますか？ %></td>
+            <td>
+              <div class="form_check form-check-inline">
+                <%= f.radio_button :is_circular, true, class: "form-check-input" %>
+                <%= f.label :is_circular_true, "はい" %>
+              </div>
+              <div class="form_check form-check-inline">
+                <%= f.radio_button :is_circular, false, class: "form-check-input" %>
+                <%= f.label :is_circular_false, "いいえ" %>
+              </div>
+            </td>
+          </tr>
+        </div>
+      </tbody>
+    </table>
+    <div class="form-group text-center">
+      <% if board.new_record? %>
+        <%= f.submit "新規登録", class: 'btn btn-success' %>
+      <% else %>
+        <%= f.submit "変更を保存", class: 'btn btn-success' %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

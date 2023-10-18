@@ -1,0 +1,30 @@
+<div class='container p-5 px-sm-0'>
+  <div class="row ml-5 mb-3">
+    <h2>設備詳細</h2>
+  </div>
+  <div class="container">
+    <div class="col-8 offset-1">
+      <div>
+        <table class='table table-borderless'>
+          <tr><th style="width: 20%">設備名</th><td><%= image_tag @facility.get_facility_image, width: '50px' %><%= @facility.name %></td></tr>
+          <tr><th>説明</th><td><%= @facility.description %></td></tr>
+          <tr><th>ジャンル</th><td><%= @facility.genre.name %></td></tr>
+          <tr><th>注意事項</th><td><%= @facility.note %></td></tr>
+        </table>
+        <div class="text-center">
+          <%= form_with model: Reservation, url: new_public_reservation_path, method: :get, local: true do |f| %>
+            <%= f.hidden_field :facility_id, :value => @facility.id %>
+            <%= f.submit "予約する", class: 'btn btn-sm btn-success' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row ml-5 mb-3">
+    <h2>予約一覧</h2>
+  </div>
+  <div class="ml-3">
+    <%= render 'public/reservations/index', reservations: @facility_reservations %>
+  </div>
+</div>

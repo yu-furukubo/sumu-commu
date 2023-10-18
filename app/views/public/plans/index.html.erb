@@ -1,0 +1,13 @@
+<div class='container p-5 px-sm-0'>
+  <div class="row mr-3 mb-3">
+    <h2>予定一覧</h2>
+    <div class="ml-auto">
+      <%= link_to "予定を追加", new_public_plan_path, class: 'btn btn-sm btn-success' %>
+    </div>
+  </div>
+  <div class="container">
+    <div class="ml-3">
+      <%= render 'public/plans/index', plans: @plans %>
+    </div>
+  </div>
+</div>

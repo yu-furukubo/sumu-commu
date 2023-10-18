@@ -1,0 +1,67 @@
+<div class='container p-5 px-sm-0'>
+  <div class='row ml-5 mb-3'>
+        <h2>落とし物詳細</h2>
+      </div>
+      <div class="container">
+        <div class="mx-auto">
+          <div class="offset-1">
+            <table class='table table-borderless'>
+              <tr>
+                <th>画像</th>
+                <td>
+                  <% if @lost_item.lost_item_images.attached? %>
+                    <% @lost_item.lost_item_images.each do |image| %>
+                      <%= image_tag image, width: '100px' %>
+                    <% end %>
+                  <% else %>
+                    <%= image_tag 'no_image.jpg', width: '50px' %>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <th style="width: 20%">登録者名</th>
+                <% if @lost_item.member_id == 0 %>
+                  <td>管理人</td>
+                <% elsif @lost_item.member.present? %>
+                  <td><%= @lost_item.member.name %></td>
+                <% else %>
+                  <td class="text-secondary">退会済み会員</td>
+                <% end %>
+              </tr>
+              <tr><th>落とし物名</th><td><%= @lost_item.name %></td></tr>
+              <tr><th>説明</th><td><%= @lost_item.description %></td></tr>
+              <tr><th>拾った場所</th><td><%= @lost_item.picked_up_location %></td></tr>
+              <tr><th>拾った日時</th><td><%= l @lost_item.picked_up_at %></td></tr>
+              <tr><th>保管場所</th><td><%= @lost_item.storage_location %></td></tr>
+              <tr><th>掲載期限</th><td><%= l @lost_item.deadline %></td></tr>
+              <tr>
+                <th>保管状況</th>
+                <% if @lost_item.is_finished == false %>
+                  <td class="text-success">保管中</td>
+                <% else %>
+                  <td class="text-secondary">保管終了</td>
+                <% end %>
+              </tr>
+            </table>
+
+            <% if @lost_item.member == current_member %>
+            <div class="row">
+              <div class="mx-auto">
+                <%= link_to "編集する", edit_public_lost_item_path, class: "btn btn-success" %>&emsp;&emsp;
+                <%= link_to "削除する", public_lost_item_path, method: :delete,
+                  data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
+              </div>
+            </div>
+            <% end %>
+
+            <!--コメント表示用の記述-->
+            <div class="mt-5">
+              <%= render 'public/lost_items/comment', lost_item: @lost_item, lost_item_comments: @lost_item_comments %>
+            </div>
+            <!--コメント表示用の記述ここまで-->
+          </div>
+        </div>
+      </div>
+     </div>
+  </div>
+</div>

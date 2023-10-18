@@ -1,0 +1,81 @@
+<div class="ml-5 mb-3">
+  <%= form_with model:exchange, url: path, local: true do |f| %>
+    <%= render 'layouts/errors', obj: exchange %>
+    <table class="table table-borderless">
+      <tbody>
+        <div class="form-group">
+          <% if @exchange.exchange_item_images.attached? %>
+            <tr>
+              <td><%= f.label :写真 %></td>
+              <td>
+                <% @exchange.exchange_item_images.each do |image| %>
+                  <%= f.check_box :image_ids, { multiple: true }, image.id, false %>
+                  <label for="image_ids_<%= image.id %>" >
+                    <%= image_tag image, width: '100px' %>
+                  </label>
+                <% end %>
+              </td>
+            </tr>
+            <span class="text-info">削除したい画像にチェックを付けてください</span>
+          <% end %>
+          <tr>
+            <td></td>
+            <td><%= f.file_field :exchange_item_images, multiple: true %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td style="width: 20%"><%= f.label :品名 %></td>
+            <td style="width: 70%"><%= f.text_field :name, placeholder: "品名", class: 'form-control' %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :居住地 %></td>
+            <td>
+              <%= f.select :residence_id,
+              options_from_collection_for_select(current_admin.residences, :id, :name), {prompt: "選択してください"},
+              class: 'form-control' %>
+            </td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :説明 %></td>
+            <td><%= f.text_area :description, placeholder: "品物の説明、受け渡し方法などを記述", class: 'form-control', rows: "5" %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :費用 %></td>
+            <td><%= f.text_field :price, placeholder: "有償の場合は金額を入力", :value => 0, class: 'form-control' %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :掲載期限 %></td>
+            <td><%= f.datetime_select :deadline, class: 'form-control' %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :完了しましたか？ %></td>
+            <td>
+              <div class="form_check form-check-inline">
+                <%= f.radio_button :is_finished, true, class: "form-check-input" %>
+                <%= f.label :is_finished_true, "はい" %>
+              </div>
+              <div class="form_check form-check-inline">
+                <%= f.radio_button :is_finished, false, class: "form-check-input" %>
+                <%= f.label :is_finished_false, "いいえ" %>
+              </div>
+            </td>
+          </tr>
+        </div>
+      </tbody>
+    </table>
+    <div class="form-group text-center">
+      <%= f.submit "変更を保存", class: 'btn btn-success' %>
+    </div>
+  <% end %>
+</div>

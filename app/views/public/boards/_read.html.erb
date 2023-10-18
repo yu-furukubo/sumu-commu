@@ -1,0 +1,5 @@
+<% if read.present? %>
+  <%= link_to "未読に戻す", public_board_reads_path(board), method: :delete, class: "btn btn-secondary" %>
+<% else %>
+  <%= link_to "既読にする", public_board_reads_path(board), method: :post, class: "btn btn-success" %>
+<% end %>

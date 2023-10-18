@@ -1,0 +1,38 @@
+<table class='table table-bordered'>
+  <thead>
+    <tr>
+      <th>居住地</th>
+      <th>作成者</th>
+      <th>品名</th>
+      <th>説明</th>
+      <th>拾った場所</th>
+      <th>拾った日時</th>
+      <th>保管場所</th>
+      <th>掲載期限</th>
+      <th style="width:13%">保管状況</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% lost_items.each do |lost_item| %>
+      <tr>
+        <td><%= lost_item.residence.name %></td>
+        <% if lost_item.member_id == 0 %>
+          <td>管理人</td>
+        <% else %>
+          <td><%= lost_item.member.name %></td>
+        <% end %>
+        <td><%= link_to lost_item.name, admin_lost_item_path(lost_item) %></td>
+        <td><%= lost_item.description %></td>
+        <td><%= lost_item.picked_up_location %></td>
+        <td><%= lost_item.picked_up_at %></td>
+        <td><%= lost_item.storage_location %></td>
+        <td><%= lost_item.deadline %></td>
+        <% if lost_item.is_finished == false %>
+          <td class="text-success text-center">保管中</td>
+        <% else %>
+          <td class="text-secondary text-center">返却済み</td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

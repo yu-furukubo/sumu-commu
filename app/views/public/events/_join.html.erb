@@ -1,0 +1,10 @@
+<% if event.event_members.where(member_id: current_member.id).present? %>
+  <%= link_to "参加をやめる", public_event_event_member_observe_path(event, current_member), method: :delete, class: "btn btn-secondary" %>
+<% else %>
+  <%= form_with model:EventMember.new, url: public_event_event_members_participate_path(event), local: true do |f| %>
+    <%= f.hidden_field :event_id, :value => event.id %>
+    <%= f.hidden_field :member_id, :value => current_member.id %>
+    <%= f.hidden_field :is_approved, :value => true %>
+    <%= f.submit "参加する", class: "btn btn-info" %>
+  <% end %>
+<% end %>

@@ -1,0 +1,58 @@
+<div class="row mb-3 d-flex align-items-center">
+  <h4>コメント</h4>&emsp;
+  <span class="text-primary font-weight-bold"><%= exchange_comments.count - exchange_comments.where(is_deleted: true).count %>件</span>
+</div>
+<%= form_with model: ExchangeComment.new, url: public_exchange_exchange_comments_path(exchange), method: :post, local: true do |f| %>
+  <td>
+    <%= f.hidden_field :exchange_id, :value => @exchange.id %>
+    <%= f.hidden_field :member_id, :value => current_member.id %>
+    <%= f.text_area :comment, class: "form-control" %>
+    <div class="mt-2 text-center">
+      <%= f.submit "コメントする", class: 'btn btn-sm btn-danger' %>
+    </div>
+  </td>
+<% end %>
+
+<div class="mt-2">
+  <% exchange_comments.each do |comment| %>
+    <% if comment.member == current_member %>
+      <div class="text-right">
+        <% if comment.is_deleted == true %>
+          <span class="text-light bg-secondary">このコメントは管理者によって削除されました</span>
+        <% else %>
+          <span class="text-light bg-info"><%= comment.comment %></span>
+        <% end %>
+        <div class="text-right">
+          <span class="ml-auto text-secondary mr-2">(<%= l comment.created_at, format: :short %></spna>
+          <span class="text-secondary"><%= comment.member.name %>)</span>
+        </div>
+      </div>
+    <% else %>
+      <div>
+        <% if comment.is_deleted == true %>
+          <span class="text-light bg-secondary">このコメントは管理者によって削除されました</span>
+        <% else %>
+          <span class="text-light bg-info"><%= comment.comment %></span>
+        <% end %>
+        <div>
+          <span class="text-secondary mr-2">(<%= l comment.created_at, format: :short %></span>
+          <span class="text-secondary"><%= comment.member.name %>)</span>
+        </div>
+      </div>
+    <% end %>
+    <!--コメントを論理削除するための処理-->
+    <% if comment.member == current_member %>
+      <% if comment.is_deleted == false %>
+        <%= form_with model: ExchangeComment, url: public_exchange_exchange_comment_path(exchange, comment), method: :patch, local: true do |f| %>
+          <div>
+            <%= f.hidden_field :is_deleted, :value => true %>
+            <%= button_tag type: "submit", class: 'btn btn-sm' do %>
+              <i class="fa-solid fa-trash"></i>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+    <!--コメントを論理削除するための処理ここまで-->
+  <% end %>
+</div>

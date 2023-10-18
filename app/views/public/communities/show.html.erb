@@ -1,0 +1,120 @@
+<div class='container p-5 px-sm-0'>
+  <div class="row ml-5 mb-3">
+    <h2>コミュニティ詳細</h2>
+    <div class="ml-auto">
+      <%= render 'public/communities/join', community: @community %>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-8 offset-1">
+        <div>
+          <table class='table table-borderless'>
+            <% if @community.member.present? %>
+              <tr><th>作成者名</th><td><%= @community.member.name %></td></tr>
+            <% else %>
+              <tr><th>作成者名</th><td>退会済み会員</td></tr>
+            <% end %>
+            <tr><th style="width: 20%">コミュニティ名</th><td><%= image_tag @community.get_community_image, width: '50px' %><%= @community.name %></td></tr>
+            <tr><th>説明</th><td><%= @community.description %></td></tr>
+          </table>
+          <% if @community_members.find_by(member_id: current_member.id) && @community_member.is_admin == true %>
+            <div class="row">
+              <div class="mx-auto">
+                <%= link_to "編集する", edit_public_community_path, class: "btn btn-success" %>&emsp;&emsp;
+                <%= link_to "削除する", public_community_path, method: :delete,
+                  data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <!--コメント表示用の記述-->
+        <div class="mt-5">
+          <div class="row mb-3 d-flex align-items-center">
+            <h4>コメント</h4>&emsp;
+            <span class="text-primary font-weight-bold"><%= @community_comments.count - @community_comments.where(is_deleted: true).count %>件</span>
+          </div>
+          <%= form_with model: CommunityComment.new, url: public_community_community_comments_path(@community), method: :post, local: true do |f| %>
+            <td>
+              <%= f.hidden_field :community_id, :value => @community.id %>
+              <%= f.hidden_field :member_id, :value => current_member.id %>
+              <%= f.text_area :comment, class: "form-control" %>
+              <div class="mt-2 text-center">
+                <%= f.submit "コメントする", class: 'btn btn-sm btn-danger' %>
+              </div>
+            </td>
+          <% end %>
+
+          <div class="mt-2">
+            <% @community_comments.each do |comment| %>
+              <% if comment.member == current_member %>
+                <div class="text-right">
+                  <% if comment.is_deleted == true %>
+                    <span class="text-light bg-secondary">このコメントは管理者によって削除されました</span>
+                  <% else %>
+                    <span class="text-light bg-info"><%= comment.comment %></span>
+                  <% end %>
+                  <div class="text-right">
+                    <span class="ml-auto text-secondary mr-2">(<%= comment.created_at %></spna>
+                    <span class="text-secondary"><%= comment.member.name %>)</span>
+                  </div>
+                </div>
+              <% else %>
+                <div>
+                  <% if comment.is_deleted == true %>
+                    <span class="text-light bg-secondary">このコメントは管理者によって削除されました</span>
+                  <% else %>
+                    <span class="text-light bg-info"><%= comment.comment %></span>
+                  <% end %>
+                  <div>
+                    <span class="text-secondary mr-2">(<%= comment.created_at %></span>
+                    <span class="text-secondary"><%= comment.member.name %>)</span>
+                  </div>
+                </div>
+              <% end %>
+              <!--コメントを論理削除するための処理-->
+              <% if @community_members.find_by(member_id: current_member.id) && @community_member.is_admin == true %>
+                <% if comment.is_deleted == false %>
+                  <%= form_with model: CommunityComment.new, url: public_community_community_comment_path(@community, comment), method: :patch, local: true do |f| %>
+                    <div class="text-right">
+                      <%= f.hidden_field :is_deleted, :value => true %>
+                      <%= button_tag type: "submit", class: 'btn btn-sm' do %>
+                        <i class="fa-solid fa-trash"></i>
+                      <% end %>
+                    </div>
+                  <% end %>
+                <% end %>
+              <% end %>
+              <!--コメントを論理削除するための処理ここまで-->
+            <% end %>
+          </div>
+        </div>
+        <!--コメント表示用の記述ここまで-->
+      </div>
+      <!--参加メンバー表示用の記述-->
+      <div class="col-3">
+        <div class="row mb-3 d-flex align-items-center">
+          <h4>参加メンバー</h4>&emsp;
+          <%= link_to public_community_community_members_path(@community) do %>
+            <span class="text-primary font-weight-bold"><%= @community_members.count %>人</span>
+          <% end %>
+        </div>
+        <table class='table table-borderless table-sm'>
+          <tbody>
+            <% @community_members.each do |community_member| %>
+              <tr>
+                <td style="width: 65%"><%= community_member.member.name %></td>
+                <% if community_member.is_admin == true %>
+                  <td class="text-danger">管理者</td>
+                <% else %>
+                  <td class="text-success">メンバー</td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <!--参加メンバー表示用の記述ここまで-->
+    </div>
+  </div>
+</div>

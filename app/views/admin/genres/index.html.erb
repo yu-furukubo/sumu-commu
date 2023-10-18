@@ -1,0 +1,28 @@
+<div class='container p-5 px-sm-0'>
+  <div class='row'>
+    <div class="col-3">
+      <%= render 'layouts/residence_search', residences: @residences %>
+    </div>
+    <div class='col-md-9'>
+      <div class="mb-3">
+        <h2>ジャンル追加</h2>
+      </div>
+      <!--ジャンルの新規登録機能-->
+      <div class="ml-3 mb-3">
+        <%= render 'admin/genres/form', genre: @genre %>
+      </div>
+      <!--ジャンルの新規登録機能ここまで-->
+      <div class="mb-3">
+        <h2>ジャンル一覧</h2>
+      </div>
+
+      <!--ジャンルの一覧表示-->
+      <div class="container">
+        <div class="ml-3">
+          <%= render 'admin/genres/index', genres: @genres %>
+        </div>
+      </div>
+      <!--ジャンルの一覧表示ここまで-->
+    </div>
+  </div>
+</div>

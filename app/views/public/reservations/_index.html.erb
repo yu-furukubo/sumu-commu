@@ -1,0 +1,26 @@
+<table class='table table-bordered'>
+  <thead>
+    <tr>
+      <th>予約</th>
+      <th>予約者名</th>
+      <th>日程</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% reservations.each do |reservation| %>
+      <tr>
+        <% if reservation.equipment_id.present? %>
+          <td><%= reservation.equipment.name %></td>
+        <% elsif reservation.facility_id.present? %>
+          <td><%= reservation.facility.name %></td>
+        <% end %>
+        <td><%= reservation.member.name %></td>
+        <td>
+          <%= link_to public_reservation_path(reservation) do %>
+            <%= l reservation.started_at %> ~ <%= l reservation.finished_at %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

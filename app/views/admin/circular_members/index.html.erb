@@ -1,0 +1,34 @@
+<div class='container p-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-10 offset-md-1'>
+      <div class="row ml-5 mb-3">
+        <h2>回覧メンバー編集</h2>
+      </div>
+      <div class="ml-5 mb-3">
+        <table class='table table-borderless'>
+          <% @members.each do |member| %>
+            <tr>
+              <% if member != @board.member %>
+                <td style="width:30%"><%= member.name %></td>
+                <% if @board.circular_members.exists?(member_id: member.id) %>
+                  <td><%= link_to "削除", admin_board_circular_member_path(@board.id, member.id), method: :delete, class: 'btn btn-sm btn-danger' %></td>
+                <% else %>
+                  <%= form_with model:@circular_member, url: admin_board_circular_members_path(@board), local: true do |f| %>
+                    <td>
+                      <%= f.hidden_field :board_id, :value => params[:board_id] %>
+                      <%= f.hidden_field :member_id, :value => member.id %>
+                      <%= f.submit "追加", class: 'btn btn-sm btn-success' %>
+                    </td>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </tr>
+          <% end %>
+        </table>
+        <div class="text-right">
+          <%= link_to "掲示板詳細へ", admin_board_path(@board) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

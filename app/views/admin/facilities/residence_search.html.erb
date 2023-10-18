@@ -1,0 +1,23 @@
+<div class='container p-5 px-sm-0'>
+  <div class='row'>
+    <div class="col-3">
+      <%= render 'layouts/residence_search', residences: @residences %>
+    </div>
+    <div class='col-md-9'>
+      <div class="row mr-3 mb-3">
+        <h2>設備一覧(<%= @residence.name %>)</h2>
+        <div class="ml-auto">
+          <%= form_with model: Facility, url: new_admin_facility_path, method: :get, local: true do |f| %>
+              <%= f.hidden_field :residence_id, :value => params[:id] %>
+              <%= f.submit ">> "+@residence.name+"の設備を登録", class: 'btn btn-sm btn-success' %>
+          <% end %>
+        </div>
+      </div>
+      <div class="container">
+        <div class="ml-3">
+          <%= render 'admin/facilities/index', facilities: @facilities %>
+        </div>
+      </div>
+     </div>
+  </div>
+</div>

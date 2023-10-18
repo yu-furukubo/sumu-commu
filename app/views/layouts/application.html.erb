@@ -6,11 +6,54 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/02d3b10da1.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="d-flex flex-column min-vh-100">
+    <header class="border-bottom border-dark">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="pr-5">
+            <div class="logo">
+              <%= link_to root_path, class: "lead" do %>
+                <%= image_tag 'sumu-commu_logo.png', :style => "max-height:120px" %>
+              <% end %>
+            </div>
+          </div>
+          <div class="my-auto">
+            <div class="">
+             <div class="text-top text-dark">
+                <% if member_signed_in? %>
+                  <%= image_tag current_member.get_profile_image, width: '50px' %>
+                  <%= current_member.name %>
+                <% end %>
+              </div>
+            </div>
+            <div class="mx-auto">
+              <% if admin_signed_in? %>
+                <%= render 'layouts/admin_header' %>
+              <% else %>
+                <%= render 'layouts/member_header' %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div>
+        <%= flash[:notice] %>
+      </div>
+      <%= yield %>
+    </main>
+
+    <footer class="text-center text-light bg-dark mt-auto">
+      <div class="m-3">
+        <p>CopyRight すむこみゅ<SUMU-COMMU></p>
+      </div>
+    </footer>
   </body>
 </html>

@@ -1,0 +1,28 @@
+<table class='table table-bordered'>
+  <thead>
+    <tr>
+      <th>イベント名</th>
+      <th>作成者</th>
+      <th>概要</th>
+      <th>開催日時</th>
+      <th>開催場所</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% events.each do |event| %>
+      <tr>
+        <td><%= link_to event.name, public_event_path(event) %></td>
+        <% if event.member_id == 0 %>
+          <td>管理者</td>
+        <% elsif event.member.present? %>
+          <td><%= event.member.name %></td>
+        <% else %>
+          <td>退会済み会員</td>
+        <% end %>
+        <td><%= event.description %></td>
+        <td><%= l event.started_at %> ~ <%= l event.finished_at %></td>
+        <td><%= event.venue %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

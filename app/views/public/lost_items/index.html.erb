@@ -1,0 +1,19 @@
+<div class='container p-5 px-sm-0'>
+  <div class='col-md-12'>
+    <div class="row mr-3 mb-3">
+      <h2>落とし物一覧</h2>
+      <div class="ml-auto">
+        <%= link_to "落とし物を登録する", new_public_lost_item_path, class: 'btn btn-sm btn-success' %>
+      </div>
+    </div>
+    <div class="ml-3">
+      <%= render 'public/lost_items/index', lost_items: @lost_items %>
+    </div>
+    <div class="mb-3">
+      <h2>自分が登録した落とし物一覧</h2>
+    </div>
+    <div class="ml-3">
+      <%= render 'public/lost_items/index', lost_items: @lost_items_mine %>
+    </div>
+  </div>
+</div>

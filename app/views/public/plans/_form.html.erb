@@ -1,0 +1,52 @@
+<div class="ml-5 mb-3">
+  <%= form_with model:plan, url: path, local: true do |f| %>
+    <%= render 'layouts/errors', obj: plan %>
+    <table class="table table-borderless">
+      <tbody>
+        <%= f.hidden_field :member_id, :value => current_member.id %>
+        <div class="form-group">
+          <tr>
+            <td style="width: 20%"><%= f.label :予定名 %></td>
+            <td style="width: 70%"><%= f.text_field :subject, placeholder: "予定名", class: 'form-control ' %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :開始日時 %></td>
+            <td>
+              <%= f.date_field :start_date, min: Date.today %>
+              <%= f.time_select :started_at, {:include_blank => true, :minute_step => 15} %>
+            </td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :終了日時 %></td>
+            <td>
+              <%= f.date_field :finish_date, min: Date.today %>
+              <%= f.time_select :finished_at, {:include_blank => true, :minute_step => 15} %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :開催場所 %></td>
+            <td><%= f.text_field :venue, placeholder: "開催場所", class: 'form-control' %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :メモ %></td>
+            <td><%= f.text_field :memo, placeholder: "メモ", class: 'form-control' %></td>
+          </tr>
+        </div>
+      </tbody>
+    </table>
+    <div class="form-group text-center">
+      <% if plan.new_record? %>
+        <%= f.submit "新規登録", class: 'btn btn-success' %>
+      <% else %>
+        <%= f.submit "変更を保存", class: 'btn btn-success' %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

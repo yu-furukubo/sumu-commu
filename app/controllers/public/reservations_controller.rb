@@ -2,7 +2,7 @@ class Public::ReservationsController < ApplicationController
   before_action :authenticate_member!
 
   def index
-    @reservations = Reservation.where(residence_id: current_member.residence.id)
+    @reservations = Reservation.where(residence_id: current_member.residence.id, ).where('finished_at > ?', Time.now).order(started_at: "ASC")
     @reservations_mine = @reservations.where(member_id: current_member.id)
     @reservations_others = @reservations.where.not(member_id: current_member.id)
   end
@@ -53,7 +53,7 @@ class Public::ReservationsController < ApplicationController
       if @reservation.save
         redirect_to public_reservation_path(@reservation)
       else
-        flash.now[:notice] = "予約に失敗しました。"
+        flash.now[:notice] = "予約に失敗しました"
         render "new"
       end
     end
@@ -64,19 +64,26 @@ class Public::ReservationsController < ApplicationController
   end
 
   def update
-    reservation = Reservation.find(params[:id])
+    @reservation = Reservation.find(params[:id])
     if reservation.update(reservation_params)
-      redirect_to public_reservation_path(reservation)
+      redirect_to public_reservation_path(@reservation)
     else
+      flash.now[:notice] = "予約内容の更新に失敗しました"
       render "edit"
     end
   end
 
   def destroy
-    reservation = Reservation.find(params[:id])
+    @reservation = Reservation.find(params[:id])
     if reservation.destroy
       redirect_to public_reservations_path
     else
+      flash.now[:notice] = "予約の削除に失敗しました"
+      if @reservation.equipment_id.present?
+        @equipment_reserved = @reservation.equipment
+      elsif @reservation.facility_id.present?
+        @facility_reserved = @reservation.facility
+      end
       render "show"
     end
   end

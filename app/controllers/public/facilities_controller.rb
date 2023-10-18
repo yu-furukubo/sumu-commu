@@ -3,5 +3,6 @@ class Public::FacilitiesController < ApplicationController
 
   def show
     @facility = Facility.find(params[:id])
+    @facility_reservations = @facility.reservations.where('finished_at > ?', Time.now).order(started_at: "asc")
   end
 end

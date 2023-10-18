@@ -1,14 +1,13 @@
 <div class='container p-5 px-sm-0'>
   <div class='col-md-12'>
-    <div class="row mr-3 mb-3">
-      <h2>備品一覧</h2>
+    <div class="mb-3">
+      <h3 class="text-info"><i class="fa-solid fa-circle-info"></i>備品・設備一覧から予約するものを選択してください</h3>
     </div>
+    <h4>備品一覧</h4>
     <div class="ml-3">
       <%= render 'public/equipments/index', equipments: @equipments %>
     </div>
-    <div class="mb-3">
-      <h2>設備一覧</h2>
-    </div>
+    <h4>設備一覧</h4>
     <div class="ml-3">
       <%= render 'public/facilities/index', facilities: @facilities %>
     </div>

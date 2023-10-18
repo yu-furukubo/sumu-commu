@@ -14,7 +14,7 @@
   <tbody>
     <% equipments.each do |equipment| %>
       <tr>
-        <td><%= link_to equipment.name, admin_equipment_path(equipment) %></td>
+        <td><%= link_to equipment.name, public_equipment_path(equipment) %></td>
         <td><%= equipment.description %></td>
         <td><%= equipment.genre.name %></td>
         <td><%= equipment.stock %>個</td>

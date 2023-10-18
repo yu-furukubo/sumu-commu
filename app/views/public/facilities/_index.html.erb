@@ -11,7 +11,7 @@
   <tbody>
     <% facilities.each do |facility| %>
       <tr>
-        <td><%= link_to facility.name, admin_facility_path(facility) %></td>
+        <td><%= link_to facility.name, public_facility_path(facility) %></td>
         <td><%= facility.description %></td>
         <td><%= facility.genre.name %></td>
         <td><%= facility.note %></td>

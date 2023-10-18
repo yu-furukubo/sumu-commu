@@ -18,11 +18,12 @@ class Public::EventsController < ApplicationController
   end
 
   def create
-    event = Event.new(event_params)
-    if event.save
-      EventMember.create(event_id: event.id, member_id: current_member.id, is_approved: true)
-      redirect_to public_event_path(event)
+    @event = Event.new(event_params)
+    if @event.save
+      EventMember.create(event_id: @event.id, member_id: current_member.id, is_approved: true)
+      redirect_to public_event_path(@event)
     else
+      flash.now[:notice] = "イベントの作成に失敗しました"
       render "new"
     end
   end
@@ -32,20 +33,23 @@ class Public::EventsController < ApplicationController
   end
 
   def update
-    event = Event.find(params[:id])
-    if event.update(event_params)
-      redirect_to public_event_path(event)
+    @event = Event.find(params[:id])
+    if @event.update(event_params)
+      redirect_to public_event_path(@event)
     else
+      flash.now[:notice] = "イベント内容の更新に失敗しました"
       render "edit"
     end
   end
 
   def destroy
-    event = Event.find(params[:id])
-    if event.destroy
+    @event = Event.find(params[:id])
+    if @event.destroy
       redirect_to public_events_path
     else
-      flash.now[:notice] = "削除に失敗しました"
+      flash.now[:notice] = "イベントの削除に失敗しました"
+      @event_members = @event.event_members.where(is_approved: true)
+      @event_invited_members = @event.event_members.where(is_approved: false)
       render "show"
     end
   end

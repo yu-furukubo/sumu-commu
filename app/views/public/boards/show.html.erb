@@ -9,8 +9,10 @@
           <table class='table table-borderless'>
             <% if @board.member_id == 0 %>
               <tr><th style="width: 20%">作成者名</th><td>管理人</td></tr>
-            <% else %>
+            <% elsif @board.member.present? %>
               <tr><th style="width: 20%">作成者名</th><td><%= @board.member.name %></td></tr>
+            <% else %>
+              <tr><th style="width: 20%">作成者名</th><td>退会済み会員</td></tr>
             <% end %>
             <tr><th>作成日時</th><td><%= l @board.created_at %></td></tr>
             <tr><th>タイトル</th><td><%= @board.name %></td></tr>

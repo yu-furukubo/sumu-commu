@@ -22,6 +22,7 @@ class Public::ExchangesController < ApplicationController
     if @exchange.save
       redirect_to public_exchange_path(@exchange)
     else
+      flash.now[:notice] = "ゆずりあいの登録に失敗しました"
       render "new"
     end
   end
@@ -41,16 +42,19 @@ class Public::ExchangesController < ApplicationController
     if @exchange.update(exchange_params)
       redirect_to public_exchange_path(@exchange)
     else
+      flash.now[:notice] = "ゆずりあい内容の更新に失敗しました"
       render "edit"
     end
   end
 
   def destroy
-    exchange = Exchange.find(params[:id])
-    if exchange.destroy
+    @exchange = Exchange.find(params[:id])
+    if @exchange.destroy
       redirect_to public_exchanges_path
     else
-      flash.now[:notice] = "削除に失敗しました"
+      flash.now[:notice] = "ゆずりあいの削除に失敗しました"
+      @exchange_comments = ExchangeComment.where(exchange_id: @exchange.id).order(created_at: "DESC")
+      @exchange_comment = ExchangeComment.new
       render "show"
     end
   end

@@ -5,16 +5,23 @@ class Public::MembersController < ApplicationController
     @member = current_member
   end
 
-  def edit
-    @member = current_member
-  end
+  # def edit
+  #   @member = current_member
+  # end
 
-  def update
-    @member = current_member
-    if @member.update(params_member)
-      redirect_to member_public_members_path
-    else
-      render "edit"
-    end
-  end
+  # def update
+  #   @member = current_member
+  #   if @member.update(member_params)
+  #     redirect_to member_public_members_path
+  #   else
+  #     render "edit"
+  #   end
+  # end
+
+  # private
+
+  # def member_params
+  #   params.require(:member).permit(:name, :house_address, :email, :encypted_password, :profile_image)
+  # end
+
 end

@@ -26,6 +26,7 @@ class Public::CommunitiesController < ApplicationController
       CommunityMember.create(community_id: @community.id, member_id: current_member.id, is_admin: true)
       redirect_to public_community_path(@community)
     else
+      flash.now[:notice] = "コミュニティの作成に失敗しました"
       render "new"
     end
   end
@@ -39,16 +40,21 @@ class Public::CommunitiesController < ApplicationController
     if @community.update(community_params)
       redirect_to public_community_path(@community)
     else
+      flash.now[:notice] = "コミュニティの更新に失敗しました"
       render "edit"
     end
   end
 
   def destroy
-    community = Community.find(params[:id])
-    if community.destroy
+    @community = Community.find(params[:id])
+    if @community.destroy
       redirect_to public_communities_path
     else
-      flash.now[:notice] = "削除に失敗しました"
+      flash.now[:notice] = "コミュニティの削除に失敗しました"
+      @community_members = CommunityMember.where(community_id: @community.id)
+      @community_comments = CommunityComment.where(community_id: @community.id).order(created_at: "DESC")
+      @community_member = CommunityMember.find_by(community_id: @community.id, member_id: current_member.id)
+      @community_comment = CommunityComment.new
       render "show"
     end
   end

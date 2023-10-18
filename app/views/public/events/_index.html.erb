@@ -14,8 +14,10 @@
         <td><%= link_to event.name, public_event_path(event) %></td>
         <% if event.member_id == 0 %>
           <td>管理者</td>
-        <% else %>
+        <% elsif event.member.present? %>
           <td><%= event.member.name %></td>
+        <% else %>
+          <td>退会済み会員</td>
         <% end %>
         <td><%= event.description %></td>
         <td><%= l event.started_at %> ~ <%= l event.finished_at %></td>

@@ -5,4 +5,7 @@ class Board < ApplicationRecord
   has_many :reads, dependent: :destroy
   has_many :circular_members, dependent: :destroy
 
+  validates :name, presence: true
+  validates :body, presence: true
+
 end

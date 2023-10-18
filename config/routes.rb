@@ -77,6 +77,8 @@ Rails.application.routes.draw do
       resources :exchange_comments, only: [:create, :update, :destroy]
     end
     resources :reservations
+    get "reservation/select" => "reservations#select", as: "reservations_select"
+
     resources :equipments, only: [:index, :show]
     resources :facilities, only: [:index, :show]
     resources :boards do

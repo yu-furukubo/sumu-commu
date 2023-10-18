@@ -26,23 +26,36 @@ class Public::ReservationsController < ApplicationController
   end
 
   def create
-    # if params[:reservation][:equipment_id].present?
-    #   reservations = Reservation.where(equipment_id: params[:reservation][:equipment_id])
-    # elsif params[:reservation][:facility_id].present?
-    #   reservations = Reservation.where(facility_id: params[:reservation][:facility_id])
-    # end
+    if params[:reservation][:equipment_id].present?
+      reservations = Reservation.where(equipment_id: params[:reservation][:equipment_id])
+    elsif params[:reservation][:facility_id].present?
+      reservations = Reservation.where(facility_id: params[:reservation][:facility_id])
+    end
+
     @reservation = Reservation.new(reservation_params)
     set_the_day_implement(@reservation)
-    pp "--------------------------", @reservation, @reservation.started_at, @reservation.finished_at
-    # if reservations.where('finished_at > ? and ? > started_at', reservation.started_at, reservation.finished_at).exists?
-    #   flash.now[:notice] = "その期間にはすでに予約があります"
-    #   errors.add(:started_at, :finished_at, 'その期間にはすでに予約があります')
-    # end
 
-    if @reservation.save
-      redirect_to public_reservation_path(@reservation)
+    if reservations.where('finished_at > ? and ? > started_at', @reservation.started_at, @reservation.finished_at).exists?
+      if @reservation.equipment_id.present?
+        count = reservations.where('finished_at > ? and ? > started_at', @reservation.started_at, @reservation.finished_at).count
+        if @reservation.equipment.stock <= count
+          flash.now[:notice] = "その期間には別の予約が入っています。空き時間をご確認ください"
+          render "new"
+        else
+          @reservation.save
+          redirect_to public_reservation_path(@reservation)
+        end
+      else
+        flash.now[:notice] = "その期間には別の予約が入っています。空き時間をご確認ください"
+        render "new"
+      end
     else
-      render "new"
+      if @reservation.save
+        redirect_to public_reservation_path(@reservation)
+      else
+        flash.now[:notice] = "予約に失敗しました。"
+        render "new"
+      end
     end
   end
 

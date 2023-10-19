@@ -182,7 +182,7 @@ ActiveRecord::Schema.define(version: 2023_10_05_091539) do
     t.integer "member_id", null: false
     t.string "name", null: false
     t.text "description"
-    t.string "picked_up_location"
+    t.string "picked_up_location", null: false
     t.datetime "picked_up_at", null: false
     t.string "storage_location", null: false
     t.datetime "deadline"

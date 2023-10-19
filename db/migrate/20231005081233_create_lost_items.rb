@@ -5,7 +5,7 @@ class CreateLostItems < ActiveRecord::Migration[6.1]
       t.integer :member_id,            null: false
       t.string :name,                  null: false
       t.text :description
-      t.string :picked_up_location
+      t.string :picked_up_location,    null: false
       t.datetime :picked_up_at,        null: false
       t.string :storage_location,      null: false
       t.datetime :deadline

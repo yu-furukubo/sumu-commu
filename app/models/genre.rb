@@ -4,4 +4,6 @@ class Genre < ApplicationRecord
   has_many :equipments
   has_many :facilities
 
+  validates :name, presence: true
+
 end

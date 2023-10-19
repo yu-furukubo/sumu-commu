@@ -13,10 +13,13 @@
               <tr><th>メールアドレス</th><td><%= @member.email %></td></tr>
             </table>
             <div>
-              <%= link_to "編集する", edit_member_registration_path, class: "btn btn-success" %>
+              <% if @member.email != "guest@example.com" %>
+                <%= link_to "編集する", edit_member_registration_path, class: "btn btn-success" %>
+              <% end %>
             </div>
           </div>
         </div>
       </div>
      </div>
   </div>
+</div>

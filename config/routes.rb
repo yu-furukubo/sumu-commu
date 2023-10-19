@@ -105,4 +105,9 @@ Rails.application.routes.draw do
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
+
+  devise_scope :member do
+    post "members/guest_sign_in", to: "public/sessions#guest_sign_in"
+  end
+
 end

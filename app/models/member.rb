@@ -39,4 +39,15 @@ class Member < ApplicationRecord
     clean_up_passwords
     result
   end
+
+  GUEST_MEMBER_EMAIL = "guest@example.com"
+
+  def self.guest
+    find_or_create_by!(email: GUEST_MEMBER_EMAIL) do |member|
+      member.password = SecureRandom.urlsafe_base64
+      member.name = "ゲストユーザー"
+      member.residence_id = 1
+      member.house_address = 101
+    end
+  end
 end

@@ -1,5 +1,9 @@
 <h2>Log in</h2>
 
+<div class="ml-3">
+  <%= link_to "ゲストログイン（閲覧用）",  members_guest_sign_in_path, class: "btn btn-secondary btn-sm", method: :post %>
+</div>
+
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
     <%= f.label :email %><br />

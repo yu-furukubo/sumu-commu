@@ -5,7 +5,7 @@ class Public::SessionsController < Devise::SessionsController
   def guest_sign_in
     member = Member.guest
     sign_in member
-    redirect_to public_member_information_path, notice: "guestuserでログインしました。"
+    redirect_to public_member_information_path, notice: "ゲストユーザーとしてログインしました。"
   end
   # before_action :configure_sign_in_params, only: [:create]
 

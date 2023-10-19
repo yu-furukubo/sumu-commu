@@ -94,6 +94,9 @@ Rails.application.routes.draw do
     patch "member/information" => "members#update", as: "update_member_information"
     delete "member/information" => "members#destroy", as: "destroy_member_information"
     resources :residences, only: [:index, :show]
+
+    get "search" => "searches#search", as: "search"
+    get "search/result" => "searches#search_result", as: "search_result"
   end
 
   devise_for :admin, skip: [:passwords], controllers: {

@@ -1,0 +1,22 @@
+<table class='table table-bordered'>
+  <thead>
+    <tr>
+      <th>名前</th>
+      <% if current_member.residence.housing_type == Residence.housing_types.key(0) %>
+        <th>部屋番号</th>
+      <% else %>
+        <th>番地</th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% members.each do |member| %>
+      <% if member.email != "guest@example.com" %>
+        <tr>
+          <td><%= member.name %></td>
+          <td><%= member.house_address %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

@@ -17,6 +17,9 @@ class Member < ApplicationRecord
   has_many :boards
   has_one_attached :profile_image
 
+  validates :name, presence: true
+  validates :house_address, presence: true
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -49,5 +52,10 @@ class Member < ApplicationRecord
       member.residence_id = 1
       member.house_address = 101
     end
+  end
+
+  def self.looks(words, member)
+    @members = self.where(residence_id: member.residence_id)
+    @members.where("name LIKE :word OR house_address LIKE :word", word: "%#{words}%")
   end
 end

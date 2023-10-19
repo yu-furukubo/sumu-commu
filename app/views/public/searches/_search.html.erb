@@ -1,0 +1,71 @@
+<% if boards.present? %>
+  <div class="mb-3">
+    <h2>掲示板</h2>
+  </div>
+  <div class="ml-3">
+    <%= render 'public/boards/index', boards: boards, reads: reads %>
+  </div>
+<% end %>
+
+<% if communities.present? %>
+  <div class="mb-3">
+    <h2>コミュニティ</h2>
+  </div>
+  <div class="ml-3">
+    <%= render 'public/communities/index', communities: communities %>
+  </div>
+<% end %>
+
+<% if events.present? %>
+  <div class="mb-3">
+    <h2>イベント</h2>
+  </div>
+  <div class="ml-3">
+    <%= render 'public/events/index', events: events %>
+  </div>
+<% end %>
+
+<% if exchanges.present? %>
+  <div class="mb-3">
+    <h2>ゆずりあい</h2>
+  </div>
+  <div class="ml-3">
+    <%= render 'public/exchanges/index', exchanges: exchanges %>
+  </div>
+<% end %>
+
+<% if lost_items.present? %>
+  <div class="mb-3">
+    <h2>落とし物</h2>
+  </div>
+  <div class="ml-3">
+    <%= render 'public/lost_items/index', lost_items: lost_items %>
+  </div>
+<% end %>
+
+<% if equipments.present? %>
+  <div class="mb-3">
+    <h2>備品</h2>
+  </div>
+  <div class="ml-3">
+    <%= render 'public/equipments/index', equipments: equipments %>
+  </div>
+<% end %>
+
+<% if facilities.present? %>
+  <div class="mb-3">
+    <h2>設備</h2>
+  </div>
+  <div class="ml-3">
+    <%= render 'public/facilities/index', facilities: facilities %>
+  </div>
+<% end %>
+
+<% if members.present? %>
+  <div class="mb-3">
+    <h2>会員</h2>
+  </div>
+  <div class="ml-3">
+    <%= render 'public/members/index', members: members %>
+  </div>
+<% end %>

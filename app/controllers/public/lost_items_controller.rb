@@ -49,7 +49,7 @@ class Public::LostItemsController < ApplicationController
 
   def destroy
     @lost_item = LostItem.find(params[:id])
-    if lost_item.destroy
+    if @lost_item.destroy
       redirect_to public_lost_items_path
     else
       flash.now[:notice] = "落とし物の削除に失敗しました"

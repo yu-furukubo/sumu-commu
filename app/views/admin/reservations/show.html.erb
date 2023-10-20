@@ -1,2 +1,37 @@
-<h1>Admin::Reservations#show</h1>
-<p>Find me in app/views/admin/reservations/show.html.erb</p>
+<div class='container p-5 px-sm-0'>
+  <div class='row ml-5 mb-3'>
+        <h2>予約詳細</h2>
+      </div>
+      <div class="container">
+        <div class="mx-auto">
+          <div class="offset-1">
+            <table class='table table-borderless'>
+              <tr><th>居住地</th><td><%= @reservation.residence.name %></td></tr>
+              <% if @reservation.equipment_id.present? %>
+                <tr><th>予約品</th><td><%= image_tag @reservation.equipment.get_equipment_image %><%= @reservation.equipment.name %></td></tr>
+              <% elsif @reservation.facility_id.present? %>
+                <tr><th>予約場所</th><td><%= image_tag @reservation.facility.get_facility_image %><%= @reservation.facility.name %></td></tr>
+              <% end %>
+              <% if @reservation.member_id == 0 %>
+                <tr><th>予約者</th><td>管理人</td></tr>
+              <% else %>
+                <tr><th>予約者</th><td><%= @reservation.member.name %></td></tr>
+              <% end %>
+              <tr><th>予約期間</th><td><%= l @reservation.started_at %> ~ <%= l @reservation.finished_at %></td></tr>
+            </table>
+
+            <% if @reservation.member == current_member %>
+            <div class="row">
+              <div class="mx-auto">
+                <%= link_to "編集する", edit_admin_reservation_path, class: "btn btn-success" %>&emsp;&emsp;
+                <%= link_to "削除する", admin_reservation_path, method: :delete,
+                  data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
+              </div>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+     </div>
+  </div>
+</div>

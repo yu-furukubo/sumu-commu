@@ -3,7 +3,7 @@
     <h2>掲示板</h2>
   </div>
   <div class="ml-3">
-    <%= render 'public/boards/index', boards: boards, reads: reads %>
+    <%= render 'admin/boards/index', boards: boards %>
   </div>
 <% end %>
 
@@ -12,7 +12,7 @@
     <h2>コミュニティ</h2>
   </div>
   <div class="ml-3">
-    <%= render 'public/communities/index', communities: communities %>
+    <%= render 'admin/communities/index', communities: communities %>
   </div>
 <% end %>
 
@@ -21,7 +21,7 @@
     <h2>イベント</h2>
   </div>
   <div class="ml-3">
-    <%= render 'public/events/index', events: events %>
+    <%= render 'admin/events/index', events: events %>
   </div>
 <% end %>
 
@@ -30,7 +30,7 @@
     <h2>ゆずりあい</h2>
   </div>
   <div class="ml-3">
-    <%= render 'public/exchanges/index', exchanges: exchanges %>
+    <%= render 'admin/exchanges/index', exchanges: exchanges %>
   </div>
 <% end %>
 
@@ -39,7 +39,7 @@
     <h2>落とし物</h2>
   </div>
   <div class="ml-3">
-    <%= render 'public/lost_items/index', lost_items: lost_items %>
+    <%= render 'admin/lost_items/index', lost_items: lost_items %>
   </div>
 <% end %>
 
@@ -48,7 +48,7 @@
     <h2>備品</h2>
   </div>
   <div class="ml-3">
-    <%= render 'public/equipments/index', equipments: equipments %>
+    <%= render 'admin/equipments/index', equipments: equipments %>
   </div>
 <% end %>
 
@@ -57,7 +57,16 @@
     <h2>設備</h2>
   </div>
   <div class="ml-3">
-    <%= render 'public/facilities/index', facilities: facilities %>
+    <%= render 'admin/facilities/index', facilities: facilities %>
+  </div>
+<% end %>
+
+<% if genres.present? %>
+  <div class="mb-3">
+    <h2>ジャンル</h2>
+  </div>
+  <div class="ml-3">
+    <%= render 'admin/genres/index', genres: genres %>
   </div>
 <% end %>
 
@@ -66,7 +75,7 @@
     <h2>会員</h2>
   </div>
   <div class="ml-3">
-    <%= render 'public/members/index', members: members %>
+    <%= render 'admin/members/index', members: members %>
   </div>
 <% end %>
 
@@ -78,6 +87,7 @@
   lost_items.present? ||
   equipments.present? ||
   facilities.present? ||
+  genres.present? ||
   members.present?
 %>
   <p>該当するものはありません。</p>

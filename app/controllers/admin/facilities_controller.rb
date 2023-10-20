@@ -21,6 +21,9 @@ class Admin::FacilitiesController < ApplicationController
 
   def create
     @facility = Facility.new(facility_params)
+    if params[:facility][:genre_id] == ""
+      @facility.genre_id = 0
+    end
     if @facility.save
       redirect_to admin_facility_path(@facility)
     else
@@ -30,6 +33,7 @@ class Admin::FacilitiesController < ApplicationController
 
   def show
     @facility = Facility.find(params[:id])
+    @facility_reservations = @facility.reservations.where('finished_at > ?', Time.now).order(started_at: "asc")
   end
 
   def edit

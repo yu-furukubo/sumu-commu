@@ -1,4 +1,7 @@
-<%= form_with url:public_search_result_path, method: :get, local: :true do |f| %>
+<%= form_with url:admin_search_result_path, method: :get, local: :true do |f| %>
+  <div class="mb-3">
+    <%= f.select :residence_id, options_from_collection_for_select(current_admin.residences, :id, :name), {prompt: "選択してください"}, required: true %>
+  </div>
   <div class="mb-3">
     <%= f.radio_button :category, :all, checked: true %>
     <%= f.label :category_all, "全て" %>
@@ -16,6 +19,8 @@
     <%= f.label :category_equipment, "備品" %>
     <%= f.radio_button :category, :facility %>
     <%= f.label :category_facility, "設備" %>
+    <%= f.radio_button :category, :genre %>
+    <%= f.label :category_genre, "ジャンル" %>
     <%= f.radio_button :category, :member %>
     <%= f.label :category_member, "会員" %>
   </div>

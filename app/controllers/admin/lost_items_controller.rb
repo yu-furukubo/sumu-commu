@@ -35,6 +35,7 @@ class Admin::LostItemsController < ApplicationController
 
   def edit
     @lost_item = LostItem.find(params[:id])
+    @residence = @lost_item.residence
   end
 
   def update

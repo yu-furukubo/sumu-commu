@@ -24,9 +24,9 @@
         <td><%= link_to lost_item.name, admin_lost_item_path(lost_item) %></td>
         <td><%= lost_item.description %></td>
         <td><%= lost_item.picked_up_location %></td>
-        <td><%= lost_item.picked_up_at %></td>
+        <td><%= l lost_item.picked_up_at %></td>
         <td><%= lost_item.storage_location %></td>
-        <td><%= lost_item.deadline %></td>
+        <td><%= l lost_item.deadline %></td>
         <% if lost_item.is_finished == false %>
           <td class="text-success text-center">保管中</td>
         <% else %>

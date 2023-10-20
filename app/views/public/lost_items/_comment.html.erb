@@ -41,7 +41,7 @@
       </div>
     <% end %>
     <!--コメントを論理削除するための処理-->
-    <% if comment.member == current_member %>
+    <% if comment.member == lost_item.member %>
       <% if comment.is_deleted == false %>
         <%= form_with model: LostItemComment, url: public_lost_item_lost_item_comment_path(lost_item, comment), method: :patch, local: true do |f| %>
           <div>

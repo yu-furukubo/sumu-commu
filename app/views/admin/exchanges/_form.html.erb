@@ -54,7 +54,7 @@
         <div class="form-group">
           <tr>
             <td><%= f.label :掲載期限 %></td>
-            <td><%= f.datetime_select :deadline, class: 'form-control' %></td>
+            <td><%= f.datetime_field :deadline, min: Date.today, class: 'form-control' %></td>
           </tr>
         </div>
         <div class="form-group">

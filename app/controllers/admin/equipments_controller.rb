@@ -21,6 +21,9 @@ class Admin::EquipmentsController < ApplicationController
 
   def create
     @equipment = Equipment.new(equipment_params)
+    if params[:equipment][:genre_id] == ""
+      @equipment.genre_id = 0
+    end
     if @equipment.save
       redirect_to admin_equipment_path(@equipment)
     else
@@ -30,6 +33,7 @@ class Admin::EquipmentsController < ApplicationController
 
   def show
     @equipment = Equipment.find(params[:id])
+    @equipment_reservations = @equipment.reservations.where('finished_at > ?', Time.now).order(started_at: "asc")
   end
 
   def edit

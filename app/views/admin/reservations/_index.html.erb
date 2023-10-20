@@ -2,6 +2,7 @@
   <thead>
     <tr>
       <% if controller.controller_name == "reservations" %>
+        <th>居住地</th>
         <th>予約品・設備</th>
       <% end %>
       <th>日程</th>
@@ -12,14 +13,15 @@
     <% reservations.each do |reservation| %>
       <tr>
         <% if controller.controller_name == "reservations" %>
+          <td><%= reservation.residence.name %></td>
           <% if reservation.equipment_id.present? %>
-            <td><%= link_to reservation.equipment.name, public_equipment_path(reservation.equipment) %></td>
+            <td><%= link_to reservation.equipment.name, admin_equipment_path(reservation.equipment) %></td>
           <% elsif reservation.facility_id.present? %>
-            <td><%= link_to reservation.facility.name, public_facility_path(reservation.facility)%></td>
+            <td><%= link_to reservation.facility.name, admin_facility_path(reservation.facility)%></td>
           <% end %>
         <% end %>
         <td>
-          <%= link_to public_reservation_path(reservation) do %>
+          <%= link_to admin_reservation_path(reservation) do %>
             <%= l reservation.started_at %> ~ <%= l reservation.finished_at %>
           <% end %>
         </td>

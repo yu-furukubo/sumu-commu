@@ -10,8 +10,12 @@
             <tr><th style="width: 20%">居住地</th><td><%= @facility.residence.name %></td></tr>
             <tr><th>設備名</th><td><%= image_tag @facility.get_facility_image, width: '50px' %><%= @facility.name %></td></tr>
             <tr><th>説明</th><td><%= @facility.description %></td></tr>
-            <tr><th>説明</th><td><%= @facility.genre.name %></td></tr>
-            <tr><th>説明</th><td><%= @facility.note %></td></tr>
+            <% if @facility.genre_id == 0 %>
+              <tr><th>ジャンル</th><td>(未設定)</td></tr>
+            <% else %>
+              <tr><th>ジャンル</th><td><%= @facility.genre.name %></td></tr>
+            <% end %>
+            <tr><th>メモ</th><td><%= @facility.note %></td></tr>
           </table>
           <div class="row">
             <div class="mx-auto">
@@ -22,6 +26,12 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="ml-5 mb-3">
+        <h2><%= @facility.name %>の予約一覧</h2>
+      </div>
+      <div class="ml-3">
+        <%= render 'admin/reservations/index', reservations: @facility_reservations %>
       </div>
     </div>
   </div>

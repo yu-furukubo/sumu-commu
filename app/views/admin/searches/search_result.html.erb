@@ -1,0 +1,24 @@
+<div class='container p-5 px-sm-0'>
+  <div class="mb-3">
+    <h2>検索</h2>
+    <div class="ml-3">
+      <%= render 'admin/searches/form' %>
+    </div>
+    <div class="mb-3">
+      <h2>検索結果</h2>
+    </div>
+    <div class="ml-3">
+      <%= render 'admin/searches/search',
+        boards: @boards,
+        communities: @communities,
+        events: @events,
+        exchanges: @exchanges,
+        lost_items: @lost_items,
+        equipments: @equipments,
+        facilities: @facilities,
+        genres: @genres,
+        members: @members
+      %>
+    </div>
+  </div>
+</div>

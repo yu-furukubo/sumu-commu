@@ -13,8 +13,8 @@ class Community < ApplicationRecord
     (community_image.attached?) ? community_image : "no_image.jpg"
   end
 
-  def self.looks(words, member)
-    @communities = self.where(residence_id: member.residence_id)
+  def self.looks(words, residence)
+    @communities = self.where(residence_id: residence)
     @communities.where("name LIKE :word OR description LIKE :word", word: "%#{words}%")
   end
 end

@@ -3,9 +3,26 @@
     <%= render 'layouts/errors', obj: reservation %>
     <table class="table table-borderless">
       <tbody>
-        <%= f.hidden_field :member_id, :value => current_member.id %>
-        <%= f.hidden_field :residence_id, :value => current_member.residence.id %>
+        <%= f.hidden_field :member_id, :value => 0 %>
         <%= f.hidden_field :using_status, :value => Reservation.using_statuses.key(0) %>
+        <tr>
+          <td>居住地</td>
+          <% if reservation.new_record? %>
+            <% if params[:reservation][:equipment_id].present? %>
+              <%= f.hidden_field :residence_id, :value => Equipment.find(params[:reservation][:equipment_id]).residence_id %>
+              <td><%= Equipment.find(params[:reservation][:equipment_id]).residence.name %></td>
+            <% elsif params[:reservation][:facility_id].present? %>
+              <%= f.hidden_field :residence_id, :value => Facility.find(params[:reservation][:facility_id]).residence_id %>
+              <td><%= Facility.find(params[:reservation][:facility_id]).residence.name %></td>
+            <% end %>
+          <% else %>
+            <% if reservation.equipment_id.present? %>
+              <td><%= reservation.equipment.residence.name %></td>
+            <% elsif reservation.facility_id.present? %>
+              <td><%= reservation.facility.residence.name %></td>
+            <% end %>
+          <% end %>
+        </tr>
         <tr>
           <% if reservation.new_record? %>
             <% if params[:reservation][:equipment_id].present? %>

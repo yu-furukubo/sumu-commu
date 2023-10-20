@@ -51,7 +51,7 @@
         <div class="form-group">
           <tr>
             <td><%= f.label :拾った日時 %></td>
-            <td><%= f.datetime_select :picked_up_at, class: 'form-control' %></td>
+            <td><%= f.datetime_field :picked_up_at, min: Date.today, class: 'form-control' %></td>
           </tr>
         </div>
         <div class="form-group">
@@ -63,7 +63,7 @@
         <div class="form-group">
           <tr>
             <td><%= f.label :掲載期限 %></td>
-            <td><%= f.datetime_select :deadline, class: 'form-control' %></td>
+            <td><%= f.datetime_field :deadline, min: Date.today, class: 'form-control' %></td>
           </tr>
         </div>
         <div class="form-group">

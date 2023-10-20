@@ -1,0 +1,36 @@
+<table class='table table-bordered'>
+  <thead>
+    <tr>
+      <% if controller.controller_name == "reservations" %>
+        <th>居住地</th>
+        <th>予約品・設備</th>
+      <% end %>
+      <th>日程</th>
+      <th>予約者名</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% reservations.each do |reservation| %>
+      <tr>
+        <% if controller.controller_name == "reservations" %>
+          <td><%= reservation.residence.name %></td>
+          <% if reservation.equipment_id.present? %>
+            <td><%= link_to reservation.equipment.name, admin_equipment_path(reservation.equipment) %></td>
+          <% elsif reservation.facility_id.present? %>
+            <td><%= link_to reservation.facility.name, admin_facility_path(reservation.facility)%></td>
+          <% end %>
+        <% end %>
+        <td>
+          <%= link_to admin_reservation_path(reservation) do %>
+            <%= l reservation.started_at %> ~ <%= l reservation.finished_at %>
+          <% end %>
+        </td>
+        <% if reservation.member_id == 0 %>
+          <td>管理人</td>
+        <% else %>
+          <td><%= reservation.member.name %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

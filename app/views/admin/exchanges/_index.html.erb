@@ -22,7 +22,7 @@
         <% else %>
           <td class="text-center"><%= exchange.price.to_s(:delimited) %>円</td>
         <% end %>
-        <td><%= exchange.deadline %></td>
+        <td><%= l exchange.deadline %></td>
         <% if exchange.is_finished == false %>
           <td class="text-success text-center">募集中</td>
         <% else %>

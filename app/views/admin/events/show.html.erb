@@ -15,8 +15,8 @@
             <tr><th>居住地</th><td><%= @event.residence.name %></td></tr>
             <tr><th>イベント名</th><td><%= @event.name %></td></tr>
             <tr><th>説明</th><td><%= @event.description %></td></tr>
-            <tr><th>開始時間</th><td><%= @event.started_at %></td></tr>
-            <tr><th>終了時間</th><td><%= @event.finished_at %></td></tr>
+            <tr><th>開始時間</th><td><%= l @event.started_at %></td></tr>
+            <tr><th>終了時間</th><td><%= l @event.finished_at %></td></tr>
             <tr><th>開催場所</th><td><%= @event.venue %></td></tr>
           </table>
 

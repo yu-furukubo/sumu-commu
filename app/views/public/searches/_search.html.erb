@@ -69,3 +69,16 @@
     <%= render 'public/members/index', members: members %>
   </div>
 <% end %>
+
+<% if not
+  boards.present? ||
+  communities.present? ||
+  events.present? ||
+  exchanges.present? ||
+  lost_items.present? ||
+  equipments.present? ||
+  facilities.present? ||
+  members.present?
+%>
+  <p>該当するものはありません。</p>
+<% end %>

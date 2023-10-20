@@ -1,25 +1,33 @@
 <table class='table table-bordered'>
   <thead>
     <tr>
-      <th>予約</th>
-      <th>予約者名</th>
+      <% if controller.controller_name == "reservations" %>
+        <th>予約品・設備</th>
+      <% end %>
       <th>日程</th>
+      <th>予約者名</th>
     </tr>
   </thead>
   <tbody>
     <% reservations.each do |reservation| %>
       <tr>
-        <% if reservation.equipment_id.present? %>
-          <td><%= reservation.equipment.name %></td>
-        <% elsif reservation.facility_id.present? %>
-          <td><%= reservation.facility.name %></td>
+        <% if controller.controller_name == "reservations" %>
+          <% if reservation.equipment_id.present? %>
+            <td><%= link_to reservation.equipment.name, public_equipment_path(reservation.equipment) %></td>
+          <% elsif reservation.facility_id.present? %>
+            <td><%= link_to reservation.facility.name, public_facility_path(reservation.facility)%></td>
+          <% end %>
         <% end %>
-        <td><%= reservation.member.name %></td>
         <td>
           <%= link_to public_reservation_path(reservation) do %>
             <%= l reservation.started_at %> ~ <%= l reservation.finished_at %>
           <% end %>
         </td>
+        <% if reservation.member_id == 0 %>
+          <td>管理人</td>
+        <% else %>
+          <td><%= reservation.member.name %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

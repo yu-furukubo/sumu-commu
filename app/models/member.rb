@@ -54,8 +54,8 @@ class Member < ApplicationRecord
     end
   end
 
-  def self.looks(words, member)
-    @members = self.where(residence_id: member.residence_id)
+  def self.looks(words, residence)
+    @members = self.where(residence_id: residence)
     @members.where("name LIKE :word OR house_address LIKE :word", word: "%#{words}%")
   end
 end

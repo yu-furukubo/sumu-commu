@@ -7,18 +7,22 @@ class Admin::CommunityMembersController < ApplicationController
     if @community_member.update(community_member_params)
       redirect_to admin_community_path(@community)
     else
-      flash.now[:notice] = "更新に失敗しました"
+      flash.now[:notice] = "コミュニティメンバーの更新に失敗しました。"
+      @community_members = CommunityMember.where(community_id: @community.id)
+      @community_comments = CommunityComment.where(community_id: @community.id)
       render template: "admin/communities/show"
     end
   end
 
   def destroy
-    community = Community.find(params[:community_id])
+    @community = Community.find(params[:community_id])
     community_member = CommunityMember.find(params[:id])
     if community_member.destroy
-      redirect_to admin_community_path(community)
+      redirect_to admin_community_path(@community)
     else
-      flash.now[:notice] = "削除に失敗しました"
+      flash.now[:notice] = "コミュニティメンバーの削除に失敗しました。"
+      @community_members = CommunityMember.where(community_id: @community.id)
+      @community_comments = CommunityComment.where(community_id: @community.id)
       render template: "admin/communities/show"
     end
   end

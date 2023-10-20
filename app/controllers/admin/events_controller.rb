@@ -24,6 +24,7 @@ class Admin::EventsController < ApplicationController
     if @event.save
       redirect_to admin_event_path(@event)
     else
+      flash.now[:notice] = "イベントの作成に失敗しました。"
       render "new"
     end
   end
@@ -43,16 +44,18 @@ class Admin::EventsController < ApplicationController
     if @event.update(event_params)
       redirect_to admin_event_path(@event)
     else
+      flash.now[:notice] = "イベント内容の更新に失敗しました。"
       render "edit"
     end
   end
 
   def destroy
-    event = Event.find(params[:id])
-    if event.destroy
+    @event = Event.find(params[:id])
+    if @event.destroy
       redirect_to admin_events_path
     else
-      flash.now[:notice] = "削除に失敗しました"
+      flash.now[:notice] = "イベントの削除に失敗しました。"
+      @event_members = @event.event_members
       render "show"
     end
   end

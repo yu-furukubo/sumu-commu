@@ -6,11 +6,11 @@ class Exchange < ApplicationRecord
   has_many_attached :exchange_item_images
 
   validates :name, presence: true
+  validates :description, presence: true
   validates :price, presence: true
-  validates :finished_at, presence: true
 
-  def self.looks(words, member)
-    @exchanges = self.where(residence_id: member.residence_id)
+  def self.looks(words, residence)
+    @exchanges = self.where(residence_id: residence)
     @exchanges.where("name LIKE :word OR description LIKE :word", word: "%#{words}%")
   end
 

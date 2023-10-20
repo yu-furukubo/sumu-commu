@@ -10,7 +10,11 @@
             <tr><th style="width: 20%">居住地</th><td><%= @equipment.residence.name %></td></tr>
             <tr><th>備品名</th><td><%= image_tag @equipment.get_equipment_image, width: '50px' %><%= @equipment.name %></td></tr>
             <tr><th>説明</th><td><%= @equipment.description %></td></tr>
-            <tr><th>ジャンル</th><td><%= @equipment.genre.name %></td></tr>
+            <% if @equipment.genre_id == 0 %>
+              <tr><th>ジャンル</th><td>(未設定)</td></tr>
+            <% else %>
+              <tr><th>ジャンル</th><td><%= @equipment.genre.name %></td></tr>
+            <% end %>
             <tr><th>在庫</th><td><%= @equipment.stock %></td></tr>
             <tr><th>保管場所</th><td><%= @equipment.storage_location %></td></tr>
             <tr><th>返却場所</th><td><%= @equipment.return_location %></td></tr>
@@ -24,6 +28,12 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="ml-5 mb-3">
+        <h2><%= @equipment.name %>の予約一覧</h2>
+      </div>
+      <div class="ml-3">
+        <%= render 'admin/reservations/index', reservations: @equipment_reservations %>
       </div>
     </div>
   </div>

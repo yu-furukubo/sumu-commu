@@ -21,20 +21,27 @@ class Admin::EquipmentsController < ApplicationController
 
   def create
     @equipment = Equipment.new(equipment_params)
+    if params[:equipment][:genre_id] == ""
+      @equipment.genre_id = 0
+    end
     if @equipment.save
       redirect_to admin_equipment_path(@equipment)
     else
+      flash.now[:notice] = "備品の登録に失敗しました。"
+      @residence = Residence.find(params[:equipment][:residence_id])
+      @genres = @residence.genres.where(is_deleted: false)
       render "new"
     end
   end
 
   def show
     @equipment = Equipment.find(params[:id])
+    @equipment_reservations = @equipment.reservations.where('finished_at > ?', Time.now).order(started_at: "asc")
   end
 
   def edit
     @equipment = Equipment.find(params[:id])
-    @residence = @equipment.genre.residence
+    @residence = @equipment.residence
     @genres = @residence.genres.where(is_deleted: false)
   end
 
@@ -43,16 +50,20 @@ class Admin::EquipmentsController < ApplicationController
     if @equipment.update(equipment_params)
       redirect_to admin_equipment_path(@equipment)
     else
+      flash.now[:notice] = "備品の登録内容変更に失敗しました。"
+      @residence = @equipment.residence
+      @genres = @residence.genres.where(is_deleted: false)
       render "edit"
     end
   end
 
   def destroy
-    equipment = Equipment.find(params[:id])
-    if equipment.destroy
+    @equipment = Equipment.find(params[:id])
+    if @equipment.destroy
       redirect_to admin_equipments_path
     else
-      flash.now[:notice] = "削除に失敗しました"
+      flash.now[:notice] = "備品の削除に失敗しました。"
+      @equipment_reservations = @equipment.reservations.where('finished_at > ?', Time.now).order(started_at: "asc")
       render "show"
     end
   end

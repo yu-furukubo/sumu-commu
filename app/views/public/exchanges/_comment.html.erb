@@ -41,7 +41,7 @@
       </div>
     <% end %>
     <!--コメントを論理削除するための処理-->
-    <% if comment.member == current_member %>
+    <% if comment.member == exchange.member %>
       <% if comment.is_deleted == false %>
         <%= form_with model: ExchangeComment, url: public_exchange_exchange_comment_path(exchange, comment), method: :patch, local: true do |f| %>
           <div>

@@ -10,8 +10,8 @@ class Event < ApplicationRecord
   validates :finished_at, presence: true
   validates :venue, presence: true
 
-  def self.looks(words, member)
-    @events = self.where(residence_id: member.residence_id)
+  def self.looks(words, residence)
+    @events = self.where(residence_id: residence)
     @events.where("name LIKE :word OR description LIKE :word OR venue LIKE :word", word: "%#{words}%")
   end
 

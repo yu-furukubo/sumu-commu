@@ -18,12 +18,12 @@
               <td><%= Facility.find(params[:reservation][:facility_id]).name %></td>
             <% end %>
           <% else %>
-            <% if @reservation.equipment_id.present? %>
+            <% if reservation.equipment_id.present? %>
               <td>予約品</td>
-              <td><%= @reservation.equipment.name %></td>
-            <% elsif @reservation.facility_id.present? %>
+              <td><%= reservation.equipment.name %></td>
+            <% elsif reservation.facility_id.present? %>
               <td>予約設備</td>
-              <td><%= @reservation.facility.name %></td>
+              <td><%= reservation.facility.name %></td>
             <% end %>
           <% end %>
         </tr>

@@ -1,0 +1,7 @@
+<div class="text-center mt-5">
+  <h2>「<span class="text-danger font-weight-bold"><%= @residence.name %></span>」を削除してよろしいですか？</h2>
+  <p>※削除された場合、この居住地に登録されているすべてのデータの復旧ができなくなります。</p>
+</div>
+<div class="text-center mt-5">
+  <%= link_to "削除する", admin_residence_path(@residence), method: :delete, data: { confirm: "本当に削除してよろしいですか？"}, class: "btn btn-danger" %>
+</div>

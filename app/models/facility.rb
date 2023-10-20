@@ -12,8 +12,8 @@ class Facility < ApplicationRecord
     (facility_image.attached?) ? facility_image : "no_image.jpg"
   end
 
-  def self.looks(words, member)
-    @facilities = self.where(residence_id: member.residence_id)
+  def self.looks(words, residence)
+    @facilities = self.where(residence_id: residence)
     @facilities.where("name LIKE :word OR description LIKE :word OR note LIKE :word", word: "%#{words}%")
   end
 

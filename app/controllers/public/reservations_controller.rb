@@ -36,7 +36,7 @@ class Public::ReservationsController < ApplicationController
     set_the_day_implement(@reservation)
 
     if @reservation.started_at > @reservation.finished_at
-      flash.now[:notice] = "使用完了日時は使用開始日時より後の日時を指定してください"
+      flash.now[:notice] = "使用完了日時は、使用開始日時より後の日時を指定してください。"
       render "new"
       return
     end
@@ -45,7 +45,7 @@ class Public::ReservationsController < ApplicationController
       if @reservation.equipment_id.present?
         count = reservations.where('finished_at > ? and ? > started_at', @reservation.started_at, @reservation.finished_at).count
         if @reservation.equipment.stock <= count
-          flash.now[:notice] = "その期間には別の予約が入っています。空き時間をご確認ください"
+          flash.now[:notice] = "その期間には別の予約が入っています。空き時間をご確認ください。"
           render "new"
           return
         else
@@ -54,7 +54,7 @@ class Public::ReservationsController < ApplicationController
           return
         end
       else
-        flash.now[:notice] = "その期間には別の予約が入っています。空き時間をご確認ください"
+        flash.now[:notice] = "その期間には別の予約が入っています。空き時間をご確認ください。"
         render "new"
         return
       end
@@ -63,7 +63,7 @@ class Public::ReservationsController < ApplicationController
     if @reservation.save
       redirect_to public_reservation_path(@reservation)
     else
-      flash.now[:notice] = "予約に失敗しました"
+      flash.now[:notice] = "予約に失敗しました。"
       render "new"
     end
   end
@@ -77,7 +77,7 @@ class Public::ReservationsController < ApplicationController
     if @reservation.update(reservation_params)
       redirect_to public_reservation_path(@reservation)
     else
-      flash.now[:notice] = "予約内容の更新に失敗しました"
+      flash.now[:notice] = "予約内容の更新に失敗しました。"
       render "edit"
     end
   end
@@ -87,7 +87,7 @@ class Public::ReservationsController < ApplicationController
     if @reservation.destroy
       redirect_to public_reservations_path
     else
-      flash.now[:notice] = "予約の削除に失敗しました"
+      flash.now[:notice] = "予約の削除に失敗しました。"
       if @reservation.equipment_id.present?
         @equipment_reserved = @reservation.equipment
       elsif @reservation.facility_id.present?

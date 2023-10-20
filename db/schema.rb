@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(version: 2023_10_05_091539) do
 
   create_table "equipment", force: :cascade do |t|
     t.integer "residence_id", null: false
-    t.integer "genre_id", null: false
+    t.integer "genre_id"
     t.string "name", null: false
     t.text "description"
     t.integer "stock", null: false
@@ -152,7 +152,7 @@ ActiveRecord::Schema.define(version: 2023_10_05_091539) do
 
   create_table "facilities", force: :cascade do |t|
     t.integer "residence_id", null: false
-    t.integer "genre_id", null: false
+    t.integer "genre_id"
     t.string "name", null: false
     t.text "description"
     t.text "note"

@@ -63,7 +63,7 @@ class Public::ReservationsController < ApplicationController
     if @reservation.save
       redirect_to public_reservation_path(@reservation)
     else
-      flash.now[:notice] = "予約に失敗しました。。"
+      flash.now[:notice] = "予約に失敗しました。"
       render "new"
     end
   end

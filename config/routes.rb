@@ -22,7 +22,7 @@ Rails.application.routes.draw do
       end
       resources :lost_item_comments, only: [:update]
     end
-    resources :genres, only: [:index, :create, :edit, :update, :destroy] do
+    resources :genres, only: [:index, :create, :edit, :update] do
       collection do
         get "residence/:id" => "genres#residence_search" ,as: "residence_search"
       end
@@ -60,6 +60,7 @@ Rails.application.routes.draw do
       resources :circular_members, only: [:index, :create, :destroy]
     end
     resources :residences, except: [:index, :show]
+    get "residence/confirm" => "residences#confirm", as: "residence_confirm"
     resources :admins, only: [:show, :edit, :update]
 
     get "search" => "searches#search", as: "search"

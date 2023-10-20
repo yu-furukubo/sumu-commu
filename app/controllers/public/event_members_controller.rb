@@ -14,7 +14,7 @@ class Public::EventMembersController < ApplicationController
     if event_member.save
       redirect_to public_event_event_members_path(@event)
     else
-      flash.now[:notice] = "イベントへの招待に失敗しました"
+      flash.now[:notice] = "イベントへの招待に失敗しました。"
       @members = @event.residence.members
       render "index"
     end
@@ -26,7 +26,7 @@ class Public::EventMembersController < ApplicationController
     if event_member.save
       redirect_to public_event_path(@event)
     else
-      flash.now[:notice] = "イベントへの参加に失敗しました"
+      flash.now[:notice] = "イベントへの参加に失敗しました。"
       @members = @event.residence.members
       render "index"
     end
@@ -38,7 +38,7 @@ class Public::EventMembersController < ApplicationController
     if event_member.update(event_member_params)
       redirect_to public_event_path(@event)
     else
-      flash.now[:notice] = "イベント招待の承認に失敗しました"
+      flash.now[:notice] = "イベント招待の承認に失敗しました。"
       @members = @event.residence.members
       render "index"
     end
@@ -50,7 +50,7 @@ class Public::EventMembersController < ApplicationController
     if event_member.destroy
       redirect_to public_event_event_members_path(@event)
     else
-      flash.now[:notice] = "イベント不参加への変更に失敗しました"
+      flash.now[:notice] = "イベント不参加への変更に失敗しました。"
       @members = @event.residence.members
       render "index"
     end

@@ -35,7 +35,7 @@ class Admin::MembersController < ApplicationController
     if member.destroy
       redirect_to admin_members_path
     else
-      flash.now[:notice] = "削除に失敗しました"
+      flash.now[:notice] = "削除に失敗しました。"
       render "show"
     end
   end

@@ -27,6 +27,9 @@ class Admin::FacilitiesController < ApplicationController
     if @facility.save
       redirect_to admin_facility_path(@facility)
     else
+      flash.now[:notice] = "設備の登録に失敗しました。"
+      @residence = Residence.find(params[:facility][:residence_id])
+      @genres = @residence.genres.where(is_deleted: false)
       render "new"
     end
   end
@@ -38,7 +41,7 @@ class Admin::FacilitiesController < ApplicationController
 
   def edit
     @facility = Facility.find(params[:id])
-    @residence = @facility.genre.residence
+    @residence = @facility.residence
     @genres = @residence.genres.where(is_deleted: false)
   end
 
@@ -47,16 +50,20 @@ class Admin::FacilitiesController < ApplicationController
     if @facility.update(facility_params)
       redirect_to admin_facility_path(@facility)
     else
+      flash.now[:notice] = "設備の登録内容変更に失敗しました。"
+      @residence = @facility.residence
+      @genres = @residence.genres.where(is_deleted: false)
       render "edit"
     end
   end
 
   def destroy
-    facility = Facility.find(params[:id])
-    if facility.destroy
+    @facility = Facility.find(params[:id])
+    if @facility.destroy
       redirect_to admin_facilities_path
     else
-      flash.now[:notice] = "削除に失敗しました"
+      flash.now[:notice] = "設備の削除に失敗しました。"
+      @facility_reservations = @facility.reservations.where('finished_at > ?', Time.now).order(started_at: "asc")
       render "show"
     end
   end

@@ -33,16 +33,18 @@ class Admin::ExchangesController < ApplicationController
     if @exchange.update(exchange_params)
       redirect_to admin_exchange_path(@exchange)
     else
+      flash.now[:notice] = "ゆずりあい内容の更新に失敗しました。"
       render "edit"
     end
   end
 
   def destroy
-    exchange = Exchange.find(params[:id])
-    if exchange.destroy
+    @exchange = Exchange.find(params[:id])
+    if @exchange.destroy
       redirect_to admin_exchanges_path
     else
-      flash.now[:notice] = "削除に失敗しました"
+      flash.now[:notice] = "ゆずりあいの削除に失敗しました。"
+      @exchange_comments = ExchangeComment.where(exchange_id: @exchange.id)
       render "show"
     end
   end

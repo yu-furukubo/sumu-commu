@@ -7,7 +7,7 @@ class Public::ExchangeCommentsController < ApplicationController
     if @exchange_comment.save
       redirect_to public_exchange_path(@exchange)
     else
-      flash.now[:notice] = "コメントの投稿に失敗しました"
+      flash.now[:notice] = "コメントの投稿に失敗しました。"
       @exchange_comments = ExchangeComment.where(exchange_id: @exchange.id).order(created_at: "DESC")
       render template: "public/exchanges/show"
     end
@@ -19,7 +19,7 @@ class Public::ExchangeCommentsController < ApplicationController
     if exchange_comment.update(exchange_comment_params)
       redirect_to public_exchange_path(@exchange)
     else
-      flash.now[:notice] = "コメントの削除に失敗しました"
+      flash.now[:notice] = "コメントの削除に失敗しました。"
       @exchange_comments = ExchangeComment.where(exchange_id: @exchange.id).order(created_at: "DESC")
       @exchange_comment = ExchangeComment.new
       render template: "public/exchanges/show"

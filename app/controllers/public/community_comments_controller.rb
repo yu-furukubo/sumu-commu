@@ -7,7 +7,7 @@ class Public::CommunityCommentsController < ApplicationController
     if @community_comment.save
       redirect_to public_community_path(@community)
     else
-      flash.now[:notice] = "コメントの投稿に失敗しました"
+      flash.now[:notice] = "コメントの投稿に失敗しました。"
       @community_members = CommunityMember.where(community_id: @community.id)
       @community_comments = CommunityComment.where(community_id: @community.id).order(created_at: "DESC")
       @community_member = CommunityMember.find_by(community_id: @community.id, member_id: current_member.id)
@@ -21,7 +21,7 @@ class Public::CommunityCommentsController < ApplicationController
     if community_comment.update(community_comment_params)
       redirect_to public_community_path(@community)
     else
-      flash.now[:notice] = "コメントの削除に失敗しました"
+      flash.now[:notice] = "コメントの削除に失敗しました。"
       @community_members = CommunityMember.where(community_id: @community.id)
       @community_comments = CommunityComment.where(community_id: @community.id).order(created_at: "DESC")
       @community_member = CommunityMember.find_by(community_id: @community.id, member_id: current_member.id)

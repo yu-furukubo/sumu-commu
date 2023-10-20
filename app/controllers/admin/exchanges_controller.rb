@@ -33,7 +33,7 @@ class Admin::ExchangesController < ApplicationController
     if @exchange.update(exchange_params)
       redirect_to admin_exchange_path(@exchange)
     else
-      flash.now[:notice] = "ゆずりあい内容の更新に失敗しました。"
+      flash.now[:notice] = "ゆずりあいの内容変更に失敗しました。"
       render "edit"
     end
   end

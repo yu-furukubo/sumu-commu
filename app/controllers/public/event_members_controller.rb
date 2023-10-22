@@ -27,8 +27,10 @@ class Public::EventMembersController < ApplicationController
       redirect_to public_event_path(@event)
     else
       flash.now[:notice] = "イベントへの参加に失敗しました。"
-      @members = @event.residence.members
-      render "index"
+      @event_members = @event.event_members.where(is_approved: true)
+      @event_invited_members = @event.event_members.where(is_approved: false)
+      @event_member = @event.event_members.find_by(member_id: current_member.id)
+      render template: "public/events/show"
     end
   end
 
@@ -39,30 +41,46 @@ class Public::EventMembersController < ApplicationController
       redirect_to public_event_path(@event)
     else
       flash.now[:notice] = "イベント招待の承認に失敗しました。"
-      @members = @event.residence.members
-      render "index"
+      @event_members = @event.event_members.where(is_approved: true)
+      @event_invited_members = @event.event_members.where(is_approved: false)
+      @event_member = @event.event_members.find_by(member_id: current_member.id)
+      render template: "public/events/show"
     end
   end
 
   def destroy
     @event = Event.find(params[:event_id])
-    event_member = EventMember.find_by(member_id: params[:id])
+    event_member = EventMember.find_by(member_id: current_member.id)
     if event_member.destroy
-      redirect_to public_event_event_members_path(@event)
+      redirect_to public_event_path(@event)
     else
       flash.now[:notice] = "イベント不参加への変更に失敗しました。"
-      @members = @event.residence.members
-      render "index"
+      @event_members = @event.event_members.where(is_approved: true)
+      @event_invited_members = @event.event_members.where(is_approved: false)
+      @event_member = @event.event_members.find_by(member_id: current_member.id)
+      render template: "public/events/show"
     end
   end
 
   def observe
     @event = Event.find(params[:event_id])
-    event_member = EventMember.find_by(member_id: params[:id])
+    event_member = EventMember.find_by(member_id: current_member.id)
     if event_member.destroy
       redirect_to public_event_path(@event)
     else
       flash.now[:notice] = "イベント招待の否認に失敗しました"
+      @members = @event.residence.members
+      render "index"
+    end
+  end
+
+  def quit_invite
+    @event = Event.find(params[:event_id])
+    event_member = EventMember.find(params[:id])
+    if event_member.destroy
+      redirect_to public_event_event_members_path(@event)
+    else
+      flash.now[:notice] = "イベント招待の削除に失敗しました"
       @members = @event.residence.members
       render "index"
     end

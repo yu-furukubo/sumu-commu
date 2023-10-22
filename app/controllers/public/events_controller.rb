@@ -11,6 +11,7 @@ class Public::EventsController < ApplicationController
     @event = Event.find(params[:id])
     @event_members = @event.event_members.where(is_approved: true)
     @event_invited_members = @event.event_members.where(is_approved: false)
+    @event_member = @event.event_members.find_by(member_id: current_member.id)
   end
 
   def new

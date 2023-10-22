@@ -1,4 +1,30 @@
-<% @residences.each do |residence| %>
-  <%= residence.name %>
-  <%= link_to "会員登録へ進む", new_member_registration_path(residence) %>
-<% end %>
+<div class='container p-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-10 offset-md-1'>
+      <div class="ml-5 mb-3">
+        <h2>居住地選択</h2>
+      </div>
+      <div class="ml-5 mb-3">
+        <table><tr>
+          <%= form_with url: public_residences_path, method: :get, local: true do |f| %>
+            <td>
+              <%= f.text_field :word, placeholder: "絞り込み検索" %>
+            </td>
+            <td><%= f.submit "検索", class: 'btn btn-sm btn-success' %></td>
+          <% end %>
+        </tr></table>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="offset-1">
+            <% if @residences.present? %>
+              <%= render 'public/residences/index', residences: @residences %>
+            <% else %>
+              <p>該当する居住地は登録されていません。</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+     </div>
+  </div>
+</div>

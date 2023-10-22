@@ -1,56 +1,63 @@
 <div class='container p-5 px-sm-0'>
   <div class='row ml-5 mb-3'>
-        <h2>ゆずりあい詳細</h2>
+    <h2>ゆずりあい詳細</h2>
+    <% if @exchange.member == current_member && @exchange.is_finished == false %>
+      <div class="ml-3 d-flex align-items-center">
+        <span class="mr-3">取引が完了したらクリック >></span>
+        <%= form_with model: Exchange, url: public_exchange_path(@exchange), method: :patch, local: true do |f| %>
+          <%= f.hidden_field :is_finished, :value => true %>
+          <%= f.submit "完了", class: 'btn btn-sm btn-primary' %>
+        <% end %>
       </div>
-      <div class="container">
-        <div class="mx-auto">
-          <div class="offset-1">
-            <table class='table table-borderless'>
-              <tr>
-                <th>画像</th>
-                <td>
-                  <% if @exchange.exchange_item_images.attached? %>
-                    <% @exchange.exchange_item_images.each do |image| %>
-                      <%= image_tag image, width: '100px' %>
-                    <% end %>
-                  <% else %>
-                    <%= image_tag 'no_image.jpg', width: '50px' %>
-                  <% end %>
-                </td>
-              </tr>
-              <tr><th style="width: 20%">登録者名</th><td><%= @exchange.member.name %></td></tr>
-              <tr><th>落とし物名</th><td><%= @exchange.name %></td></tr>
-              <tr><th>説明</th><td><%= @exchange.description %></td></tr>
-              <tr><th>費用</th><td><%= @exchange.price.to_s(:delimited) %>円</td></tr>
-              <tr><th>掲載期限</th><td><%= l @exchange.deadline %></td></tr>
-              <tr>
-                <th>保管状況</th>
-                <% if @exchange.is_finished == false %>
-                  <td class="text-success">保管中</td>
-                <% else %>
-                  <td class="text-secondary">保管終了</td>
+    <% end %>
+  </div>
+  <div class="container">
+    <div class="mx-auto">
+      <div class="offset-1">
+        <table class='table table-borderless'>
+          <tr>
+            <th>画像</th>
+            <td>
+              <% if @exchange.exchange_item_images.attached? %>
+                <% @exchange.exchange_item_images.each do |image| %>
+                  <%= image_tag image, width: '100px' %>
                 <% end %>
-              </tr>
-            </table>
-
-            <% if @exchange.member == current_member %>
-            <div class="row">
-              <div class="mx-auto">
-                <%= link_to "編集する", edit_public_exchange_path, class: "btn btn-success" %>&emsp;&emsp;
-                <%= link_to "削除する", public_exchange_path, method: :delete,
-                  data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
-              </div>
-            </div>
+              <% else %>
+                <%= image_tag 'no_image.jpg', width: '50px' %>
+              <% end %>
+            </td>
+          </tr>
+          <tr><th style="width: 20%">登録者名</th><td><%= @exchange.member.name %></td></tr>
+          <tr><th>落とし物名</th><td><%= @exchange.name %></td></tr>
+          <tr><th>説明</th><td><%= @exchange.description %></td></tr>
+          <tr><th>費用</th><td><%= @exchange.price.to_s(:delimited) %>円</td></tr>
+          <tr><th>掲載期限</th><td><%= l @exchange.deadline %></td></tr>
+          <tr>
+            <th>保管状況</th>
+            <% if @exchange.is_finished == false %>
+              <td class="text-success">募集中</td>
+            <% else %>
+              <td class="text-secondary">募集終了</td>
             <% end %>
+          </tr>
+        </table>
 
-            <!--コメント表示用の記述-->
-            <div class="mt-5">
-              <%= render 'public/exchanges/comment', exchange: @exchange, exchange_comments: @exchange_comments %>
+        <% if @exchange.member == current_member %>
+          <div class="row">
+            <div class="mx-auto">
+              <%= link_to "編集する", edit_public_exchange_path, class: "btn btn-success" %>&emsp;&emsp;
+              <%= link_to "削除する", public_exchange_path, method: :delete,
+                data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
             </div>
-            <!--コメント表示用の記述ここまで-->
           </div>
+        <% end %>
+
+        <!--コメント表示用の記述-->
+        <div class="mt-5">
+          <%= render 'public/exchanges/comment', exchange: @exchange, exchange_comments: @exchange_comments %>
         </div>
+        <!--コメント表示用の記述ここまで-->
       </div>
-     </div>
+    </div>
   </div>
 </div>

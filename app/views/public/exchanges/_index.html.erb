@@ -7,7 +7,7 @@
       <th>説明</th>
       <th>費用</th>
       <th>掲載期限</th>
-      <th>保管状況</th>
+      <th>募集状況</th>
     </tr>
   </thead>
   <tbody>
@@ -25,7 +25,11 @@
         <td><%= exchange.description %></td>
         <td><%= exchange.price.to_s(:delimited) %>円</td>
         <td><%= l exchange.deadline %></td>
-        <td><%= exchange.is_finished %></td>
+        <% if exchange.is_finished == false %>
+          <td class="text-success">募集中</td>
+        <% else %>
+          <td class="text-secondary">募集終了</td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

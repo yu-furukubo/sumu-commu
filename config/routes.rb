@@ -46,7 +46,9 @@ Rails.application.routes.draw do
       collection do
         get "residence/:id" => "events#residence_search" ,as: "residence_search"
       end
-      resources :event_members, only: [:destroy]
+      resources :event_members, only: [:index, :create]
+      patch "event_members_invite_all" => "event_members#invite_all", as: "event_members_invite_all"
+      delete "event_members/quit_invite/:id" => "event_members#quit_invite", as: "event_member_quit_invite"
     end
     resources :members, except: [:new, :create] do
       collection do

@@ -31,7 +31,8 @@ class Admin::EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
-    @event_members = @event.event_members
+    @event_members = @event.event_members.where(is_approved: true)
+    @event_invited_members = @event.event_members.where(is_approved: false)
   end
 
   def edit

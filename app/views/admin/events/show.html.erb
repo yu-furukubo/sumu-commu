@@ -32,20 +32,23 @@
             <div class="col-6 mt-5">
               <div class="row mb-3 d-flex align-items-center">
                 <h4>参加メンバー</h4>&emsp;
-                <span class="text-primary font-weight-bold"><%= @event_members.count %>人</span>
+                <%= link_to admin_event_event_members_path(@event) do %>
+                  <span class="text-primary font-weight-bold"><%= @event_members.count %>人</span> <span class="text-primary">(招待中 <%= @event_invited_members.count %>人)</span>
+                <% end %>
               </div>
               <table class='table table-borderless'>
                 <tbody>
                   <% @event_members.each do |event_member| %>
                     <tr>
                       <td style="width: 35%"><%= event_member.member.name %></td>
-                      <td>
-                        <%= link_to admin_event_event_member_path(@event, event_member), method: :delete, class: 'btn btn-sm btn-secondary' do %>
-                          <i class="fa-solid fa-trash-can fa-2xs"></i>
-                        <% end %>
-                      </td>
                     </tr>
                   <% end %>
+                  <% @event_invited_members.each do |event_invited_member| %>
+                    <tr>
+                      <td style="width: 35%"><%= event_invited_member.member.name %> <span class="text-info small">(招待中)</span></td>
+                    </tr>
+                  <% end %>
+
                 </tbody>
               </table>
             </div>

@@ -7,13 +7,37 @@
   </div>
   <div class="container">
     <div class="ml-3">
-      <%= render 'public/boards/index', boards: @boards, reads: @reads %>
-    </div>
-  </div>
-  <h2>あなたの掲示板一覧</h2>
-  <div class="container">
-    <div class="ml-3">
-      <%= render 'public/boards/index', boards: @boards_mine, reads: @reads %>
+      <div class="tabs">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#section1">全て</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#section2">既読の掲示板</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#section3">未読の掲示板</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#section4">あなたの掲示板</a>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <div id="section1" class="tab-pane fade show active">
+            <%= render 'public/boards/index', boards: @boards, reads: @reads %>
+          </div>
+          <div id="section2" class="tab-pane fade">
+            <%= render 'public/boards/index', boards: @boards_read, reads: @reads %>
+          </div>
+          <div id="section3" class="tab-pane fade">
+            <%= render 'public/boards/index', boards: @boards_not_read, reads: @reads %>
+          </div>
+          <div id="section4" class="tab-pane fade">
+            <%= render 'public/boards/index', boards: @boards_mine, reads: @reads %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

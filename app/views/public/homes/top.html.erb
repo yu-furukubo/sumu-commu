@@ -1,3 +1,7 @@
+<div class="top">
+<%= image_tag '27656840_m.jpg', class: "top_image" %>
+<%= image_tag 'sumu-commu_logo_white.png', class: "top_logo" %>
+</div>
 <% if member_signed_in? %>
   <div class='container p-5 px-sm-0'>
     <!--新着掲示板-->
@@ -6,54 +10,51 @@
         <h2><i class="fa-sharp fa-solid fa-circle-info fa-bounce"></i>新着情報</h2>
       <% else %>
         <h2><i class="fa-sharp fa-solid fa-circle-info"></i>新着情報</h2>
+        <div class="ml-3">
+          <p>新着情報はありません。</p>
+        </div>
       <% end %>
     </div>
-    <div class="ml-3">
-      <h4>掲示板</h4>
-    </div>
-    <div class="container">
+    <% if @boards.present? %>
       <div class="ml-3">
-        <% if @boards.present? %>
-          <%= render 'public/boards/index', boards: @boards, reads: @reads %>
-        <% else %>
-          <p>新着の掲示板はありません。</p>
-        <% end %>
+        <h4>掲示板</h4>
       </div>
-    </div>
+      <div class="container">
+        <div class="ml-3">
+          <%= render 'public/boards/index', boards: @boards, reads: @reads %>
+        </div>
+      </div>
+    <% end %>
     <!--新着掲示板ここまで-->
     <!--新着譲り合い-->
-    <div class="ml-3">
-      <h4>ゆずりあい</h4>
-    </div>
-    <div class="container">
+    <% if @exchanges.present? %>
       <div class="ml-3">
-        <% if @exchanges.present? %>
-          <%= render 'public/exchanges/index', exchanges: @exchanges %>
-        <% else %>
-          <p>新着のゆずりあいはありません。</p>
-        <% end %>
+        <h4>ゆずりあい</h4>
       </div>
-    </div>
+      <div class="container">
+        <div class="ml-3">
+          <%= render 'public/exchanges/index', exchanges: @exchanges %>
+        </div>
+      </div>
+    <% end %>
     <!--新着譲り合いここまで-->
     <!--新着落とし物-->
-    <div class="ml-3">
-      <h4>落とし物</h4>
-    </div>
-    <div class="container">
+    <% if @lost_items.present? %>
       <div class="ml-3">
-        <% if @lost_items.present? %>
-          <%= render 'public/lost_items/index', lost_items: @lost_items %>
-        <% else %>
-          <p>新着の落とし物はありません。</p>
-        <% end %>
+        <h4>落とし物</h4>
       </div>
-    </div>
+      <div class="container">
+        <div class="ml-3">
+          <%= render 'public/lost_items/index', lost_items: @lost_items %>
+        </div>
+      </div>
+    <% end %>
     <!--新着落とし物ここまで-->
     <!--イベント招待(あれば表示）-->
     <% if @events.present? %>
       <div class="ml-3 mb-3">
         <h4>イベント</h4>
-        <span class="ml-3"><%= @events.count %>件の招待があります。</span>
+        <span class="ml-3 text-danger"><%= @events.count %>件の招待があります。</span>
       </div>
       <div class="container">
         <div class="ml-3">

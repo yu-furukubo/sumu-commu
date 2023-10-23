@@ -1,40 +1,40 @@
-<nav class="navbar navbar-expand-md">
-  <ul class="navbar-nav ms-auto">
+<nav class="navbar navbar-expand-md", style="background-color:#696969">
+  <ul class="navbar-nav mx-auto">
     <li class="nav-item mr-3">
-      <%= link_to "管理情報", admin_admin_path(current_admin), class: "nav-link text-white btn btn-sm btn-secondary" %>
+      <%= link_to "管理情報", admin_admin_path(current_admin), class: "nav-link text-light" %>
     </li>
     <li class="nav-item mr-3">
-      <%= link_to "会員管理", admin_members_path, class: "nav-link text-white btn btn-sm btn-secondary" %>
+      <%= link_to "会員", admin_members_path, class: "nav-link text-light" %>
     </li>
     <li class="nav-item mr-3">
-      <%= link_to "掲示板管理", admin_boards_path, class: "nav-link text-white btn btn-sm btn-secondary" %>
+      <%= link_to "掲示板", admin_boards_path, class: "nav-link text-light" %>
     </li>
     <li class="nav-item mr-3">
-      <%= link_to "コミュニティ管理", admin_communities_path, class: "nav-link text-white btn btn-sm btn-secondary" %>
+      <%= link_to "コミュニティ", admin_communities_path, class: "nav-link text-light" %>
     </li>
         <li class="nav-item mr-3">
-      <%= link_to "イベント管理", admin_events_path, class: "nav-link text-white btn btn-sm btn-secondary" %>
+      <%= link_to "イベント", admin_events_path, class: "nav-link text-light" %>
     </li>
     <li class="nav-item mr-3">
-      <%= link_to "譲り合い管理", admin_exchanges_path, class: "nav-link text-white btn btn-sm btn-secondary" %>
+      <%= link_to "譲り合い", admin_exchanges_path, class: "nav-link text-light" %>
     </li>
     <li class="nav-item mr-3">
-      <%= link_to "備品管理", admin_equipments_path, class: "nav-link text-white btn btn-sm btn-secondary" %>
+      <%= link_to "備品", admin_equipments_path, class: "nav-link text-light" %>
     </li>
     <li class="nav-item mr-3">
-      <%= link_to "設備管理", admin_facilities_path, class: "nav-link text-white btn btn-sm btn-secondary" %>
+      <%= link_to "設備", admin_facilities_path, class: "nav-link text-light" %>
     </li>
     <li class="nav-item mr-3">
-      <%= link_to "ジャンル管理", admin_genres_path, class: "nav-link text-white btn btn btn-sm btn-secondary" %>
+      <%= link_to "ジャンル", admin_genres_path, class: "nav-link text-light" %>
     </li>
     <li class="nav-item mr-3">
-      <%= link_to "予約管理", admin_reservations_path, class: "nav-link text-white btn btn-sm btn-secondary" %>
+      <%= link_to "予約", admin_reservations_path, class: "nav-link text-light" %>
     </li>
     <li class="nav-item mr-3">
-      <%= link_to "落とし物管理", admin_lost_items_path, class: "nav-link text-white btn btn-sm btn-secondary" %>
+      <%= link_to "落とし物", admin_lost_items_path, class: "nav-link text-light" %>
     </li>
     <li class="nav-item">
-      <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link text-white btn btn-sm btn-secondary" %>
+      <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link text-light" %>
     </li>
   </ul>
 </nav>

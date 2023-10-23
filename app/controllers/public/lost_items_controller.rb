@@ -2,9 +2,10 @@ class Public::LostItemsController < ApplicationController
   before_action :authenticate_member!
 
   def index
-    @lost_items = LostItem.where(residence_id: current_member.residence.id)
+    @lost_items = LostItem.where(residence_id: current_member.residence.id).where('deadline > ?', Time.now)
+    @lost_items_storage = LostItem.where(residence_id: current_member.residence.id).where('deadline > ?', Time.now).where(is_finished: false)
+    @lost_items_finished = LostItem.where(residence_id: current_member.residence.id).where(is_finished: true)
     @lost_items_mine = @lost_items.where(member_id: current_member.id)
-    @lost_items_others = @lost_items.where.not(member_id: current_member.id)
   end
 
   def show

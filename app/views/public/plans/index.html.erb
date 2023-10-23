@@ -7,7 +7,25 @@
   </div>
   <div class="container">
     <div class="ml-3">
-      <%= render 'public/plans/index', plans: @plans %>
+      <div class="tabs">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#section1">予定</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#section2">過去の予定</a>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <div id="section1" class="tab-pane fade show active">
+            <%= render 'public/plans/index', plans: @plans %>
+          </div>
+          <div id="section2" class="tab-pane fade">
+            <%= render 'public/plans/index', plans: @plans_past %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

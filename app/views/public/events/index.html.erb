@@ -7,13 +7,31 @@
   </div>
   <div class="container">
     <div class="ml-3">
-      <%= render 'public/events/index', events: @events %>
-    </div>
-  </div>
-  <h2>自分の企画したイベント一覧</h2>
-  <div class="container">
-    <div class="ml-3">
-      <%= render 'public/events/index', events: @events_mine %>
+      <div class="tabs">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#section1">全て</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#section2">終了済みのイベント</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#section3">あなたのイベント</a>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <div id="section1" class="tab-pane fade show active">
+            <%= render 'public/events/index', events: @events %>
+          </div>
+          <div id="section2" class="tab-pane fade">
+            <%= render 'public/events/index', events: @events_finished %>
+          </div>
+          <div id="section3" class="tab-pane fade">
+            <%= render 'public/events/index', events: @events_mine %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

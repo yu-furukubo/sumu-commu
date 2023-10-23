@@ -2,9 +2,9 @@ class Public::ReservationsController < ApplicationController
   before_action :authenticate_member!
 
   def index
-    @reservations = Reservation.where(residence_id: current_member.residence.id, ).where('finished_at > ?', Time.now).order(started_at: "ASC")
+    @reservations = Reservation.where(residence_id: current_member.residence.id).where('finished_at > ?', Time.now).order(started_at: "ASC")
+    @reservations_past = Reservation.where(residence_id: current_member.residence.id).where('finished_at < ?', Time.now).order(started_at: "DESC")
     @reservations_mine = @reservations.where(member_id: current_member.id)
-    @reservations_others = @reservations.where.not(member_id: current_member.id)
   end
 
   def show

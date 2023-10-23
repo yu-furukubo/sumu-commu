@@ -1,26 +1,46 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class='container p-5 px-sm-0'>
+  <div class="col-md-6 mx-auto">
+    <div class="row ml-5 mb-3">
+      <h2>ログイン</h2>
+          <div class="ml-auto mr-3 d-flex align-items-center">
+      <%= render "admin/shared/links" %>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
+    </div>
+    <div class="ml-5 mb-3">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <table class="table table-borderless">
+          <tbody>
+            <div class="form-group">
+              <tr>
+                <td><%= f.label :email %></td>
+                <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
+              </tr>
+            </div>
+            <div class="form-group">
+              <tr>
+                <td><%= f.label :password %></td>
+                <td>
+                  <%= f.password_field :password, autocomplete: "current-password" %>
+                  <% if devise_mapping.rememberable? %>
+                    <div class="field">
+                      <%= f.check_box :remember_me %>
+                      <%= f.label :ログイン情報を保存 %>
+                    </div>
+                  <% end %>
+                </td>
+              </tr>
+            </div>
+          </tbody>
+        </table>
+        <div class="row">
+          <div class="mx-auto">
+            <div class="actions form-group text-center mb-3">
+              <%= f.submit "ログイン", class: "btn btn-primary btn-sm" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
-<% end %>
+</div>
 
-<%= render "admin/shared/links" %>

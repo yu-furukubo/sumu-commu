@@ -18,7 +18,7 @@ class Public::ReadsController < ApplicationController
 
   def destroy
     @board = Board.find(params[:board_id])
-    @read = Read.find_by(board_id: board.id , member_id: current_member.id)
+    @read = Read.find_by(board_id: @board.id , member_id: current_member.id)
     if @read.destroy
       redirect_to public_board_path(@board)
     else

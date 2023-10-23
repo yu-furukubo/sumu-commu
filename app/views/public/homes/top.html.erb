@@ -1,3 +1,7 @@
+<div class="top">
+<%= image_tag '27656840_m.jpg', class: "top_image" %>
+<%= image_tag 'sumu-commu_logo_white.png', class: "top_logo" %>
+</div>
 <% if member_signed_in? %>
   <div class='container p-5 px-sm-0'>
     <!--新着掲示板-->
@@ -53,7 +57,7 @@
     <% if @events.present? %>
       <div class="ml-3 mb-3">
         <h4>イベント</h4>
-        <span class="ml-3"><%= @events.count %>件の招待があります。</span>
+        <span class="ml-3 text-danger"><%= @events.count %>件の招待があります。</span>
       </div>
       <div class="container">
         <div class="ml-3">

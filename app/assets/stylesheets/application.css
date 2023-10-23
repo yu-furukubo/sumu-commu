@@ -13,3 +13,37 @@
  *= require_tree .
  *= require_self
  */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header, nav, body, h2, footer {
+  font-family: "Meiryo", "メイリオ", sans-serif;
+}
+
+.profile_image {
+  border-radius: 25px;
+}
+
+.top{
+  position: relative;
+}
+
+.top_image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  object-position: 50% 70%;
+  filter: blur(10px);
+}
+
+.top_logo{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  filter: drop-shadow(5px 5px 3px rgba(20,20,20,0.6));
+}

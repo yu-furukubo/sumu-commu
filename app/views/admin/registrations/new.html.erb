@@ -1,34 +1,63 @@
-<h2>Sign up</h2>
+<div class='container p-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-10 offset-md-1'>
+      <div class="row ml-5 mb-3">
+        <h2>新規管理者登録</h2>
+        <div class="ml-auto mr-3 d-flex align-items-center">
+          <%= render "admin/shared/links" %>
+        </div>
+      </div>
 
-<%= form_for(resource, as: resource_name, url: admin_registration_path) do |f| %>
-  <%= render "admin/shared/error_messages", resource: resource %>
+      <div class="ml-5 mb-3">
+        <%= form_for(resource, as: resource_name, url: admin_registration_path) do |f| %>
+          <%= render "admin/shared/error_messages", resource: resource %>
+          <table class="table table-borderless">
+            <tbody>
 
-  <div class="field">
-    <%= f.label :名前 %><br />
-    <%= f.text_field :name, autofocus: true %>
+              <div class="form-group">
+                <tr>
+                  <td style="width:35%"><%= f.label :名前 %><span class="small text-danger">(必須)</span></td>
+                  <td><%= f.text_field :name, autofocus: true, class: 'form-control' %></td>
+                </tr>
+              </div>
+
+              <div class="form-group">
+                <tr>
+                  <td><%= f.label :メールアドレス %><span class="small text-danger">(必須)</span></td>
+                  <td><%= f.email_field :email, autocomplete: "email", class: 'form-control' %></td>
+                </tr>
+              </div>
+
+              <div class="form-group">
+                <tr>
+                  <td>
+                    <%= f.label :パスワード %><span class="small text-danger">(必須)</span>
+                    <span class="small">
+                      <% if @minimum_password_length %>
+                        (半角英数字<%= @minimum_password_length %>文字以上)
+                      <% end %>
+                    </span>
+                  </td>
+                  <td><%= f.password_field :password, autocomplete: "new-password", class: 'form-control' %></td>
+                </tr>
+              </div>
+
+              <div class="form-group">
+                <tr>
+                  <td><%= f.label :パスワード %><span class="small">(確認用)</span><span class="small text-danger">(必須)</span></td>
+                  <td><%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %></td>
+                </tr>
+              </div>
+            </tbody>
+          </table>
+
+          <div class="actions form-group text-center mb-3">
+            <%= f.submit "登録して利用開始", class: 'btn btn-success' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :メールアドレス %><br />
-    <%= f.email_field :email, autocomplete: "email" %>
-  </div>
 
-  <div class="field">
-    <%= f.label :パスワード %>
-    <% if @minimum_password_length %>
-    <em>(半角英数字<%= @minimum_password_length %>文字以上)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :パスワード(確認) %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "登録して利用開始" %>
-  </div>
-<% end %>
-
-<%= render "admin/shared/links" %>

@@ -3,7 +3,7 @@
     <div class='col-md-10 offset-md-1'>
       <div class="row ml-5 mb-3">
         <h2>新規会員登録</h2>
-        <div class="actions form-group ml-auto mr-3">
+        <div class="ml-auto mr-3 d-flex align-items-center">
           <%= render "public/shared/links" %>
         </div>
       </div>
@@ -74,7 +74,6 @@
                   <td><%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %></td>
                 </tr>
               </div>
-
             </tbody>
           </table>
 

@@ -2,9 +2,10 @@ class Public::ExchangesController < ApplicationController
   before_action :authenticate_member!
 
   def index
-    @exchanges = Exchange.where(residence_id: current_member.residence.id)
+    @exchanges = Exchange.where(residence_id: current_member.residence.id).where('deadline > ?', Time.now)
+    @exchanges_recruitment = Exchange.where(residence_id: current_member.residence.id).where('deadline > ?', Time.now).where(is_finished: false)
+    @exchanges_finished = Exchange.where(residence_id: current_member.residence.id).where(is_finished: true)
     @exchanges_mine = @exchanges.where(member_id: current_member.id)
-    @exchanges_others = @exchanges.where.not(member_id: current_member.id)
   end
 
   def show

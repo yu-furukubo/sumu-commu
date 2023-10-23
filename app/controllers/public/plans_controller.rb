@@ -2,7 +2,8 @@ class Public::PlansController < ApplicationController
   before_action :authenticate_member!
 
   def index
-    @plans = Plan.where(member_id: current_member.id)
+    @plans = Plan.where(member_id: current_member.id).where('finished_at > ?', Time.now).order(started_at: "ASC")
+    @plans_past = Plan.where(member_id: current_member.id).where('finished_at < ?', Time.now).order(started_at: "DESC")
   end
 
   def show

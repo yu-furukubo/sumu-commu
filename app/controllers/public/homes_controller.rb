@@ -9,7 +9,7 @@ class Public::HomesController < ApplicationController
       @lost_itemss = @residence.lost_items.where("created_at > ?", current_member.last_sign_in_at).where.not(member_id: current_member.id)
       @reads = Read.all
       @member_events_array = EventMember.where(member_id: current_member.id, is_approved: false).pluck(:event_id)
-      @events = @residence.events.where(id: @member_events_array)
+      @events = @residence.events.where(id: @member_events_array).where('started_at > ?', Time.now)
     end
   end
 end

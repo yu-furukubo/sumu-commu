@@ -2,9 +2,9 @@ class Public::EventsController < ApplicationController
   before_action :authenticate_member!
 
   def index
-    @events = Event.where(residence_id: current_member.residence.id)
-    @events_mine = @events.where(member_id: current_member.id)
-    @events_others = @events.where.not(member_id: current_member.id)
+    @events = Event.where(residence_id: current_member.residence.id).where('finished_at > ?', Time.now).order(started_at: "ASC")
+    @events_mine = @events.where(member_id: current_member.id).where('finished_at > ?', Time.now).order(started_at: "ASC")
+    @events_finished = Event.where(residence_id: current_member.residence.id).where('finished_at < ?', Time.now).order(started_at: "DESC")
   end
 
   def show

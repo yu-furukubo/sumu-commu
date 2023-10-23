@@ -4,8 +4,9 @@ class Public::CommunitiesController < ApplicationController
   def index
     @communities = Community.where(residence_id: current_member.residence.id)
     @community_members_mine = CommunityMember.where(member_id: current_member.id)
-    @communities_mine = @communities.where(id: @community_members_mine.pluck(:community_id))
-    @communities_others = @communities.where.not(id: @community_members_mine.pluck(:community_id))
+    @communities_join = @communities.where(id: @community_members_mine.pluck(:community_id))
+    @communities_not_join = @communities.where.not(id: @community_members_mine.pluck(:community_id))
+    @communities_mine = @communities.where(member_id: current_member.id)
   end
 
   def show

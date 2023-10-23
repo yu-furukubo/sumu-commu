@@ -2,10 +2,12 @@ class Public::BoardsController < ApplicationController
   before_action :authenticate_member!
 
   def index
-    @boards = Board.where(residence_id: current_member.residence.id)
-    @boards_mine = @boards.where(member_id: current_member.id)
-    @boards_others = @boards.where.not(member_id: current_member.id)
     @reads = Read.all
+    @reads_mine = @reads.where(member_id: current_member.id)
+    @boards = Board.where(residence_id: current_member.residence.id)
+    @boards_read = @boards.where(id: @reads_mine.pluck(:board_id))
+    @boards_not_read = @boards.where.not(id: @reads_mine.pluck(:board_id)).where.not(member_id: current_member.id)
+    @boards_mine = @boards.where(member_id: current_member.id)
   end
 
   def show

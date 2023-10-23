@@ -1,15 +1,28 @@
 <div class='container p-5 px-sm-0'>
   <div class='col-md-12'>
     <div class="mb-3">
-      <h3 class="text-info"><i class="fa-solid fa-circle-info"></i>備品・設備一覧から予約するものを選択してください</h3>
+      <h3 class="text-info"><i class="fa-solid fa-circle-info"></i>予約するものを選択してください</h3>
     </div>
-    <h4>備品一覧</h4>
     <div class="ml-3">
-      <%= render 'public/equipments/index', equipments: @equipments %>
-    </div>
-    <h4>設備一覧</h4>
-    <div class="ml-3">
-      <%= render 'public/facilities/index', facilities: @facilities %>
+      <div class="tabs">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#section1">備品</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#section2">設備</a>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <div id="section1" class="tab-pane fade show active">
+            <%= render 'public/equipments/index', equipments: @equipments %>
+          </div>
+          <div id="section2" class="tab-pane fade">
+            <%= render 'public/facilities/index', facilities: @facilities %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

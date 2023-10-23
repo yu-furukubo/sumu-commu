@@ -7,13 +7,37 @@
       </div>
     </div>
     <div class="ml-3">
-      <%= render 'public/exchanges/index', exchanges: @exchanges %>
-    </div>
-    <div class="mb-3">
-      <h2>自分が登録したゆずりあい一覧</h2>
-    </div>
-    <div class="ml-3">
-      <%= render 'public/exchanges/index', exchanges: @exchanges_mine %>
+      <div class="tabs">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#section1">掲載中</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#section2">募集中</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#section3">募集終了</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#section3">あなたのゆずりあい</a>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <div id="section1" class="tab-pane fade show active">
+            <%= render 'public/exchanges/index', exchanges: @exchanges %>
+          </div>
+          <div id="section2" class="tab-pane fade">
+            <%= render 'public/exchanges/index', exchanges: @exchanges_recruitment %>
+          </div>
+          <div id="section3" class="tab-pane fade">
+            <%= render 'public/exchanges/index', exchanges: @exchanges_finished %>
+          </div>
+          <div id="section4" class="tab-pane fade">
+            <%= render 'public/exchanges/index', exchanges: @exchanges_mine %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

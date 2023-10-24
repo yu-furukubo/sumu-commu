@@ -19,7 +19,7 @@
             <% if reservation.equipment_id.present? %>
               <td><%= reservation.equipment.residence.name %></td>
             <% elsif reservation.facility_id.present? %>
-              <td><%= reservation.facility.residence.name %></td>
+              <td><%= reservation.facility.name %></td>
             <% end %>
           <% end %>
         </tr>

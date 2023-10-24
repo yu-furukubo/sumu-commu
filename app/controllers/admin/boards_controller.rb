@@ -4,7 +4,7 @@ class Admin::BoardsController < ApplicationController
   def index
     @residences = current_admin.residences
     @residence_id_array = @residences.pluck(:id)
-    @boards = Board.where(residence_id: @residence_id_array)
+    @boards = Board.where(residence_id: @residence_id_array).order(created_at: "ASC")
     @reads = Read.all
   end
 

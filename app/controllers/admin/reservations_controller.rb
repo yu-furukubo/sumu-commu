@@ -76,6 +76,43 @@ class Admin::ReservationsController < ApplicationController
 
   def update
     @reservation = Reservation.find(params[:id])
+
+    if @reservation.equipment.present?
+      reservations = Reservation.where(equipment_id: @reservation.equipment.id)
+    elsif @reservation.facility.present?
+      reservations = Reservation.where(facility_id: @reservation.facility.id)
+    end
+
+    @reservation = Reservation.find(params[:id])
+    set_the_day_implement_edit(@reservation)
+    pp "-----------------------------------------------確認",@reservation.started_at,@reservation.finished_at,params[:reservation][:start_at]
+
+    if @reservation.started_at > @reservation.finished_at
+      flash.now[:notice] = "使用完了日時は、使用開始日時より後の日時を指定してください。"
+      render "edit"
+      return
+    end
+
+    if reservations.where('finished_at > ? and ? > started_at', @reservation.started_at, @reservation.finished_at).exists?
+      count = reservations.where('finished_at > ? and ? > started_at', @reservation.started_at, @reservation.finished_at).count
+      if @reservation.equipment_id.present?
+        if @reservation.equipment.stock + 1 <= count
+          flash.now[:notice] = "その期間には別の予約が入っています。空き時間をご確認ください。"
+          render "edit"
+          return
+        else
+          pp "------------------------------------ここ？"
+          @reservation.update(reservation_params)
+          redirect_to admin_reservation_path(@reservation)
+          return
+        end
+      elsif count > 1
+        flash.now[:notice] = "その期間には別の予約が入っています。空き時間をご確認ください。"
+        render "edit"
+        return
+      end
+    end
+pp "------------------------------------ここ？" , @reservation
     if @reservation.update(reservation_params)
       redirect_to admin_reservation_path(@reservation)
     else
@@ -116,4 +153,19 @@ class Admin::ReservationsController < ApplicationController
     reservation.started_at = reservation.started_at.change(year: start_year, month: start_month, day: start_day)
     reservation.finished_at = reservation.finished_at.change(year: finish_year, month: finish_month, day: finish_day)
   end
+
+  def set_the_day_implement_edit(reservation)
+    start_year = params[:reservation][:start_date].to_date.year
+    start_month = params[:reservation][:start_date].to_date.month
+    start_day = params[:reservation][:start_date].to_date.day
+    finish_year = params[:reservation][:finish_date].to_date.year
+    finish_month = params[:reservation][:finish_date].to_date.month
+    finish_day = params[:reservation][:finish_date].to_date.day
+    finish_hour = params[:reservation][:finished_at].to_time.hour
+    finish_minute = params[:reservation][:finished_at].to_time.minute
+
+    reservation.started_at = reservation.started_at.change(year: start_year, month: start_month, day: start_day)
+    reservation.finished_at = reservation.finished_at.change(year: finish_year, month: finish_month, day: finish_day, hour: finish_hour, minute: finish_minute)
+  end
+
 end

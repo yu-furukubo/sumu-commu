@@ -4,7 +4,8 @@ class Admin::EventsController < ApplicationController
   def index
     @residences = current_admin.residences
     @residence_id_array = @residences.pluck(:id)
-    @events = Event.where(residence_id: @residence_id_array)
+    @events = Event.where(residence_id: @residence_id_array).where('finished_at > ?', Time.now).order(started_at: "ASC")
+    @events_finished = Event.where(residence_id: @residence_id_array).where('finished_at < ?', Time.now).order(started_at: "DESC")
   end
 
   def residence_search

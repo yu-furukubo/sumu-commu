@@ -8,19 +8,19 @@
         <div class="row">
           <div class="offset-1">
             <table class='table table-borderless'>
-              <tr><th>管理者名</th><td><%= @admin.name %></td><td><%= link_to "編集する", edit_admin_admin_path, class: "btn btn-success" %></td></tr>
+              <tr><th class="align-middle">管理者名</th><td class="align-middle"><%= @admin.name %></td><td><%= link_to "編集する", edit_admin_admin_path, class: "btn btn-success" %></td></tr>
             </table>
           </div>
         </div>
       </div>
-      <div class="row ml-5 mb-3">
+      <div class="row ml-5 mt-3 mb-3">
         <h2>管理居住地</h2>
         <div class="ml-3"><%= link_to "新規管理居住地登録", new_admin_residence_path, class: "btn btn-primary" %></div>
       </div>
       <div class="container">
         <div class="row">
           <div class="offset-1">
-            <table class='table table-bordered'>
+            <table class='table table-borderless'>
               <thead>
                 <tr>
                   <th>名称</th>
@@ -35,12 +35,12 @@
                     <td><%= residence.name %></td>
                     <td><%= residence.housing_type_i18n %></td>
                     <td><%= residence.address %></td>
-                    <td><%= residence.members.count %></td>
-                    <td><%= link_to "編集", edit_admin_residence_path(residence), class: "btn btn-primary" %></td>
+                    <td class="text-center"><%= residence.members.count %></td>
+                    <td><%= link_to "編集", edit_admin_residence_path(residence), class: "btn btn-success" %></td>
                     <td>
                       <%= form_with model: Member, url: new_member_registration_path, method: :get, local: true do |f| %>
                         <%= f.hidden_field :residence_id, :value => residence.id %>
-                        <%= f.submit "会員登録画面へ", class: 'btn btn-sm btn-success' %>
+                        <%= f.submit "会員登録画面へ", class: 'btn btn-primary' %>
                       <% end %>
                     </td>
                 <% end %>

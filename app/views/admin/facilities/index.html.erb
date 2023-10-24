@@ -4,7 +4,7 @@
       <%= render 'layouts/residence_search', residences: @residences %>
     </div>
     <div class='col-md-9'>
-      <div class="row mr-3 mb-3">
+      <div class="row mr-3">
         <h2>設備一覧</h2>
         <div class="ml-auto">
           <%= form_with model: Facility, url: new_admin_facility_path, method: :get, local: true do |f| %>
@@ -27,7 +27,7 @@
         </div>
       </div>
       <div class="container">
-        <div class="ml-3">
+        <div>
           <%= render 'admin/facilities/index', facilities: @facilities %>
         </div>
       </div>

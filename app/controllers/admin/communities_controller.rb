@@ -4,7 +4,7 @@ class Admin::CommunitiesController < ApplicationController
   def index
     @residences = current_admin.residences
     @residence_id_array = @residences.pluck(:id)
-    @communities = Community.where(residence_id: @residence_id_array)
+    @communities = Community.where(residence_id: @residence_id_array).order(created_at: "ASC")
   end
 
   def residence_search

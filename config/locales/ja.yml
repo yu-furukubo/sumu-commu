@@ -16,12 +16,12 @@
           restrict_dependent_destroy:
             has_one: "%{record}が存在しているので削除できません"
             has_many: "%{record}が存在しているので削除できません"
-    models:
-      board: "掲示板"
-    attributes:
-      board:
-        name: "タイトル"
-        body: "本文"
+      models:
+        board: "掲示板"
+      attributes:
+        board:
+          name: "タイトル"
+          body: "本文"
 
     date:
       abbr_day_names:
@@ -198,5 +198,5 @@
       formats:
         default: "%Y/%m/%d(%a) %H:%M"
         long: "%Y/%m/%d(%a) %H:%M"
-        short: "%m/%d %H:%M"
+        short: "%H:%M"
       pm: 午後

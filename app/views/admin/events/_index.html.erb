@@ -1,10 +1,9 @@
-<table class='table table-bordered'>
+<table class='table table-borderless'>
   <thead>
     <tr>
       <% if controller.action_name != "residence_search" %>
         <th>居住地</th>
       <% end %>
-      <th>作成者</th>
       <th>イベント名</th>
       <th>開催期間</th>
       <th>開催場所</th>
@@ -16,13 +15,12 @@
         <% if controller.action_name != "residence_search" %>
           <td><%= event.residence.name %></td>
         <% end %>
-        <% if event.member_id == 0 %>
-          <td>管理人</td>
-        <% else %>
-          <td><%= event.member.name %></td>
-        <% end %>
         <td><%= link_to event.name, admin_event_path(event) %></td>
-        <td><%= l event.started_at %> ~ <%= l event.finished_at %></td>
+        <% if event.started_at.to_date == event.finished_at.to_date %>
+          <td><%= l event.started_at %> ~ <%= l event.finished_at.to_time, format: :short %></td>
+        <% else %>
+          <td><%= l event.started_at %> ~ <%= l event.finished_at %></td>
+        <% end %>
         <td><%= event.venue %></td>
       </tr>
     <% end %>

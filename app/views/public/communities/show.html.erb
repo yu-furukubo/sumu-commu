@@ -34,15 +34,15 @@
             <h4>コメント</h4>&emsp;
             <span class="text-primary font-weight-bold"><%= @community_comments.count - @community_comments.where(is_deleted: true).count %>件</span>
           </div>
-          <%= form_with model: CommunityComment.new, url: public_community_community_comments_path(@community), method: :post, local: true do |f| %>
-            <td>
+          <% if @community_member.present? %>
+            <%= form_with model: CommunityComment.new, url: public_community_community_comments_path(@community), method: :post, local: true do |f| %>
               <%= f.hidden_field :community_id, :value => @community.id %>
               <%= f.hidden_field :member_id, :value => current_member.id %>
               <%= f.text_area :comment, class: "form-control" %>
               <div class="mt-2 text-center">
                 <%= f.submit "コメントする", class: 'btn btn-sm btn-danger' %>
               </div>
-            </td>
+            <% end %>
           <% end %>
 
           <div class="mt-2">

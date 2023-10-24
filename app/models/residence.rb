@@ -14,4 +14,7 @@ class Residence < ApplicationRecord
 
   enum housing_type: { apartment: 0, house: 1 }
 
+  validates :name, presence: true
+  validates :address, presence: true
+
 end

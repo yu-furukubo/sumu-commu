@@ -1,9 +1,8 @@
-<table class='table table-borderless'>
+<table class='table table-borderless table-hover'>
   <thead>
     <tr>
       <th>イベント名</th>
       <th>作成者</th>
-      <th>概要</th>
       <th>開催日時</th>
       <th>開催場所</th>
     </tr>
@@ -28,7 +27,6 @@
         <% else %>
           <td>退会済み会員</td>
         <% end %>
-        <td><%= event.description %></td>
         <td><%= l event.started_at %> ~ <%= l event.finished_at %></td>
         <td><%= event.venue %></td>
       </tr>

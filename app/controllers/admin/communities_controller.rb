@@ -21,6 +21,7 @@ class Admin::CommunitiesController < ApplicationController
 
   def edit
     @community = Community.find(params[:id])
+    @residence = @community.residence
   end
 
   def update

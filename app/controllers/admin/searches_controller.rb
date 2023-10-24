@@ -6,6 +6,7 @@ class Admin::SearchesController < ApplicationController
 
   def search_result
     @category = params[:category]
+    @reads = Read.all
 
     if @category == "all"
       @boards = Board.looks(params[:word], params[:residence_id])

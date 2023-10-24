@@ -1,7 +1,9 @@
 <table class='table table-bordered'>
   <thead>
     <tr>
-      <th>居住地</th>
+      <% if controller.action_name != "residence_search" %>
+        <th>居住地</th>
+      <% end %>
       <th>作成者</th>
       <th>コミュニティ名</th>
       <th>説明</th>
@@ -11,7 +13,9 @@
   <tbody>
     <% communities.each do |community| %>
       <tr>
-        <td><%= community.residence.name %></td>
+        <% if controller.action_name != "residence_search" %>
+          <td><%= community.residence.name %></td>
+        <% end %>
         <td><%= community.member.name %></td>
         <td><%= link_to community.name, admin_community_path(community) %></td>
         <td><%= community.description %></td>

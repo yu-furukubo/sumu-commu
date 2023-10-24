@@ -4,9 +4,7 @@
       <th>画像</th>
       <th>落とし物名</th>
       <th>投稿者</th>
-      <th>説明</th>
       <th>費用</th>
-      <th>掲載期限</th>
       <th>募集状況</th>
     </tr>
   </thead>
@@ -20,15 +18,13 @@
             <% end %>
           <% end %>
         </td>
-        <td><%= link_to exchange.name, public_exchange_path(exchange) %></td>
-        <td><%= exchange.member.name %></td>
-        <td><%= exchange.description %></td>
-        <td><%= exchange.price.to_s(:delimited) %>円</td>
-        <td><%= l exchange.deadline %></td>
+        <td class="align-middle"><%= link_to exchange.name, public_exchange_path(exchange) %></td>
+        <td class="align-middle"><%= exchange.member.name %></td>
+        <td class="align-middle"><%= exchange.price.to_s(:delimited) %>円</td>
         <% if exchange.is_finished == false %>
-          <td class="text-success">募集中</td>
+          <td class="text-success align-middle">募集中</td>
         <% else %>
-          <td class="text-secondary">募集終了</td>
+          <td class="text-secondary align-middle">募集終了</td>
         <% end %>
       </tr>
     <% end %>

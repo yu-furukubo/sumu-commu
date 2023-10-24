@@ -1,4 +1,4 @@
-<table class='table table-borderless'>
+<table class='table table-borderless table-hover'>
   <thead>
     <tr>
       <th>コミュニティ名</th>
@@ -9,7 +9,7 @@
   </thead>
   <tbody>
     <% communities.each do |community| %>
-      <tr>
+      <tr class="index_tr" data-href="/public/communities/<%= community.id%>">
         <td><%= link_to community.name, public_community_path(community) %></td>
         <% if community.member.present? %>
           <td><%= community.member.name %></td>

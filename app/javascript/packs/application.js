@@ -16,3 +16,9 @@ import "../stylesheets/application";
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+jQuery(document).on("turbolinks:load", function() {
+  $(".index_tr").on('click', function() {
+      window.location = $(this).data("href");
+  });
+});

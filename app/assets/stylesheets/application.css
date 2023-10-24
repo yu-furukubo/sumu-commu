@@ -47,3 +47,7 @@ header, nav, body, h2, footer {
   transform: translate(-50%,-50%);
   filter: drop-shadow(5px 5px 3px rgba(20,20,20,0.6));
 }
+
+.table-hover tbody tr:hover{
+  background-color: #B0E0E6;
+}

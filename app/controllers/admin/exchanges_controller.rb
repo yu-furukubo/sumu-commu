@@ -20,6 +20,7 @@ class Admin::ExchangesController < ApplicationController
 
   def edit
     @exchange = Exchange.find(params[:id])
+    @residence = @exchange.residence
   end
 
   def update

@@ -1,17 +1,22 @@
 <table class='table table-bordered'>
   <thead>
     <tr>
-      <th>居住地</th>
+      <% if controller.action_name != "residence_search" %>
+        <th>居住地</th>
+      <% end %>
       <th>作成者</th>
       <th>名称</th>
       <th>本文</th>
       <th>回覧</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <% boards.each do |board| %>
       <tr>
-        <td><%= board.residence.name %></td>
+        <% if controller.action_name != "residence_search" %>
+          <td><%= board.residence.name %></td>
+        <% end %>
         <% if board.member_id == 0 %>
           <td>管理人</td>
         <% else %>
@@ -19,7 +24,19 @@
         <% end %>
         <td><%= link_to board.name, admin_board_path(board) %></td>
         <td><%= board.body.truncate(40) %></td>
-        <td><%= board.is_circular %></td>
+        <% if board.is_circular == true %>
+          <td class="text-center text-weight-bold text-success"><i class="fa-solid fa-check"></i></td>
+          <% if board.circular_members.count == 0 %>
+            <td>回覧メンバー未設定</td>
+          <% elsif reads.where(board_id: board.id, member_id: board.circular_members.pluck(:member_id)).count == board.circular_members.count && board.circular_members.exists? %>
+            <td class="text-success">全員確認済み</td>
+          <% else %>
+            <td>確認済み<%= Read.where(board_id: board.id, member_id: board.circular_members.pluck(:member_id)).count %>/<%= board.circular_members.count %></td>
+          <% end %>
+        <% else %>
+          <td class="text-center">-</td>
+          <td></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

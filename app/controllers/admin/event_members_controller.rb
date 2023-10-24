@@ -24,10 +24,12 @@ class Admin::EventMembersController < ApplicationController
     @event = Event.find(params[:event_id])
     @residence_members = @event.residence.members
     @residence_members.each do |member|
-      unless EventMember.find_or_create_by(event_id: @event.id, member_id: member.id, is_approved: false)
-        flash.now[:notice] =　"#{member}の招待に失敗しました。"
-        render "index"
-        return
+      if not EventMember.find_by(event_id: @event.id, member_id: member.id, is_approved: true).present?
+        unless EventMember.find_or_create_by(event_id: @event.id, member_id: member.id, is_approved: false)
+          flash.now[:notice] =　"#{member}の招待に失敗しました。"
+          render "index"
+          return
+        end
       end
     end
     redirect_to admin_event_event_members_path(@event)

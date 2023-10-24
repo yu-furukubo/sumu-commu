@@ -1,10 +1,9 @@
-<table class='table table-borderless'>
+<table class='table table-borderless  table-hover'>
   <thead>
     <tr>
       <th>予定名</th>
       <th>日程</th>
       <th>場所</th>
-      <th>メモ</th>
     </tr>
   </thead>
   <tbody>
@@ -13,7 +12,6 @@
         <td><%= link_to plan.subject, public_plan_path(plan) %></td>
         <td><%= l plan.started_at %> ~ <%= l plan.finished_at %></td>
         <td><%= plan.venue %></td>
-        <td><%= plan.memo %></td>
       </tr>
     <% end %>
   </tbody>

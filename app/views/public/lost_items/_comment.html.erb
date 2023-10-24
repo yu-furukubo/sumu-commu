@@ -2,16 +2,16 @@
   <h4>コメント</h4>&emsp;
   <span class="text-primary font-weight-bold"><%= lost_item_comments.count - lost_item_comments.where(is_deleted: true).count %>件</span>
 </div>
-<%= form_with model: LostItemComment.new, url: public_lost_item_lost_item_comments_path(lost_item), method: :post, local: true do |f| %>
-  <td>
+<div>
+  <%= form_with model: LostItemComment.new, url: public_lost_item_lost_item_comments_path(lost_item), method: :post, local: true do |f| %>
     <%= f.hidden_field :lost_item_id, :value => @lost_item.id %>
     <%= f.hidden_field :member_id, :value => current_member.id %>
     <%= f.text_area :comment, class: "form-control" %>
     <div class="mt-2 text-center">
       <%= f.submit "コメントする", class: 'btn btn-sm btn-danger' %>
     </div>
-  </td>
-<% end %>
+  <% end %>
+</div>
 
 <div class="mt-2">
   <% lost_item_comments.each do |comment| %>
@@ -41,10 +41,10 @@
       </div>
     <% end %>
     <!--コメントを論理削除するための処理-->
-    <% if comment.member == lost_item.member %>
+    <% if current_member == lost_item.member %>
       <% if comment.is_deleted == false %>
         <%= form_with model: LostItemComment, url: public_lost_item_lost_item_comment_path(lost_item, comment), method: :patch, local: true do |f| %>
-          <div>
+          <div class="text-right">
             <%= f.hidden_field :is_deleted, :value => true %>
             <%= button_tag type: "submit", class: 'btn btn-sm' do %>
               <i class="fa-solid fa-trash"></i>

@@ -28,8 +28,10 @@
             <tr>
               <% if @event.event_members.where(member_id: member.id).present? %>
                 <% if @event.event_members.find_by(member_id: member.id).is_approved == false %>
-                  <td style="width:30%"><%= member.name %></td>
-                  <td class="text-success">招待中</td>
+                  <td style="width:30%">
+                    <%= member.name %>
+                    <span class="text-success">招待中</span>
+                  </td>
                   <% if @event.member == current_member %>
                     <td><%= link_to "招待を取り消す", public_event_event_member_quit_invite_path(@event.id, @event.event_members.find_by(member_id: member.id)), method: :delete, class: "btn btn-secondary" %></td>
                   <% else %>
@@ -38,7 +40,6 @@
                 <% end %>
               <% else %>
                 <td style="width:30%"><%= member.name %></td>
-                <td></td>
                 <% if @event.member == current_member %>
                   <td>
                     <%= form_with model:EventMember.new, url: public_event_event_members_path(@event), local: true do |f| %>

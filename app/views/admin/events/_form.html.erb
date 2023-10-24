@@ -31,7 +31,7 @@
         <div class="form-group">
           <tr>
             <td><%= f.label :終了日時 %></td>
-            <td><%= f.datetime_select :finished_at, min: Date.today, class: 'form-control' %></td>
+            <td><%= f.datetime_field :finished_at, min: Date.today, class: 'form-control' %></td>
           </tr>
         </div>
         <div class="form-group">

@@ -8,8 +8,8 @@
   </thead>
   <tbody>
     <% plans.each do |plan| %>
-      <tr>
-        <td><%= link_to plan.subject, public_plan_path(plan) %></td>
+      <tr class="index_tr" data-href="/public/plans/<%= plan.id %>">
+        <td><%= plan.subject %></td>
         <td><%= l plan.started_at %> ~ <%= l plan.finished_at %></td>
         <td><%= plan.venue %></td>
       </tr>

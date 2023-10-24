@@ -9,8 +9,8 @@
   </thead>
   <tbody>
     <% communities.each do |community| %>
-      <tr class="index_tr" data-href="/public/communities/<%= community.id%>">
-        <td><%= link_to community.name, public_community_path(community) %></td>
+      <tr class="index_tr" data-href="/public/communities/<%= community.id %>">
+        <td><%= community.name %></td>
         <% if community.member.present? %>
           <td><%= community.member.name %></td>
         <% else %>

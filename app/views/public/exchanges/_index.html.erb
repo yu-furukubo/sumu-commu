@@ -10,7 +10,7 @@
   </thead>
   <tbody>
     <% exchanges.each do |exchange| %>
-      <tr>
+      <tr class="index_tr" data-href="/public/exchanges/<%= exchange.id %>">
         <td>
           <% if exchange.exchange_item_images.attached? %>
             <% exchange.exchange_item_images.limit(1).each do |image| %>
@@ -18,7 +18,7 @@
             <% end %>
           <% end %>
         </td>
-        <td class="align-middle"><%= link_to exchange.name, public_exchange_path(exchange) %></td>
+        <td class="align-middle"><%= exchange.name %></td>
         <td class="align-middle"><%= exchange.member.name %></td>
         <td class="align-middle"><%= exchange.price.to_s(:delimited) %>円</td>
         <% if exchange.is_finished == false %>

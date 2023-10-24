@@ -10,19 +10,15 @@
   </thead>
   <tbody>
     <% reservations.each do |reservation| %>
-      <tr>
+      <tr class="index_tr" data-href="/public/reservations/<%= reservation.id %>">
         <% if controller.controller_name == "reservations" %>
           <% if reservation.equipment_id.present? %>
-            <td><%= link_to reservation.equipment.name, public_equipment_path(reservation.equipment) %></td>
+            <td><%= reservation.equipment.name %></td>
           <% elsif reservation.facility_id.present? %>
-            <td><%= link_to reservation.facility.name, public_facility_path(reservation.facility)%></td>
+            <td><%= reservation.facility.name %></td>
           <% end %>
         <% end %>
-        <td>
-          <%= link_to public_reservation_path(reservation) do %>
-            <%= l reservation.started_at %> ~ <%= l reservation.finished_at %>
-          <% end %>
-        </td>
+        <td><%= l reservation.started_at %> ~ <%= l reservation.finished_at %></td>
         <% if reservation.member_id == 0 %>
           <td>管理人</td>
         <% else %>

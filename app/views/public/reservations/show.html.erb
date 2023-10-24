@@ -7,9 +7,21 @@
           <div class="offset-1">
             <table class='table table-borderless'>
               <% if @reservation.equipment_id.present? %>
-                <tr><th>予約品</th><td><%= image_tag @reservation.equipment.get_equipment_image %><%= @reservation.equipment.name %></td></tr>
+                <tr>
+                  <th>予約品</th>
+                  <td>
+                    <%= image_tag @reservation.equipment.get_equipment_image %>
+                    <%= link_to @reservation.equipment.name, public_equipment_path(@reservation.equipment) %>
+                  </td>
+                </tr>
               <% elsif @reservation.facility_id.present? %>
-                <tr><th>予約場所</th><td><%= image_tag @reservation.facility.get_facility_image %><%= @reservation.facility.name %></td></tr>
+                <tr>
+                  <th>予約場所</th>
+                  <td>
+                    <%= image_tag @reservation.facility.get_facility_image %>
+                    <%= link_to @reservation.facility.name, public_facility_path(@reservation.facility) %>
+                  </td>
+                </tr>
               <% end %>
               <% if @reservation.member_id == 0 %>
                 <tr><th>予約者</th><td>管理人</td></tr>

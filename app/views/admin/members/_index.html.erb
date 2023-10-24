@@ -2,7 +2,9 @@
   <thead>
     <tr>
       <th>名前</th>
-      <th>居住地</th>
+      <% if controller.action_name != "residence_search" %>
+        <th>居住地</th>
+      <% end %>
       <th>部屋番号</th>
     </tr>
   </thead>
@@ -10,7 +12,9 @@
     <% members.each do |member| %>
       <tr>
         <td><%= link_to member.name, admin_member_path(member) %></td>
-        <td><%= member.residence.name %></td>
+        <% if controller.action_name != "residence_search" %>
+          <td><%= member.residence.name %></td>
+        <% end %>
         <td><%= member.house_address %></td>
       </tr>
     <% end %>

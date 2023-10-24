@@ -5,93 +5,113 @@
         <h2>コミュニティ詳細</h2>
       </div>
       <div class="container">
-        <div class="offset-1">
-          <table class='table table-borderless'>
-            <tr><th style="width: 20%">作成者名</th><td><%= @community.member.name %></td></tr>
-            <tr><th>居住地</th><td><%= @community.residence.name %></td></tr>
-            <tr><th>コミュニティ名</th><td><%= image_tag @community.get_community_image, width: '50px' %><%= @community.name %></td></tr>
-            <tr><th>説明</th><td><%= @community.description %></td></tr>
-          </table>
-          <div class="row">
-            <div class="mx-auto">
-              <%= link_to "編集する", edit_admin_community_path, class: "btn btn-success" %>&emsp;&emsp;
-              <%= link_to "削除する", admin_community_path, method: :delete,
-                data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
+        <div class="col-md-10 offset-1">
+          <div class="mb-3">
+            <table class='table table-borderless'>
+              <tr><th style="width: 20%">作成者名</th><td><%= @community.member.name %></td></tr>
+              <tr><th>居住地</th><td><%= @community.residence.name %></td></tr>
+              <tr><th>コミュニティ名</th><td><%= image_tag @community.get_community_image, width: '50px' %><%= @community.name %></td></tr>
+              <tr><th>説明</th><td><%= @community.description %></td></tr>
+            </table>
+            <div class="row">
+              <div class="mx-auto">
+                <%= link_to "編集する", edit_admin_community_path, class: "btn btn-success" %>&emsp;&emsp;
+                <%= link_to "削除する", admin_community_path, method: :delete,
+                  data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
+              </div>
             </div>
           </div>
-          <div class="row">
-            <!--参加メンバー表示用の記述-->
-            <div class="col-6 mt-5">
-              <div class="row mb-3 d-flex align-items-center">
-                <h4>参加メンバー</h4>&emsp;
-                <span class="text-primary font-weight-bold"><%= @community_members.count %>人</span>
-              </div>
-              <table class='table table-borderless'>
-                <tbody>
-                  <% @community_members.each do |community_member| %>
-                    <tr>
-                      <td style="width: 35%"><%= community_member.member.name %></td>
-                      <!--管理者かどうかの確認と切り替え処理-->
-                      <% if community_member.is_admin == true %>
-                        <td class="text-danger">管理者</td>
-                        <%= form_with model: CommunityMember.new, url: admin_community_community_member_path(@community, community_member), method: :patch, local: true do |f| %>
+          <!--タブ切り替え-->
+          <div class="tabs">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#section1">参加メンバー</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#section2">コメント</a>
+              </li>
+            </ul>
+
+            <div class="tab-content">
+              <div id="section1" class="tab-pane fade show active">
+                <!--参加メンバー表示用の記述-->
+                <div class="col-md-8 mt-5">
+                  <div class="row mb-3 d-flex align-items-center">
+                    <h4>参加メンバー</h4>&emsp;
+                    <span class="text-primary font-weight-bold"><%= @community_members.count %>人</span>
+                  </div>
+                  <table class='table table-borderless'>
+                    <tbody>
+                      <% @community_members.each do |community_member| %>
+                        <tr>
+                          <td style="width: 35%"><%= community_member.member.name %></td>
+                          <!--管理者かどうかの確認と切り替え処理-->
+                          <% if community_member.is_admin == true %>
+                            <td class="text-danger">管理者</td>
+                            <td>
+                              <%= form_with model: CommunityMember.new, url: admin_community_community_member_path(@community, community_member), method: :patch, local: true do |f| %>
+                                <%= f.hidden_field :is_admin, :value => false %>
+                                <%= f.submit "メンバーに変更", class: 'btn btn-sm btn-success' %>
+                              <% end %>
+                            </td>
+                          <% else %>
+                            <td class="text-success">メンバー</td>
+                            <td>
+                              <%= form_with model: CommunityMember.new, url: admin_community_community_member_path(@community, community_member), method: :patch, local: true do |f| %>
+                                <%= f.hidden_field :is_admin, :value => true %>
+                                <%= f.submit "管理者に変更", class: 'btn btn-sm btn-danger' %>
+                              <% end %>
+                            </td>
+                          <% end %>
+                          <!--管理者かどうかの確認と切り替え処理ここまで-->
                           <td>
-                            <%= f.hidden_field :is_admin, :value => false %>
-                            <%= f.submit "メンバーに変更", class: 'btn btn-sm btn-success' %>
+                            <%= link_to admin_community_community_member_path(@community, community_member), method: :delete, class: 'btn btn-sm btn-secondary' do %>
+                              <i class="fa-solid fa-trash-can fa-2xs"></i>
+                            <% end %>
                           </td>
-                        <% end %>
-                      <% else %>
-                        <td class="text-success">メンバー</td>
-                        <%= form_with model: CommunityMember.new, url: admin_community_community_member_path(@community, community_member), method: :patch, local: true do |f| %>
-                          <td>
-                            <%= f.hidden_field :is_admin, :value => true %>
-                            <%= f.submit "管理者に変更", class: 'btn btn-sm btn-danger' %>
-                          </td>
-                        <% end %>
+                        </tr>
                       <% end %>
-                      <!--管理者かどうかの確認と切り替え処理ここまで-->
-                      <td>
-                        <%= link_to admin_community_community_member_path(@community, community_member), method: :delete, class: 'btn btn-sm btn-secondary' do %>
-                          <i class="fa-solid fa-trash-can fa-2xs"></i>
-                        <% end %>
-                      </td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            </div>
-            <!--参加メンバー表示用の記述ここまで-->
-            <!--コメント表示用の記述-->
-            <div class="col-6 mt-5">
-              <div class="row mb-3 d-flex align-items-center">
-                <h4>コメント</h4>&emsp;
-                <span class="text-primary font-weight-bold"><%= @community_comments.count %>件</span>
+                    </tbody>
+                  </table>
+                </div>
+                <!--参加メンバー表示用の記述ここまで-->
               </div>
-              <table class='table table-borderless'>
-                <tbody>
-                  <% @community_comments.each do |community_comment| %>
-                    <tr>
-                      <td style="width: 35%"><%= community_comment.member.name %></td>
-                      <td><%= community_comment.comment %></td>
-                      <!--コメントを論理削除するための処理-->
-                      <% if community_comment.is_deleted == true %>
-                        <td class="text-danger">削除済み</td>
-                      <% else %>
-                        <%= form_with model: CommunityComment.new, url: admin_community_community_comment_path(@community, community_comment), method: :patch, local: true do |f| %>
-                          <td>
-                            <%= f.hidden_field :is_deleted, :value => true %>
-                            <%= f.submit "コメントを削除する", class: 'btn btn-sm btn-danger' %>
-                          </td>
-                        <% end %>
+
+              <div id="section2" class="tab-pane fade">
+                <!--コメント表示用の記述-->
+                <div class="col-md-10 mt-5">
+                  <div class="row mb-3 d-flex align-items-center">
+                    <h4>コメント</h4>&emsp;
+                    <span class="text-primary font-weight-bold"><%= @community_comments.count %>件</span>
+                  </div>
+                  <table class='table table-borderless'>
+                    <tbody>
+                      <% @community_comments.each do |community_comment| %>
+                        <tr>
+                          <td style="width: 35%"><%= community_comment.member.name %></td>
+                          <td><%= community_comment.comment %></td>
+                          <!--コメントを論理削除するための処理-->
+                          <% if community_comment.is_deleted == true %>
+                            <td class="text-danger">削除済み</td>
+                          <% else %>
+                            <td>
+                              <%= form_with model: CommunityComment.new, url: admin_community_community_comment_path(@community, community_comment), method: :patch, local: true do |f| %>
+                                <%= f.hidden_field :is_deleted, :value => true %>
+                                <%= f.submit "コメントを削除する", class: 'btn btn-sm btn-danger' %>
+                              <% end %>
+                            </td>
+                          <% end %>
+                          <!--コメントを論理削除するための処理ここまで-->
+                        </tr>
                       <% end %>
-                      <!--コメントを論理削除するための処理ここまで-->
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
+                    </tbody>
+                  </table>
+                </div>
+                <!--コメント表示用の記述ここまで-->
+              </div>
             </div>
-            <!--コメント表示用の記述ここまで-->
           </div>
+          <!--タブ切り替えここまで-->
         </div>
       </div>
     </div>

@@ -5,12 +5,9 @@
       <tbody>
         <div class="form-group">
           <tr>
-            <td><%= f.label :居住地 %></td>
-            <td>
-              <%= f.select :residence_id,
-              options_from_collection_for_select(current_admin.residences, :id, :name), {prompt: "選択してください"},
-              class: 'form-control' %>
-            </td>
+            <td>居住地</td>
+            <td><%= residence.name %></td>
+            <%= f.hidden_field :residence_id, :value => residence.id %>
           </tr>
         </div>
         <div class="form-group">

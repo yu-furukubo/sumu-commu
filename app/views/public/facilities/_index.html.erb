@@ -1,4 +1,4 @@
-<table class='table table-borderless'>
+<table class='table table-borderlesstable-hover'>
   <thead>
     <tr>
       <th>名称</th>
@@ -10,8 +10,8 @@
   </thead>
   <tbody>
     <% facilities.each do |facility| %>
-      <tr>
-        <td><%= link_to facility.name, public_facility_path(facility) %></td>
+      <tr class="index_tr" data-href="/public/facilities/<%= facility.id %>">
+        <td><%= facility.name %></td>
         <td><%= facility.description %></td>
         <% if facility.genre_id == 0 %>
           <td>(未設定)</td>

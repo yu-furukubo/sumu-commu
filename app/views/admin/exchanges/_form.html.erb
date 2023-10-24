@@ -4,6 +4,13 @@
     <table class="table table-borderless">
       <tbody>
         <div class="form-group">
+          <tr>
+            <td>居住地</td>
+            <td><%= residence.name %></td>
+            <%= f.hidden_field :residence_id, :value => residence.id %>
+          </tr>
+        </div>
+        <div class="form-group">
           <% if @exchange.exchange_item_images.attached? %>
             <tr>
               <td><%= f.label :写真 %></td>
@@ -13,10 +20,10 @@
                   <label for="image_ids_<%= image.id %>" >
                     <%= image_tag image, width: '100px' %>
                   </label>
-                <% end %>
+                <% end %><br>
+                <span class="text-info">削除したい画像にチェックを付けてください</span>
               </td>
             </tr>
-            <span class="text-info">削除したい画像にチェックを付けてください</span>
           <% end %>
           <tr>
             <td></td>
@@ -27,16 +34,6 @@
           <tr>
             <td style="width: 20%"><%= f.label :品名 %></td>
             <td style="width: 70%"><%= f.text_field :name, placeholder: "品名", class: 'form-control' %></td>
-          </tr>
-        </div>
-        <div class="form-group">
-          <tr>
-            <td><%= f.label :居住地 %></td>
-            <td>
-              <%= f.select :residence_id,
-              options_from_collection_for_select(current_admin.residences, :id, :name), {prompt: "選択してください"},
-              class: 'form-control' %>
-            </td>
           </tr>
         </div>
         <div class="form-group">

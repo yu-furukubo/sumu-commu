@@ -2,16 +2,16 @@
   <h4>コメント</h4>&emsp;
   <span class="text-primary font-weight-bold"><%= exchange_comments.count - exchange_comments.where(is_deleted: true).count %>件</span>
 </div>
-<%= form_with model: ExchangeComment.new, url: public_exchange_exchange_comments_path(exchange), method: :post, local: true do |f| %>
-  <td>
+<div>
+  <%= form_with model: ExchangeComment.new, url: public_exchange_exchange_comments_path(exchange), method: :post, local: true do |f| %>
     <%= f.hidden_field :exchange_id, :value => @exchange.id %>
     <%= f.hidden_field :member_id, :value => current_member.id %>
     <%= f.text_area :comment, class: "form-control" %>
     <div class="mt-2 text-center">
       <%= f.submit "コメントする", class: 'btn btn-sm btn-danger' %>
     </div>
-  </td>
-<% end %>
+  <% end %>
+</div>
 
 <div class="mt-2">
   <% exchange_comments.each do |comment| %>
@@ -41,10 +41,10 @@
       </div>
     <% end %>
     <!--コメントを論理削除するための処理-->
-    <% if comment.member == exchange.member %>
+    <% if current_member == exchange.member %>
       <% if comment.is_deleted == false %>
         <%= form_with model: ExchangeComment, url: public_exchange_exchange_comment_path(exchange, comment), method: :patch, local: true do |f| %>
-          <div>
+          <div class="text-right">
             <%= f.hidden_field :is_deleted, :value => true %>
             <%= button_tag type: "submit", class: 'btn btn-sm' do %>
               <i class="fa-solid fa-trash"></i>

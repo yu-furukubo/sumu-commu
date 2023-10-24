@@ -5,12 +5,14 @@ class Admin::BoardsController < ApplicationController
     @residences = current_admin.residences
     @residence_id_array = @residences.pluck(:id)
     @boards = Board.where(residence_id: @residence_id_array)
+    @reads = Read.all
   end
 
   def residence_search
     @residences = current_admin.residences
     @residence = Residence.find(params[:id])
     @boards = @residence.boards
+    @reads = Read.all
   end
 
   def show

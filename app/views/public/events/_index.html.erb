@@ -1,18 +1,17 @@
-<table class='table table-borderless'>
+<table class='table table-borderless table-hover'>
   <thead>
     <tr>
       <th>イベント名</th>
       <th>作成者</th>
-      <th>概要</th>
       <th>開催日時</th>
       <th>開催場所</th>
     </tr>
   </thead>
   <tbody>
     <% events.each do |event| %>
-      <tr>
+      <tr class="index_tr" data-href="/public/events/<%= event.id %>">
         <td>
-          <%= link_to event.name, public_event_path(event) %>
+          <%= event.name %>
           <%
             if event.event_members.find_by(member_id: current_member.id).present? &&
             event.event_members.find_by(member_id: current_member.id).is_approved == false &&
@@ -28,7 +27,6 @@
         <% else %>
           <td>退会済み会員</td>
         <% end %>
-        <td><%= event.description %></td>
         <td><%= l event.started_at %> ~ <%= l event.finished_at %></td>
         <td><%= event.venue %></td>
       </tr>

@@ -1,7 +1,6 @@
 <table class='table table-borderless table-hover'>
   <thead>
     <tr>
-      <th style="width:5%"></th>
       <th style="width:40%">タイトル</th>
       <th style="width:15%">作成者</th>
       <th>作成日時</th>
@@ -12,9 +11,9 @@
   <tbody>
     <% boards.each do |board| %>
       <% if Read.find_by(board_id: board.id , member_id: current_member.id).present? %>
-        <tr style="background-color:#EEEEEE">
-          <td class="text-secondary">既読</td>
-          <td><%= link_to board.name.truncate(40), public_board_path(board) %></td>
+        <tr class="index_tr", style="background-color:#EEEEEE" data-href="/public/boards/<%= board.id %>">
+          <td><%= board.name.truncate(40) %>
+          <span class="text-secondary">(既読)</span></td>
           <% if board.member_id == 0 %>
             <td>管理人</td>
           <% elsif board.member.present? %>
@@ -38,9 +37,8 @@
           <% end %>
         </tr>
       <% else %>
-        <tr>
-          <td></td>
-          <td><%= link_to board.name.truncate(40), public_board_path(board) %></td>
+        <tr class="index_tr" data-href="/public/boards/<%= board.id%>">
+          <td><%= board.name.truncate(40) %></td>
           <% if board.member_id == 0 %>
             <td>管理人</td>
           <% elsif board.member.present? %>

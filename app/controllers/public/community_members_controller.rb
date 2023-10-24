@@ -24,7 +24,7 @@ class Public::CommunityMembersController < ApplicationController
     @community = Community.find(params[:community_id])
     community_member = CommunityMember.find(params[:id])
     if community_member.update(community_member_params)
-      redirect_to public_community_path(@community)
+      redirect_to public_community_community_members_path(@community)
     else
       flash.now[:notice] = "コミュニティメンバーの更新に失敗しました。"
       @community_members = @community.community_members

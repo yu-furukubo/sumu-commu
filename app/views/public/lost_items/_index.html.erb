@@ -4,17 +4,14 @@
       <th>画像</th>
       <th>落とし物名</th>
       <th>投稿者</th>
-      <th>説明</th>
-      <th>拾った場所</th>
-      <th>拾った日時</th>
-      <th>保管場所</th>
-      <th>掲載期限</th>
+      <th>場所</th>
+      <th>日時</th>
       <th>保管状況</th>
     </tr>
   </thead>
   <tbody>
     <% lost_items.each do |lost_item| %>
-      <tr>
+      <tr class="index_tr" data-href="/public/lost_items/<%= lost_item.id %>">
         <td>
           <% if lost_item.lost_item_images.attached? %>
             <% lost_item.lost_item_images.limit(1).each do |image| %>
@@ -22,23 +19,20 @@
             <% end %>
           <% end %>
         </td>
-        <td><%= link_to lost_item.name, public_lost_item_path(lost_item) %></td>
+        <td class="align-middle"><%= lost_item.name %></td>
         <% if lost_item.member_id == 0 %>
           <td>管理人</td>
         <% elsif lost_item.member.present? %>
-          <td><%= lost_item.member.name %></td>
+          <td class="align-middle"><%= lost_item.member.name %></td>
         <% else %>
           <td class="text-secondary">退会済み会員</td>
         <% end %>
-        <td><%= lost_item.description %></td>
-        <td><%= lost_item.picked_up_location %></td>
-        <td><%= l lost_item.picked_up_at %></td>
-        <td><%= lost_item.storage_location %></td>
-        <td><%= l lost_item.deadline %></td>
+        <td class="align-middle"><%= lost_item.picked_up_location %></td>
+        <td class="align-middle"><%= l lost_item.picked_up_at %></td>
         <% if lost_item.is_finished == false %>
-          <td class="text-success">保管中</td>
+          <td class="text-success align-middle">保管中</td>
         <% else %>
-          <td class="text-secondary">保管終了</td>
+          <td class="text-secondary align-middle">保管終了</td>
         <% end %>
       </tr>
     <% end %>

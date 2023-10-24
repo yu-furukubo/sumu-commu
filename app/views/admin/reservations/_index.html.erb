@@ -2,7 +2,9 @@
   <thead>
     <tr>
       <% if controller.controller_name == "reservations" %>
-        <th>居住地</th>
+        <% if controller.action_name != "residence_search" %>
+          <th>居住地</th>
+        <% end %>
         <th>予約品・設備</th>
       <% end %>
       <th>日程</th>
@@ -13,7 +15,9 @@
     <% reservations.each do |reservation| %>
       <tr>
         <% if controller.controller_name == "reservations" %>
-          <td><%= reservation.residence.name %></td>
+          <% if controller.action_name != "residence_search" %>
+            <td><%= reservation.residence.name %></td>
+          <% end %>
           <% if reservation.equipment_id.present? %>
             <td><%= link_to reservation.equipment.name, admin_equipment_path(reservation.equipment) %></td>
           <% elsif reservation.facility_id.present? %>

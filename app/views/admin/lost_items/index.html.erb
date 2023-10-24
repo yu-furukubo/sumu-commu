@@ -7,18 +7,24 @@
       <div class="row mb-3 mr-3">
         <h2>落とし物一覧</h2>
         <div class="ml-auto">
-          <table><tr>
-            <%= form_with model: LostItem, url: new_admin_lost_item_path, method: :get, local: true do |f| %>
-              <td><%=
-                f.select :residence_id,
-                options_from_collection_for_select(current_admin.residences, :id, :name), {prompt: "選択してください"},
-                required: true,
-                class: 'form-control'
-              %></td>
-              <td><%= f.submit "選択した居住地に落とし物を登録", class: 'btn btn-sm btn-success' %></td>
-            <% end %>
-            </tr></table>
-          </div>
+          <%= form_with model: LostItem, url: new_admin_lost_item_path, method: :get, local: true do |f| %>
+            <table class="table table-borderless table-sm">
+              <tr>
+                <td class="align-middle">
+                  <%=
+                    f.select :residence_id,
+                    options_from_collection_for_select(current_admin.residences, :id, :name), {prompt: "選択してください"},
+                    required: true,
+                    class: 'form-control'
+                  %>
+                </td>
+                <td class="align-middle">
+                  <%= f.submit "選択した居住地に落とし物を登録", class: 'btn btn-sm btn-success' %>
+                </td>
+              </tr>
+            </table>
+          <% end %>
+        </div>
       </div>
       <div class="container">
         <div class="ml-3">

@@ -10,7 +10,9 @@
 
       <div class="ml-5 mb-3">
         <%= form_for(resource, as: resource_name, url: member_registration_path) do |f| %>
-          <%= render "public/shared/error_messages", resource: resource %>
+          <div class="ml-5">
+            <%= render "public/shared/error_messages", resource: resource %>
+          </div>
           <table class="table table-borderless">
             <tbody>
 

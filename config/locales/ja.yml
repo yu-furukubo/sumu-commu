@@ -50,6 +50,15 @@
           description: "説明"
           picked_up_location: "見つけた場所"
           storage_location: "保管場所"
+        plan:
+          subject: "件名"
+          start_date: "開始日時"
+          finish_date: "終了日時"
+        member:
+          name: "氏名"
+          house_address: "番地もしくは部屋番号"
+          email: "メールアドレス"
+          password: "パスワード"
 
     date:
       abbr_day_names:

@@ -3,8 +3,9 @@ class Admin::CircularMembersController < ApplicationController
 
   def index
     @board = Board.find(params[:board_id])
-    @members = @board.residence.members
+    @residence_members = @board.residence.members
     @circular_member = CircularMember.new
+    pp "=====================================", @board.member_id, @residence_members.count - 1, @board.circular_members.count
   end
 
   def create
@@ -17,6 +18,21 @@ class Admin::CircularMembersController < ApplicationController
       @members = @board.residence.members
       render "index"
     end
+  end
+
+  def add_all
+    @board = Board.find(params[:board_id])
+    @residence_members = @board.residence.members
+    @residence_members.each do |member|
+      if not CircularMember.find_by(board_id: @board.id, member_id: member.id).present? || @board.member_id == member.id
+        unless CircularMember.find_or_create_by(board_id: @board.id, member_id: member.id)
+          flash.now[:notice] =　"#{member}の回覧メンバー追加に失敗しました。"
+          render "index"
+          return
+        end
+      end
+    end
+    redirect_to admin_board_circular_members_path(@board)
   end
 
   def destroy

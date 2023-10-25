@@ -27,13 +27,14 @@ class Admin::EventMembersController < ApplicationController
       if not EventMember.find_by(event_id: @event.id, member_id: member.id, is_approved: true).present?
         unless EventMember.find_or_create_by(event_id: @event.id, member_id: member.id, is_approved: false)
           flash.now[:notice] =　"#{member}の招待に失敗しました。"
+          @event_members = @event.event_members.where(is_approved: true)
+          @event_invited_members = @event.event_members.where(is_approved: false)
           render "index"
           return
         end
       end
     end
     redirect_to admin_event_event_members_path(@event)
-
   end
 
   def quit_invite

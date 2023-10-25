@@ -60,6 +60,7 @@ Rails.application.routes.draw do
         get "residence/:id" => "boards#residence_search" ,as: "residence_search"
       end
       resources :circular_members, only: [:index, :create, :destroy]
+      patch "circular_members_add_all" => "circular_members#add_all", as: "circular_members_add_all"
     end
     resources :residences, except: [:index, :show]
     get "residence/confirm" => "residences#confirm", as: "residence_confirm"

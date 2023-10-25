@@ -3,10 +3,21 @@
     <div class='col-md-10 offset-md-1'>
       <div class="row ml-5 mb-3">
         <h2>回覧メンバー編集</h2>
+        <div class="ml-3">
+          <% if @board.member_id != "0" %>  <!--掲示板投稿者が管理人でない場合-->
+            <% if Member.find_by(id: @board.member_id).present? && @residence_members.count - 1 != @board.circular_members.count %>　<!--掲示板投稿者が未退会の場合-->
+              <%= link_to "全員を回覧メンバーに設定する", admin_board_circular_members_add_all_path(@board), method: :patch, class: "btn btn-primary" %>
+            <% elsif Member.find_by(id: @board.member_id).nil? && @residence_members.count != @board.circular_members.count %>　<!--掲示板投稿者が退会済の場合-->
+              <%= link_to "全員を回覧メンバーに設定する", admin_board_circular_members_add_all_path(@board), method: :patch, class: "btn btn-primary" %>
+            <% end %>
+          <% elsif @board.member_id == "0" && @residence_members.count != @board.circular_members.count %>　<!--掲示板投稿者が管理人の場合-->
+            <%= link_to "全員を回覧メンバーに設定する", admin_board_circular_members_add_all_path(@board), method: :patch, class: "btn btn-primary" %>
+          <% end %>
+        </div>
       </div>
       <div class="ml-5 mb-3">
         <table class='table table-borderless'>
-          <% @members.each do |member| %>
+          <% @residence_members.each do |member| %>
             <tr>
               <% if member != @board.member %>
                 <td style="width:30%"><%= member.name %></td>

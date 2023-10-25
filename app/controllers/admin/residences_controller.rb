@@ -10,8 +10,8 @@ class Admin::ResidencesController < ApplicationController
     if @residence.save
       redirect_to admin_admin_path(current_admin)
     else
-      flash.now[:notice] = "管理居住地の追加に失敗しました。"
-      render "new"
+      flash[:notice] = "管理居住地の追加に失敗しました。必要事項を入力してください。"
+      redirect_to new_admin_residence_path
     end
   end
 
@@ -24,8 +24,8 @@ class Admin::ResidencesController < ApplicationController
     if @residence.update(residence_params)
       redirect_to admin_admin_path(current_admin)
     else
-      flash.now[:notice] = "管理居住地の登録内容変更に失敗しました。"
-      render "edit"
+      flash[:notice] = "管理居住地の登録内容変更に失敗しました。"
+      redirect_to edit_admin_residence_path(@residence)
     end
   end
 

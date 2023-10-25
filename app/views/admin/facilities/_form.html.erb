@@ -1,6 +1,8 @@
 <div class="ml-5 mb-3">
   <%= form_with model:facility, url: path, local: true do |f| %>
-    <%= render 'layouts/errors', obj: facility %>
+    <div class="ml-5">
+      <%= render 'layouts/errors', obj: facility %>
+    </div>
     <table class="table table-borderless">
       <tbody>
         <div class="form-group">

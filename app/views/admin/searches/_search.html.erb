@@ -1,6 +1,6 @@
 <% if boards.present? %>
   <div class="mb-3">
-    <h2>掲示板</h2>
+    <h2 class="border-bottom border-dark">掲示板</h2>
   </div>
   <div class="ml-3">
     <%= render 'admin/boards/index', boards: boards, reads: reads %>
@@ -9,7 +9,7 @@
 
 <% if communities.present? %>
   <div class="mb-3">
-    <h2>コミュニティ</h2>
+    <h2 class="border-bottom border-dark">コミュニティ</h2>
   </div>
   <div class="ml-3">
     <%= render 'admin/communities/index', communities: communities %>
@@ -18,7 +18,7 @@
 
 <% if events.present? %>
   <div class="mb-3">
-    <h2>イベント</h2>
+    <h2 class="border-bottom border-dark">イベント</h2>
   </div>
   <div class="ml-3">
     <%= render 'admin/events/index', events: events %>
@@ -27,7 +27,7 @@
 
 <% if exchanges.present? %>
   <div class="mb-3">
-    <h2>ゆずりあい</h2>
+    <h2 class="border-bottom border-dark">ゆずりあい</h2>
   </div>
   <div class="ml-3">
     <%= render 'admin/exchanges/index', exchanges: exchanges %>
@@ -36,7 +36,7 @@
 
 <% if lost_items.present? %>
   <div class="mb-3">
-    <h2>落とし物</h2>
+    <h2 class="border-bottom border-dark">落とし物</h2>
   </div>
   <div class="ml-3">
     <%= render 'admin/lost_items/index', lost_items: lost_items %>
@@ -45,7 +45,7 @@
 
 <% if equipments.present? %>
   <div class="mb-3">
-    <h2>備品</h2>
+    <h2 class="border-bottom border-dark">備品</h2>
   </div>
   <div class="ml-3">
     <%= render 'admin/equipments/index', equipments: equipments %>
@@ -54,7 +54,7 @@
 
 <% if facilities.present? %>
   <div class="mb-3">
-    <h2>設備</h2>
+    <h2 class="border-bottom border-dark">設備</h2>
   </div>
   <div class="ml-3">
     <%= render 'admin/facilities/index', facilities: facilities %>
@@ -63,7 +63,7 @@
 
 <% if genres.present? %>
   <div class="mb-3">
-    <h2>ジャンル</h2>
+    <h2 class="border-bottom border-dark">ジャンル</h2>
   </div>
   <div class="ml-3">
     <%= render 'admin/genres/index', genres: genres %>
@@ -72,7 +72,7 @@
 
 <% if members.present? %>
   <div class="mb-3">
-    <h2>会員</h2>
+    <h2 class="border-bottom border-dark">会員</h2>
   </div>
   <div class="ml-3">
     <%= render 'admin/members/index', members: members %>

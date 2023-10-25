@@ -26,6 +26,7 @@ class Admin::EventsController < ApplicationController
       redirect_to admin_event_path(@event)
     else
       flash.now[:notice] = "イベントの作成に失敗しました。"
+      @residence = Residence.find(params[:event][:residence_id])
       render "new"
     end
   end
@@ -47,6 +48,7 @@ class Admin::EventsController < ApplicationController
       redirect_to admin_event_path(@event)
     else
       flash.now[:notice] = "イベント内容の更新に失敗しました。"
+      @residence = @event.residence
       render "edit"
     end
   end

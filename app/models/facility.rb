@@ -6,6 +6,7 @@ class Facility < ApplicationRecord
   has_one_attached :facility_image
 
   validates :name, presence: true
+  validates :description, presence: true
 
   # 設備画像が未設定だった場合、no_imageを表示
   def get_facility_image

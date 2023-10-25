@@ -37,8 +37,8 @@ class Admin::GenresController < ApplicationController
     if @genre.update(genre_params)
       redirect_to admin_genres_path
     else
-      flash.now[:notice] = "ジャンルの変更に失敗しました。"
-      render "edit"
+      flash[:notice] = "ジャンル名の変更に失敗しました。"
+      redirect_to edit_admin_genre_path(@genre)
     end
   end
 

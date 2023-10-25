@@ -4,7 +4,7 @@
       <%= render 'layouts/residence_search', residences: @residences %>
     </div>
     <div class='col-md-9'>
-      <div class="row mr-3 mb-3">
+      <div class="row mr-3">
         <h2>イベント一覧</h2>
         <div class="ml-auto">
           <%= form_with model: Event, url: new_admin_event_path, method: :get, local: true do |f| %>
@@ -27,8 +27,24 @@
         </div>
       </div>
       <div class="container">
-        <div class="ml-3">
-          <%= render 'admin/events/index', events: @events %>
+        <div class="tabs">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#section1">開催前(開催中)のイベント</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#section2">終了済みのイベント</a>
+            </li>
+          </ul>
+
+          <div class="tab-content">
+            <div id="section1" class="tab-pane fade show active">
+              <%= render 'admin/events/index', events: @events %>
+            </div>
+            <div id="section2" class="tab-pane fade">
+              <%= render 'admin/events/index', events: @events_finished %>
+            </div>
+          </div>
         </div>
       </div>
     </div>

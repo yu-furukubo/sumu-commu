@@ -67,12 +67,12 @@
 <% else %>
   <div class="text-center mt-5">
     <h2>ようこそ、「すむこみゅ」へ！！</h2><br>
-    <p>このサイトはご近所付き合いの補助を目的としたコミュニティサイトです。</p>
+    <p>このサイトは、ご近所付き合いを目的としたコミュニティサイトです。</p>
     <p>すむこみゅなら、ご近所付き合いの困ったをまるっと解決します！</p><br>
     <p><span>会員登録がお済みの方は、</span><%= link_to "こちら", new_member_session_path %><span>よりログインしてください。</span></p><br>
     <p>会員登録がお済みでない方は、下記より新規会員登録をお願いいたします。</p>
   </div>
-  <div class="text-center my-3">
-    <%= link_to "会員登録する", public_residences_path, class: "btn btn-info" %>
+  <div class="text-center my-5">
+    <%= link_to "会員登録する", public_residences_path, class: "btn btn-primary" %>
   </div>
 <% end %>

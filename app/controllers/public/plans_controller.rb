@@ -40,7 +40,7 @@ class Public::PlansController < ApplicationController
 
   def destroy
     @plan = Plan.find(params[:id])
-    if plan.destroy
+    if @plan.destroy
       redirect_to public_plans_path
     else
       flash.now[:notice] = "予定の削除に失敗しました。"

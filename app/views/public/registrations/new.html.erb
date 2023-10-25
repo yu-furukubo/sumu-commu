@@ -10,7 +10,9 @@
 
       <div class="ml-5 mb-3">
         <%= form_for(resource, as: resource_name, url: member_registration_path) do |f| %>
-          <%= render "public/shared/error_messages", resource: resource %>
+          <div class="ml-5">
+            <%= render "public/shared/error_messages", resource: resource %>
+          </div>
           <table class="table table-borderless">
             <tbody>
 
@@ -78,7 +80,7 @@
           </table>
 
           <div class="actions form-group text-center mb-3">
-            <%= f.submit "登録して利用開始", class: 'btn btn-success' %>
+            <%= f.submit "登録して利用開始", class: 'btn btn-primary' %>
           </div>
         <% end %>
       </div>

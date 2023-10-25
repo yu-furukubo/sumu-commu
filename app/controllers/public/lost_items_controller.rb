@@ -20,6 +20,13 @@ class Public::LostItemsController < ApplicationController
 
   def create
     @lost_item = LostItem.new(lost_item_params)
+
+    if params[:lost_item][:deadline] == "" || params[:lost_item][:picked_up_at] == ""
+      flash.now[:notice] = "拾った日時・掲載期限を入力してください。"
+      render "new"
+      return
+    end
+
     if @lost_item.save
       redirect_to public_lost_item_path(@lost_item)
     else
@@ -34,6 +41,13 @@ class Public::LostItemsController < ApplicationController
 
   def update
     @lost_item = LostItem.find(params[:id])
+
+    if params[:lost_item][:deadline] == "" || params[:lost_item][:picked_up_at] == ""
+      flash.now[:notice] = "拾った日時・掲載期限を入力してください。"
+      render "edit"
+      return
+    end
+
     if params[:lost_item][:image_ids]
       params[:lost_item][:image_ids].each do |image_id|
         image = @lost_item.lost_item_images.find(image_id)

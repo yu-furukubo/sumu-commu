@@ -1,24 +1,24 @@
 <div class='container p-5 px-sm-0'>
   <div class="col-md-6 mx-auto">
-    <div class="row ml-5 mb-3">
+    <div class="row mb-3">
       <h2>ログイン</h2>
           <div class="ml-auto mr-3 d-flex align-items-center">
       <%= render "admin/shared/links" %>
     </div>
     </div>
-    <div class="ml-5 mb-3">
+    <div class="mb-3">
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <table class="table table-borderless">
           <tbody>
             <div class="form-group">
               <tr>
-                <td><%= f.label :email %></td>
+                <td><%= f.label :メールアドレス %></td>
                 <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
               </tr>
             </div>
             <div class="form-group">
               <tr>
-                <td><%= f.label :password %></td>
+                <td><%= f.label :パスワード %></td>
                 <td>
                   <%= f.password_field :password, autocomplete: "current-password" %>
                   <% if devise_mapping.rememberable? %>
@@ -34,8 +34,8 @@
         </table>
         <div class="row">
           <div class="mx-auto">
-            <div class="actions form-group text-center mb-3">
-              <%= f.submit "ログイン", class: "btn btn-primary btn-sm" %>
+            <div class="actions form-group mb-3">
+              <%= f.submit "ログイン", class: "btn btn-info" %>
             </div>
           </div>
         </div>

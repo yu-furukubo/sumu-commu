@@ -4,7 +4,9 @@ class Admin::ExchangesController < ApplicationController
   def index
     @residences = current_admin.residences
     @residence_id_array = @residences.pluck(:id)
-    @exchanges = Exchange.where(residence_id: @residence_id_array)
+    @exchanges = Exchange.where(residence_id: @residence_id_array).where('deadline > ?', Time.now)
+    @exchanges_recruitment = Exchange.where(residence_id: @residence_id_array).where('deadline > ?', Time.now).where(is_finished: false)
+    @exchanges_finished = Exchange.where(residence_id: @residence_id_array).where(is_finished: true)
   end
 
   def residence_search

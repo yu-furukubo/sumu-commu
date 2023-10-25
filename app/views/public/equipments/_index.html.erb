@@ -2,12 +2,8 @@
   <thead>
     <tr>
       <th>名称</th>
-      <th>説明</th>
       <th>ジャンル</th>
       <th>在庫</th>
-      <th>保管場所</th>
-      <th>返却場所</th>
-      <th>メモ</th>
       <th></th>
     </tr>
   </thead>
@@ -15,16 +11,12 @@
     <% equipments.each do |equipment| %>
       <tr class="index_tr" data-href="/public/equipments/<%= equipment.id %>">
         <td><%= equipment.name %></td>
-        <td><%= equipment.description %></td>
         <% if equipment.genre_id == 0 %>
           <td>(未設定)</td>
         <% else %>
           <td><%= equipment.genre.name %></td>
         <% end %>
         <td><%= equipment.stock %>個</td>
-        <td><%= equipment.storage_location %></td>
-        <td><%= equipment.return_location %></td>
-        <td><%= equipment.note %></td>
         <td>
           <%= form_with model: Reservation, url: new_public_reservation_path, method: :get, local: true do |f| %>
             <%= f.hidden_field :equipment_id, :value => equipment.id %>

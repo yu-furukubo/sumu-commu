@@ -9,7 +9,6 @@ class CreateReservations < ActiveRecord::Migration[6.1]
       t.datetime :started_at,        null: false
       t.date :finish_date,           null: false
       t.datetime :finished_at,       null: false
-      t.integer :using_status,       null: false, default: "0"
 
       t.timestamps
     end

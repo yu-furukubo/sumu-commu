@@ -16,12 +16,49 @@
           restrict_dependent_destroy:
             has_one: "%{record}が存在しているので削除できません"
             has_many: "%{record}が存在しているので削除できません"
-    models:
-      board: "掲示板"
-    attributes:
-      board:
-        name: "タイトル"
-        body: "本文"
+      models:
+        board: "掲示板"
+        community: "コミュニティ"
+        event: "イベント"
+        exchange: "ゆずりあい"
+        reservation: "予約"
+        lost_item: "落とし物"
+        plan: "予定"
+        equipment: "備品"
+        facility: "設備"
+        member: "会員"
+        admin: "管理者"
+        residence: "居住地"
+      attributes:
+        board:
+          name: "タイトル"
+          body: "本文"
+        community:
+          name: "コミュニティ名"
+        event:
+          name: "イベント名"
+          description: "概要"
+          started_at: "開始日時"
+          finished_at: "終了日時"
+          venue: "開催場所"
+        exchange:
+          name: "品名"
+          description: "説明"
+          price: "取引価格(無償の場合は「0」)"
+        lost_item:
+          name: "落とし物名"
+          description: "説明"
+          picked_up_location: "見つけた場所"
+          storage_location: "保管場所"
+        plan:
+          subject: "件名"
+          start_date: "開始日時"
+          finish_date: "終了日時"
+        member:
+          name: "氏名"
+          house_address: "番地もしくは部屋番号"
+          email: "メールアドレス"
+          password: "パスワード"
 
     date:
       abbr_day_names:
@@ -57,6 +94,7 @@
         default: "%Y/%m/%d"
         long: "%Y年%m月%d日(%a)"
         short: "%m/%d"
+        comment: "%m/%d %H:%M"
       month_names:
       -
       - 1月
@@ -101,6 +139,7 @@
         default: "%Y年%m月%d日(%a) %H:%M"
         long: "%Y/%m/%d(%a) %H:%M"
         short: "%m/%d %H:%M"
+        comment: "%m/%d %H:%M"
     errors:
       format: "%{attribute}%{message}"
       messages:
@@ -198,5 +237,6 @@
       formats:
         default: "%Y/%m/%d(%a) %H:%M"
         long: "%Y/%m/%d(%a) %H:%M"
-        short: "%m/%d %H:%M"
+        short: "%H:%M"
+        comment: "%m/%d %H:%M"
       pm: 午後

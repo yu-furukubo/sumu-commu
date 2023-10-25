@@ -1,5 +1,7 @@
 <%= form_with model:residence, url: path, local: true do |f| %>
-  <%= render 'layouts/errors', obj: residence %>
+  <div class="ml-5">
+    <%= render 'layouts/errors', obj: residence %>
+  </div>
   <div class="form-group align-items-center">
     <table class="table table-borderless">
       <div class="form-group">

@@ -8,6 +8,7 @@ class Exchange < ApplicationRecord
   validates :name, presence: true
   validates :description, presence: true
   validates :price, presence: true
+  validates :deadline, presence: true
 
   def self.looks(words, residence)
     @exchanges = self.where(residence_id: residence)

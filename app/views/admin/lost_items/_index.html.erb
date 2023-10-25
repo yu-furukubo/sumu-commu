@@ -19,8 +19,10 @@
         <% end %>
         <% if lost_item.member_id == 0 %>
           <td>管理人</td>
-        <% else %>
+        <% elsif lost_item.member.present? %>
           <td><%= lost_item.member.name %></td>
+        <% else %>
+          <td class="text-secondary">退会済み会員</td>
         <% end %>
         <td><%= link_to lost_item.name, admin_lost_item_path(lost_item) %></td>
         <td><%= lost_item.picked_up_location %></td>

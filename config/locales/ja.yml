@@ -41,6 +41,7 @@
           started_at: "開始日時"
           finished_at: "終了日時"
           venue: "開催場所"
+          deadline: "掲載期限"
         exchange:
           name: "品名"
           description: "説明"
@@ -49,7 +50,9 @@
           name: "落とし物名"
           description: "説明"
           picked_up_location: "見つけた場所"
+          picked_up_at: "見つけた日時"
           storage_location: "保管場所"
+          deadline: "掲載期限"
         plan:
           subject: "件名"
           start_date: "開始日時"
@@ -59,6 +62,24 @@
           house_address: "番地もしくは部屋番号"
           email: "メールアドレス"
           password: "パスワード"
+        residence:
+          name: "名称"
+          address: "所在地"
+        equipment:
+          name: "備品名"
+          description: "説明"
+          storage_location: "保管場所"
+          return_location: "返却場所"
+        facility:
+          name: "設備名"
+          description: "説明"
+        admin:
+          name: "名前"
+          email: "メールアドレス"
+        genre:
+          name: "ジャンル名"
+          residence: "所在地"
+
 
     date:
       abbr_day_names:

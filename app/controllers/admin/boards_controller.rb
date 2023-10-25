@@ -33,6 +33,7 @@ class Admin::BoardsController < ApplicationController
       redirect_to admin_board_path(@board)
     else
       flash.now[:notice] = "掲示板の作成に失敗しました。"
+      @residence = Residence.find(params[:board][:residence_id])
       render "new"
     end
   end
@@ -48,6 +49,7 @@ class Admin::BoardsController < ApplicationController
       redirect_to admin_board_path(@board)
     else
       flash.now[:notice] = "掲示板の更新に失敗しました。"
+      @residence = @board.residence
       render "edit"
     end
   end

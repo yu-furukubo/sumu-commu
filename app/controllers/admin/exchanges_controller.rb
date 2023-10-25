@@ -37,6 +37,7 @@ class Admin::ExchangesController < ApplicationController
       redirect_to admin_exchange_path(@exchange)
     else
       flash.now[:notice] = "ゆずりあいの内容変更に失敗しました。"
+      @residence = @exchange.residence
       render "edit"
     end
   end

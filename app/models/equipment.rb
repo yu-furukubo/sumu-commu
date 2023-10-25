@@ -6,6 +6,7 @@ class Equipment < ApplicationRecord
   has_one_attached :equipment_image
 
   validates :name, presence: true
+  validates :description, presence: true
   validates :storage_location, presence: true
   validates :return_location, presence: true
 

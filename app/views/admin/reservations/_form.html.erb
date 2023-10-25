@@ -1,6 +1,8 @@
 <div class="ml-5 mb-3">
   <%= form_with model:reservation, url: path, local: true do |f| %>
-    <%= render 'layouts/errors', obj: reservation %>
+    <div class="ml-5">
+      <%= render 'layouts/errors', obj: reservation %>
+    </div>
     <table class="table table-borderless">
       <tbody>
         <%= f.hidden_field :member_id, :value => 0 %>

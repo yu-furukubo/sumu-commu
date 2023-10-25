@@ -10,6 +10,7 @@ class LostItem < ApplicationRecord
   validates :picked_up_location, presence: true
   validates :picked_up_at, presence: true
   validates :storage_location, presence: true
+  validates :deadline, presence: true
 
   def self.looks(words, residence)
     @lost_items = self.where(residence_id: residence)

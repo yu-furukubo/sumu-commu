@@ -35,6 +35,13 @@ class Admin::ReservationsController < ApplicationController
     end
 
     @reservation = Reservation.new(reservation_params)
+
+    if params[:reservation][:start_date] == "" || params[:reservation][:finish_date] == ""
+      flash.now[:notice] ="日付を入力してください。"
+      render "new"
+      return
+    end
+
     set_the_day_implement(@reservation)
 
     if @reservation.started_at > @reservation.finished_at
@@ -47,22 +54,26 @@ class Admin::ReservationsController < ApplicationController
       if @reservation.equipment_id.present?
         count = reservations.where('finished_at > ? and ? > started_at', @reservation.started_at, @reservation.finished_at).count
         if @reservation.equipment.stock <= count
-          flash.now[:notice] = "その期間には別の予約が入っています。空き時間をご確認ください。"
+          flash.now[:notice] =
+            "#{l @reservation.started_at} ~ #{l @reservation.finished_at}<br>上記期間には別の予約が含まれます。空き時間をご確認ください。".html_safe
           render "new"
           return
         else
+          flash[:notice] = "予約が完了しました。"
           @reservation.save
           redirect_to admin_reservation_path(@reservation)
           return
         end
       else
-        flash.now[:notice] = "その期間には別の予約が入っています。空き時間をご確認ください。"
+        flash.now[:notice] =
+          "#{l @reservation.started_at} ~ #{l @reservation.finished_at}<br>上記期間には別の予約が含まれます。空き時間をご確認ください。".html_safe
         render "new"
         return
       end
     end
 
     if @reservation.save
+      flash[:notice] = "予約が完了しました。"
       redirect_to admin_reservation_path(@reservation)
     else
       flash.now[:notice] = "予約に失敗しました。"
@@ -83,9 +94,13 @@ class Admin::ReservationsController < ApplicationController
       reservations = Reservation.where(facility_id: @reservation.facility.id)
     end
 
-    @reservation = Reservation.find(params[:id])
+    if params[:reservation][:start_date] == "" || params[:reservation][:finish_date] == ""
+      flash.now[:notice] = "日付を入力してください。"
+      render "edit"
+      return
+    end
+
     set_the_day_implement_edit(@reservation)
-    pp "-----------------------------------------------確認",@reservation.started_at,@reservation.finished_at,params[:reservation][:start_at]
 
     if @reservation.started_at > @reservation.finished_at
       flash.now[:notice] = "使用完了日時は、使用開始日時より後の日時を指定してください。"
@@ -97,23 +112,36 @@ class Admin::ReservationsController < ApplicationController
       count = reservations.where('finished_at > ? and ? > started_at', @reservation.started_at, @reservation.finished_at).count
       if @reservation.equipment_id.present?
         if @reservation.equipment.stock + 1 <= count
-          flash.now[:notice] = "その期間には別の予約が入っています。空き時間をご確認ください。"
+          flash.now[:notice] =
+            "#{l @reservation.started_at} ~ #{l @reservation.finished_at}<br>上記期間には別の予約が含まれます。空き時間をご確認ください。".html_safe
           render "edit"
           return
         else
-          pp "------------------------------------ここ？"
-          @reservation.update(reservation_params)
+          @reservation.update(
+            start_date: params[:reservation][:start_date],
+            started_at: @reservation.started_at,
+            finish_date: params[:reservation][:finish_date],
+            finished_at: @reservation.finished_at
+          )
+          flash[:notice] = "予約時間の変更が完了しました。"
           redirect_to admin_reservation_path(@reservation)
           return
         end
       elsif count > 1
-        flash.now[:notice] = "その期間には別の予約が入っています。空き時間をご確認ください。"
+        flash.now[:notice] =
+          "#{l @reservation.started_at} ~ #{l @reservation.finished_at}<br>上記期間には別の予約が含まれます。空き時間をご確認ください。".html_safe
         render "edit"
         return
       end
     end
-pp "------------------------------------ここ？" , @reservation
-    if @reservation.update(reservation_params)
+
+    if @reservation.update(
+        start_date: params[:reservation][:start_date],
+        started_at: @reservation.started_at,
+        finish_date: params[:reservation][:finish_date],
+        finished_at: @reservation.finished_at
+      )
+      flash[:notice] = "予約時間の変更が完了しました。"
       redirect_to admin_reservation_path(@reservation)
     else
       flash.now[:notice] = "予約内容の更新に失敗しました。"
@@ -139,7 +167,7 @@ pp "------------------------------------ここ？" , @reservation
   private
 
   def reservation_params
-    params.require(:reservation).permit(:residence_id, :member_id, :equipment_id, :facility_id, :start_date, :started_at, :finish_date, :finished_at, :using_status)
+    params.require(:reservation).permit(:residence_id, :member_id, :equipment_id, :facility_id, :start_date, :started_at, :finish_date, :finished_at)
   end
 
   def set_the_day_implement(reservation)
@@ -158,14 +186,16 @@ pp "------------------------------------ここ？" , @reservation
     start_year = params[:reservation][:start_date].to_date.year
     start_month = params[:reservation][:start_date].to_date.month
     start_day = params[:reservation][:start_date].to_date.day
+    start_hour = params[:reservation]["started_at(4i)"].to_i
+    start_min = params[:reservation]["started_at(5i)"].to_i
     finish_year = params[:reservation][:finish_date].to_date.year
     finish_month = params[:reservation][:finish_date].to_date.month
     finish_day = params[:reservation][:finish_date].to_date.day
-    finish_hour = params[:reservation][:finished_at].to_time.hour
-    finish_minute = params[:reservation][:finished_at].to_time.minute
+    finish_hour = params[:reservation]["finished_at(4i)"].to_i
+    finish_min = params[:reservation]["finished_at(5i)"].to_i
 
-    reservation.started_at = reservation.started_at.change(year: start_year, month: start_month, day: start_day)
-    reservation.finished_at = reservation.finished_at.change(year: finish_year, month: finish_month, day: finish_day, hour: finish_hour, minute: finish_minute)
+    reservation.started_at = reservation.started_at.change(year: start_year, month: start_month, day: start_day, hour: start_hour, min: start_min)
+    reservation.finished_at = reservation.finished_at.change(year: finish_year, month: finish_month, day: finish_day, hour: finish_hour, min: finish_min)
   end
 
 end

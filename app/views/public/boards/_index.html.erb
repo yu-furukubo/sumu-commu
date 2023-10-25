@@ -10,58 +10,35 @@
   </thead>
   <tbody>
     <% boards.each do |board| %>
-      <% if Read.find_by(board_id: board.id , member_id: current_member.id).present? %>
-        <tr class="index_tr", style="background-color:#EEEEEE" data-href="/public/boards/<%= board.id %>">
-          <td><%= board.name.truncate(40) %>
-          <span class="text-secondary">(既読)</span></td>
-          <% if board.member_id == 0 %>
-            <td>管理人</td>
-          <% elsif board.member.present? %>
-            <td><%= board.member.name %></td>
-          <% else %>
-            <td>退会済み会員</td>
+      <tr class="index_tr" data-href="/public/boards/<%= board.id %>">
+        <td>
+          <%= board.name.truncate(40) %>
+          <% if Read.find_by(board_id: board.id , member_id: current_member.id).present? %>
+            <span class="text-secondary">(既読)</span>
           <% end %>
-          <td><%= l board.created_at %></td>
-          <% if board.is_circular == true %>
-            <td class="text-center text-weight-bold text-success"><i class="fa-solid fa-check"></i></td>
-            <% if board.circular_members.count == 0 %>
-              <td>回覧メンバー未設定</td>
-            <% elsif reads.where(board_id: board.id, member_id: board.circular_members.pluck(:member_id)).count == board.circular_members.count && board.circular_members.exists? %>
-              <td class="text-success">全員確認済み</td>
-            <% else %>
-              <td>確認済み<%= Read.where(board_id: board.id, member_id: board.circular_members.pluck(:member_id)).count %>/<%= board.circular_members.count %></td>
-            <% end %>
+        </td>
+        <% if board.member_id == 0 %>
+          <td>管理人</td>
+        <% elsif board.member.present? %>
+          <td><%= board.member.name %></td>
+        <% else %>
+          <td>退会済み会員</td>
+        <% end %>
+        <td><%= l board.created_at %></td>
+        <% if board.is_circular == true %>
+          <td class="text-center text-weight-bold text-success"><i class="fa-solid fa-check"></i></td>
+          <% if board.circular_members.count == 0 %>
+            <td>回覧メンバー未設定</td>
+          <% elsif reads.where(board_id: board.id, member_id: board.circular_members.pluck(:member_id)).count == board.circular_members.count && board.circular_members.exists? %>
+            <td class="text-success">全員確認済み</td>
           <% else %>
-            <td class="text-center">-</td>
-            <td></td>
+            <td>確認済み<%= Read.where(board_id: board.id, member_id: board.circular_members.pluck(:member_id)).count %>/<%= board.circular_members.count %></td>
           <% end %>
-        </tr>
-      <% else %>
-        <tr class="index_tr" data-href="/public/boards/<%= board.id%>">
-          <td><%= board.name.truncate(40) %></td>
-          <% if board.member_id == 0 %>
-            <td>管理人</td>
-          <% elsif board.member.present? %>
-            <td><%= board.member.name %></td>
-          <% else %>
-            <td>退会済み会員</td>
-          <% end %>
-          <td><%= l board.created_at %></td>
-          <% if board.is_circular == true %>
-            <td class="text-center text-weight-bold text-success"><i class="fa-solid fa-check"></i></td>
-            <% if board.circular_members.count == 0 %>
-              <td>回覧メンバー未設定</td>
-            <% elsif reads.where(board_id: board.id, member_id: board.circular_members.pluck(:member_id)).count == board.circular_members.count && board.circular_members.exists? %>
-              <td class="text-success">全員確認済み</td>
-            <% else %>
-              <td>確認済み<%= Read.where(board_id: board.id, member_id: board.circular_members.pluck(:member_id)).count %>/<%= board.circular_members.count %></td>
-            <% end %>
-          <% else %>
-            <td class="text-center">-</td>
-            <td></td>
-          <% end %>
-        </tr>
-      <% end %>
+        <% else %>
+          <td class="text-center">-</td>
+          <td></td>
+        <% end %>
+      </tr>
     <% end %>
   </tbody>
 </table>

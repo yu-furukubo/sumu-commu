@@ -1,6 +1,8 @@
 <div class="ml-5 mb-3">
   <%= form_with model:lost_item, url: path, local: true do |f| %>
-    <%= render 'layouts/errors', obj: lost_item %>
+    <div class="ml-5">
+      <%= render 'layouts/errors', obj: lost_item %>
+    </div>
     <table class="table table-borderless">
       <tbody>
         <%= f.hidden_field :residence_id, :value => current_member.residence.id %>
@@ -46,7 +48,7 @@
         <div class="form-group">
           <tr>
             <td><%= f.label :拾った日時 %></td>
-            <td><%= f.datetime_select :picked_up_at, class: 'form-control' %></td>
+            <td><%= f.datetime_field :picked_up_at, class: 'form-control' %></td>
           </tr>
         </div>
         <div class="form-group">

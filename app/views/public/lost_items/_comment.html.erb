@@ -8,51 +8,72 @@
     <%= f.hidden_field :member_id, :value => current_member.id %>
     <%= f.text_area :comment, class: "form-control" %>
     <div class="mt-2 text-center">
-      <%= f.submit "コメントする", class: 'btn btn-sm btn-danger' %>
+      <%= f.submit "コメントする", class: 'btn btn-sm btn-secondary' %>
     </div>
   <% end %>
 </div>
 
-<div class="mt-2">
+<div class="mt-2 comment_box">
   <% lost_item_comments.each do |comment| %>
     <% if comment.member == current_member %>
-      <div class="text-right">
-        <% if comment.is_deleted == true %>
-          <span class="text-light bg-secondary">このコメントは管理者によって削除されました</span>
-        <% else %>
-          <span class="text-light bg-info"><%= comment.comment %></span>
-        <% end %>
-        <div class="text-right">
-          <span class="ml-auto text-secondary mr-2">(<%= comment.created_at %></spna>
-          <span class="text-secondary"><%= comment.member.name %>)</span>
+      <div class="comment_group">
+        <div class="comment_mine">
+          <% if comment.is_deleted == true %>
+            <span class="comment_body_deleted">このコメントは管理者によって削除されました</span>
+          <% else %>
+            <span class="my_comment_body"><%= comment.comment %></span>
+          <% end %>
+          <div class="comment_info">
+            <div class="comment_info_body">
+              <span class="ml-auto mr-2">(<%= l comment.created_at, format: :comment %>)</span>
+            </div>
+            <!--コメントを論理削除するための処理-->
+            <div>
+              <% if current_member == lost_item.member %>
+                <% if comment.is_deleted == false %>
+                  <div class="text-right">
+                    <%= form_with model: LostItemComment, url: public_lost_item_lost_item_comment_path(lost_item, comment), method: :patch, local: true do |f| %>
+                      <%= f.hidden_field :is_deleted, :value => true %>
+                      <%= button_tag type: "submit", class: 'btn btn-sm' do %>
+                        <i class="fa-solid fa-trash"></i>
+                      <% end %>
+                    <% end %>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+            <!--コメントを論理削除するための処理ここまで-->
+          </div>
         </div>
       </div>
     <% else %>
-      <div>
-        <% if comment.is_deleted == true %>
-          <span class="text-light bg-secondary">このコメントは管理者によって削除されました</span>
-        <% else %>
-          <span class="text-light bg-info"><%= comment.comment %></span>
-        <% end %>
-        <div>
-          <span class="text-secondary mr-2">(<%= comment.created_at %></span>
-          <span class="text-secondary"><%= comment.member.name %>)</span>
+      <div class="comment_group">
+        <div class="comment_others">
+          <% if comment.is_deleted == true %>
+            <span class="text-light bg-secondary comment_body_deleted">このコメントは管理者によって削除されました</span>
+          <% else %>
+            <span class="comment_body"><%= comment.comment %></span>
+          <% end %>
+          <div class="comment_info">
+            <div class="comment_info_body">
+              <span class="text-secondary mr-2">(<%= l comment.created_at, format: :comment %></span>
+              <span class="text-secondary"><%= comment.member.name %>)</span>
+            </div>
+            <div>
+              <% if current_member == lost_item.member %>
+                <% if comment.is_deleted == false %>
+                  <%= form_with model: LostItemComment, url: public_lost_item_lost_item_comment_path(lost_item, comment), method: :patch, local: true do |f| %>
+                    <%= f.hidden_field :is_deleted, :value => true %>
+                    <%= button_tag type: "submit", class: 'btn btn-sm' do %>
+                      <i class="fa-solid fa-trash"></i>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
     <% end %>
-    <!--コメントを論理削除するための処理-->
-    <% if current_member == lost_item.member %>
-      <% if comment.is_deleted == false %>
-        <%= form_with model: LostItemComment, url: public_lost_item_lost_item_comment_path(lost_item, comment), method: :patch, local: true do |f| %>
-          <div class="text-right">
-            <%= f.hidden_field :is_deleted, :value => true %>
-            <%= button_tag type: "submit", class: 'btn btn-sm' do %>
-              <i class="fa-solid fa-trash"></i>
-            <% end %>
-          </div>
-        <% end %>
-      <% end %>
-    <% end %>
-    <!--コメントを論理削除するための処理ここまで-->
   <% end %>
 </div>

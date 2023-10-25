@@ -18,7 +18,13 @@
             <td><%= reservation.facility.name %></td>
           <% end %>
         <% end %>
-        <td><%= l reservation.started_at %> ~ <%= l reservation.finished_at %></td>
+        <td>
+          <% if reservation.started_at.to_date == reservation.finished_at.to_date %>
+            <%= l reservation.started_at %> ~ <%= l reservation.finished_at.to_time, format: :short %>
+          <% else %>
+            <%= l reservation.started_at %> ~ <%= l reservation.finished_at %>
+          <% end %>
+        </td>
         <% if reservation.member_id == 0 %>
           <td>管理人</td>
         <% else %>

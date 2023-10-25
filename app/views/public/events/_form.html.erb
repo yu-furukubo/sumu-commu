@@ -1,6 +1,8 @@
 <div class="ml-5 mb-3">
   <%= form_with model:event, url: path, local: true do |f| %>
-    <%= render 'layouts/errors', obj: event %>
+    <div class="ml-5">
+      <%= render 'layouts/errors', obj: event %>
+    </div>
     <table class="table table-borderless">
       <tbody>
         <%= f.hidden_field :residence_id, :value => current_member.residence.id %>

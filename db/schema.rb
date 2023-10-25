@@ -240,7 +240,6 @@ ActiveRecord::Schema.define(version: 2023_10_05_091539) do
     t.datetime "started_at", null: false
     t.date "finish_date", null: false
     t.datetime "finished_at", null: false
-    t.integer "using_status", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

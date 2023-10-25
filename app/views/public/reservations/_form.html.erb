@@ -5,25 +5,36 @@
       <tbody>
         <%= f.hidden_field :member_id, :value => current_member.id %>
         <%= f.hidden_field :residence_id, :value => current_member.residence.id %>
-        <%= f.hidden_field :using_status, :value => Reservation.using_statuses.key(0) %>
         <tr>
           <% if reservation.new_record? %>
             <% if params[:reservation][:equipment_id].present? %>
               <%= f.hidden_field :equipment_id, :value => params[:reservation][:equipment_id] %>
               <td>予約品</td>
-              <td><%= Equipment.find(params[:reservation][:equipment_id]).name %></td>
+              <td>
+                <%= Equipment.find(params[:reservation][:equipment_id]).name %>&emsp;
+                <%= link_to ">>他の予約を確認する", public_equipment_path(params[:reservation][:equipment_id]) %>
+              </td>
             <% elsif params[:reservation][:facility_id].present? %>
               <%= f.hidden_field :facility_id, :value => params[:reservation][:facility_id] %>
               <td>予約設備</td>
-              <td><%= Facility.find(params[:reservation][:facility_id]).name %></td>
+              <td>
+                <%= Facility.find(params[:reservation][:facility_id]).name %>&emsp;
+                <%= link_to ">>他の予約を確認する", public_facility_path(params[:reservation][:facility_id]) %>
+              </td>
             <% end %>
           <% else %>
             <% if reservation.equipment_id.present? %>
               <td>予約品</td>
-              <td><%= reservation.equipment.name %></td>
+              <td>
+                <%= reservation.equipment.name %>&emsp;
+                <%= link_to ">>他の予約を確認する", public_equipment_path(reservation.equipment) %>
+              </td>
             <% elsif reservation.facility_id.present? %>
               <td>予約設備</td>
-              <td><%= reservation.facility.name %></td>
+              <td>
+                <%= reservation.facility.name %>&emsp;
+                <%= link_to ">>他の予約を確認する", public_facility_path(reservation.facility) %>
+              </td>
             <% end %>
           <% end %>
         </tr>

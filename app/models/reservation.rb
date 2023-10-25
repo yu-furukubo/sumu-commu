@@ -10,6 +10,4 @@ class Reservation < ApplicationRecord
   validates :finish_date, presence: true
   validates :finished_at, presence: true
 
-  enum using_status: { reserved: 0, using: 1, returned: 2 }
-
 end

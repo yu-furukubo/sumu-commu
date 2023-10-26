@@ -23,20 +23,11 @@
                   <%= image_tag image, width: '100px' %>
                 <% end %>
               <% else %>
-                <%= image_tag 'no_image.jpg', width: '50px' %>
+                <%= image_tag 'no_image_obj.png', width: '100px' %>
               <% end %>
             </td>
           </tr>
-          <tr>
-            <th style="width: 20%">登録者名</th>
-            <% if @lost_item.member_id == 0 %>
-              <td>管理人</td>
-            <% elsif @lost_item.member.present? %>
-              <td><%= @lost_item.member.name %></td>
-            <% else %>
-              <td class="text-secondary">退会済み会員</td>
-            <% end %>
-          </tr>
+          <tr><th style="width: 20%">登録者名</th><td><%= check_member_created(@lost_item) %></td></tr>
           <tr><th>落とし物名</th><td><%= @lost_item.name %></td></tr>
           <tr><th>説明</th><td><%= @lost_item.description %></td></tr>
           <tr><th>拾った場所</th><td><%= @lost_item.picked_up_location %></td></tr>

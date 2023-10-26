@@ -1,22 +1,18 @@
 <table class='table table-borderless table-hover'>
   <thead>
     <tr>
-      <th>コミュニティ名</th>
-      <th>作成者</th>
-      <th>説明</th>
-      <th>メンバー数</th>
+      <th style="width:10%">画像</th>
+      <th style="width:30%">コミュニティ名</th>
+      <th style="width:50%">説明</th>
+      <th>人数</th>
     </tr>
   </thead>
   <tbody>
     <% communities.each do |community| %>
       <tr class="index_tr" data-href="/public/communities/<%= community.id %>">
-        <td><%= community.name %></td>
-        <% if community.member.present? %>
-          <td><%= community.member.name %></td>
-        <% else %>
-          <td>退会済み会員</td>
-        <% end %>
-        <td><%= community.description %></td>
+        <td><%= image_tag community.get_community_image, width: '50px' %></td>
+        <td><%= community.name.truncate(20) %></td>
+        <td><%= community.description.truncate(30) %></td>
         <td><%= community.community_members.count %> 人</td>
       </tr>
     <% end %>

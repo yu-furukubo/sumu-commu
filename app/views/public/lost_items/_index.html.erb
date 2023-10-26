@@ -3,7 +3,6 @@
     <tr>
       <th>画像</th>
       <th>落とし物名</th>
-      <th>投稿者</th>
       <th>場所</th>
       <th>日時</th>
       <th>保管状況</th>
@@ -15,18 +14,13 @@
         <td>
           <% if lost_item.lost_item_images.attached? %>
             <% lost_item.lost_item_images.limit(1).each do |image| %>
-              <%= image_tag image, width: '100px' %>
+              <%= image_tag image, width: '50px' %>
             <% end %>
+          <% else %>
+            <%= image_tag 'no_image_obj.png', width: '50px' %>
           <% end %>
         </td>
         <td class="align-middle"><%= lost_item.name %></td>
-        <% if lost_item.member_id == 0 %>
-          <td>管理人</td>
-        <% elsif lost_item.member.present? %>
-          <td class="align-middle"><%= lost_item.member.name %></td>
-        <% else %>
-          <td class="text-secondary">退会済み会員</td>
-        <% end %>
         <td class="align-middle"><%= lost_item.picked_up_location %></td>
         <td class="align-middle"><%= l lost_item.picked_up_at %></td>
         <% if lost_item.is_finished == false %>

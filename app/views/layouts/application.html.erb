@@ -12,8 +12,8 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class="d-flex flex-column min-vh-100">
-    <header class="mt-3">
+  <body class="d-flex flex-column">
+    <header>
       <div class="container-fluid">
         <div class="row">
           <div class="logo">
@@ -21,14 +21,6 @@
               <%= image_tag 'sumu-commu_logo_black.png', :style => "max-height:100px" %>
             <% end %>
           </div>
-          <% if admin_signed_in? %>
-            <div class="d-flex align-items-center ml-3">
-              <%= link_to admin_search_path, class: "text-dark text-center" do %>
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <span class="font-weight-bold">検索</span>
-              <% end %>
-            </div>
-          <% end %>
 
           <div class="ml-auto mr-5">
             <% if not admin_signed_in? %>
@@ -50,11 +42,19 @@
                   <% end %>
                 </div>
               <% end %>
+              <% if admin_signed_in? %>
+                <div class="d-flex align-items-center ml-3">
+                  <%= link_to admin_search_path, class: "text-dark text-center" do %>
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span class="font-weight-bold">検索</span>
+                  <% end %>
+                </div>
+              <% end %>
             </div>
           </div>
         </div>
       </div>
-        <div class="mx-auto">
+        <div class="mx-auto header_nav">
           <% if admin_signed_in? %>
             <%= render 'layouts/admin_header' %>
           <% else %>

@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <th>画像</th>
-      <th>落とし物名</th>
+      <th>品名</th>
       <th>投稿者</th>
       <th>費用</th>
       <th>募集状況</th>
@@ -14,8 +14,10 @@
         <td>
           <% if exchange.exchange_item_images.attached? %>
             <% exchange.exchange_item_images.limit(1).each do |image| %>
-              <%= image_tag image, width: '100px' %>
+              <%= image_tag image, width: '50px' %>
             <% end %>
+          <% else %>
+            <%= image_tag 'no_image_obj.png', width: '50px' %>
           <% end %>
         </td>
         <td class="align-middle"><%= exchange.name %></td>

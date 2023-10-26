@@ -10,16 +10,20 @@
                 <tr>
                   <th>予約品</th>
                   <td>
-                    <%= image_tag @reservation.equipment.get_equipment_image %>
-                    <%= link_to @reservation.equipment.name, public_equipment_path(@reservation.equipment) %>
+                    <%= link_to public_equipment_path(@reservation.equipment) do %>
+                      <%= image_tag @reservation.equipment.get_equipment_image, width: '100px' %>&ensp;
+                      <%= @reservation.equipment.name %>
+                    <% end %>
                   </td>
                 </tr>
               <% elsif @reservation.facility_id.present? %>
                 <tr>
                   <th>予約設備</th>
                   <td>
-                    <%= image_tag @reservation.facility.get_facility_image %>
-                    <%= link_to @reservation.facility.name, public_facility_path(@reservation.facility) %>
+                    <%= link_to public_facility_path(@reservation.facility) do %>
+                      <%= image_tag @reservation.facility.get_facility_image, width: '100px' %>&ensp;
+                      <%= @reservation.facility.name %>
+                    <% end %>
                   </td>
                 </tr>
               <% end %>

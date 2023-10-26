@@ -14,7 +14,8 @@
         <div class="offset-1 mb-3">
           <table class='table table-borderless'>
             <tr><th style="width: 20%">居住地</th><td><%= @facility.residence.name %></td></tr>
-            <tr><th>設備名</th><td><%= image_tag @facility.get_facility_image, width: '50px' %><%= @facility.name %></td></tr>
+            <tr><th>設備画像</th><td><%= image_tag @facility.get_facility_image, width: '100px' %></td></tr>
+            <tr><th>設備名</th><td><%= @facility.name %></td></tr>
             <tr><th>説明</th><td><%= @facility.description %></td></tr>
             <% if @facility.genre_id == 0 %>
               <tr><th>ジャンル</th><td>(未設定)</td></tr>

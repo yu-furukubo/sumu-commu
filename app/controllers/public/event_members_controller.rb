@@ -14,7 +14,7 @@ class Public::EventMembersController < ApplicationController
     if event_member.save
       redirect_to public_event_event_members_path(@event)
     else
-      flash.now[:notice] = "イベントへの招待に失敗しました。"
+      flash.now[:alert] = "イベントへの招待に失敗しました。"
       @members = @event.residence.members
       render "index"
     end
@@ -26,7 +26,7 @@ class Public::EventMembersController < ApplicationController
     if event_member.save
       redirect_to public_event_path(@event)
     else
-      flash.now[:notice] = "イベントへの参加に失敗しました。"
+      flash.now[:alert] = "イベントへの参加に失敗しました。"
       @event_members = @event.event_members.where(is_approved: true)
       @event_invited_members = @event.event_members.where(is_approved: false)
       @event_member = @event.event_members.find_by(member_id: current_member.id)
@@ -40,7 +40,7 @@ class Public::EventMembersController < ApplicationController
     if event_member.update(event_member_params)
       redirect_to public_event_path(@event)
     else
-      flash.now[:notice] = "イベント招待の承認に失敗しました。"
+      flash.now[:alert] = "イベント招待の承認に失敗しました。"
       @event_members = @event.event_members.where(is_approved: true)
       @event_invited_members = @event.event_members.where(is_approved: false)
       @event_member = @event.event_members.find_by(member_id: current_member.id)
@@ -54,7 +54,7 @@ class Public::EventMembersController < ApplicationController
     if event_member.destroy
       redirect_to public_event_path(@event)
     else
-      flash.now[:notice] = "イベント不参加への変更に失敗しました。"
+      flash.now[:alert] = "イベント不参加への変更に失敗しました。"
       @event_members = @event.event_members.where(is_approved: true)
       @event_invited_members = @event.event_members.where(is_approved: false)
       @event_member = @event.event_members.find_by(member_id: current_member.id)
@@ -68,7 +68,7 @@ class Public::EventMembersController < ApplicationController
     if event_member.destroy
       redirect_to public_event_path(@event)
     else
-      flash.now[:notice] = "イベント招待の否認に失敗しました"
+      flash.now[:alert] = "イベント招待の否認に失敗しました"
       @members = @event.residence.members
       render "index"
     end

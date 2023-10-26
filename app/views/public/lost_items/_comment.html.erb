@@ -31,7 +31,7 @@
             <div>
               <% if current_member == lost_item.member %>
                 <% if comment.is_deleted == false %>
-                  <div class="text-right">
+                  <div>
                     <%= form_with model: LostItemComment, url: public_lost_item_lost_item_comment_path(lost_item, comment), method: :patch, local: true do |f| %>
                       <%= f.hidden_field :is_deleted, :value => true %>
                       <%= button_tag type: "submit", class: 'btn btn-sm' do %>
@@ -50,14 +50,14 @@
       <div class="comment_group">
         <div class="comment_others">
           <% if comment.is_deleted == true %>
-            <span class="text-light bg-secondary comment_body_deleted">このコメントは管理者によって削除されました</span>
+            <span class="comment_body_deleted">このコメントは管理者によって削除されました</span>
           <% else %>
             <span class="comment_body"><%= comment.comment %></span>
           <% end %>
           <div class="comment_info">
             <div class="comment_info_body">
-              <span class="text-secondary mr-2">(<%= l comment.created_at, format: :comment %></span>
-              <span class="text-secondary"><%= comment.member.name %>)</span>
+              <span class="mr-2">(<%= l comment.created_at, format: :comment %></span>
+              <span><%= comment.member.name %>)</span>
             </div>
             <div>
               <% if current_member == lost_item.member %>

@@ -17,13 +17,7 @@
             <span class="text-secondary">(既読)</span>
           <% end %>
         </td>
-        <% if board.member_id == 0 %>
-          <td>管理人</td>
-        <% elsif board.member.present? %>
-          <td><%= board.member.name %></td>
-        <% else %>
-          <td class="text-secondary">退会済み会員</td>
-        <% end %>
+        <td><%= check_member_created(board) %></td>
         <td><%= l board.created_at %></td>
         <% if board.is_circular == true %>
           <td class="text-center text-weight-bold text-success"><i class="fa-regular fa-circle"></i></td>

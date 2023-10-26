@@ -8,9 +8,9 @@
             <table class='table table-borderless'>
               <tr><th>居住地</th><td><%= @reservation.residence.name %></td></tr>
               <% if @reservation.equipment_id.present? %>
-                <tr><th>予約品</th><td><%= image_tag @reservation.equipment.get_equipment_image %><%= @reservation.equipment.name %></td></tr>
+                <tr><th>予約品</th><td><%= link_to @reservation.equipment.name, admin_equipment_path(@reservation.equipment) %></td></tr>
               <% elsif @reservation.facility_id.present? %>
-                <tr><th>予約設備</th><td><%= image_tag @reservation.facility.get_facility_image %><%= @reservation.facility.name %></td></tr>
+                <tr><th>予約設備</th><td><%= link_to @reservation.facility.name, admin_facility_path(@reservation.facility) %></td></tr>
               <% end %>
               <% if @reservation.member_id == 0 %>
                 <tr><th>予約者</th><td>管理人</td></tr>

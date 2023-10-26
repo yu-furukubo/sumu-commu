@@ -10,7 +10,7 @@ class Facility < ApplicationRecord
 
   # 設備画像が未設定だった場合、no_imageを表示
   def get_facility_image
-    (facility_image.attached?) ? facility_image : "no_image.jpg"
+    (facility_image.attached?) ? facility_image : "no_image_obj.png"
   end
 
   def self.looks(words, residence)

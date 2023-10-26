@@ -19,7 +19,7 @@ class Public::PlansController < ApplicationController
     if @plan.save
       redirect_to public_plan_path(@plan)
     else
-      flash.now[:notice] = "予定の作成に失敗しました。"
+      flash.now[:alert] = "予定の作成に失敗しました。"
       render "new"
     end
   end
@@ -33,7 +33,7 @@ class Public::PlansController < ApplicationController
     if @plan.update(plan_params)
       redirect_to public_plan_path(@plan)
     else
-      flash.now[:notice] = "予定の修正に失敗しました。"
+      flash.now[:alert] = "予定の修正に失敗しました。"
       render "edit"
     end
   end
@@ -43,7 +43,7 @@ class Public::PlansController < ApplicationController
     if @plan.destroy
       redirect_to public_plans_path
     else
-      flash.now[:notice] = "予定の削除に失敗しました。"
+      flash.now[:alert] = "予定の削除に失敗しました。"
       render "show"
     end
   end

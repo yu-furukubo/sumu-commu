@@ -29,7 +29,7 @@ class Admin::CommunitiesController < ApplicationController
     if @community.update(community_params)
       redirect_to admin_community_path(@community)
     else
-      flash.now[:notice] = "コミュニティの更新に失敗しました。"
+      flash.now[:alert] = "コミュニティの更新に失敗しました。"
       @residence = @community.residence
       render "edit"
     end

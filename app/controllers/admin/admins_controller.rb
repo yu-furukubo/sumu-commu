@@ -15,6 +15,7 @@ class Admin::AdminsController < ApplicationController
     if @admin.update(admin_params)
       redirect_to admin_admin_path(current_admin)
     else
+      flash.now[:alert] = "編集に失敗しました。"
       render "edit"
     end
   end

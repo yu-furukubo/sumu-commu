@@ -37,7 +37,7 @@ class Admin::ReservationsController < ApplicationController
     @reservation = Reservation.new(reservation_params)
 
     if params[:reservation][:start_date] == "" || params[:reservation][:finish_date] == ""
-      flash.now[:notice] ="日付を入力してください。"
+      flash.now[:alert] ="日付を入力してください。"
       render "new"
       return
     end
@@ -45,7 +45,7 @@ class Admin::ReservationsController < ApplicationController
     set_the_day_implement(@reservation)
 
     if @reservation.started_at > @reservation.finished_at
-      flash.now[:notice] = "使用完了日時は、使用開始日時より後の日時を指定してください。"
+      flash.now[:alert] = "使用完了日時は、使用開始日時より後の日時を指定してください。"
       render "new"
       return
     end
@@ -54,7 +54,7 @@ class Admin::ReservationsController < ApplicationController
       if @reservation.equipment_id.present?
         count = reservations.where('finished_at > ? and ? > started_at', @reservation.started_at, @reservation.finished_at).count
         if @reservation.equipment.stock <= count
-          flash.now[:notice] =
+          flash.now[:alert] =
             "#{l @reservation.started_at} ~ #{l @reservation.finished_at}<br>上記期間には別の予約が含まれます。空き時間をご確認ください。".html_safe
           render "new"
           return
@@ -65,7 +65,7 @@ class Admin::ReservationsController < ApplicationController
           return
         end
       else
-        flash.now[:notice] =
+        flash.now[:alert] =
           "#{l @reservation.started_at} ~ #{l @reservation.finished_at}<br>上記期間には別の予約が含まれます。空き時間をご確認ください。".html_safe
         render "new"
         return
@@ -76,7 +76,7 @@ class Admin::ReservationsController < ApplicationController
       flash[:notice] = "予約が完了しました。"
       redirect_to admin_reservation_path(@reservation)
     else
-      flash.now[:notice] = "予約に失敗しました。"
+      flash.now[:alert] = "予約に失敗しました。"
       render "new"
     end
   end
@@ -95,7 +95,7 @@ class Admin::ReservationsController < ApplicationController
     end
 
     if params[:reservation][:start_date] == "" || params[:reservation][:finish_date] == ""
-      flash.now[:notice] = "日付を入力してください。"
+      flash.now[:alert] = "日付を入力してください。"
       render "edit"
       return
     end
@@ -103,7 +103,7 @@ class Admin::ReservationsController < ApplicationController
     set_the_day_implement_edit(@reservation)
 
     if @reservation.started_at > @reservation.finished_at
-      flash.now[:notice] = "使用完了日時は、使用開始日時より後の日時を指定してください。"
+      flash.now[:alert] = "使用完了日時は、使用開始日時より後の日時を指定してください。"
       render "edit"
       return
     end
@@ -112,7 +112,7 @@ class Admin::ReservationsController < ApplicationController
       count = reservations.where('finished_at > ? and ? > started_at', @reservation.started_at, @reservation.finished_at).count
       if @reservation.equipment_id.present?
         if @reservation.equipment.stock + 1 <= count
-          flash.now[:notice] =
+          flash.now[:alert] =
             "#{l @reservation.started_at} ~ #{l @reservation.finished_at}<br>上記期間には別の予約が含まれます。空き時間をご確認ください。".html_safe
           render "edit"
           return
@@ -128,7 +128,7 @@ class Admin::ReservationsController < ApplicationController
           return
         end
       elsif count > 1
-        flash.now[:notice] =
+        flash.now[:alert] =
           "#{l @reservation.started_at} ~ #{l @reservation.finished_at}<br>上記期間には別の予約が含まれます。空き時間をご確認ください。".html_safe
         render "edit"
         return
@@ -144,7 +144,7 @@ class Admin::ReservationsController < ApplicationController
       flash[:notice] = "予約時間の変更が完了しました。"
       redirect_to admin_reservation_path(@reservation)
     else
-      flash.now[:notice] = "予約内容の更新に失敗しました。"
+      flash.now[:alert] = "予約内容の更新に失敗しました。"
       render "edit"
     end
   end
@@ -154,7 +154,7 @@ class Admin::ReservationsController < ApplicationController
     if @reservation.destroy
       redirect_to admin_reservations_path
     else
-      flash.now[:notice] = "予約の削除に失敗しました。"
+      flash.now[:alert] = "予約の削除に失敗しました。"
       if @reservation.equipment_id.present?
         @equipment_reserved = @reservation.equipment
       elsif @reservation.facility_id.present?

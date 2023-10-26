@@ -26,6 +26,7 @@ class Admin::MembersController < ApplicationController
     if @member.update(member_params)
       redirect_to admin_member_path(@member)
     else
+      flash.now[:alert] = "会員情報の更新に失敗しました。"
       render "edit"
     end
   end
@@ -35,7 +36,7 @@ class Admin::MembersController < ApplicationController
     if member.destroy
       redirect_to admin_members_path
     else
-      flash.now[:notice] = "削除に失敗しました。"
+      flash.now[:alert] = "会員の削除に失敗しました。"
       render "show"
     end
   end

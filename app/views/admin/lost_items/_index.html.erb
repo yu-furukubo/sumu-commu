@@ -4,7 +4,6 @@
       <% if controller.action_name != "residence_search" %>
         <th>居住地</th>
       <% end %>
-      <th>作成者</th>
       <th>品名</th>
       <th>場所</th>
       <th>日時</th>
@@ -16,13 +15,6 @@
       <tr>
         <% if controller.action_name != "residence_search" %>
           <td><%= lost_item.residence.name %></td>
-        <% end %>
-        <% if lost_item.member_id == 0 %>
-          <td>管理人</td>
-        <% elsif lost_item.member.present? %>
-          <td><%= lost_item.member.name %></td>
-        <% else %>
-          <td class="text-secondary">退会済み会員</td>
         <% end %>
         <td><%= link_to lost_item.name, admin_lost_item_path(lost_item) %></td>
         <td><%= lost_item.picked_up_location %></td>

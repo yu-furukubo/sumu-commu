@@ -2,7 +2,6 @@
   <thead>
     <tr>
       <th>イベント名</th>
-      <th>作成者</th>
       <th>開催日時</th>
       <th>開催場所</th>
     </tr>
@@ -20,13 +19,6 @@
             <span class="text-danger small">(招待有)</span>
           <% end %>
         </td>
-        <% if event.member_id == 0 %>
-          <td>管理者</td>
-        <% elsif event.member.present? %>
-          <td><%= event.member.name %></td>
-        <% else %>
-          <td>退会済み会員</td>
-        <% end %>
         <td><%= l event.started_at %> ~ <%= l event.finished_at %></td>
         <td><%= event.venue %></td>
       </tr>

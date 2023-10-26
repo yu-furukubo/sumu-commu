@@ -6,7 +6,7 @@
       <% end %>
       <th>コミュニティ名</th>
       <th>説明</th>
-      <th>メンバー数</th>
+      <th>人数</th>
     </tr>
   </thead>
   <tbody>
@@ -16,7 +16,7 @@
           <td><%= community.residence.name %></td>
         <% end %>
         <td><%= link_to community.name, admin_community_path(community) %></td>
-        <td><%= community.description %></td>
+        <td><%= community.description.truncate(30) %></td>
         <td><%= community.community_members.count %> 人</td>
       </tr>
     <% end %>

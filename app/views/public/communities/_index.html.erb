@@ -11,9 +11,9 @@
     <% communities.each do |community| %>
       <tr class="index_tr" data-href="/public/communities/<%= community.id %>">
         <td><%= image_tag community.get_community_image, width: '50px' %></td>
-        <td><%= community.name.truncate(20) %></td>
-        <td><%= community.description.truncate(30) %></td>
-        <td><%= community.community_members.count %> 人</td>
+        <td class="align-middle"><%= community.name.truncate(20) %></td>
+        <td class="align-middle"><%= community.description.truncate(30) %></td>
+        <td class="align-middle"><%= community.community_members.count %> 人</td>
       </tr>
     <% end %>
   </tbody>

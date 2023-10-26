@@ -20,7 +20,7 @@ class Admin::GenresController < ApplicationController
     if @genre.save
       redirect_to admin_genres_path
     else
-      flash.now[:notice] = "ジャンルの追加に失敗しました。"
+      flash.now[:alert] = "ジャンルの追加に失敗しました。"
       @residences = current_admin.residences
       @residence_id_array = @residences.pluck(:id)
       @genres = Genre.where(residence_id: @residence_id_array)
@@ -37,7 +37,7 @@ class Admin::GenresController < ApplicationController
     if @genre.update(genre_params)
       redirect_to admin_genres_path
     else
-      flash[:notice] = "ジャンル名の変更に失敗しました。"
+      flash[:alert] = "ジャンル名の変更に失敗しました。"
       redirect_to edit_admin_genre_path(@genre)
     end
   end

@@ -8,13 +8,9 @@
         <div class="col-md-10 offset-1">
           <div class="mb-3">
             <table class='table table-borderless'>
-              <% if @community.member.present? %>
-                <tr><th style="width: 20%">作成者名</th><td><%= @community.member.name %></td></tr>
-              <% else %>
-                <tr><th style="width: 20%">作成者名</th><td class="text-secondary">退会済み会員</td></tr>
-              <% end %>
+              <tr><th class="align-middle", style="width: 25%">コミュニティ名</th><td><%= image_tag @community.get_community_image, width: '50px' %>&ensp;<%= @community.name %></td></tr>
               <tr><th>居住地</th><td><%= @community.residence.name %></td></tr>
-              <tr><th>コミュニティ名</th><td><%= image_tag @community.get_community_image, width: '50px' %><%= @community.name %></td></tr>
+              <tr><th>作成者名</th><td><%= check_member_created(@community) %></td></td></tr>
               <tr><th>説明</th><td><%= @community.description %></td></tr>
             </table>
             <div class="row">

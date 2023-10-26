@@ -7,7 +7,7 @@ class Admin::LostItemCommentsController < ApplicationController
     if lost_item_comment.update(lost_item_comment_params)
       redirect_to admin_lost_item_path(@lost_item)
     else
-      flash.now[:notice] = "コメントの削除に失敗しました。"
+      flash.now[:alert] = "コメントの削除に失敗しました。"
       @lost_item_comments = LostItemComment.where(lost_item_id: @lost_item.id)
       render template: "admin/lost_items/show"
     end

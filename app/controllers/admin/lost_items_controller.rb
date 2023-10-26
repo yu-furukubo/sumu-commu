@@ -29,7 +29,7 @@ class Admin::LostItemsController < ApplicationController
     if @lost_item.save
       redirect_to admin_lost_item_path(@lost_item)
     else
-      flash.now[:notice] = "落とし物の登録に失敗しました。"
+      flash.now[:alert] = "落とし物の登録に失敗しました。"
       @residence = Residence.find(params[:lost_item][:residence_id])
       render "new"
     end
@@ -51,7 +51,7 @@ class Admin::LostItemsController < ApplicationController
     if @lost_item.update(lost_item_params)
       redirect_to admin_lost_item_path(@lost_item)
     else
-      flash.now[:notice] = "落とし物内容の変更に失敗しました。"
+      flash.now[:alert] = "落とし物内容の変更に失敗しました。"
       @residence = @lost_item.residence
       render "edit"
     end
@@ -62,7 +62,7 @@ class Admin::LostItemsController < ApplicationController
     if @lost_item.destroy
       redirect_to admin_lost_items_path
     else
-      flash.now[:notice] = "落とし物の削除に失敗しました。"
+      flash.now[:alert] = "落とし物の削除に失敗しました。"
       @lost_item_comments = LostItemComment.where(lost_item_id: @lost_item.id)
       render "show"
     end

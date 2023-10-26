@@ -1,9 +1,8 @@
 <% if obj.errors.any? %>
-  <div id="error_explanation">
-    <h3><%= pluralize(obj.errors.count, "") %> 件のエラーが発生しました:</h3>
-    <ul>
+  <div id="error_explanation" class="text-danger">
+    <ul style="list-style: none;">
       <% obj.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <li>・<%= message %></li>
       <% end %>
     </ul>
   </div>

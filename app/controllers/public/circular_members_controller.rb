@@ -13,7 +13,7 @@ class Public::CircularMembersController < ApplicationController
     if @circular_member.save
       redirect_to public_board_circular_members_path(@board)
     else
-      flash.now[:notice] = "回覧メンバーの追加に失敗しました。"
+      flash.now[:alert] = "回覧メンバーの追加に失敗しました。"
       @members = @board.residence.members
       render "index"
     end
@@ -25,7 +25,7 @@ class Public::CircularMembersController < ApplicationController
     if circular_member.destroy
       redirect_to public_board_circular_members_path(@board)
     else
-      flash.now[:notice] = "回覧メンバーの削除に失敗しました。"
+      flash.now[:alert] = "回覧メンバーの削除に失敗しました。"
       @members = @board.residence.members
       @circular_member = CircularMember.new
       render "index"

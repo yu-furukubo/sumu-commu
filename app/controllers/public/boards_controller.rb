@@ -27,7 +27,7 @@ class Public::BoardsController < ApplicationController
     if @board.save
       redirect_to public_board_path(@board)
     else
-      flash.now[:notice] = "掲示板の作成に失敗しました。"
+      flash.now[:alert] = "掲示板の作成に失敗しました。"
       render "new"
     end
   end
@@ -41,7 +41,7 @@ class Public::BoardsController < ApplicationController
     if @board.update(board_params)
       redirect_to public_board_path(@board)
     else
-      flash.now[:notice] = "掲示板の更新に失敗しました。"
+      flash.now[:alert] = "掲示板の更新に失敗しました。"
       render "edit"
     end
   end
@@ -51,7 +51,7 @@ class Public::BoardsController < ApplicationController
     if @board.destroy
       redirect_to public_boards_path
     else
-      flash.now[:notice] = "掲示板の削除に失敗しました。"
+      flash.now[:alert] = "掲示板の削除に失敗しました。"
       @circular_members = @board.circular_members
       @board_checked_members = Read.where(board_id: @board.id, member_id: @circular_members.pluck(:member_id))
       @reads = Read.all

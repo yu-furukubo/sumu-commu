@@ -10,7 +10,7 @@ class Community < ApplicationRecord
 
     # コミュニティ画像が未設定だった場合、no_imageを表示
   def get_community_image
-    (community_image.attached?) ? community_image : "no_image.jpg"
+    (community_image.attached?) ? community_image : "no_image_obj.png"
   end
 
   def self.looks(words, residence)

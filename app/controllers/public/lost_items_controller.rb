@@ -22,7 +22,7 @@ class Public::LostItemsController < ApplicationController
     @lost_item = LostItem.new(lost_item_params)
 
     if params[:lost_item][:deadline] == "" || params[:lost_item][:picked_up_at] == ""
-      flash.now[:notice] = "拾った日時・掲載期限を入力してください。"
+      flash.now[:alert] = "拾った日時・掲載期限を入力してください。"
       render "new"
       return
     end
@@ -30,7 +30,7 @@ class Public::LostItemsController < ApplicationController
     if @lost_item.save
       redirect_to public_lost_item_path(@lost_item)
     else
-      flash.now[:notice] = "落とし物の登録に失敗しました。"
+      flash.now[:alert] = "落とし物の登録に失敗しました。"
       render "new"
     end
   end
@@ -43,7 +43,7 @@ class Public::LostItemsController < ApplicationController
     @lost_item = LostItem.find(params[:id])
 
     if params[:lost_item][:deadline] == "" || params[:lost_item][:picked_up_at] == ""
-      flash.now[:notice] = "拾った日時・掲載期限を入力してください。"
+      flash.now[:alert] = "拾った日時・掲載期限を入力してください。"
       render "edit"
       return
     end
@@ -57,7 +57,7 @@ class Public::LostItemsController < ApplicationController
     if @lost_item.update(lost_item_params)
       redirect_to public_lost_item_path(@lost_item)
     else
-      flash.now[:notice] = "落とし物内容の変更に失敗しました。"
+      flash.now[:alert] = "落とし物内容の変更に失敗しました。"
       render "edit"
     end
   end
@@ -67,7 +67,7 @@ class Public::LostItemsController < ApplicationController
     if @lost_item.destroy
       redirect_to public_lost_items_path
     else
-      flash.now[:notice] = "落とし物の削除に失敗しました。"
+      flash.now[:alert] = "落とし物の削除に失敗しました。"
       @lost_item_comments = LostItemComment.where(lost_item_id: @lost_item.id).order(created_at: "DESC")
       @lost_item_comment = LostItemComment.new
       render "show"

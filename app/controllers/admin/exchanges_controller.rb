@@ -36,7 +36,7 @@ class Admin::ExchangesController < ApplicationController
     if @exchange.update(exchange_params)
       redirect_to admin_exchange_path(@exchange)
     else
-      flash.now[:notice] = "ゆずりあいの内容変更に失敗しました。"
+      flash.now[:alert] = "ゆずりあいの内容変更に失敗しました。"
       @residence = @exchange.residence
       render "edit"
     end
@@ -47,7 +47,7 @@ class Admin::ExchangesController < ApplicationController
     if @exchange.destroy
       redirect_to admin_exchanges_path
     else
-      flash.now[:notice] = "ゆずりあいの削除に失敗しました。"
+      flash.now[:alert] = "ゆずりあいの削除に失敗しました。"
       @exchange_comments = ExchangeComment.where(exchange_id: @exchange.id)
       render "show"
     end

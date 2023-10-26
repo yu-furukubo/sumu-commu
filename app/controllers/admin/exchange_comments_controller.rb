@@ -7,7 +7,7 @@ class Admin::ExchangeCommentsController < ApplicationController
     if exchange_comment.update(exchange_comment_params)
       redirect_to admin_exchange_path(@exchange)
     else
-      flash.now[:notice] = "コメントの削除に失敗しました。"
+      flash.now[:alert] = "コメントの削除に失敗しました。"
       @exchange_comments = ExchangeComment.where(exchange_id: @exchange.id)
       render template: "admin/exchanges/show"
     end

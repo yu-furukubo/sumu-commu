@@ -13,7 +13,7 @@ class Public::CommunityMembersController < ApplicationController
     if CommunityMember.create(community_id: @community.id, member_id: member.id)
       redirect_to public_community_path(@community)
     else
-      flash.now[:notice] = "コミュニティメンバーの追加に失敗しました。"
+      flash.now[:alert] = "コミュニティメンバーの追加に失敗しました。"
       @community_members = @community.community_members
       @community_member = @community_members.find_by(member_id: current_member.id)
       render "index"
@@ -26,7 +26,7 @@ class Public::CommunityMembersController < ApplicationController
     if community_member.update(community_member_params)
       redirect_to public_community_community_members_path(@community)
     else
-      flash.now[:notice] = "コミュニティメンバーの更新に失敗しました。"
+      flash.now[:alert] = "コミュニティメンバーの更新に失敗しました。"
       @community_members = @community.community_members
       @community_member = @community_members.find_by(member_id: current_member.id)
       render "index"
@@ -39,7 +39,7 @@ class Public::CommunityMembersController < ApplicationController
     if community_member.destroy
       redirect_to public_community_path(@community)
     else
-      flash.now[:notice] = "コミュニティメンバーの削除に失敗しました。"
+      flash.now[:alert] = "コミュニティメンバーの削除に失敗しました。"
       @community_members = @community.community_members
       @community_member = @community_members.find_by(member_id: current_member.id)
       render "index"

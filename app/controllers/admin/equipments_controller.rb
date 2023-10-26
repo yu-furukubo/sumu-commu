@@ -27,7 +27,7 @@ class Admin::EquipmentsController < ApplicationController
     if @equipment.save
       redirect_to admin_equipment_path(@equipment)
     else
-      flash.now[:notice] = "備品の登録に失敗しました。"
+      flash.now[:alert] = "備品の登録に失敗しました。"
       @residence = Residence.find(params[:equipment][:residence_id])
       @genres = @residence.genres.where(is_deleted: false)
       render "new"
@@ -50,7 +50,7 @@ class Admin::EquipmentsController < ApplicationController
     if @equipment.update(equipment_params)
       redirect_to admin_equipment_path(@equipment)
     else
-      flash.now[:notice] = "備品の登録内容変更に失敗しました。"
+      flash.now[:alert] = "備品の登録内容変更に失敗しました。"
       @residence = @equipment.residence
       @genres = @residence.genres.where(is_deleted: false)
       render "edit"
@@ -62,7 +62,7 @@ class Admin::EquipmentsController < ApplicationController
     if @equipment.destroy
       redirect_to admin_equipments_path
     else
-      flash.now[:notice] = "備品の削除に失敗しました。"
+      flash.now[:alert] = "備品の削除に失敗しました。"
       @equipment_reservations = @equipment.reservations.where('finished_at > ?', Time.now).order(started_at: "asc")
       render "show"
     end

@@ -14,10 +14,26 @@
         </div>
       </div>
       <div class="container">
-        <div>
-          <%= render 'admin/events/index', events: @events %>
+        <div class="tabs">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#section1">開催前(開催中)のイベント</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#section2">終了済みのイベント</a>
+            </li>
+          </ul>
+
+          <div class="tab-content">
+            <div id="section1" class="tab-pane fade show active">
+              <%= render 'admin/events/index', events: @events %>
+            </div>
+            <div id="section2" class="tab-pane fade">
+              <%= render 'admin/events/index', events: @events_finished %>
+            </div>
+          </div>
         </div>
       </div>
-     </div>
+    </div>
   </div>
 </div>

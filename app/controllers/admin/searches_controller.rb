@@ -32,7 +32,7 @@ class Admin::SearchesController < ApplicationController
     elsif @category == "facility"
       @facilities = Facility.looks(params[:word], params[:residence_id])
     elsif @category == "genre"
-      @genres = Genre.looks(params[:word], params[:residence_id])
+      @genres = Genre.looks(params[:word], params[:residence_id]).where(is_deleted: false)
     elsif @category == "member"
       @members = Member.looks(params[:word], params[:residence_id])
     end

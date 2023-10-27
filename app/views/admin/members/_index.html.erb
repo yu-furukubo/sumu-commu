@@ -5,7 +5,15 @@
       <% if controller.action_name != "residence_search" %>
         <th>居住地</th>
       <% end %>
-      <th>部屋番号</th>
+      <% if controller.action_name == "residence_search" %>
+        <% if Residence.find(params[:id]).housing_type == Residence.housing_types.key(0) %>
+          <th>部屋番号</th>
+        <% else %>
+          <th>番地</th>
+        <% end %>
+      <% else %>
+        <th>番地・部屋番号</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>

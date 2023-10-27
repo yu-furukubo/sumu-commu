@@ -2,6 +2,11 @@ class Public::MembersController < ApplicationController
   before_action :authenticate_member!
   before_action :ensure_guest_member, only: [:edit]
 
+  def index
+    @residence = current_member.residence
+    @members = @residence.members
+  end
+
   def show
     @member = current_member
   end

@@ -4,14 +4,15 @@ class Admin::EventsController < ApplicationController
   def index
     @residences = current_admin.residences
     @residence_id_array = @residences.pluck(:id)
-    @events = Event.where(residence_id: @residence_id_array).where('finished_at > ?', Time.now).order(started_at: "ASC")
-    @events_finished = Event.where(residence_id: @residence_id_array).where('finished_at < ?', Time.now).order(started_at: "DESC")
+    @events = Event.where(residence_id: @residence_id_array).where('finished_at > ?', Time.now).order(started_at: "ASC", finished_at: "ASC")
+    @events_finished = Event.where(residence_id: @residence_id_array).where('finished_at < ?', Time.now).order(started_at: "DESC", finished_at: "DESC")
   end
 
   def residence_search
     @residences = current_admin.residences
     @residence = Residence.find(params[:id])
-    @events = @residence.events
+    @events = @residence.events.where('finished_at > ?', Time.now).order(started_at: "ASC", finished_at: "ASC")
+    @events_finished = @residence.events.where('finished_at < ?', Time.now).order(started_at: "DESC", finished_at: "DESC")
   end
 
   def new
@@ -22,11 +23,18 @@ class Admin::EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.member_id = 0
+    @residence = Residence.find(params[:event][:residence_id])
+
+    if @event.started_at > @event.finished_at
+      flash.now[:alert] = "終了日時は、開始日時より後の日時を指定してください。"
+      render "new"
+      return
+    end
+
     if @event.save
       redirect_to admin_event_path(@event)
     else
       flash.now[:alert] = "イベントの作成に失敗しました。"
-      @residence = Residence.find(params[:event][:residence_id])
       render "new"
     end
   end
@@ -44,11 +52,18 @@ class Admin::EventsController < ApplicationController
 
   def update
     @event = Event.find(params[:id])
+    @residence = @event.residence
+
+    if params[:event][:started_at] > params[:event][:finished_at]
+      flash.now[:alert] = "終了日時は、開始日時より後の日時を指定してください。"
+      render "edit"
+      return
+    end
+
     if @event.update(event_params)
       redirect_to admin_event_path(@event)
     else
       flash.now[:alert] = "イベント内容の更新に失敗しました。"
-      @residence = @event.residence
       render "edit"
     end
   end

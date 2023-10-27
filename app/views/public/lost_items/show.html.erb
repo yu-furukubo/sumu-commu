@@ -3,10 +3,10 @@
     <h2>落とし物詳細</h2>
     <% if @lost_item.member == current_member && @lost_item.is_finished == false %>
       <div class="ml-3 d-flex align-items-center">
-        <span class="mr-3">取引が完了したらクリック >></span>
+        <span class="mr-3">掲載終了する場合はクリック >></span>
         <%= form_with model: LostItem, url: public_lost_item_path(@lost_item), method: :patch, local: true do |f| %>
           <%= f.hidden_field :is_finished, :value => true %>
-          <%= f.submit "完了", class: 'btn btn-sm btn-primary' %>
+          <%= f.submit "掲載終了", class: 'btn btn-sm btn-primary' %>
         <% end %>
       </div>
     <% end %>
@@ -33,13 +33,12 @@
           <tr><th>拾った場所</th><td><%= @lost_item.picked_up_location %></td></tr>
           <tr><th>拾った日時</th><td><%= l @lost_item.picked_up_at %></td></tr>
           <tr><th>保管場所</th><td><%= @lost_item.storage_location %></td></tr>
-          <tr><th>掲載期限</th><td><%= l @lost_item.deadline %></td></tr>
           <tr>
-            <th>保管状況</th>
+            <th>掲載状況</th>
             <% if @lost_item.is_finished == false %>
-              <td class="text-success">保管中</td>
+              <td class="text-success">掲載中</td>
             <% else %>
-              <td class="text-secondary">保管終了</td>
+              <td class="text-secondary">掲載終了</td>
             <% end %>
           </tr>
         </table>
@@ -47,8 +46,8 @@
         <% if @lost_item.member == current_member %>
         <div class="row">
           <div class="mx-auto">
-            <%= link_to "編集する", edit_public_lost_item_path, class: "btn btn-success" %>&emsp;&emsp;
-            <%= link_to "削除する", public_lost_item_path, method: :delete,
+            <%= link_to "編集する", edit_public_lost_item_path(@lost_item), class: "btn btn-success" %>&emsp;&emsp;
+            <%= link_to "削除する", public_lost_item_path(@lost_item), method: :delete,
               data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
           </div>
         </div>

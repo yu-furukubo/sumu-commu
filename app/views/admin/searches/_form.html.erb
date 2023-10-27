@@ -5,6 +5,8 @@
   <div class="mb-3">
     <%= f.radio_button :category, :all, checked: true %>
     <%= f.label :category_all, "全て" %>
+    <%= f.radio_button :category, :member %>
+    <%= f.label :category_member, "会員" %>
     <%= f.radio_button :category, :board %>
     <%= f.label :category_board, "掲示板" %>
     <%= f.radio_button :category, :community %>
@@ -15,14 +17,12 @@
     <%= f.label :category_exchange, "ゆずりあい" %>
     <%= f.radio_button :category, :lost_item %>
     <%= f.label :category_lost_item, "落とし物" %>
+    <%= f.radio_button :category, :genre %>
+    <%= f.label :category_genre, "ジャンル" %>
     <%= f.radio_button :category, :equipment %>
     <%= f.label :category_equipment, "備品" %>
     <%= f.radio_button :category, :facility %>
     <%= f.label :category_facility, "設備" %>
-    <%= f.radio_button :category, :genre %>
-    <%= f.label :category_genre, "ジャンル" %>
-    <%= f.radio_button :category, :member %>
-    <%= f.label :category_member, "会員" %>
   </div>
   <div class="mb-3">
     <%= f.text_field :word, placeholder: "検索したい文字列を入力" %>

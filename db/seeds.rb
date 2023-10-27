@@ -51,7 +51,7 @@ Board.create!(
 
 CircularMember.create!(
   board_id: '1',
-  member_id: '1',
+  member_id: '3',
   )
 
 Community.create!(
@@ -141,7 +141,6 @@ LostItem.create!(
   picked_up_location: 'エントランス',
   picked_up_at: '2023-11-10 18:00:00',
   storage_location: '拾得者自宅',
-  deadline: '2023-11-20 18:00:00',
   is_finished: 'false'
 )
 

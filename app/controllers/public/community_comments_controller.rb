@@ -7,7 +7,11 @@ class Public::CommunityCommentsController < ApplicationController
     if @community_comment.save
       redirect_to public_community_path(@community)
     else
-      flash.now[:alert] = "コメントの投稿に失敗しました。"
+      if params[:community_comment][:comment] == ""
+        flash.now[:alert] = "コメントを１文字以上入力してください。"
+      else
+        flash.now[:alert] = "コメントの投稿に失敗しました。"
+      end
       @community_members = CommunityMember.where(community_id: @community.id)
       @community_comments = CommunityComment.where(community_id: @community.id).order(created_at: "DESC")
       @community_member = CommunityMember.find_by(community_id: @community.id, member_id: current_member.id)

@@ -4,20 +4,27 @@ class Admin::ExchangesController < ApplicationController
   def index
     @residences = current_admin.residences
     @residence_id_array = @residences.pluck(:id)
-    @exchanges = Exchange.where(residence_id: @residence_id_array).where('deadline > ?', Time.now)
-    @exchanges_recruitment = Exchange.where(residence_id: @residence_id_array).where('deadline > ?', Time.now).where(is_finished: false)
-    @exchanges_finished = Exchange.where(residence_id: @residence_id_array).where(is_finished: true)
+    @exchanges = Exchange
+                .where(residence_id: @residence_id_array).where('deadline > ?', Time.now).where(is_finished: false)
+                .or(Exchange.where(residence_id: @residence_id_array).where(deadline: nil).where(is_finished: false))
+    @exchanges_finished = Exchange
+                          .where(residence_id: @residence_id_array).where(is_finished: true)
+                          .or(Exchange.where(residence_id: @residence_id_array).where('deadline < ?', Time.now))
   end
 
   def residence_search
     @residences = current_admin.residences
     @residence = Residence.find(params[:id])
-    @exchanges = @residence.exchanges
+    @exchanges = @residence.exchanges.where('deadline > ?', Time.now).where(is_finished: false)
+                .or(@residence.exchanges.where(deadline: nil).where(is_finished: false))
+    @exchanges_finished = @residence.exchanges.where(is_finished: true)
+                          .or(@residence.exchanges.where('deadline < ?', Time.now))
   end
 
   def show
     @exchange = Exchange.find(params[:id])
     @exchange_comments = ExchangeComment.where(exchange_id: @exchange.id)
+    @exchange_comments_deleted = @exchange_comments.where(is_deleted: true)
   end
 
   def edit

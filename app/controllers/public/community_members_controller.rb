@@ -22,7 +22,7 @@ class Public::CommunityMembersController < ApplicationController
 
   def update
     @community = Community.find(params[:community_id])
-    community_member = CommunityMember.find(params[:id])
+    community_member = @community.community_members.find(params[:id])
     if community_member.update(community_member_params)
       redirect_to public_community_community_members_path(@community)
     else
@@ -35,7 +35,7 @@ class Public::CommunityMembersController < ApplicationController
 
   def destroy
     @community = Community.find(params[:community_id])
-    community_member = CommunityMember.find_by(member_id: params[:id])
+    community_member = CommunityMember.find_by(community_id: @community.id, member_id: params[:id])
     if community_member.destroy
       redirect_to public_community_path(@community)
     else

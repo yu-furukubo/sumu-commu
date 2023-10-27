@@ -4,8 +4,7 @@
 </div>
 <% if member_signed_in? %>
   <div class='container p-5 px-sm-0'>
-    <!--新着掲示板-->
-    <div class="mr-3 mb-3">
+    <div class="mr-3">
       <% if @boards.present? || @exchanges.present? || @lost_items.present? || @events.present? %>
         <h2><i class="fa-sharp fa-solid fa-circle-info fa-bounce"></i>新着情報</h2>
       <% else %>
@@ -15,6 +14,7 @@
         </div>
       <% end %>
     </div>
+    <!--新着掲示板-->
     <% if @boards.present? %>
       <div class="ml-3">
         <h4>掲示板</h4>
@@ -26,9 +26,46 @@
       </div>
     <% end %>
     <!--新着掲示板ここまで-->
+    <!--s新着kコミュニティ(あれば表示）-->
+    <% if @events.present? %>
+      <div class="ml-3 mt-3">
+        <h4>コミュニティ</h4>
+      </div>
+      <div class="container">
+        <div class="ml-3">
+          <%= render 'public/communities/index', communities: @communities %>
+        </div>
+      </div>
+    <% end %>
+    <!--新着コミュニティここまで-->
+    <!--s新着イベント(あれば表示）-->
+    <% if @events.present? %>
+      <div class="ml-3 mt-3">
+        <h4>イベント</h4>
+      </div>
+      <div class="container">
+        <div class="ml-3">
+          <%= render 'public/events/index', events: @events %>
+        </div>
+      </div>
+    <% end %>
+    <!--新着イベントここまで-->
+    <!--イベント招待(あれば表示）-->
+    <% if @events_invited.present? %>
+      <div class="ml-3 my-3">
+        <h4>イベント</h4>
+        <span class="ml-3 text-danger"><%= @events_invited.count %>件の招待があります。</span>
+      </div>
+      <div class="container">
+        <div class="ml-3">
+          <%= render 'public/events/index', events: @events_invited %>
+        </div>
+      </div>
+    <% end %>
+    <!--イベント招待ここまで-->
     <!--新着譲り合い-->
     <% if @exchanges.present? %>
-      <div class="ml-3">
+      <div class="ml-3 mt-3">
         <h4>ゆずりあい</h4>
       </div>
       <div class="container">
@@ -40,7 +77,7 @@
     <!--新着譲り合いここまで-->
     <!--新着落とし物-->
     <% if @lost_items.present? %>
-      <div class="ml-3">
+      <div class="ml-3 mt-3">
         <h4>落とし物</h4>
       </div>
       <div class="container">
@@ -50,24 +87,11 @@
       </div>
     <% end %>
     <!--新着落とし物ここまで-->
-    <!--イベント招待(あれば表示）-->
-    <% if @events.present? %>
-      <div class="ml-3 mb-3">
-        <h4>イベント</h4>
-        <span class="ml-3 text-danger"><%= @events.count %>件の招待があります。</span>
-      </div>
-      <div class="container">
-        <div class="ml-3">
-          <%= render 'public/events/index', events: @events %>
-        </div>
-      </div>
-    <% end %>
-    <!--イベント招待ここまで-->
   </div>
 <% else %>
   <div class="text-center mt-5">
     <h2>ようこそ、「すむこみゅ」へ！！</h2><br>
-    <p>このサイトは、ご近所付き合いを目的としたコミュニティサイトです。</p><br>
+    <p>このサイトは、ご近所付き合いの手助けを目的としたコミュニティサイトです。</p><br>
     <p><span>会員登録がお済みの方は、</span><%= link_to "こちら", new_member_session_path %><span>よりログインしてください。</span></p><br>
     <p>会員登録がお済みでない方は、下記より新規会員登録をお願いいたします。</p>
   </div>

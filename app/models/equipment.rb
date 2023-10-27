@@ -9,6 +9,7 @@ class Equipment < ApplicationRecord
   validates :description, presence: true
   validates :storage_location, presence: true
   validates :return_location, presence: true
+  validates :stock, presence: true
 
   # 備品画像が未設定だった場合、no_imageを表示
   def get_equipment_image

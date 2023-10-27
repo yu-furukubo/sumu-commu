@@ -5,7 +5,6 @@ class Admin::CircularMembersController < ApplicationController
     @board = Board.find(params[:board_id])
     @residence_members = @board.residence.members
     @circular_member = CircularMember.new
-    pp "=====================================", @board.member_id, @residence_members.count - 1, @board.circular_members.count
   end
 
   def create

@@ -4,18 +4,21 @@ class Admin::LostItemsController < ApplicationController
   def index
     @residences = current_admin.residences
     @residence_id_array = @residences.pluck(:id)
-    @lost_items = LostItem.where(residence_id: @residence_id_array)
+    @lost_items = LostItem.where(residence_id: @residence_id_array).where(is_finished: false).order(picked_up_at: "DESC")
+    @lost_items_finished = LostItem.where(residence_id: @residence_id_array).where(is_finished: true).order(picked_up_at: "DESC")
   end
 
   def residence_search
     @residences = current_admin.residences
     @residence = Residence.find(params[:id])
-    @lost_items = @residence.lost_items
+    @lost_items = @residence.lost_items.where(is_finished: false).order(picked_up_at: "DESC")
+    @lost_items_finished = @residence.lost_items.where(is_finished: true).order(picked_up_at: "DESC")
   end
 
   def show
     @lost_item = LostItem.find(params[:id])
     @lost_item_comments = LostItemComment.where(lost_item_id: @lost_item.id)
+    @lost_item_comments_deleted = @lost_item_comments.where(is_deleted: true)
   end
 
   def new
@@ -71,6 +74,6 @@ class Admin::LostItemsController < ApplicationController
   private
 
   def lost_item_params
-    params.require(:lost_item).permit(:name, :description, :picked_up_location, :picked_up_at, :storage_location, :deadline, :is_finished, :residence_id, lost_item_images: [])
+    params.require(:lost_item).permit(:name, :description, :picked_up_location, :picked_up_at, :storage_location, :is_finished, :residence_id, lost_item_images: [])
   end
 end

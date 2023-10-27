@@ -12,11 +12,7 @@
               <% elsif @reservation.facility_id.present? %>
                 <tr><th>予約設備</th><td><%= link_to @reservation.facility.name, admin_facility_path(@reservation.facility) %></td></tr>
               <% end %>
-              <% if @reservation.member_id == 0 %>
-                <tr><th>予約者</th><td>管理人</td></tr>
-              <% else %>
-                <tr><th>予約者</th><td><%= @reservation.member.name %></td></tr>
-              <% end %>
+              <tr><th>予約者</th><td><%= check_member_created(@reservation) %></td></tr>
               <% if @reservation.started_at.to_date == @reservation.finished_at.to_date %>
                 <tr><th>予約期間</th><td><%= l @reservation.started_at %> ~ <%= l @reservation.finished_at.to_time, format: :short %></td></tr>
               <% else %>

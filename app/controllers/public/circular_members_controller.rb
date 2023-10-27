@@ -3,7 +3,7 @@ class Public::CircularMembersController < ApplicationController
 
   def index
     @board = Board.find(params[:board_id])
-    @members = @board.residence.members
+    @residence_members = @board.residence.members
     @circular_member = CircularMember.new
   end
 
@@ -14,9 +14,24 @@ class Public::CircularMembersController < ApplicationController
       redirect_to public_board_circular_members_path(@board)
     else
       flash.now[:alert] = "回覧メンバーの追加に失敗しました。"
-      @members = @board.residence.members
+      @residence_members = @board.residence.members
       render "index"
     end
+  end
+
+  def add_all
+    @board = Board.find(params[:board_id])
+    @residence_members = @board.residence.members
+    @residence_members.each do |member|
+      if not CircularMember.find_by(board_id: @board.id, member_id: member.id).present? || @board.member_id == member.id
+        unless CircularMember.find_or_create_by(board_id: @board.id, member_id: member.id)
+          flash.now[:alert] =　"#{member}の回覧メンバー追加に失敗しました。"
+          render "index"
+          return
+        end
+      end
+    end
+    redirect_to public_board_circular_members_path(@board)
   end
 
   def destroy
@@ -26,7 +41,7 @@ class Public::CircularMembersController < ApplicationController
       redirect_to public_board_circular_members_path(@board)
     else
       flash.now[:alert] = "回覧メンバーの削除に失敗しました。"
-      @members = @board.residence.members
+      @residence_members = @board.residence.members
       @circular_member = CircularMember.new
       render "index"
     end

@@ -22,7 +22,11 @@
         </td>
         <td class="align-middle"><%= exchange.name %></td>
         <td class="align-middle"><%= exchange.member.name %></td>
-        <td class="align-middle"><%= exchange.price.to_s(:delimited) %>円</td>
+        <% if exchange.price == 0 %>
+          <td class="align-middle">無償</td>
+        <% else %>
+          <td class="align-middle"><%= exchange.price.to_s(:delimited) %>円</td>
+        <% end %>
         <% if exchange.is_finished == false %>
           <td class="text-success align-middle">募集中</td>
         <% else %>

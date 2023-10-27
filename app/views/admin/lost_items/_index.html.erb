@@ -7,7 +7,7 @@
       <th>品名</th>
       <th>場所</th>
       <th>日時</th>
-      <th style="width:13%">状況</th>
+      <th>掲載状況</th>
     </tr>
   </thead>
   <tbody>
@@ -20,9 +20,9 @@
         <td><%= lost_item.picked_up_location %></td>
         <td><%= l lost_item.picked_up_at %></td>
         <% if lost_item.is_finished == false %>
-          <td class="text-success text-center">保管中</td>
+          <td class="text-success">掲載中</td>
         <% else %>
-          <td class="text-secondary text-center">返却済み</td>
+          <td class="text-secondary">掲載終了</td>
         <% end %>
       </tr>
     <% end %>

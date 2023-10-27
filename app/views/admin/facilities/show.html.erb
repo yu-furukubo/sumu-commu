@@ -17,7 +17,7 @@
             <tr><th>設備画像</th><td><%= image_tag @facility.get_facility_image, width: '100px' %></td></tr>
             <tr><th>設備名</th><td><%= @facility.name %></td></tr>
             <tr><th>説明</th><td><%= @facility.description %></td></tr>
-            <% if @facility.genre_id == 0 %>
+            <% if @facility.genre_id == 0 || @facility.genre.is_deleted == true %>
               <tr><th>ジャンル</th><td>(未設定)</td></tr>
             <% else %>
               <tr><th>ジャンル</th><td><%= @facility.genre.name %></td></tr>
@@ -34,7 +34,7 @@
           </div>
         </div>
       </div>
-      <div class="ml-5 mb-3">
+      <div class="mt-5 ml-5 mb-3">
         <h4><%= @facility.name %>の予約一覧</h4>
       </div>
       <div class="container">

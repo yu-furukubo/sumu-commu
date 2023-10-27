@@ -3,9 +3,8 @@
     <tr>
       <th>画像</th>
       <th>落とし物名</th>
-      <th>場所</th>
-      <th>日時</th>
-      <th>保管状況</th>
+      <th>拾った場所</th>
+      <th>拾った日時</th>
     </tr>
   </thead>
   <tbody>
@@ -23,11 +22,6 @@
         <td class="align-middle"><%= lost_item.name %></td>
         <td class="align-middle"><%= lost_item.picked_up_location %></td>
         <td class="align-middle"><%= l lost_item.picked_up_at %></td>
-        <% if lost_item.is_finished == false %>
-          <td class="text-success align-middle">保管中</td>
-        <% else %>
-          <td class="text-secondary align-middle">保管終了</td>
-        <% end %>
       </tr>
     <% end %>
   </tbody>

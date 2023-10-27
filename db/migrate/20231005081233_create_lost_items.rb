@@ -8,7 +8,6 @@ class CreateLostItems < ActiveRecord::Migration[6.1]
       t.string :picked_up_location,    null: false
       t.datetime :picked_up_at,        null: false
       t.string :storage_location,      null: false
-      t.datetime :deadline
       t.boolean :is_finished,          null: false, default: "false"
 
       t.timestamps

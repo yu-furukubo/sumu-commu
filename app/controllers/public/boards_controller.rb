@@ -27,7 +27,7 @@ class Public::BoardsController < ApplicationController
     if @board.save
       redirect_to public_board_path(@board)
     else
-      flash.now[:alert] = "掲示板の作成に失敗しました。"
+      flash.now[:alert] = "掲示板の投稿に失敗しました。"
       render "new"
     end
   end

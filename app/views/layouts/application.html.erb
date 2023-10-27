@@ -75,10 +75,18 @@
       <%= yield %>
     </main>
 
-    <footer class="text-center text-light mt-auto" style="background-color:#4169e1">
-      <div class="m-3">
-        <p>CopyRight すむこみゅ<SUMU-COMMU></p>
-      </div>
-    </footer>
+    <% if admin_signed_in? %>
+      <footer class="text-center text-light mt-auto", style="background-color:#696969">
+        <div class="m-3">
+          <p>CopyRight すむこみゅ<SUMU-COMMU></p>
+        </div>
+      </footer>
+    <% else %>
+      <footer class="text-center text-light mt-auto", style="background-color:#4169e1">
+        <div class="m-3">
+          <p>CopyRight すむこみゅ<SUMU-COMMU></p>
+        </div>
+      </footer>
+    <% end %>
   </body>
 </html>

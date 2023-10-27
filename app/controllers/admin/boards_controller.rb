@@ -32,7 +32,7 @@ class Admin::BoardsController < ApplicationController
     if @board.save
       redirect_to admin_board_path(@board)
     else
-      flash.now[:alert] = "掲示板の作成に失敗しました。"
+      flash.now[:alert] = "掲示板の投稿に失敗しました。"
       @residence = Residence.find(params[:board][:residence_id])
       render "new"
     end
@@ -59,7 +59,7 @@ class Admin::BoardsController < ApplicationController
     if @board.destroy
       redirect_to admin_boards_path
     else
-      flash.now[:alert] = "削除に失敗しました。"
+      flash.now[:alert] = "掲示板の削除に失敗しました。"
       @circular_members = CircularMember.where(board_id: @board.id)
       @board_checked_members = Read.where(board_id: @board.id, member_id: @circular_members.pluck(:member_id))
       render "show"

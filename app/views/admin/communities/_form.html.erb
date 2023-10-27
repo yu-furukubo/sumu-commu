@@ -14,14 +14,20 @@
         </div>
         <div class="form-group">
           <tr>
-            <td style="width: 20%"><%= f.label :コミュニティ名 %></td>
-            <td style="width: 70%"><%= f.text_field :name, placeholder: "件名", class: 'form-control ' %></td>
+            <td style="width: 20%"><%= f.label :コミュニティ画像 %></td>
+            <td style="width: 70%"><%= f.file_field :community_image %></td>
           </tr>
         </div>
         <div class="form-group">
           <tr>
-            <td><%= f.label :本文 %></td>
-            <td><%= f.text_area :description, placeholder: "コミュニティの説明を記述します", class: 'form-control', rows: "5" %></td>
+            <td><%= f.label :コミュニティ名 %></td>
+            <td><%= f.text_field :name, placeholder: "件名", class: 'form-control ' %></td>
+          </tr>
+        </div>
+        <div class="form-group">
+          <tr>
+            <td><%= f.label :説明 %></td>
+            <td><%= f.text_area :description, placeholder: "コミュニティの説明を記述します", class: 'form-control', rows: "10" %></td>
           </tr>
         </div>
       </tbody>

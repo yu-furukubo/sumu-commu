@@ -16,6 +16,7 @@ class Admin::LostItemsController < ApplicationController
   def show
     @lost_item = LostItem.find(params[:id])
     @lost_item_comments = LostItemComment.where(lost_item_id: @lost_item.id)
+    @lost_item_comments_deleted = @lost_item_comments.where(is_deleted: true)
   end
 
   def new

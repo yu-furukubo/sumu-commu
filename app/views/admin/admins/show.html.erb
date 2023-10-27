@@ -26,16 +26,20 @@
                   <th>名称</th>
                   <th>住居タイプ</th>
                   <th>住所</th>
-                  <th>使用世帯数</th>
+                  <th>使用人数</th>
                 </tr>
               </thead>
               <tbody>
                 <% @residences.each do |residence| %>
                   <tr>
-                    <td><%= residence.name %></td>
-                    <td><%= residence.housing_type_i18n %></td>
-                    <td><%= residence.address %></td>
-                    <td class="text-center"><%= residence.members.count %></td>
+                    <td class="align-middle"><%= residence.name %></td>
+                    <td class="align-middle"><%= residence.housing_type_i18n %></td>
+                    <td class="align-middle"><%= residence.address %></td>
+                    <td class="text-center align-middle">
+                      <%= link_to residence_search_admin_members_path(residence) do %>
+                        <%= residence.members.count %>人
+                      <% end %>
+                    </td>
                     <td><%= link_to "編集", edit_admin_residence_path(residence), class: "btn btn-success" %></td>
                     <td>
                       <%= form_with model: Member, url: new_member_registration_path, method: :get, local: true do |f| %>

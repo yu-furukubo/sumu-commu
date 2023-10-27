@@ -18,6 +18,7 @@ class Admin::ExchangesController < ApplicationController
   def show
     @exchange = Exchange.find(params[:id])
     @exchange_comments = ExchangeComment.where(exchange_id: @exchange.id)
+    @exchange_comments_deleted = @exchange_comments.where(is_deleted: true)
   end
 
   def edit

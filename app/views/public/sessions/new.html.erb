@@ -18,12 +18,6 @@
                 <td><%= f.label :パスワード %></td>
                 <td>
                   <%= f.password_field :password, autocomplete: "current-password" %>
-                  <% if devise_mapping.rememberable? %>
-                    <div class="field">
-                      <%= f.check_box :remember_me %>
-                      <%= f.label :ログイン情報を保存 %>
-                    </div>
-                  <% end %>
                 </td>
               </tr>
             </div>

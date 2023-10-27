@@ -16,7 +16,8 @@ class Admin::CommunitiesController < ApplicationController
   def show
     @community = Community.find(params[:id])
     @community_members = CommunityMember.where(community_id: @community.id)
-    @community_comments = CommunityComment.where(community_id: @community.id)
+    @community_comments = CommunityComment.where(community_id: @community.id).order(created_at: "desc")
+    @community_comments_deleted = @community_comments.where(is_deleted: true)
   end
 
   def edit
@@ -50,7 +51,7 @@ class Admin::CommunitiesController < ApplicationController
   private
 
   def community_params
-    params.require(:community).permit(:name, :description, :residence_id, :member_id)
+    params.require(:community).permit(:name, :description, :residence_id, :member_id, :community_image)
   end
 
 end

@@ -52,22 +52,28 @@
             <div class="row mb-3 d-flex align-items-center">
               <h4>コメント</h4>&emsp;
               <span class="text-primary font-weight-bold"><%= @lost_item_comments.count %>件</span>
+              <% if @lost_item_comments_deleted.count != 0 %>
+                <span>(削除済み<%= @lost_item_comments_deleted.count %>件)</span>
+              <% end %>
             </div>
             <table class='table table-borderless'>
               <tbody>
                 <% @lost_item_comments.each do |lost_item_comment| %>
                   <tr>
-                    <td style="width: 35%"><%= lost_item_comment.member.name %></td>
+                    <td style="width: 25%"><%= lost_item_comment.member.name %></td>
                     <td><%= lost_item_comment.comment %></td>
+                    <td><%= l lost_item_comment.created_at %></td>
                     <td>
                       <!--コメントを論理削除するための処理-->
                       <% if lost_item_comment.is_deleted == true %>
                         <td class="text-danger">削除済み</td>
                       <% else %>
-                        <td>
+                        <td style="width: 15%">
                           <%= form_with model: LostItemComment.new, url: admin_lost_item_lost_item_comment_path(@lost_item, lost_item_comment), method: :patch, local: true do |f| %>
                             <%= f.hidden_field :is_deleted, :value => true %>
-                            <%= f.submit "コメントを削除する", class: 'btn btn-sm btn-danger' %>
+                            <%= button_tag type: "submit", class: 'btn btn-sm' do %>
+                              <i class="fa-solid fa-trash"></i>
+                            <% end %>
                           <% end %>
                         </td>
                       <% end %>

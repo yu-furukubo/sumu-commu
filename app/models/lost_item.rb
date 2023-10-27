@@ -11,6 +11,8 @@ class LostItem < ApplicationRecord
   validates :picked_up_at, presence: true
   validates :storage_location, presence: true
 
+  self.ignored_columns = [:deadline]
+
   def self.looks(words, residence)
     @lost_items = self.where(residence_id: residence)
     @lost_items.where("name LIKE :word OR description LIKE :word OR picked_up_location LIKE :word OR storage_location LIKE :word", word: "%#{words}%")

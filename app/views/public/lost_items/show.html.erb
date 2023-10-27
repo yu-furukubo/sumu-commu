@@ -33,13 +33,21 @@
           <tr><th>拾った場所</th><td><%= @lost_item.picked_up_location %></td></tr>
           <tr><th>拾った日時</th><td><%= l @lost_item.picked_up_at %></td></tr>
           <tr><th>保管場所</th><td><%= @lost_item.storage_location %></td></tr>
+          <tr>
+            <th>掲載状況</th>
+            <% if @lost_item.is_finished == false %>
+              <td class="text-success">掲載中</td>
+            <% else %>
+              <td class="text-secondary">掲載終了</td>
+            <% end %>
+          </tr>
         </table>
 
         <% if @lost_item.member == current_member %>
         <div class="row">
           <div class="mx-auto">
-            <%= link_to "編集する", edit_public_lost_item_path, class: "btn btn-success" %>&emsp;&emsp;
-            <%= link_to "削除する", public_lost_item_path, method: :delete,
+            <%= link_to "編集する", edit_public_lost_item_path(@lost_item), class: "btn btn-success" %>&emsp;&emsp;
+            <%= link_to "削除する", public_lost_item_path(@lost_item), method: :delete,
               data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
           </div>
         </div>

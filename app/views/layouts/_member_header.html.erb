@@ -1,6 +1,12 @@
 <nav class="navbar navbar-expand-md p-1", style="background-color:#4169e1">
   <ul class="navbar-nav mx-auto">
     <li class="nav-item mr-3">
+      <%= link_to public_members_information_path, class: "nav-link text-light text-center" do %>
+        <i class="fa-solid fa-user"></i><br>
+        <span class="font-weight-bold">会員</span>
+      <% end %>
+    </li>
+    <li class="nav-item mr-3">
       <%= link_to public_boards_path, class: "nav-link text-light text-center" do %>
         <i class="fa-solid fa-circle-exclamation"></i><br>
         <span class="font-weight-bold">掲示板</span>

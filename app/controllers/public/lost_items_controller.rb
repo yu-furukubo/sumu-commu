@@ -2,10 +2,9 @@ class Public::LostItemsController < ApplicationController
   before_action :authenticate_member!
 
   def index
-    @lost_items = LostItem.where(residence_id: current_member.residence.id).where('deadline > ?', Time.now)
-    @lost_items_storage = LostItem.where(residence_id: current_member.residence.id).where('deadline > ?', Time.now).where(is_finished: false)
-    @lost_items_finished = LostItem.where(residence_id: current_member.residence.id).where(is_finished: true)
-    @lost_items_mine = @lost_items.where(member_id: current_member.id)
+    @lost_items = LostItem.where(residence_id: current_member.residence.id).where(is_finished: false).order(picked_up_at: "DESC")
+    @lost_items_finished = LostItem.where(residence_id: current_member.residence.id).where(is_finished: true).order(picked_up_at: "DESC")
+    @lost_items_mine = LostItem.where(residence_id: current_member.residence.id, member_id: current_member.id).order(picked_up_at: "DESC")
   end
 
   def show
@@ -21,7 +20,7 @@ class Public::LostItemsController < ApplicationController
   def create
     @lost_item = LostItem.new(lost_item_params)
 
-    if params[:lost_item][:deadline] == "" || params[:lost_item][:picked_up_at] == ""
+    if params[:lost_item][:picked_up_at] == ""
       flash.now[:alert] = "拾った日時・掲載期限を入力してください。"
       render "new"
       return
@@ -42,7 +41,7 @@ class Public::LostItemsController < ApplicationController
   def update
     @lost_item = LostItem.find(params[:id])
 
-    if params[:lost_item][:deadline] == "" || params[:lost_item][:picked_up_at] == ""
+    if params[:lost_item][:picked_up_at] == ""
       flash.now[:alert] = "拾った日時・掲載期限を入力してください。"
       render "edit"
       return

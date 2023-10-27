@@ -7,7 +7,11 @@ class Public::ExchangeCommentsController < ApplicationController
     if @exchange_comment.save
       redirect_to public_exchange_path(@exchange)
     else
-      flash.now[:alert] = "コメントの投稿に失敗しました。"
+      if params[:exchange_comment][:comment] == ""
+        flash.now[:alert] = "コメントを１文字以上入力してください。"
+      else
+        flash.now[:alert] = "コメントの投稿に失敗しました。"
+      end
       @exchange_comments = ExchangeComment.where(exchange_id: @exchange.id).order(created_at: "DESC")
       render template: "public/exchanges/show"
     end

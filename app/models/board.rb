@@ -10,6 +10,17 @@ class Board < ApplicationRecord
 
   def self.looks(words, residence)
     @boards = self.where(residence_id: residence)
-    @boards.where("name LIKE :word OR body LIKE :word", word: "%#{words}%")
+    @members = Member.where("name LIKE :word", word: "%#{words}%", residence_id: residence)
+    @admin = Admin.where("name LIKE :word", word: "%#{words}%")
+    if @admin.present? && Residence.find_by(id: residence, admin_id: @admin.pluck(:id))
+      @boards
+      .where("name LIKE :word OR body LIKE :word", word: "%#{words}%")
+      .or(@boards.where(member_id: @members.pluck(:id)))
+      .or(@boards.where(member_id: 0))
+    else
+      @boards
+      .where("name LIKE :word OR body LIKE :word", word: "%#{words}%")
+      .or(@boards.where(member_id: @members.pluck(:id)))
+    end
   end
 end

@@ -17,8 +17,8 @@
         <% if @community_members.find_by(member_id: current_member.id) && @community_member.is_admin == true %>
           <div class="row">
             <div class="mx-auto">
-              <%= link_to "編集する", edit_public_community_path, class: "btn btn-success" %>&emsp;&emsp;
-              <%= link_to "削除する", public_community_path, method: :delete,
+              <%= link_to "編集する", edit_public_community_path(@community), class: "btn btn-success" %>&emsp;&emsp;
+              <%= link_to "削除する", public_community_path(@community), method: :delete,
                 data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
             </div>
           </div>

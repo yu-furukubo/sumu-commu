@@ -53,8 +53,8 @@
         <% if @exchange.member == current_member %>
           <div class="row">
             <div class="mx-auto">
-              <%= link_to "編集する", edit_public_exchange_path, class: "btn btn-success" %>&emsp;&emsp;
-              <%= link_to "削除する", public_exchange_path, method: :delete,
+              <%= link_to "編集する", edit_public_exchange_path(@exchange), class: "btn btn-success" %>&emsp;&emsp;
+              <%= link_to "削除する", public_exchange_path(@exchange), method: :delete,
                 data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
             </div>
           </div>

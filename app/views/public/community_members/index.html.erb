@@ -35,7 +35,7 @@
 
                 <td>
                   <!--メンバーの追放ボタン(管理者のみ表示)-->
-                  <%= link_to public_community_community_member_path(@community, community_member), method: :delete, class: 'btn btn-sm btn-secondary' do %>
+                  <%= link_to public_community_community_member_path(@community, community_member.member_id), method: :delete, class: 'btn btn-sm btn-secondary' do %>
                     <i class="fa-solid fa-trash-can fa-2xs"></i>
                   <% end %>
                   <!--メンバーの追放ボタンここまで-->

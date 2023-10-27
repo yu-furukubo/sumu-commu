@@ -7,7 +7,11 @@ class Public::LostItemCommentsController < ApplicationController
     if @lost_item_comment.save
       redirect_to public_lost_item_path(@lost_item)
     else
-      flash.now[:alert] = "コメントの投稿に失敗しました。"
+      if params[:lost_item_comment][:comment] == ""
+        flash.now[:alert] = "コメントを１文字以上入力してください。"
+      else
+        flash.now[:alert] = "コメントの投稿に失敗しました。"
+      end
       @lost_item_comments = LostItemComment.where(lost_item_id: @lost_item.id).order(created_at: "DESC")
       render template: "public/lost_items/show"
     end

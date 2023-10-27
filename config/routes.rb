@@ -91,12 +91,14 @@ Rails.application.routes.draw do
     resources :facilities, only: [:index, :show]
     resources :boards do
       resources :circular_members, only: [:index, :create, :destroy]
+      patch "circular_members_add_all" => "circular_members#add_all", as: "circular_members_add_all"
       resource :reads, only: [:create, :destroy]
     end
     resources :communities do
       resources :community_comments, only: [:create, :update, :destroy]
       resources :community_members, only: [:index, :create, :update, :destroy]
     end
+    get "members/information" => "members#index", as: "members_information"
     get "member/information" => "members#show", as: "member_information"
     get "member/information/edit" => "members#edit", as: "edit_member_information"
     patch "member/information" => "members#update", as: "update_member_information"

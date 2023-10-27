@@ -16,7 +16,7 @@
           <td><%= facility.residence.name %></td>
         <% end %>
         <td><%= link_to facility.name, admin_facility_path(facility) %></td>
-        <% if facility.genre_id == 0 %>
+        <% if facility.genre_id == 0 || facility.genre.is_deleted == true %>
           <td>(未設定)</td>
         <% else %>
           <td><%= facility.genre.name %></td>

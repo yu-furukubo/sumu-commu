@@ -1,3 +1,12 @@
+<% if members.present? %>
+  <div class="mb-3">
+    <h2 class="border-bottom border-dark">会員</h2>
+  </div>
+  <div class="ml-3">
+    <%= render 'admin/members/index', members: members %>
+  </div>
+<% end %>
+
 <% if boards.present? %>
   <div class="mb-3">
     <h2 class="border-bottom border-dark">掲示板</h2>
@@ -43,6 +52,15 @@
   </div>
 <% end %>
 
+<% if genres.present? %>
+  <div class="mb-3">
+    <h2 class="border-bottom border-dark">ジャンル</h2>
+  </div>
+  <div class="ml-3">
+    <%= render 'admin/genres/index', genres: genres %>
+  </div>
+<% end %>
+
 <% if equipments.present? %>
   <div class="mb-3">
     <h2 class="border-bottom border-dark">備品</h2>
@@ -58,24 +76,6 @@
   </div>
   <div class="ml-3">
     <%= render 'admin/facilities/index', facilities: facilities %>
-  </div>
-<% end %>
-
-<% if genres.present? %>
-  <div class="mb-3">
-    <h2 class="border-bottom border-dark">ジャンル</h2>
-  </div>
-  <div class="ml-3">
-    <%= render 'admin/genres/index', genres: genres %>
-  </div>
-<% end %>
-
-<% if members.present? %>
-  <div class="mb-3">
-    <h2 class="border-bottom border-dark">会員</h2>
-  </div>
-  <div class="ml-3">
-    <%= render 'admin/members/index', members: members %>
   </div>
 <% end %>
 

@@ -4,14 +4,15 @@ class Admin::ReservationsController < ApplicationController
   def index
     @residences = current_admin.residences
     @residence_id_array = @residences.pluck(:id)
-    @reservations = Reservation.where(residence_id: @residence_id_array).where('finished_at > ?', Time.now).order(started_at: "ASC")
-    @reservations_past = Reservation.where(residence_id: @residence_id_array).where('finished_at =< ?', Time.now).order(started_at: "DESC")
+    @reservations = Reservation.where(residence_id: @residence_id_array).where('finished_at > ?', Time.now).order(started_at: "ASC", finished_at: "ASC")
+    @reservations_past = Reservation.where(residence_id: @residence_id_array).where('finished_at <= ?', Time.now).order(started_at: "DESC", finished_at: "DESC")
   end
 
   def residence_search
     @residences = current_admin.residences
     @residence = Residence.find(params[:id])
-    @reservations = @residence.reservations.where('finished_at > ?', Time.now).order(started_at: "ASC")
+    @reservations = @residence.reservations.where('finished_at > ?', Time.now).order(started_at: "ASC", finished_at: "ASC")
+    @reservations_past = @residence.reservations.where('finished_at <= ?', Time.now).order(started_at: "DESC", finished_at: "DESC")
   end
 
   def show

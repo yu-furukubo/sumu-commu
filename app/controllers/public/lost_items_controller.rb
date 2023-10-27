@@ -77,7 +77,7 @@ class Public::LostItemsController < ApplicationController
   private
 
   def lost_item_params
-    params.require(:lost_item).permit(:name, :description, :picked_up_location, :picked_up_at, :storage_location, :deadline, :is_finished, :member_id, :residence_id, lost_item_images: [])
+    params.require(:lost_item).permit(:name, :description, :picked_up_location, :picked_up_at, :storage_location, :is_finished, :member_id, :residence_id, lost_item_images: [])
   end
 
 end

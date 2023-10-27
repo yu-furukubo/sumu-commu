@@ -11,13 +11,10 @@
         <div class="tabs">
           <ul class="nav nav-tabs">
             <li class="nav-item">
-              <a class="nav-link active" data-toggle="tab" href="#section1">掲載中</a>
+              <a class="nav-link active" data-toggle="tab" href="#section1">募集中</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#section2">募集中</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#section3">募集終了</a>
+              <a class="nav-link" data-toggle="tab" href="#section2">募集終了</a>
             </li>
           </ul>
 
@@ -26,9 +23,6 @@
               <%= render 'admin/exchanges/index', exchanges: @exchanges %>
             </div>
             <div id="section2" class="tab-pane fade">
-              <%= render 'admin/exchanges/index', exchanges: @exchanges_recruitment %>
-            </div>
-            <div id="section3" class="tab-pane fade">
               <%= render 'admin/exchanges/index', exchanges: @exchanges_finished %>
             </div>
           </div>

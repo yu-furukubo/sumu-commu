@@ -185,7 +185,6 @@ ActiveRecord::Schema.define(version: 2023_10_05_091539) do
     t.string "picked_up_location", null: false
     t.datetime "picked_up_at", null: false
     t.string "storage_location", null: false
-    t.datetime "deadline"
     t.boolean "is_finished", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

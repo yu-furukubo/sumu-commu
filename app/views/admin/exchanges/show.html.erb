@@ -31,7 +31,11 @@
                 <td><%= @exchange.price.to_s(:delimited) %>円</td>
               <% end %>
             </tr>
-            <tr><th>掲載期限</th><td><%= l @exchange.deadline %></td></tr>
+            <% if @exchange.deadline.present? %>
+              <tr><th>掲載期限</th><td><%= l @exchange.deadline %></td></tr>
+            <% else %>
+              <tr><th>掲載期限</th><td>なし</td></tr>
+            <% end %>
             <tr>
               <th>募集状況</th>
               <% if @exchange.is_finished == false %>

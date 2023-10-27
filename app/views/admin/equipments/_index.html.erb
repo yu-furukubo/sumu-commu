@@ -17,7 +17,7 @@
           <td><%= equipment.residence.name %></td>
         <% end %>
         <td><%= link_to equipment.name, admin_equipment_path(equipment) %></td>
-        <% if equipment.genre_id == 0 %>
+        <% if equipment.genre_id == 0 || equipment.genre.is_deleted == true %>
           <td>(未設定)</td>
         <% else %>
           <td><%= equipment.genre.name %></td>

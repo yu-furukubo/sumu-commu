@@ -17,7 +17,7 @@
             <tr><th>備品画像</th><td><%= image_tag @equipment.get_equipment_image, width: '100px' %></td></tr>
             <tr><th>備品名</th><td><%= @equipment.name %></td></tr>
             <tr><th>説明</th><td><%= @equipment.description %></td></tr>
-            <% if @equipment.genre_id == 0 %>
+            <% if @equipment.genre_id == 0 || @equipment.genre.is_deleted == true %>
               <tr><th>ジャンル</th><td>(未設定)</td></tr>
             <% else %>
               <tr><th>ジャンル</th><td><%= @equipment.genre.name %></td></tr>
@@ -36,7 +36,7 @@
           </div>
         </div>
       </div>
-      <div class="ml-5 mb-3">
+      <div class="mt-5 ml-5 mb-3">
         <h2><%= @equipment.name %>の予約一覧</h2>
       </div>
       <div class="container">

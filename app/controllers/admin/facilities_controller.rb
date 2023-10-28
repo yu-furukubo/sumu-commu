@@ -78,7 +78,7 @@ class Admin::FacilitiesController < ApplicationController
   def is_matching_login_admin
     residences = current_admin.residences
     admin_facilities = Facility.where(residence_id: residences.pluck(:id))
-    unless admin_facilities.where(id: params[:exchange_id]).present?
+    unless admin_facilities.where(id: params[:id]).present?
      flash[:alert] = "そのURLにはアクセスできません。"
      redirect_to admin_facilities_path
     end

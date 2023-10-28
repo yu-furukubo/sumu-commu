@@ -1,6 +1,7 @@
 class Public::LostItemsController < ApplicationController
   before_action :authenticate_member!
   before_action :is_matching_login_member, {only: [:edit, :update, :destroy]}
+  before_action :is_matching_residence, {only: [:show]}
 
   def index
     @lost_items = LostItem.where(residence_id: current_member.residence.id).where(is_finished: false).order(picked_up_at: "DESC")
@@ -83,6 +84,15 @@ class Public::LostItemsController < ApplicationController
   def is_matching_login_member
     lost_item = LostItem.find(params[:id])
     unless lost_item.member_id == current_member.id
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to public_lost_items_path
+    end
+  end
+
+  def is_matching_residence
+    residence = current_member.residence
+    lost_item = LostItem.find(params[:id])
+    unless lost_item.residence == residence
      flash[:alert] = "そのURLにはアクセスできません。"
      redirect_to public_lost_items_path
     end

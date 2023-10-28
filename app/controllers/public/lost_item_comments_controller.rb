@@ -1,6 +1,7 @@
 class Public::LostItemCommentsController < ApplicationController
   before_action :authenticate_member!
   before_action :is_matching_login_member, {only: [:update]}
+  before_action :is_matching_residence, {only: [:create]}
 
   def create
     @lost_item = LostItem.find(params[:lost_item_id])
@@ -51,6 +52,15 @@ class Public::LostItemCommentsController < ApplicationController
   def is_matching_login_member
     lost_item = LostItem.find(params[:lost_item_id])
     unless lost_item.member_id == current_member.id
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to public_lost_items_path
+    end
+  end
+
+  def is_matching_residence
+    residence = current_member.residence
+    lost_item = LostItem.find(params[:lost_item_id])
+    unless lost_item.residence == residence
      flash[:alert] = "そのURLにはアクセスできません。"
      redirect_to public_lost_items_path
     end

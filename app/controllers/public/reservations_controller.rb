@@ -1,6 +1,7 @@
 class Public::ReservationsController < ApplicationController
   before_action :authenticate_member!
   before_action :is_matching_login_member, {only: [:edit, :update, :destroy]}
+  before_action :is_matching_residence, {only: [:show]}
 
   def index
     @residence = current_member.residence
@@ -201,6 +202,15 @@ class Public::ReservationsController < ApplicationController
   def is_matching_login_member
     reservation = Reservation.find(params[:id])
     unless reservation.member_id == current_member.id
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to public_reservations_path
+    end
+  end
+
+  def is_matching_residence
+    residence = current_member.residence
+    reservation = Reservation.find(params[:id])
+    unless reservation.residence == residence
      flash[:alert] = "そのURLにはアクセスできません。"
      redirect_to public_reservations_path
     end

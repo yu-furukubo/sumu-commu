@@ -1,6 +1,7 @@
 class Public::ExchangeCommentsController < ApplicationController
   before_action :authenticate_member!
   before_action :is_matching_login_member, {only: [:update]}
+  before_action :is_matching_residence, {only: [:create]}
 
   def create
     @exchange = Exchange.find(params[:exchange_id])
@@ -51,6 +52,15 @@ class Public::ExchangeCommentsController < ApplicationController
   def is_matching_login_member
     exchange = Exchange.find(params[:exchange_id])
     unless exchange.member_id == current_member.id
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to public_exchanges_path
+    end
+  end
+
+   def is_matching_residence
+    residence = current_member.residence
+    exchange = Exchange.find(params[:exchange_id])
+    unless exchange.residence == residence
      flash[:alert] = "そのURLにはアクセスできません。"
      redirect_to public_exchanges_path
     end

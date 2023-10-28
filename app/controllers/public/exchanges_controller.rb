@@ -1,6 +1,7 @@
 class Public::ExchangesController < ApplicationController
   before_action :authenticate_member!
   before_action :is_matching_login_member, {only: [:edit, :update, :destroy]}
+  before_action :is_matching_residence, {only: [:show]}
 
   def index
     @residence = current_member.residence
@@ -71,6 +72,15 @@ class Public::ExchangesController < ApplicationController
   def is_matching_login_member
     exchange = Exchange.find(params[:id])
     unless exchange.member_id == current_member.id
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to public_exchanges_path
+    end
+  end
+
+  def is_matching_residence
+    residence = current_member.residence
+    exchange = Exchange.find(params[:id])
+    unless exchange.residence == residence
      flash[:alert] = "そのURLにはアクセスできません。"
      redirect_to public_exchanges_path
     end

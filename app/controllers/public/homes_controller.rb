@@ -11,7 +11,7 @@ class Public::HomesController < ApplicationController
       @communities = @residence.communities.where("created_at > ?", current_member.last_sign_in_at).where.not(member_id: current_member.id)
       @events = @residence.events.where("created_at > ?", current_member.last_sign_in_at).where.not(member_id: current_member.id)
       current_member_events_array = EventMember.where(member_id: current_member.id, is_approved: false).pluck(:event_id)
-      @events_invited = @residence.events.where(id: current_member_events_array).where('started_at > ?', Time.now)
+      @events_invited = @residence.events.where(id: current_member_events_array).where('finished_at > ?', Time.now)
     end
   end
 end

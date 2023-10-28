@@ -22,7 +22,13 @@
       <div class="row ml-5 mt-5 mb-3">
         <h4>(招待可能メンバー)</h4>
         <div class="ml-3">
-          <% if @residence_members.count != @event.event_members.count %>
+          <% if @event.member_id != "0" %>  <!--イベント作成者が管理人でない場合-->
+            <% if Member.find_by(id: @event.member_id).present? && @residence_members.count - 1 != @event.event_members.count %>　<!--イベント作成者が未退会の場合-->
+              <%= link_to "全員招待する", admin_event_event_members_invite_all_path(@event), method: :patch, class: "btn btn-primary" %>
+            <% elsif Member.find_by(id: @event.member_id).nil? && @residence_members.count != @event.event_members.count %>　<!--イベント作成者が退会済の場合-->
+              <%= link_to "全員招待する", admin_event_event_members_invite_all_path(@event), method: :patch, class: "btn btn-primary" %>
+            <% end %>
+          <% elsif @event.member_id == "0" && @residence_members.count != @event.event_members.count %>　<!--イベント作成者が管理人の場合-->
             <%= link_to "全員招待する", admin_event_event_members_invite_all_path(@event), method: :patch, class: "btn btn-primary" %>
           <% end %>
         </div>

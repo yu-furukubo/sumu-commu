@@ -20,6 +20,23 @@ class Public::EventMembersController < ApplicationController
     end
   end
 
+  def invite_all
+    @event = Event.find(params[:event_id])
+    @residence_members = @event.residence.members
+    @residence_members.each do |member|
+      if not EventMember.find_by(event_id: @event.id, member_id: member.id, is_approved: true).present? || @event.member == member
+        unless EventMember.find_or_create_by(event_id: @event.id, member_id: member.id, is_approved: false)
+          flash.now[:alert] =　"#{member}の招待に失敗しました。"
+          @event_members = @event.event_members.where(is_approved: true)
+          @event_invited_members = @event.event_members.where(is_approved: false)
+          render "index"
+          return
+        end
+      end
+    end
+    redirect_to public_event_event_members_path(@event)
+  end
+
   def participate
     @event = Event.find(params[:event_id])
     event_member = EventMember.new(event_member_params)
@@ -36,7 +53,7 @@ class Public::EventMembersController < ApplicationController
 
   def update
     @event = Event.find(params[:event_id])
-    event_member = EventMember.find(params[:id])
+    event_member = @event.event_members.find_by(member_id: current_member.id)
     if event_member.update(event_member_params)
       redirect_to public_event_path(@event)
     else
@@ -50,7 +67,7 @@ class Public::EventMembersController < ApplicationController
 
   def destroy
     @event = Event.find(params[:event_id])
-    event_member = EventMember.find_by(member_id: current_member.id)
+    event_member = @event.event_members.find_by(member_id: current_member.id)
     if event_member.destroy
       redirect_to public_event_path(@event)
     else
@@ -64,7 +81,7 @@ class Public::EventMembersController < ApplicationController
 
   def observe
     @event = Event.find(params[:event_id])
-    event_member = EventMember.find_by(member_id: current_member.id)
+    event_member = @event.event_members.find_by(member_id: current_member.id)
     if event_member.destroy
       redirect_to public_event_path(@event)
     else

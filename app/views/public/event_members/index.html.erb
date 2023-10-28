@@ -21,35 +21,46 @@
 
       <div class="row ml-5 mt-5 mb-3">
         <h4>(招待可能メンバー)</h4>
+        <div class="ml-3">
+          <% if @event.member == current_member %>
+            <% if @residence_members.count != @event.event_members.count && @event_members.find_by(member_id: current_member.id).present?%>
+              <%= link_to "全員招待する", public_event_event_members_invite_all_path(@event), method: :post, class: "btn btn-primary" %>
+            <% elsif @residence_members.count - 1 != @event.event_members.count && @event_members.find_by(member_id: current_member.id).nil? %>
+              <%= link_to "全員招待する", public_event_event_members_invite_all_path(@event), method: :post, class: "btn btn-primary" %>
+            <% end %>
+          <% end %>
+        </div>
       </div>
       <div class="ml-5 mb-3">
         <table class='table table-borderless'>
           <% @residence_members.each do |member| %>
             <tr>
-              <% if @event.event_members.where(member_id: member.id).present? %>
-                <% if @event.event_members.find_by(member_id: member.id).is_approved == false %>
-                  <td style="width:30%">
-                    <%= member.name %>
-                    <span class="text-success">招待中</span>
-                  </td>
+               <% if member != current_member %>
+                <% if @event.event_members.where(member_id: member.id).present? %>
+                  <% if @event.event_members.find_by(member_id: member.id).is_approved == false %>
+                    <td style="width:30%">
+                      <%= member.name %>
+                      <span class="text-success">招待中</span>
+                    </td>
+                    <% if @event.member == current_member %>
+                      <td><%= link_to "招待を取り消す", public_event_event_member_quit_invite_path(@event.id, @event.event_members.find_by(member_id: member.id)), method: :delete, class: "btn btn-secondary" %></td>
+                    <% else %>
+                      <td></td>
+                    <% end %>
+                  <% end %>
+                <% else %>
+                  <td style="width:30%"><%= member.name %></td>
                   <% if @event.member == current_member %>
-                    <td><%= link_to "招待を取り消す", public_event_event_member_quit_invite_path(@event.id, @event.event_members.find_by(member_id: member.id)), method: :delete, class: "btn btn-secondary" %></td>
+                    <td>
+                      <%= form_with model:EventMember.new, url: public_event_event_members_path(@event), local: true do |f| %>
+                        <%= f.hidden_field :event_id, :value => @event.id %>
+                        <%= f.hidden_field :member_id, :value => member.id %>
+                        <%= f.submit "招待する", class: "btn btn-info" %>
+                      <% end %>
+                    </td>
                   <% else %>
                     <td></td>
                   <% end %>
-                <% end %>
-              <% else %>
-                <td style="width:30%"><%= member.name %></td>
-                <% if @event.member == current_member %>
-                  <td>
-                    <%= form_with model:EventMember.new, url: public_event_event_members_path(@event), local: true do |f| %>
-                      <%= f.hidden_field :event_id, :value => @event.id %>
-                      <%= f.hidden_field :member_id, :value => member.id %>
-                      <%= f.submit "招待する", class: "btn btn-info" %>
-                    <% end %>
-                  </td>
-                <% else %>
-                  <td></td>
                 <% end %>
               <% end %>
             </tr>

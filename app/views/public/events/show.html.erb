@@ -13,7 +13,16 @@
             <tr><th>作成者名</th><td><%= check_member_created(@event) %></td></tr>
             <tr><th style="width: 20%">イベント名</th><td><%= @event.name %></td></tr>
             <tr><th>説明</th><td><%= @event.description %></td></tr>
-            <tr><th>開催期間</th><td><%= l @event.started_at %> ~ <%= l @event.finished_at %></td></tr>
+            <tr>
+              <th>開催期間</th>
+              <td>
+                <% if @event.started_at.to_date == @event.finished_at.to_date %>
+                  <%= l @event.started_at %> ~ <%= l @event.finished_at, format: :short %>
+                <% else %>
+                  <%= l @event.started_at %> ~ <%= l @event.finished_at %>
+                <% end %>
+              </td>
+            </tr>
             <tr><th>開催場所</th><td><%= @event.venue %></td></tr>
           </table>
           <% if @event.member == current_member %>
@@ -40,7 +49,7 @@
             <% @event_members.each do |event_member| %>
               <tr>
                 <td style="width: 65%"><%= event_member.member.name %></td>
-                <% if @event.member == current_member %>
+                <% if event_member.member_id == @event.member_id %>
                   <td class="text-danger">ホスト</td>
                 <% end %>
               </tr>

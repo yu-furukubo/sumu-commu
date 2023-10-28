@@ -1,5 +1,6 @@
 class Admin::ResidencesController < ApplicationController
   before_action :authenticate_admin!
+  before_action :is_matching_login_admin, {only: [:edit, :update, :confirm, :destroy]}
 
   def new
     @residence = Residence.new
@@ -50,4 +51,13 @@ class Admin::ResidencesController < ApplicationController
   def residence_params
     params.require(:residence).permit(:admin_id, :housing_type, :name, :address)
   end
+
+  def is_matching_login_admin
+    residences = current_admin.residences
+    unless residences.where(id: params[:id]).present?
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to admin_admin_path(current_admin)
+    end
+  end
+
 end

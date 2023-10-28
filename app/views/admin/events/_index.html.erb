@@ -6,7 +6,8 @@
       <% end %>
       <th>イベント名</th>
       <th>開催期間</th>
-      <th>開催場所</th>
+      <th>場所</th>
+      <th style="width:9%">参加者</th>
     </tr>
   </thead>
   <tbody>
@@ -17,11 +18,12 @@
         <% end %>
         <td><%= link_to event.name, admin_event_path(event) %></td>
         <% if event.started_at.to_date == event.finished_at.to_date %>
-          <td><%= l event.started_at %> ~ <%= l event.finished_at.to_time, format: :short %></td>
+          <td><%= l event.started_at %> ~ <%= l event.finished_at, format: :short %></td>
         <% else %>
           <td><%= l event.started_at %> ~ <%= l event.finished_at %></td>
         <% end %>
         <td><%= event.venue %></td>
+        <td class="text-center"><%= event.event_members.count %>人</td>
       </tr>
     <% end %>
   </tbody>

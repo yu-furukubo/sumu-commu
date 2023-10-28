@@ -13,10 +13,13 @@
             <a class="nav-link active" data-toggle="tab" href="#section1">開催前(開催中)のイベント</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#section2">終了済みのイベント</a>
+            <a class="nav-link" data-toggle="tab" href="#section2">参加予定のイベント</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#section3">あなたのイベント</a>
+            <a class="nav-link" data-toggle="tab" href="#section3">終了済みのイベント</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#section4">あなたのイベント</a>
           </li>
         </ul>
 
@@ -25,9 +28,12 @@
             <%= render 'public/events/index', events: @events %>
           </div>
           <div id="section2" class="tab-pane fade">
-            <%= render 'public/events/index', events: @events_finished %>
+            <%= render 'public/events/index', events: @events_participate %>
           </div>
           <div id="section3" class="tab-pane fade">
+            <%= render 'public/events/index', events: @events_finished %>
+          </div>
+          <div id="section4" class="tab-pane fade">
             <%= render 'public/events/index', events: @events_mine %>
           </div>
         </div>

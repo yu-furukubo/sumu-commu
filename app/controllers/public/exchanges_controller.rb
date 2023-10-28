@@ -1,11 +1,13 @@
 class Public::ExchangesController < ApplicationController
   before_action :authenticate_member!
+  before_action :is_matching_login_member, {only: [:edit, :update, :destroy]}
 
   def index
-    @exchanges = Exchange.where(residence_id: current_member.residence.id).where('deadline > ?', Time.now)
-    @exchanges_recruitment = Exchange.where(residence_id: current_member.residence.id).where('deadline > ?', Time.now).where(is_finished: false)
-    @exchanges_finished = Exchange.where(residence_id: current_member.residence.id).where(is_finished: true)
-    @exchanges_mine = @exchanges.where(member_id: current_member.id)
+    @residence = current_member.residence
+    @exchanges_recruitment = @residence.exchanges.where('deadline > ?', Time.now).where(is_finished: false)
+      .or(@residence.exchanges.where(deadline: nil).where(is_finished: false))
+    @exchanges_finished = @residence.exchanges.where(is_finished: true).order(created_at: "DESC")
+    @exchanges_mine = @residence.exchanges.where(member_id: current_member.id).order(created_at: "DESC")
   end
 
   def show
@@ -64,6 +66,14 @@ class Public::ExchangesController < ApplicationController
 
   def exchange_params
     params.require(:exchange).permit(:name, :description, :price, :deadline, :is_finished, :member_id, :residence_id, exchange_item_images: [])
+  end
+
+  def is_matching_login_member
+    exchange = Exchange.find(params[:id])
+    unless exchange.member_id == current_member.id
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to public_exchanges_path
+    end
   end
 
 end

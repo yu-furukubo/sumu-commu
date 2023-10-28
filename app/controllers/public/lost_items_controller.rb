@@ -1,5 +1,6 @@
 class Public::LostItemsController < ApplicationController
   before_action :authenticate_member!
+  before_action :is_matching_login_member, {only: [:edit, :update, :destroy]}
 
   def index
     @lost_items = LostItem.where(residence_id: current_member.residence.id).where(is_finished: false).order(picked_up_at: "DESC")
@@ -77,6 +78,14 @@ class Public::LostItemsController < ApplicationController
 
   def lost_item_params
     params.require(:lost_item).permit(:name, :description, :picked_up_location, :picked_up_at, :storage_location, :is_finished, :member_id, :residence_id, lost_item_images: [])
+  end
+
+  def is_matching_login_member
+    lost_item = LostItem.find(params[:id])
+    unless lost_item.member_id == current_member.id
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to public_lost_items_path
+    end
   end
 
 end

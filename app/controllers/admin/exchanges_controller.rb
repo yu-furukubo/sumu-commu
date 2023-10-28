@@ -1,5 +1,6 @@
 class Admin::ExchangesController < ApplicationController
   before_action :authenticate_admin!
+  before_action :is_matching_login_admin, {only: [:show, :edit, :update, :destroy]}
 
   def index
     @residences = current_admin.residences
@@ -64,6 +65,15 @@ class Admin::ExchangesController < ApplicationController
 
   def exchange_params
     params.require(:exchange).permit(:name, :description, :price, :deadline, :is_finished, exchange_item_images: [])
+  end
+
+  def is_matching_login_admin
+    residences = current_admin.residences
+    admin_exchanges = Exchange.where(residence_id: residences.pluck(:id))
+    unless admin_exchanges.where(id: params[:id]).present?
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to admin_exchanges_path
+    end
   end
 
 end

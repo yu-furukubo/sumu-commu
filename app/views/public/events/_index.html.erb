@@ -4,6 +4,7 @@
       <th>イベント名</th>
       <th>開催日時</th>
       <th>開催場所</th>
+      <th style="width:9%">参加者</th>
     </tr>
   </thead>
   <tbody>
@@ -19,8 +20,15 @@
             <span class="text-danger small">(招待有)</span>
           <% end %>
         </td>
-        <td><%= l event.started_at %> ~ <%= l event.finished_at %></td>
+        <td>
+          <% if event.started_at.to_date == event.finished_at.to_date %>
+            <%= l event.started_at %> ~ <%= l event.finished_at, format: :short %>
+          <% else %>
+            <%= l event.started_at %> ~ <%= l event.finished_at %>
+          <% end %>
+        </td>
         <td><%= event.venue %></td>
+        <td class="text-center"><%= event.event_members.count %>人</td>
       </tr>
     <% end %>
   </tbody>

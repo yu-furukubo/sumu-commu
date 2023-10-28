@@ -1,5 +1,6 @@
 class Public::BoardsController < ApplicationController
   before_action :authenticate_member!
+  before_action :is_matching_login_member, {only: [:edit, :update, :destroy]}
 
   def index
     @reads = Read.all
@@ -64,6 +65,14 @@ class Public::BoardsController < ApplicationController
 
   def board_params
     params.require(:board).permit(:name, :body, :residence_id, :is_circular, :member_id)
+  end
+
+  def is_matching_login_member
+    board = Board.find(params[:id])
+    unless board.member_id == current_member.id
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to public_boards_path
+    end
   end
 
 end

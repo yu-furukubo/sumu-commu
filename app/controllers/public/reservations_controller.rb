@@ -1,10 +1,12 @@
 class Public::ReservationsController < ApplicationController
   before_action :authenticate_member!
+  before_action :is_matching_login_member, {only: [:edit, :update, :destroy]}
 
   def index
-    @reservations = Reservation.where(residence_id: current_member.residence.id).where('finished_at > ?', Time.now).order(started_at: "ASC")
-    @reservations_past = Reservation.where(residence_id: current_member.residence.id).where('finished_at < ?', Time.now).order(started_at: "DESC")
-    @reservations_mine = @reservations.where(member_id: current_member.id)
+    @residence = current_member.residence
+    @reservations = @residence.reservations.where('finished_at > ?', Time.now).where.not(member_id: current_member.id).order(started_at: "ASC", finished_at: "ASC")
+    @reservations_past = @residence.reservations.where('finished_at < ?', Time.now).order(started_at: "DESC", finished_at: "DESC")
+    @reservations_mine = @residence.reservations.where('finished_at > ?', Time.now).where(member_id: current_member.id).order(started_at: "ASC", finished_at: "ASC")
   end
 
   def show
@@ -43,8 +45,7 @@ class Public::ReservationsController < ApplicationController
     set_the_day_implement(@reservation)
 
     if @reservation.started_at > @reservation.finished_at
-      flash.now[:alert] =
-        "#{l @reservation.started_at} ~ #{l @reservation.finished_at}<br>上記期間には別の予約が含まれます。空き時間をご確認ください。".html_safe
+      flash.now[:alert] = "使用完了日時は、使用開始日時より後の日時を指定してください。"
       render "new"
       return
     end
@@ -123,7 +124,7 @@ class Public::ReservationsController < ApplicationController
             finished_at: @reservation.finished_at
           )
           flash[:notice] = "予約時間の変更が完了しました。"
-          redirect_to admin_reservations_path
+          redirect_to public_reservations_path
           return
         end
       elsif count > 1
@@ -195,5 +196,13 @@ class Public::ReservationsController < ApplicationController
 
     reservation.started_at = reservation.started_at.change(year: start_year, month: start_month, day: start_day, hour: start_hour, min: start_min)
     reservation.finished_at = reservation.finished_at.change(year: finish_year, month: finish_month, day: finish_day, hour: finish_hour, min: finish_min)
+  end
+
+  def is_matching_login_member
+    reservation = Reservation.find(params[:id])
+    unless reservation.member_id == current_member.id
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to public_reservations_path
+    end
   end
 end

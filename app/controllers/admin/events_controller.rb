@@ -1,5 +1,6 @@
 class Admin::EventsController < ApplicationController
   before_action :authenticate_admin!
+  before_action :is_matching_login_admin, {only: [:show, :edit, :update, :destroy]}
 
   def index
     @residences = current_admin.residences
@@ -83,6 +84,15 @@ class Admin::EventsController < ApplicationController
 
   def event_params
     params.require(:event).permit(:name, :description, :started_at, :finished_at, :venue, :residence_id)
+  end
+
+  def is_matching_login_admin
+    residences = current_admin.residences
+    admin_events = Event.where(residence_id: residences.pluck(:id))
+    unless admin_events.where(id: params[:id]).present?
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to admin_events_path
+    end
   end
 
 end

@@ -33,7 +33,7 @@
                 <tr><th>予約者</th><td><%= @reservation.member.name %></td></tr>
               <% end %>
               <% if @reservation.started_at.to_date == @reservation.finished_at.to_date %>
-                <tr><th>予約期間</th><td><%= l @reservation.started_at %> ~ <%= l @reservation.finished_at.to_time, format: :short %></td></tr>
+                <tr><th>予約期間</th><td><%= l @reservation.started_at %> ~ <%= l @reservation.finished_at, format: :short %></td></tr>
               <% else %>
                 <tr><th>予約期間</th><td><%= l @reservation.started_at %> ~ <%= l @reservation.finished_at %></td></tr>
               <% end %>

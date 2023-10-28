@@ -70,10 +70,11 @@ Rails.application.routes.draw do
     get "search/result" => "searches#search_result", as: "search_result"
   end
 
-  namespace :public do
+  namespace :public do               
     resources :plans
     resources :events do
       resources :event_members, only: [:index, :create, :update, :destroy]
+      post "event_members_invite_all" => "event_members#invite_all", as: "event_members_invite_all"
       post "event_members/participate" => "event_members#participate", as: "event_members_participate"
       delete "event_members/observe/:id" => "event_members#observe", as: "event_member_observe"
       delete "event_members/quit_invite/:id" => "event_members#quit_invite", as: "event_member_quit_invite"

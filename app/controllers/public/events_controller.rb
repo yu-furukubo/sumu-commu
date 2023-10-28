@@ -1,10 +1,14 @@
 class Public::EventsController < ApplicationController
   before_action :authenticate_member!
+  before_action :is_matching_login_member, {only: [:edit, :update, :destroy]}
 
   def index
-    @events = Event.where(residence_id: current_member.residence.id).where('finished_at > ?', Time.now).order(started_at: "ASC")
-    @events_mine = @events.where(member_id: current_member.id).where('finished_at > ?', Time.now).order(started_at: "ASC")
-    @events_finished = Event.where(residence_id: current_member.residence.id).where('finished_at < ?', Time.now).order(started_at: "DESC")
+    @residence = current_member.residence
+    participate_events_array = EventMember.where(member_id: current_member.id, is_approved: true).pluck(:event_id)
+    @events = @residence.events.where('finished_at > ?', Time.now).order(started_at: "ASC", finished_at: "ASC")
+    @events_participate = @residence.events.where(id: participate_events_array).order(started_at: "ASC", finished_at: "ASC")
+    @events_mine = @residence.events.where(member_id: current_member.id).order(started_at: "DESC", finished_at: "DESC")
+    @events_finished = @residence.events.where('finished_at < ?', Time.now).order(started_at: "DESC", finished_at: "DESC")
   end
 
   def show
@@ -20,6 +24,13 @@ class Public::EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
+
+    if @event.started_at > @event.finished_at
+      flash.now[:alert] = "終了日時は、開始日時より後の日時を指定してください。"
+      render "new"
+      return
+    end
+
     if @event.save
       EventMember.create(event_id: @event.id, member_id: current_member.id, is_approved: true)
       redirect_to public_event_path(@event)
@@ -35,6 +46,13 @@ class Public::EventsController < ApplicationController
 
   def update
     @event = Event.find(params[:id])
+
+    if params[:event][:started_at] > params[:event][:finished_at]
+      flash.now[:alert] = "終了日時は、開始日時より後の日時を指定してください。"
+      render "edit"
+      return
+    end
+
     if @event.update(event_params)
       redirect_to public_event_path(@event)
     else
@@ -59,6 +77,14 @@ class Public::EventsController < ApplicationController
 
   def event_params
     params.require(:event).permit(:name, :description, :started_at, :finished_at, :venue, :residence_id, :member_id)
+  end
+
+  def is_matching_login_member
+    event = Event.find(params[:id])
+    unless event.member_id == current_member.id
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to public_events_path
+    end
   end
 
 end

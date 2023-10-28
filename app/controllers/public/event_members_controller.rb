@@ -1,5 +1,6 @@
 class Public::EventMembersController < ApplicationController
   before_action :authenticate_member!
+  before_action :is_matching_login_member, {only: [:create, :invite_all, :quit_invite, :update]}
 
   def index
     @event = Event.find(params[:event_id])
@@ -20,6 +21,23 @@ class Public::EventMembersController < ApplicationController
     end
   end
 
+  def invite_all
+    @event = Event.find(params[:event_id])
+    @residence_members = @event.residence.members
+    @residence_members.each do |member|
+      if not EventMember.find_by(event_id: @event.id, member_id: member.id, is_approved: true).present? || @event.member == member
+        unless EventMember.find_or_create_by(event_id: @event.id, member_id: member.id, is_approved: false)
+          flash.now[:alert] =　"#{member}の招待に失敗しました。"
+          @event_members = @event.event_members.where(is_approved: true)
+          @event_invited_members = @event.event_members.where(is_approved: false)
+          render "index"
+          return
+        end
+      end
+    end
+    redirect_to public_event_event_members_path(@event)
+  end
+
   def participate
     @event = Event.find(params[:event_id])
     event_member = EventMember.new(event_member_params)
@@ -36,7 +54,7 @@ class Public::EventMembersController < ApplicationController
 
   def update
     @event = Event.find(params[:event_id])
-    event_member = EventMember.find(params[:id])
+    event_member = @event.event_members.find_by(member_id: current_member.id)
     if event_member.update(event_member_params)
       redirect_to public_event_path(@event)
     else
@@ -50,7 +68,7 @@ class Public::EventMembersController < ApplicationController
 
   def destroy
     @event = Event.find(params[:event_id])
-    event_member = EventMember.find_by(member_id: current_member.id)
+    event_member = @event.event_members.find_by(member_id: current_member.id)
     if event_member.destroy
       redirect_to public_event_path(@event)
     else
@@ -64,7 +82,7 @@ class Public::EventMembersController < ApplicationController
 
   def observe
     @event = Event.find(params[:event_id])
-    event_member = EventMember.find_by(member_id: current_member.id)
+    event_member = @event.event_members.find_by(member_id: current_member.id)
     if event_member.destroy
       redirect_to public_event_path(@event)
     else
@@ -90,6 +108,14 @@ class Public::EventMembersController < ApplicationController
 
   def event_member_params
     params.require(:event_member).permit(:event_id, :member_id, :is_approved)
+  end
+
+  def is_matching_login_member
+    event = Event.find(params[:event_id])
+    unless event.member_id == current_member.id
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to public_events_path
+    end
   end
 
 end

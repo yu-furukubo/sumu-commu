@@ -1,5 +1,6 @@
 class Admin::LostItemsController < ApplicationController
   before_action :authenticate_admin!
+  before_action :is_matching_login_admin, {only: [:show, :edit, :update, :destroy]}
 
   def index
     @residences = current_admin.residences
@@ -75,5 +76,14 @@ class Admin::LostItemsController < ApplicationController
 
   def lost_item_params
     params.require(:lost_item).permit(:name, :description, :picked_up_location, :picked_up_at, :storage_location, :is_finished, :residence_id, lost_item_images: [])
+  end
+
+  def is_matching_login_admin
+    residences = current_admin.residences
+    admin_lost_items = LostItem.where(residence_id: residences.pluck(:id))
+    unless admin_lost_items.where(id: params[:id]).present?
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to admin_lost_items_path
+    end
   end
 end

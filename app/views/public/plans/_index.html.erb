@@ -10,7 +10,11 @@
     <% plans.each do |plan| %>
       <tr class="index_tr" data-href="/public/plans/<%= plan.id %>">
         <td><%= plan.subject %></td>
-        <td><%= l plan.started_at %> ~ <%= l plan.finished_at %></td>
+        <% if plan.started_at.to_date == plan.finished_at.to_date %>
+          <td><%= l plan.started_at %> ~ <%= l plan.finished_at, format: :short %></td>
+        <% else %>
+          <td><%= l plan.started_at %> ~ <%= l plan.finished_at %></td>
+        <% end %>
         <td><%= plan.venue %></td>
       </tr>
     <% end %>

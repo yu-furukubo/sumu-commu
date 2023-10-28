@@ -1,5 +1,6 @@
 class Public::CommunityCommentsController < ApplicationController
   before_action :authenticate_member!
+  before_action :is_matching_login_member, {only: [:update]}
 
   def create
     @community = Community.find(params[:community_id])
@@ -50,4 +51,13 @@ class Public::CommunityCommentsController < ApplicationController
   def community_comment_params
     params.require(:community_comment).permit(:community_id, :member_id, :comment, :is_deleted)
   end
+
+  def is_matching_login_member
+    community = Community.find(params[:community_id])
+    unless community.member_id == current_member.id
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to public_communities_path
+    end
+  end
+
 end

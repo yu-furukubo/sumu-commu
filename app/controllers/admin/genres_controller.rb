@@ -1,5 +1,6 @@
 class Admin::GenresController < ApplicationController
   before_action :authenticate_admin!
+  before_action :is_matching_login_admin, {only: [:edit, :update]}
 
   def index
     @residences = current_admin.residences
@@ -46,6 +47,15 @@ class Admin::GenresController < ApplicationController
 
   def genre_params
     params.require(:genre).permit(:name, :residence_id, :is_deleted)
+  end
+
+  def is_matching_login_admin
+    residences = current_admin.residences
+    admin_genres = Genre.where(residence_id: residences.pluck(:id))
+    unless admin_genres.where(id: params[:id]).present?
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to admin_genres_path
+    end
   end
 
 end

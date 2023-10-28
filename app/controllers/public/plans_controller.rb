@@ -1,6 +1,6 @@
 class Public::PlansController < ApplicationController
   before_action :authenticate_member!
-  before_action :is_matching_login_member, {only: [:edit, :update, :destroy]}
+  before_action :is_matching_login_member, {only: [:show, :edit, :update, :destroy]}
 
   def index
     @plans = Plan.where(member_id: current_member.id).where('finished_at > ?', Time.now).order(started_at: "ASC", finished_at: "ASC")

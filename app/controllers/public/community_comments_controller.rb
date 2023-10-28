@@ -1,6 +1,7 @@
 class Public::CommunityCommentsController < ApplicationController
   before_action :authenticate_member!
   before_action :is_matching_login_member, {only: [:update]}
+  before_action :is_matching_residence, {only: [:create]}
 
   def create
     @community = Community.find(params[:community_id])
@@ -55,6 +56,15 @@ class Public::CommunityCommentsController < ApplicationController
   def is_matching_login_member
     community = Community.find(params[:community_id])
     unless community.member_id == current_member.id
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to public_communities_path
+    end
+  end
+
+  def is_matching_residence
+    residence = current_member.residence
+    community = Community.find(params[:community_id])
+    unless community.residence == residence
      flash[:alert] = "そのURLにはアクセスできません。"
      redirect_to public_communities_path
     end

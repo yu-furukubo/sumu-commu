@@ -1,6 +1,7 @@
 class Public::BoardsController < ApplicationController
   before_action :authenticate_member!
   before_action :is_matching_login_member, {only: [:edit, :update, :destroy]}
+  before_action :is_matching_residence, {only: [:show]}
 
   def index
     @reads = Read.all
@@ -70,6 +71,15 @@ class Public::BoardsController < ApplicationController
   def is_matching_login_member
     board = Board.find(params[:id])
     unless board.member_id == current_member.id
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to public_boards_path
+    end
+  end
+
+  def is_matching_residence
+    residence = current_member.residence
+    board = Board.find(params[:id])
+    unless board.residence == residence
      flash[:alert] = "そのURLにはアクセスできません。"
      redirect_to public_boards_path
     end

@@ -1,5 +1,6 @@
 class Admin::BoardsController < ApplicationController
   before_action :authenticate_admin!
+  before_action :is_matching_login_admin, {only: [:show, :edit, :update, :destroy]}
 
   def index
     @residences = current_admin.residences
@@ -70,6 +71,15 @@ class Admin::BoardsController < ApplicationController
 
   def board_params
     params.require(:board).permit(:name, :body, :residence_id, :is_circular, :member_id)
+  end
+
+  def is_matching_login_admin
+    residences = current_admin.residences
+    admin_boards = Board.where(residence_id: residences.pluck(:id))
+    unless admin_boards.where(id: params[:id]).present?
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to admin_boards_path
+    end
   end
 
 end

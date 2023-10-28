@@ -1,5 +1,6 @@
 class Admin::LostItemCommentsController < ApplicationController
   before_action :authenticate_admin!
+  before_action :is_matching_login_admin
 
   def update
     @lost_item = LostItem.find(params[:lost_item_id])
@@ -17,5 +18,14 @@ class Admin::LostItemCommentsController < ApplicationController
 
   def lost_item_comment_params
     params.require(:lost_item_comment).permit(:is_deleted)
+  end
+
+  def is_matching_login_admin
+    residences = current_admin.residences
+    admin_lost_items = LostItem.where(residence_id: residences.pluck(:id))
+    unless admin_lost_items.where(id: params[:lost_item_id]).present?
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to admin_lost_items_path
+    end
   end
 end

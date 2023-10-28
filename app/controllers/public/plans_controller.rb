@@ -1,5 +1,6 @@
 class Public::PlansController < ApplicationController
   before_action :authenticate_member!
+  before_action :is_matching_login_member, {only: [:edit, :update, :destroy]}
 
   def index
     @plans = Plan.where(member_id: current_member.id).where('finished_at > ?', Time.now).order(started_at: "ASC", finished_at: "ASC")
@@ -118,6 +119,14 @@ class Public::PlansController < ApplicationController
 
     plan.started_at = plan.started_at.change(year: start_year, month: start_month, day: start_day, hour: start_hour, min: start_min)
     plan.finished_at = plan.finished_at.change(year: finish_year, month: finish_month, day: finish_day, hour: finish_hour, min: finish_min)
+  end
+
+  def is_matching_login_member
+    plan = Plan.find(params[:id])
+    unless plan.member_id == current_member.id
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to public_plans_path
+    end
   end
 
 end

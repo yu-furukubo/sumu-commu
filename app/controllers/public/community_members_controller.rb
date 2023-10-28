@@ -1,5 +1,6 @@
 class Public::CommunityMembersController < ApplicationController
   before_action :authenticate_member!
+  before_action :is_matching_login_member, {only: [:update]}
 
   def index
     @community = Community.find(params[:community_id])
@@ -51,4 +52,13 @@ class Public::CommunityMembersController < ApplicationController
   def community_member_params
     params.require(:community_member).permit(:is_admin)
   end
+  
+  def is_matching_login_member
+    community = Community.find(params[:community_id])
+    unless community.member_id == current_member.id
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to public_communities_path
+    end
+  end
+
 end

@@ -1,5 +1,6 @@
 class Admin::ExchangeCommentsController < ApplicationController
   before_action :authenticate_admin!
+  before_action :is_matching_login_admin
 
   def update
     @exchange = Exchange.find(params[:exchange_id])
@@ -17,5 +18,14 @@ class Admin::ExchangeCommentsController < ApplicationController
 
   def exchange_comment_params
     params.require(:exchange_comment).permit(:is_deleted)
+  end
+
+  def is_matching_login_admin
+    residences = current_admin.residences
+    admin_exchanges = Exchange.where(residence_id: residences.pluck(:id))
+    unless admin_exchanges.where(id: params[:exchange_id]).present?
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to admin_exchanges_path
+    end
   end
 end

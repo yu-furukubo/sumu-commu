@@ -1,5 +1,6 @@
 class Admin::ReservationsController < ApplicationController
   before_action :authenticate_admin!
+  before_action :is_matching_login_admin, {only: [:show, :edit, :update, :destroy]}
 
   def index
     @residences = current_admin.residences
@@ -197,6 +198,15 @@ class Admin::ReservationsController < ApplicationController
 
     reservation.started_at = reservation.started_at.change(year: start_year, month: start_month, day: start_day, hour: start_hour, min: start_min)
     reservation.finished_at = reservation.finished_at.change(year: finish_year, month: finish_month, day: finish_day, hour: finish_hour, min: finish_min)
+  end
+
+  def is_matching_login_admin
+    residences = current_admin.residences
+    admin_reservations = Reservation.where(residence_id: residences.pluck(:id))
+    unless admin_reservations.where(id: params[:id]).present?
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to admin_reservations_path
+    end
   end
 
 end

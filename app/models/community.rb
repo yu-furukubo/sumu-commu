@@ -15,6 +15,7 @@ class Community < ApplicationRecord
 
   def self.looks(words, residence)
     @communities = self.where(residence_id: residence)
-    @communities.where("name LIKE :word OR description LIKE :word", word: "%#{words}%")
+    @members = Member.where("name LIKE :word", word: "%#{words}%", residence_id: residence)
+    @communities.where("name LIKE :word OR description LIKE :word", word: "%#{words}%").or(@communities.where(member_id: @members.pluck(:id)))
   end
 end

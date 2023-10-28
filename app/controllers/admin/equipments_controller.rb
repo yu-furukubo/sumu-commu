@@ -1,5 +1,6 @@
 class Admin::EquipmentsController < ApplicationController
   before_action :authenticate_admin!
+  before_action :is_matching_login_admin, {only: [:show, :edit, :update, :destroy]}
 
   def index
     @residences = current_admin.residences
@@ -73,4 +74,14 @@ class Admin::EquipmentsController < ApplicationController
   def equipment_params
     params.require(:equipment).permit(:genre_id, :name, :description, :stock, :storage_location, :return_location, :note, :residence_id, :image)
   end
+
+  def is_matching_login_admin
+    residences = current_admin.residences
+    admin_equipments = Equipment.where(residence_id: residences.pluck(:id))
+    unless admin_equipments.where(id: params[:id]).present?
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to admin_equipments_path
+    end
+  end
+
 end

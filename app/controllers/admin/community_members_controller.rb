@@ -1,5 +1,6 @@
 class Admin::CommunityMembersController < ApplicationController
   before_action :authenticate_admin!
+  before_action :is_matching_login_admin
 
   def update
     @community = Community.find(params[:community_id])
@@ -31,6 +32,15 @@ class Admin::CommunityMembersController < ApplicationController
 
   def community_member_params
     params.require(:community_member).permit(:is_admin)
+  end
+
+  def is_matching_login_admin
+    residences = current_admin.residences
+    admin_communities = Community.where(residence_id: residences.pluck(:id))
+    unless admin_communities.where(id: params[:community_id]).present?
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to admin_communities_path
+    end
   end
 
 end

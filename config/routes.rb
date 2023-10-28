@@ -70,7 +70,7 @@ Rails.application.routes.draw do
     get "search/result" => "searches#search_result", as: "search_result"
   end
 
-  namespace :public do
+  namespace :public do               
     resources :plans
     resources :events do
       resources :event_members, only: [:index, :create, :update, :destroy]

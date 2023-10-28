@@ -1,5 +1,6 @@
 class Public::CircularMembersController < ApplicationController
   before_action :authenticate_member!
+  before_action :is_matching_login_member
 
   def index
     @board = Board.find(params[:board_id])
@@ -51,6 +52,14 @@ class Public::CircularMembersController < ApplicationController
 
   def circular_member_params
     params.require(:circular_member).permit(:board_id, :member_id)
+  end
+
+  def is_matching_login_member
+    board = Board.find(params[:board_id])
+    unless board.member_id == current_member.id
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to public_boards_path
+    end
   end
 
 end

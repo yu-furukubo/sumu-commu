@@ -15,6 +15,17 @@ class LostItem < ApplicationRecord
 
   def self.looks(words, residence)
     @lost_items = self.where(residence_id: residence)
-    @lost_items.where("name LIKE :word OR description LIKE :word OR picked_up_location LIKE :word OR storage_location LIKE :word", word: "%#{words}%")
+    @members = Member.where("name LIKE :word", word: "%#{words}%", residence_id: residence)
+    @admin = Admin.where("name LIKE :word", word: "%#{words}%")
+    if @admin.present? && Residence.find_by(id: residence, admin_id: @admin.pluck(:id))
+      @lost_items.where(is_finished: false)
+        .where("name LIKE :word OR description LIKE :word OR picked_up_location LIKE :word OR storage_location LIKE :word", word: "%#{words}%")
+        .or(@lost_items.where(member_id: @members.pluck(:id)).where(is_finished: false))
+        .or(@lost_items.where(member_id: 0).where(is_finished: false))
+    else
+      @lost_items.where(is_finished: false)
+        .where("name LIKE :word OR description LIKE :word OR picked_up_location LIKE :word OR storage_location LIKE :word", word: "%#{words}%")
+        .or(@lost_items.where(member_id: @members.pluck(:id)).where(is_finished: false))
+    end
   end
 end

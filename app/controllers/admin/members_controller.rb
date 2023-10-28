@@ -1,5 +1,6 @@
 class Admin::MembersController < ApplicationController
   before_action :authenticate_admin!
+  before_action :is_matching_login_admin, {only: [:show, :edit, :update, :destroy]}
 
   def index
     @residences = current_admin.residences
@@ -45,6 +46,15 @@ class Admin::MembersController < ApplicationController
 
   def member_params
     params.require(:member).permit(:name, :house_address, :email)
+  end
+
+  def is_matching_login_admin
+    residences = current_admin.residences
+    admin_members = Member.where(residence_id: residences.pluck(:id))
+    unless admin_members.where(id: params[:id]).present?
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to admin_members_path
+    end
   end
 
 end

@@ -1,5 +1,6 @@
 class Admin::CircularMembersController < ApplicationController
   before_action :authenticate_admin!
+  before_action :is_matching_login_admin
 
   def index
     @board = Board.find(params[:board_id])
@@ -51,6 +52,15 @@ class Admin::CircularMembersController < ApplicationController
 
   def circular_member_params
     params.require(:circular_member).permit(:board_id, :member_id)
+  end
+
+  def is_matching_login_admin
+    residences = current_admin.residences
+    admin_boards = Board.where(residence_id: residences.pluck(:id))
+    unless admin_boards.where(id: params[:board_id]).present?
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to admin_boards_path
+    end
   end
 
 end

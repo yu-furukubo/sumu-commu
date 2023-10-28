@@ -1,5 +1,6 @@
 class Public::ExchangeCommentsController < ApplicationController
   before_action :authenticate_member!
+  before_action :is_matching_login_member, {only: [:update]}
 
   def create
     @exchange = Exchange.find(params[:exchange_id])
@@ -45,6 +46,14 @@ class Public::ExchangeCommentsController < ApplicationController
 
   def exchange_comment_params
     params.require(:exchange_comment).permit(:exchange_id, :member_id, :comment, :is_deleted)
+  end
+
+  def is_matching_login_member
+    exchange = Exchange.find(params[:exchange_id])
+    unless exchange.member_id == current_member.id
+     flash[:alert] = "そのURLにはアクセスできません。"
+     redirect_to public_exchanges_path
+    end
   end
 
 end

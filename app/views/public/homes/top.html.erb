@@ -5,7 +5,14 @@
 <% if member_signed_in? %>
   <div class='container p-5 px-sm-0'>
     <div class="mr-3">
-      <% if @boards.present? || @exchanges.present? || @lost_items.present? || @events.present? %>
+      <% if
+        @boards.present? ||
+        @exchanges.present? ||
+        @lost_items.present? ||
+        @events.present? ||
+        @communities.present? ||
+        @events_invited.present? ||
+      %>
         <h2><i class="fa-sharp fa-solid fa-circle-info fa-bounce"></i>新着情報</h2>
       <% else %>
         <h2><i class="fa-sharp fa-solid fa-circle-info"></i>新着情報</h2>
@@ -26,8 +33,8 @@
       </div>
     <% end %>
     <!--新着掲示板ここまで-->
-    <!--s新着kコミュニティ(あれば表示）-->
-    <% if @events.present? %>
+    <!--s新着コミュニティ(あれば表示）-->
+    <% if @communities.present? %>
       <div class="ml-3 mt-3">
         <h4>コミュニティ</h4>
       </div>

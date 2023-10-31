@@ -6,15 +6,13 @@ class Public::LostItemCommentsController < ApplicationController
   def create
     @lost_item = LostItem.find(params[:lost_item_id])
     @lost_item_comment = LostItemComment.new(lost_item_comment_params)
-    if @lost_item_comment.save
-      redirect_to public_lost_item_path(@lost_item)
-    else
-      if params[:lost_item_comment][:comment] == ""
-        flash.now[:alert] = "コメントを１文字以上入力してください。"
-      else
-        flash.now[:alert] = "コメントの投稿に失敗しました。"
-      end
-      @lost_item_comments = LostItemComment.where(lost_item_id: @lost_item.id).order(created_at: "DESC")
+    @lost_item_comments = LostItemComment.where(lost_item_id: @lost_item.id).order(created_at: "DESC")
+    if params[:lost_item_comment][:comment] == ""
+      flash.now[:alert] = "コメントを１文字以上入力してください。"
+      return
+    end
+    unless @lost_item_comment.save
+      flash.now[:alert] = "コメントの投稿に失敗しました。"
       render template: "public/lost_items/show"
     end
   end
@@ -22,12 +20,10 @@ class Public::LostItemCommentsController < ApplicationController
   def update
     @lost_item = LostItem.find(params[:lost_item_id])
     lost_item_comment = LostItemComment.find(params[:id])
-    if lost_item_comment.update(lost_item_comment_params)
-      redirect_to public_lost_item_path(@lost_item)
-    else
+    @lost_item_comments = LostItemComment.where(lost_item_id: @lost_item.id).order(created_at: "DESC")
+    @lost_item_comment = LostItemComment.new
+    unless lost_item_comment.update(lost_item_comment_params)
       flash.now[:alert] = "コメントの削除に失敗しました。"
-      @lost_item_comments = LostItemComment.where(lost_item_id: @lost_item.id).order(created_at: "DESC")
-      @lost_item_comment = LostItemComment.new
       render template: "public/lost_items/show"
     end
   end

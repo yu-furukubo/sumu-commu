@@ -66,7 +66,9 @@
 
         <!--コメント表示用の記述-->
         <div class="mt-5">
-          <%= render 'public/exchanges/comment', exchange: @exchange, exchange_comments: @exchange_comments %>
+          <div id="comment">
+            <%= render 'public/exchanges/comment', exchange: @exchange, exchange_comments: @exchange_comments %>
+          </div>
         </div>
         <!--コメント表示用の記述ここまで-->
       </div>

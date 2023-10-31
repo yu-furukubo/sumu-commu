@@ -26,7 +26,9 @@
 
         <!--コメント表示用の記述-->
         <div class="mt-5">
-          <%= render 'public/communities/comment', community: @community, community_comments: @community_comments, community_member: @community_member %>
+          <div id="comment">
+            <%= render 'public/communities/comment', community: @community, community_comments: @community_comments, community_member: @community_member %>
+          </div>
         </div>
         <!--コメント表示用の記述ここまで-->
       </div>

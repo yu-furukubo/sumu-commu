@@ -2,9 +2,12 @@
   <h4>コメント</h4>&emsp;
   <span class="text-primary font-weight-bold"><%= community_comments.count - community_comments.where(is_deleted: true).count %>件</span>
 </div>
+<div class="text-center text-danger font-weight-bold">
+  <%= flash[:alert] %>
+</div>
 <div>
   <% if community_member.present? %>
-    <%= form_with model: CommunityComment.new, url: public_community_community_comments_path(community), method: :post, local: true do |f| %>
+    <%= form_with model: CommunityComment.new, url: public_community_community_comments_path(community), method: :post, local: false do |f| %>
       <%= f.hidden_field :community_id, :value => community.id %>
       <%= f.hidden_field :member_id, :value => current_member.id %>
       <%= f.text_area :comment, class: "form-control" %>
@@ -34,7 +37,7 @@
               <% if community_member.present? && community_member.is_admin == true %>
                 <% if comment.is_deleted == false %>
                   <div>
-                    <%= form_with model: CommunityComment.new, url: public_community_community_comment_path(community, comment), method: :patch, local: true do |f| %>
+                    <%= form_with model: CommunityComment.new, url: public_community_community_comment_path(community, comment), method: :patch, local: false do |f| %>
                       <%= f.hidden_field :is_deleted, :value => true %>
                       <%= button_tag type: "submit", class: 'btn btn-sm' do %>
                         <i class="fa-solid fa-trash"></i>
@@ -64,7 +67,7 @@
             <div>
               <% if community_member.present? && community_member.is_admin == true %>
                 <% if comment.is_deleted == false %>
-                  <%= form_with model: CommunityComment.new, url: public_community_community_comment_path(community, comment), method: :patch, local: true do |f| %>
+                  <%= form_with model: CommunityComment.new, url: public_community_community_comment_path(community, comment), method: :patch, local: false do |f| %>
                     <%= f.hidden_field :is_deleted, :value => true %>
                     <%= button_tag type: "submit", class: 'btn btn-sm' do %>
                       <i class="fa-solid fa-trash"></i>

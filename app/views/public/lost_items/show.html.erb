@@ -55,7 +55,9 @@
 
         <!--コメント表示用の記述-->
         <div class="mt-5">
-          <%= render 'public/lost_items/comment', lost_item: @lost_item, lost_item_comments: @lost_item_comments %>
+          <div id="comment">
+            <%= render 'public/lost_items/comment', lost_item: @lost_item, lost_item_comments: @lost_item_comments %>
+          </div>
         </div>
         <!--コメント表示用の記述ここまで-->
       </div>

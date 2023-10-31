@@ -2,6 +2,9 @@
   <h4>コメント</h4>&emsp;
   <span class="text-primary font-weight-bold"><%= lost_item_comments.count - lost_item_comments.where(is_deleted: true).count %>件</span>
 </div>
+<div class="text-center text-danger font-weight-bold">
+  <%= flash[:alert] %>
+</div>
 <div>
   <%= form_with model: LostItemComment.new, url: public_lost_item_lost_item_comments_path(lost_item), method: :post, local: false do |f| %>
     <%= f.hidden_field :lost_item_id, :value => @lost_item.id %>

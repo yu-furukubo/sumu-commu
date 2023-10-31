@@ -19,20 +19,28 @@
         <% end %>
         <td><%= exchange.member.name %></td>
         <td><%= link_to exchange.name, admin_exchange_path(exchange) %></td>
-        <% if exchange.price == 0 %>
-          <td>無償</td>
+        <td>
+          <% if exchange.price == 0 %>
+            無償
+          <% else %>
+            <%= exchange.price.to_s(:delimited) %>円
+          <% end %>
+        </td>
+        <td>
+          <% if exchange.deadline.present? %>
+            <%= l exchange.deadline %>
+          <% else %>
+            なし
+          <% end %>
+        </td>
+        <% if exchange.deadline.present? && exchange.deadline < Time.now %>
+          <td class="text-secondary">掲載期限終了</td>
         <% else %>
-          <td><%= exchange.price.to_s(:delimited) %>円</td>
-        <% end %>
-        <% if exchange.deadline.present? %>
-          <td><%= l exchange.deadline %></td>
-        <% else %>
-          <td>なし</td>
-        <% end %>
-        <% if exchange.is_finished == false %>
-          <td class="text-success text-center">募集中</td>
-        <% else %>
-          <td class="text-secondary text-center">募集終了</td>
+          <% if exchange.is_finished == false %>
+            <td class="text-success">募集中</td>
+          <% else %>
+            <td class="text-secondary">募集終了</td>
+          <% end %>
         <% end %>
       </tr>
     <% end %>

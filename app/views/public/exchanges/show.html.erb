@@ -42,10 +42,14 @@
           <% end %>
           <tr>
             <th>募集状況</th>
-            <% if @exchange.is_finished == false %>
-              <td class="text-success">募集中</td>
+            <% if @exchange.deadline.present? && @exchange.deadline < Time.now %>
+              <td class="text-secondary align-middle">掲載期限終了</td>
             <% else %>
-              <td class="text-secondary">募集終了</td>
+              <% if @exchange.is_finished == false %>
+                <td class="text-success">募集中</td>
+              <% else %>
+                <td class="text-secondary">募集終了</td>
+              <% end %>
             <% end %>
           </tr>
         </table>

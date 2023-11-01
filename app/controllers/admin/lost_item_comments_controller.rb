@@ -5,11 +5,10 @@ class Admin::LostItemCommentsController < ApplicationController
   def update
     @lost_item = LostItem.find(params[:lost_item_id])
     lost_item_comment = LostItemComment.find(params[:id])
-    if lost_item_comment.update(lost_item_comment_params)
-      redirect_to admin_lost_item_path(@lost_item)
-    else
+    @lost_item_comments = LostItemComment.where(lost_item_id: @lost_item.id).order(created_at: "desc")
+    @lost_item_comments_deleted = @lost_item_comments.where(is_deleted: true)
+    unless lost_item_comment.update(lost_item_comment_params)
       flash.now[:alert] = "コメントの削除に失敗しました。"
-      @lost_item_comments = LostItemComment.where(lost_item_id: @lost_item.id)
       render template: "admin/lost_items/show"
     end
   end

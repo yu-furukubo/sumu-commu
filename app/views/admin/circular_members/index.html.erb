@@ -4,38 +4,15 @@
       <div class="row ml-5 mb-3">
         <h2>回覧メンバー編集</h2>
         <div class="ml-3">
-          <% if @board.member_id != "0" %>  <!--掲示板投稿者が管理人でない場合-->
-            <% if Member.find_by(id: @board.member_id).present? && @residence_members.count - 1 != @board.circular_members.count %>　<!--掲示板投稿者が未退会の場合-->
-              <%= link_to "全員を回覧メンバーに設定する", admin_board_circular_members_add_all_path(@board), method: :patch, class: "btn btn-primary" %>
-            <% elsif Member.find_by(id: @board.member_id).nil? && @residence_members.count != @board.circular_members.count %>　<!--掲示板投稿者が退会済の場合-->
-              <%= link_to "全員を回覧メンバーに設定する", admin_board_circular_members_add_all_path(@board), method: :patch, class: "btn btn-primary" %>
-            <% end %>
-          <% elsif @board.member_id == "0" && @residence_members.count != @board.circular_members.count %>　<!--掲示板投稿者が管理人の場合-->
-            <%= link_to "全員を回覧メンバーに設定する", admin_board_circular_members_add_all_path(@board), method: :patch, class: "btn btn-primary" %>
-          <% end %>
+          <div id="all_invite">
+            <%= render 'admin/circular_members/all_invite', board: @board, residence_members: @residence_members %>
+          </div>
         </div>
       </div>
       <div class="ml-5 mb-3">
-        <table class='table table-borderless'>
-          <% @residence_members.each do |member| %>
-            <tr>
-              <% if member != @board.member %>
-                <td style="width:30%"><%= member.name %></td>
-                <% if @board.circular_members.exists?(member_id: member.id) %>
-                  <td><%= link_to "削除", admin_board_circular_member_path(@board.id, member.id), method: :delete, class: 'btn btn-sm btn-danger' %></td>
-                <% else %>
-                  <td>
-                    <%= form_with model:@circular_member, url: admin_board_circular_members_path(@board), local: true do |f| %>
-                      <%= f.hidden_field :board_id, :value => params[:board_id] %>
-                      <%= f.hidden_field :member_id, :value => member.id %>
-                      <%= f.submit "追加", class: 'btn btn-sm btn-success' %>
-                    <% end %>
-                  </td>
-                <% end %>
-              <% end %>
-            </tr>
-          <% end %>
-        </table>
+        <div id="invite">
+          <%= render 'admin/circular_members/invite', board: @board, residence_members: @residence_members %>
+        </div>
         <div class="text-right">
           <%= link_to "掲示板詳細へ", admin_board_path(@board) %>
         </div>

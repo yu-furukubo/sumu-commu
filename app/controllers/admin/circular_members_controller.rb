@@ -11,11 +11,9 @@ class Admin::CircularMembersController < ApplicationController
   def create
     @circular_member = CircularMember.new(circular_member_params)
     @board = Board.find(params[:board_id])
-    if @circular_member.save
-      redirect_to admin_board_circular_members_path(@board)
-    else
+    @residence_members = @board.residence.members
+    unless @circular_member.save
       flash.now[:alert] = "回覧メンバーの追加に失敗しました。"
-      @members = @board.residence.members
       render "index"
     end
   end
@@ -32,18 +30,15 @@ class Admin::CircularMembersController < ApplicationController
         end
       end
     end
-    redirect_to admin_board_circular_members_path(@board)
   end
 
   def destroy
     @board = Board.find(params[:board_id])
     circular_member = @board.circular_members.find_by(member_id: params[:id])
-    if circular_member.destroy
-      redirect_to admin_board_circular_members_path(@board)
-    else
+    @residence_members = @board.residence.members
+    @circular_member = CircularMember.new
+    unless circular_member.destroy
       flash.now[:alert] = "回覧メンバーの削除に失敗しました。"
-      @members = @board.residence.members
-      @circular_member = CircularMember.new
       render "index"
     end
   end

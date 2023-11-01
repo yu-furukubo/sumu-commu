@@ -37,82 +37,18 @@
               <div id="section1" class="tab-pane fade show active">
                 <!--参加メンバー表示用の記述-->
                 <div class="col-8 mt-5 mx-auto">
-                  <div class="row mb-3 d-flex align-items-center">
-                    <h4>参加メンバー</h4>&emsp;
-                    <span class="text-primary font-weight-bold"><%= @community_members.count %>人</span>
+                  <div id="member">
+                    <%= render 'admin/communities/member', community: @community, community_members: @community_members %>
                   </div>
-                  <table class='table table-borderless'>
-                    <tbody>
-                      <% @community_members.each do |community_member| %>
-                        <tr>
-                          <td style="width: 35%"><%= community_member.member.name %></td>
-                          <!--管理者かどうかの確認と切り替え処理-->
-                          <% if community_member.is_admin == true %>
-                            <td class="text-danger">管理者</td>
-                            <td class="text-center">
-                              <%= form_with model: CommunityMember.new, url: admin_community_community_member_path(@community, community_member), method: :patch, local: true do |f| %>
-                                <%= f.hidden_field :is_admin, :value => false %>
-                                <%= f.submit "メンバーに変更", class: 'btn btn-sm btn-success' %>
-                              <% end %>
-                            </td>
-                          <% else %>
-                            <td class="text-success">メンバー</td>
-                            <td class="text-center">
-                              <%= form_with model: CommunityMember.new, url: admin_community_community_member_path(@community, community_member), method: :patch, local: true do |f| %>
-                                <%= f.hidden_field :is_admin, :value => true %>
-                                <%= f.submit "管理者に変更", class: 'btn btn-sm btn-danger' %>
-                              <% end %>
-                            </td>
-                          <% end %>
-                          <!--管理者かどうかの確認と切り替え処理ここまで-->
-                          <td style="width:8%">
-                            <%= link_to admin_community_community_member_path(@community, community_member), method: :delete, class: 'btn' do %>
-                              <i class="fa-solid fa-trash"></i>
-                            <% end %>
-                          </td>
-                        </tr>
-                      <% end %>
-                    </tbody>
-                  </table>
                 </div>
                 <!--参加メンバー表示用の記述ここまで-->
               </div>
-
               <div id="section2" class="tab-pane fade">
                 <!--コメント表示用の記述-->
                 <div class="mt-5">
-                  <div class="row mb-3 d-flex align-items-center">
-                    <h4>コメント</h4>&emsp;
-                    <span class="text-primary font-weight-bold">全<%= @community_comments.count %>件</span>
-                    <% if @community_comments_deleted.count != 0 %>
-                      <span>(削除済み<%= @community_comments_deleted.count %>件)</span>
-                    <% end %>
+                  <div id="comment">
+                    <%= render 'admin/communities/comment', community: @community, community_comments: @community_comments, community_comments_deleted: @community_comments_deleted %>
                   </div>
-                  <table class='table table-borderless'>
-                    <tbody>
-                      <% @community_comments.each do |community_comment| %>
-                        <tr>
-                          <td style="width: 25%"><%= community_comment.member.name %></td>
-                          <td><%= community_comment.comment %></td>
-                          <td><%= l community_comment.created_at %></td>
-                          <!--コメントを論理削除するための処理-->
-                          <% if community_comment.is_deleted == true %>
-                            <td class="text-danger">削除済み</td>
-                          <% else %>
-                            <td style="width: 15%">
-                              <%= form_with model: CommunityComment.new, url: admin_community_community_comment_path(@community, community_comment), method: :patch, local: true do |f| %>
-                                <%= f.hidden_field :is_deleted, :value => true %>
-                                <%= button_tag type: "submit", class: 'btn btn-sm' do %>
-                                  <i class="fa-solid fa-trash"></i>
-                                <% end %>
-                              <% end %>
-                            </td>
-                          <% end %>
-                          <!--コメントを論理削除するための処理ここまで-->
-                        </tr>
-                      <% end %>
-                    </tbody>
-                  </table>
                 </div>
                 <!--コメント表示用の記述ここまで-->
               </div>

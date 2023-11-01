@@ -1,0 +1,37 @@
+<div class="row mb-3 d-flex align-items-center">
+  <h4>参加メンバー</h4>&emsp;
+  <span class="text-primary font-weight-bold"><%= community_members.count %>人</span>
+</div>
+<table class='table table-borderless'>
+  <tbody>
+    <% community_members.each do |community_member| %>
+      <tr>
+        <td style="width: 35%"><%= community_member.member.name %></td>
+        <!--管理者かどうかの確認と切り替え処理-->
+        <% if community_member.is_admin == true %>
+          <td class="text-danger">管理者</td>
+          <td class="text-center">
+            <%= form_with model: CommunityMember.new, url: admin_community_community_member_path(community, community_member), method: :patch, local: false do |f| %>
+              <%= f.hidden_field :is_admin, :value => false %>
+              <%= f.submit "メンバーに変更", class: 'btn btn-sm btn-success' %>
+            <% end %>
+          </td>
+        <% else %>
+          <td class="text-success">メンバー</td>
+          <td class="text-center">
+            <%= form_with model: CommunityMember.new, url: admin_community_community_member_path(community, community_member), method: :patch, local: false do |f| %>
+              <%= f.hidden_field :is_admin, :value => true %>
+              <%= f.submit "管理者に変更", class: 'btn btn-sm btn-danger' %>
+            <% end %>
+          </td>
+        <% end %>
+        <!--管理者かどうかの確認と切り替え処理ここまで-->
+        <td style="width:8%">
+          <%= link_to admin_community_community_member_path(community, community_member), method: :delete, remote: :ture, class: 'btn' do %>
+            <i class="fa-solid fa-trash"></i>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

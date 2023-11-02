@@ -50,7 +50,7 @@
                           <% end %>
                         <% end %>
                         <% if not Equipment.find(params[:reservation][:equipment_id]).reservations.where('finished_at > ?', Time.now).present? %>
-                          現在予約はありません。
+                          現在他の予約はありません。
                         <% end %>
                       </div>
                       <div class="modal-footer">
@@ -85,7 +85,7 @@
                           <% end %>
                         <% end %>
                         <% if not Facility.find(params[:reservation][:facility_id]).reservations.where('finished_at > ?', Time.now).present? %>
-                          現在予約はありません。
+                          現在他の予約はありません。
                         <% end %>
                       </div>
                       <div class="modal-footer">
@@ -110,10 +110,10 @@
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel"><%= reservation.equipment.name.name %>の予約一覧</h4>
+                        <h4 class="modal-title" id="myModalLabel"><%= reservation.equipment.name %>の予約一覧</h4>
                       </div>
                       <div class="modal-body">
-                        <% reservation.equipment.name.reservations.where('finished_at > ?', Time.now).order(started_at: "ASC", finished_at: "ASC").each do |reservation| %>
+                        <% reservation.equipment.reservations.where('finished_at > ?', Time.now).order(started_at: "ASC", finished_at: "ASC").each do |reservation| %>
                           <% if reservation.started_at.to_date == reservation.finished_at.to_date %>
                             - <%= l reservation.started_at %> ~ <%= l reservation.finished_at, format: :short %><br>
                           <% else %>
@@ -121,7 +121,7 @@
                           <% end %>
                         <% end %>
                         <% if not reservation.equipment.reservations.where('finished_at > ?', Time.now).present? %>
-                          現在予約はありません。
+                          現在他の予約はありません。
                         <% end %>
                       </div>
                       <div class="modal-footer">
@@ -155,7 +155,7 @@
                           <% end %>
                         <% end %>
                         <% if not reservation.facility.reservations.where('finished_at > ?', Time.now).present? %>
-                          現在予約はありません。
+                          現在他の予約はありません。
                         <% end %>
                       </div>
                       <div class="modal-footer">

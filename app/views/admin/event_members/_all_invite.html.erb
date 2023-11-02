@@ -1,0 +1,3 @@
+<% if residence_members.count != event.event_members.count %>
+  <%= link_to "全員招待する", admin_event_event_members_invite_all_path(event), method: :patch, remote: :true, class: "btn btn-primary" %>
+<% end %>

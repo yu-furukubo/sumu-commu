@@ -4,14 +4,14 @@
       <div class="row ml-5 mb-3">
         <h2>回覧メンバー編集</h2>
         <div class="ml-3">
-          <div id="all_invite">
-            <%= render 'admin/circular_members/all_invite', board: @board, residence_members: @residence_members %>
+          <div id="all_add">
+            <%= render 'admin/circular_members/all_add', board: @board, residence_members: @residence_members %>
           </div>
         </div>
       </div>
       <div class="ml-5 mb-3">
-        <div id="invite">
-          <%= render 'admin/circular_members/invite', board: @board, residence_members: @residence_members %>
+        <div id="add">
+          <%= render 'admin/circular_members/add', board: @board, residence_members: @residence_members %>
         </div>
         <div class="text-right">
           <%= link_to "掲示板詳細へ", admin_board_path(@board) %>

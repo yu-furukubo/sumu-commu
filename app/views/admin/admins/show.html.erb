@@ -44,9 +44,10 @@
                     <td>
                       <%= form_with model: Member, url: new_member_registration_path, method: :get, local: true do |f| %>
                         <%= f.hidden_field :residence_id, :value => residence.id %>
-                        <%= f.submit "会員登録画面へ", class: 'btn btn-primary' %>
+                        <%= f.submit "会員登録用URL発行", class: 'btn btn-primary' %>
                       <% end %>
                     </td>
+                  </tr>
                 <% end %>
               </tbody>
             </table>

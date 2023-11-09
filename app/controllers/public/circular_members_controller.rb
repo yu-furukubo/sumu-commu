@@ -5,7 +5,6 @@ class Public::CircularMembersController < ApplicationController
   def index
     @board = Board.find(params[:board_id])
     @residence_members = @board.residence.members
-    @circular_member = CircularMember.new
   end
 
   def create
@@ -36,7 +35,6 @@ class Public::CircularMembersController < ApplicationController
     @board = Board.find(params[:board_id])
     circular_member = @board.circular_members.find_by(member_id: params[:member_id])
     @residence_members = @board.residence.members
-    @circular_member = CircularMember.new
     unless circular_member.destroy
       flash.now[:alert] = "回覧メンバーの削除に失敗しました。"
       render "index"

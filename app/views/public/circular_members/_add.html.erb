@@ -1,0 +1,26 @@
+<table class='table table-borderless'>
+  <% residence_members.each do |member| %>
+    <tr>
+      <% if member != board.member %>
+        <td style="width:30%"><%= member.name %></td>
+        <% if board.member == current_member %>
+          <% if board.circular_members.exists?(member_id: member.id) %>
+            <td>
+              <%= form_with url: public_board_circular_members_path(board), method: :delete, local: false do |f| %>
+                <%= f.hidden_field :member_id, :value => member.id %>
+                <%= f.submit "削除", class: 'btn btn-sm btn-danger' %>
+              <% end %>
+          <% else %>
+            <td>
+              <%= form_with model:CircularMember, url: public_board_circular_members_path(board), local: false do |f| %>
+                <%= f.hidden_field :board_id, :value => params[:board_id] %>
+                <%= f.hidden_field :member_id, :value => member.id %>
+                <%= f.submit "追加", class: 'btn btn-sm btn-success' %>
+              <% end %>
+            </td>
+          <% end %>
+        <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

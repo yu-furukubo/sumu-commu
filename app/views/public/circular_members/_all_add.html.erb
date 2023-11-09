@@ -1,0 +1,3 @@
+<% if board.member == current_member && residence_members.count - 1 != board.circular_members.count %>
+  <%= link_to "全員を回覧メンバーに設定する", public_board_circular_members_add_all_path(board), method: :patch, remote: :true, class: "btn btn-primary" %>
+<% end %>

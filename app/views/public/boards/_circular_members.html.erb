@@ -1,0 +1,29 @@
+<% if board.is_circular == true %>
+  <div class="row mb-3 d-flex align-items-center">
+    <h4>回覧メンバー</h4>&emsp;
+    <% if board_checked_members.count == circular_members.count && circular_members.exists? %>
+      <span class="text-primary font-weight-bold">全員確認済</span>
+    <% elsif circular_members.count == 0 %>
+      <span>（回覧メンバーが設定されていません）</span>
+    <% else %>
+      <span>&emsp;確認済：<%= board_checked_members.count %>人（<%= circular_members.count %>人中）</span>
+    <% end %>
+    <% if board.member_id == current_member.id %>
+      <%= link_to ">>回覧メンバーを編集する", public_board_circular_members_index_path(board), class: "text-success" %>
+    <% end %>
+  </div>
+  <table class='table table-borderless'>
+    <tbody>
+      <% circular_members.each do |circular_member| %>
+        <tr>
+          <td style="width: 30%"><%= circular_member.member.name %></td>
+          <% if reads.find_by(board_id: board.id, member_id: circular_member.member_id).present? %>
+            <td class="text-primary"><i class="fa-solid fa-check"></i></td>
+          <% else %>
+            <td class="text-secondary"><i class="fa-solid fa-xmark"></i></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

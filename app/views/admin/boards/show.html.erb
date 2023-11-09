@@ -33,7 +33,7 @@
                 <% else %>
                   <span>&emsp;確認済：<%= @board_checked_members.count %>人（<%= @circular_members.count %>人中）</span>
                 <% end %>
-                <%= link_to ">>回覧メンバーを編集する", admin_board_circular_members_path(@board), class: "text-success" %>
+                <%= link_to ">>回覧メンバーを編集する", admin_board_circular_members_index_path(@board), class: "text-success" %>
               </div>
               <table class='table table-borderless'>
                 <tbody>

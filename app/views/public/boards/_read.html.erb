@@ -1,5 +1,5 @@
-<% if read.present? %>
-  <%= link_to "未読に戻す", public_board_reads_path(board), method: :delete, class: "btn btn-secondary" %>
+<% if Read.find_by(board_id: board.id , member_id: current_member.id).present? %>
+  <%= link_to "未読に戻す", public_board_reads_path(board), method: :delete, remote: true, class: "btn btn-secondary" %>
 <% else %>
-  <%= link_to "既読にする", public_board_reads_path(board), method: :post, class: "btn btn-success" %>
+  <%= link_to "既読にする", public_board_reads_path(board), method: :post, remote: true, class: "btn btn-success" %>
 <% end %>

@@ -17,7 +17,6 @@ class Public::BoardsController < ApplicationController
     @circular_members = @board.circular_members
     @board_checked_members = Read.where(board_id: @board.id, member_id: @circular_members.pluck(:member_id))
     @reads = Read.all
-    @read = Read.find_by(board_id: @board.id , member_id: current_member.id)
   end
 
   def new

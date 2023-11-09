@@ -59,7 +59,8 @@ Rails.application.routes.draw do
       collection do
         get "residence/:id" => "boards#residence_search" ,as: "residence_search"
       end
-      resources :circular_members, only: [:index, :create, :destroy]
+      resource :circular_members, only: [:create, :destroy]
+      get "circuler_members" => "circular_members#index", as: "circular_members_index"
       patch "circular_members_add_all" => "circular_members#add_all", as: "circular_members_add_all"
     end
     resources :residences, except: [:index, :show]
@@ -70,7 +71,7 @@ Rails.application.routes.draw do
     get "search/result" => "searches#search_result", as: "search_result"
   end
 
-  namespace :public do               
+  namespace :public do
     resources :plans
     resources :events do
       resources :event_members, only: [:index, :create, :update, :destroy]
@@ -91,7 +92,8 @@ Rails.application.routes.draw do
     resources :equipments, only: [:index, :show]
     resources :facilities, only: [:index, :show]
     resources :boards do
-      resources :circular_members, only: [:index, :create, :destroy]
+      resource :circular_members, only: [:create, :destroy]
+      get "circuler_members" => "circular_members#index", as: "circular_members_index"
       patch "circular_members_add_all" => "circular_members#add_all", as: "circular_members_add_all"
       resource :reads, only: [:create, :destroy]
     end

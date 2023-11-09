@@ -1,0 +1,2 @@
+$('#reads').html("<%= j(render 'public/boards/read', board: @board) %>");
+$('#circular_members').html("<%= j(render 'public/boards/circular_members', board: @board, board_checked_members: @board_checked_members, circular_members: @circular_members, reads: @reads) %>");

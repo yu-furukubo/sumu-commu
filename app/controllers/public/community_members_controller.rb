@@ -11,13 +11,11 @@ class Public::CommunityMembersController < ApplicationController
 
   def create
     @community = Community.find(params[:community_id])
-    member = current_member
-    if CommunityMember.create(community_id: @community.id, member_id: member.id)
-      redirect_to public_community_path(@community)
-    else
+    @community_members = @community.community_members
+    @community_comments = @community.community_comments.order(created_at: "DESC")
+    @community_comment = CommunityComment.new
+    unless CommunityMember.create(community_id: @community.id, member_id: current_member.id)
       flash.now[:alert] = "コミュニティメンバーの追加に失敗しました。"
-      @community_members = @community.community_members
-      @community_member = @community_members.find_by(member_id: current_member.id)
       render "index"
     end
   end
@@ -25,9 +23,7 @@ class Public::CommunityMembersController < ApplicationController
   def update
     @community = Community.find(params[:community_id])
     community_member = @community.community_members.find(params[:id])
-    if community_member.update(community_member_params)
-      redirect_to public_community_community_members_path(@community)
-    else
+    unless community_member.update(community_member_params)
       flash.now[:alert] = "コミュニティメンバーの更新に失敗しました。"
       @community_members = @community.community_members
       @community_member = @community_members.find_by(member_id: current_member.id)
@@ -37,13 +33,12 @@ class Public::CommunityMembersController < ApplicationController
 
   def destroy
     @community = Community.find(params[:community_id])
-    community_member = CommunityMember.find_by(community_id: @community.id, member_id: params[:id])
-    if community_member.destroy
-      redirect_to public_community_path(@community)
-    else
+    community_member =  @community.community_members.find_by(member_id: current_member.id)
+    @community_members = @community.community_members
+    @community_comments = @community.community_comments.order(created_at: "DESC")
+    @community_comment = CommunityComment.new
+    unless community_member.destroy
       flash.now[:alert] = "コミュニティメンバーの削除に失敗しました。"
-      @community_members = @community.community_members
-      @community_member = @community_members.find_by(member_id: current_member.id)
       render "index"
     end
   end
@@ -56,7 +51,8 @@ class Public::CommunityMembersController < ApplicationController
 
   def is_matching_login_member
     community = Community.find(params[:community_id])
-    unless community.member_id == current_member.id
+    community_admin = community.community_members.where(is_admin: true)
+    unless community_admin.find_by(member_id: current_member.id).present?
      flash[:alert] = "そのURLにはアクセスできません。"
      redirect_to public_communities_path
     end

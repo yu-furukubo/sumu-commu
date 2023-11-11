@@ -1,0 +1,3 @@
+$('#join').html("<%= j(render 'public/communities/join', community: @community) %>");
+$('#comment').html("<%= j(render 'public/communities/comment', community: @community, community_comments: @community_comments, community_members: @community_members) %>");
+$('#community_members').html("<%= j(render 'public/communities/community_members', community: @community, community_members: @community_members) %>");

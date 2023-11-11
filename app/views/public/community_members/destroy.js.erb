@@ -1,0 +1,2 @@
+$('#member_authority_change').html("<%= j(render 'public/community_members/member_authority_change', community: @community, community_members: @community_members) %>");
+$('#community_members_count').html("<%= j(@community_members.count) %>人");

@@ -17,8 +17,8 @@ class Admin::CommunityMembersController < ApplicationController
   def destroy
     @community = Community.find(params[:community_id])
     community_member = CommunityMember.find(params[:id])
-    @community_members = CommunityMember.where(community_id: @community.id)
-    @community_comments = CommunityComment.where(community_id: @community.id).order(created_at: "desc")
+    @community_members = @community.community_members
+    @community_comments = @community.community_comments.order(created_at: "desc")
     @community_comments_deleted = @community_comments.where(is_deleted: true)
     unless community_member.destroy
       flash.now[:alert] = "コミュニティメンバーの削除に失敗しました。"

@@ -2,59 +2,10 @@
   <div class='col-md-10 offset-md-1'>
     <div class="row mb-3 d-flex align-items-center">
       <h4>参加メンバー</h4>&emsp;
-      <span class="text-primary font-weight-bold"><%= @community_members.count %>人</span>
+      <span class="text-primary font-weight-bold" id="community_members_count"><%= @community_members.count %>人</span>
     </div>
-    <table class='table table-borderless'>
-      <tbody>
-        <% @community_members.each do |community_member| %>
-          <tr>
-            <td style="width: 35%"><%= community_member.member.name %></td>
-            <!--管理者かどうかの確認と切り替え処理-->
-            <% if @community_members.find_by(member_id: current_member.id) && @community_member.is_admin == true  %>　　　<!--条件1　コミュニティメンバーかつ管理者権限がある場合-->
-              <% if community_member.is_admin == true %>　 　<!--条件2　表示されるメンバーが管理者かメンバーかの判別-->
-                <td class="text-danger">管理者</td>
-                <!--管理者からメンバーへの変更ボタン-->
-                <td>
-                  <%= form_with model: CommunityMember, url: public_community_community_member_path(@community, community_member), method: :patch, local: true do |f| %>
-                    <%= f.hidden_field :is_admin, :value => false %>
-                    <%= f.submit "メンバーに変更", class: 'btn btn-sm btn-success' %>
-                  <% end %>
-                </td>
-                <td></td>
-                <!--管理者からメンバーへの変更ボタンここまで-->
-              <% else %>
-                <td class="text-success">メンバー</td>
-                <!--メンバーから管理者への変更ボタン-->
-                <td>
-                  <%= form_with model: CommunityMember, url: public_community_community_member_path(@community, community_member), method: :patch, local: true do |f| %>
-                    <%= f.hidden_field :is_admin, :value => true %>
-                    <%= f.submit "管理者に変更", class: 'btn btn-sm btn-danger' %>
-                  <% end %>
-                </td>
-                <!--メンバーから管理者への変更ボタンここまで-->
-
-                <td>
-                  <!--メンバーの追放ボタン(管理者のみ表示)-->
-                  <%= link_to public_community_community_member_path(@community, community_member.member_id), method: :delete, class: 'btn btn-sm btn-secondary' do %>
-                    <i class="fa-solid fa-trash-can fa-2xs"></i>
-                  <% end %>
-                  <!--メンバーの追放ボタンここまで-->
-                </td>
-              <% end %>　 　<!--条件2　ここまで-->
-            <% else %>　    <!--条件1　コミュニティの管理者権限がなかった場合の表示ここから-->
-              <% if community_member.is_admin == true %>
-                <td class="text-danger">管理者</td>
-                <td></td>
-              <% else %>
-                <td class="text-success">メンバー</td>
-                <td></td>
-              <% end %>
-              <td></td>
-            <% end %>　 　<!--条件1　ここまで-->
-            <!--管理者かどうかの確認と切り替え処理ここまで-->
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <div id="member_authority_change">
+      <%= render 'public/community_members/member_authority_change', community: @community, community_members: @community_members %>
+    </div>
   </div>
 </div>

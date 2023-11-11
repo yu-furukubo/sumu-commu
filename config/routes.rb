@@ -100,6 +100,7 @@ Rails.application.routes.draw do
     resources :communities do
       resources :community_comments, only: [:create, :update, :destroy]
       resources :community_members, only: [:index, :create, :update, :destroy]
+      delete "community_members_quit" => "community_members#quit", as: "community_member_quit"
     end
     get "members/information" => "members#index", as: "members_information"
     get "member/information" => "members#show", as: "member_information"

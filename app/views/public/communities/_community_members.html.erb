@@ -1,0 +1,20 @@
+<div class="row mb-3 d-flex align-items-center">
+  <h4>参加メンバー</h4>&emsp;
+  <%= link_to public_community_community_members_path(community) do %>
+    <span class="text-primary font-weight-bold"><%= community_members.count %>人</span>
+  <% end %>
+</div>
+<table class='table table-borderless table-sm'>
+  <tbody>
+    <% community_members.each do |community_member| %>
+      <tr>
+        <td style="width: 65%"><%= community_member.member.name %></td>
+        <% if community_member.is_admin == true %>
+          <td class="text-danger">管理者</td>
+        <% else %>
+          <td class="text-success">メンバー</td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

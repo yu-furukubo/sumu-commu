@@ -1,6 +1,6 @@
 class Public::CommunitiesController < ApplicationController
   before_action :authenticate_member!
-  before_action :is_matching_login_member, {only: [:edit, :update, :destroy]}
+  before_action :is_matching_admin_member, {only: [:edit, :update, :destroy]}
   before_action :is_matching_residence, {only: [:show]}
 
   def index
@@ -13,9 +13,8 @@ class Public::CommunitiesController < ApplicationController
 
   def show
     @community = Community.find(params[:id])
-    @community_members = CommunityMember.where(community_id: @community.id)
-    @community_comments = CommunityComment.where(community_id: @community.id).order(created_at: "DESC")
-    @community_member = CommunityMember.find_by(community_id: @community.id, member_id: current_member.id)
+    @community_members = @community.community_members
+    @community_comments = @community.community_comments.order(created_at: "DESC")
     @community_comment = CommunityComment.new
   end
 
@@ -68,9 +67,9 @@ class Public::CommunitiesController < ApplicationController
     params.require(:community).permit(:name, :description, :residence_id, :member_id, :community_image)
   end
 
-  def is_matching_login_member
+  def is_matching_admin_member
     community = Community.find(params[:id])
-    unless community.member_id == current_member.id
+    unless community.community_members.find_by(member_id: current_member.id, is_admin: true)
      flash[:alert] = "そのURLにはアクセスできません。"
      redirect_to public_communities_path
     end

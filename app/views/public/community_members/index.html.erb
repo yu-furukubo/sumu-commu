@@ -2,7 +2,7 @@
   <div class='col-md-10 offset-md-1'>
     <div class="row mb-3 d-flex align-items-center">
       <h4>参加メンバー</h4>&emsp;
-      <span class="text-primary font-weight-bold"><%= @community_members.count %>人</span>
+      <span class="text-primary font-weight-bold" id="community_members_count"><%= @community_members.count %>人</span>
     </div>
     <div id="member_authority_change">
       <%= render 'public/community_members/member_authority_change', community: @community, community_members: @community_members %>

@@ -14,8 +14,16 @@ class Public::CommunityMembersController < ApplicationController
     @community_members = @community.community_members
     @community_comments = @community.community_comments.order(created_at: "DESC")
     @community_comment = CommunityComment.new
+    if @community.member == current_member
+      unless CommunityMember.create(community_id: @community.id, member_id: current_member.id, is_admin: true)
+        flash.now[:alert] = "コミュニティへの参加に失敗しました。"
+        render "index"
+        return
+      end
+      return
+    end
     unless CommunityMember.create(community_id: @community.id, member_id: current_member.id)
-      flash.now[:alert] = "コミュニティメンバーの追加に失敗しました。"
+      flash.now[:alert] = "コミュニティへの参加に失敗しました。"
       render "index"
     end
   end
@@ -24,7 +32,7 @@ class Public::CommunityMembersController < ApplicationController
     @community = Community.find(params[:community_id])
     community_member = @community.community_members.find(params[:id])
     unless community_member.update(community_member_params)
-      flash.now[:alert] = "コミュニティメンバーの更新に失敗しました。"
+      flash.now[:alert] = "コミュニティメンバーの権限変更に失敗しました。"
       @community_members = @community.community_members
       @community_member = @community_members.find_by(member_id: current_member.id)
       render "index"
@@ -33,12 +41,24 @@ class Public::CommunityMembersController < ApplicationController
 
   def destroy
     @community = Community.find(params[:community_id])
+    community_member = CommunityMember.find(params[:id])
+    @community_members = @community.community_members
+    @community_comments = @community.community_comments.order(created_at: "desc")
+    @community_comments_deleted = @community_comments.where(is_deleted: true)
+    unless community_member.destroy
+      flash.now[:alert] = "コミュニティメンバーの削除に失敗しました。"
+      render "index"
+    end
+  end
+
+  def quit
+    @community = Community.find(params[:community_id])
     community_member =  @community.community_members.find_by(member_id: current_member.id)
     @community_members = @community.community_members
     @community_comments = @community.community_comments.order(created_at: "DESC")
-    @community_comment = CommunityComment.new
+    @community_comments_deleted = @community_comments.where(is_deleted: true)
     unless community_member.destroy
-      flash.now[:alert] = "コミュニティメンバーの削除に失敗しました。"
+      flash.now[:alert] = "コミュニティからの脱退に失敗しました。"
       render "index"
     end
   end

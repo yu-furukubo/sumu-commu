@@ -1,3 +1,2 @@
-$('#join').html("<%= j(render 'public/communities/join', community: @community) %>");
-$('#comment').html("<%= j(render 'public/communities/comment', community: @community, community_comments: @community_comments, community_members: @community_members) %>");
-$('#community_members').html("<%= j(render 'public/communities/community_members', community: @community, community_members: @community_members) %>");
+$('#member_authority_change').html("<%= j(render 'public/community_members/member_authority_change', community: @community, community_members: @community_members) %>");
+$('#community_members_count').html("<%= j(@community_members.count) %>人");

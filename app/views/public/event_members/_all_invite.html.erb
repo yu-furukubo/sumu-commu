@@ -1,0 +1,5 @@
+<% if event.member == current_member %>
+  <% if residence_members.count != event.event_members.count && event_members.find_by(member_id: current_member.id).present?%>
+    <%= link_to "全員招待する", public_event_event_members_invite_all_path(event), method: :post, remote: :true, class: "btn btn-primary" %>
+  <% end %>
+<% end %>

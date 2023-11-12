@@ -1,0 +1,2 @@
+$('#join').html("<%= j(render 'public/events/join', event: @event, event_member: @event_member) %>");
+$('#event_members').html("<%= j(render 'public/events/event_members', event: @event, event_members: @event_members, event_invited_members: @event_invited_members) %>");

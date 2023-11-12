@@ -2,7 +2,9 @@
   <div class="row ml-5 mb-3">
     <h2>イベント詳細</h2>
     <div class="ml-auto mr-3">
-      <%= render 'public/events/join', event: @event, event_member: @event_member %>
+      <div id="join">
+        <%= render 'public/events/join', event: @event, event_member: @event_member %>
+      </div>
     </div>
   </div>
   <div class="container">
@@ -38,37 +40,9 @@
       </div>
       <!--参加メンバー表示用の記述-->
       <div class="col-3">
-        <div class="row mb-3 d-flex align-items-center">
-          <h4>参加メンバー</h4>&emsp;
-          <%= link_to public_event_event_members_path(@event) do %>
-            <span class="text-primary font-weight-bold"><%= @event_members.count %>人</span>
-          <% end %>
+        <div id="event_members">
+          <%= render 'public/events/event_members', event: @event, event_members: @event_members, event_invited_members: @event_invited_members %>
         </div>
-        <table class='table table-borderless table-sm'>
-          <tbody>
-            <% @event_members.each do |event_member| %>
-              <tr>
-                <td style="width: 65%"><%= event_member.member.name %></td>
-                <% if event_member.member_id == @event.member_id %>
-                  <td class="text-danger">ホスト</td>
-                <% end %>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-        <div class="d-flex align-items-center">
-          <p>(招待中メンバー)</hp>
-        </div>
-        <table class='table table-borderless table-sm'>
-          <tbody>
-            <% @event_invited_members.each do |event_invited_member| %>
-              <tr>
-                <td style="width: 65%"><%= event_invited_member.member.name %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-
       </div>
       <!--参加メンバー表示用の記述ここまで-->
     </div>

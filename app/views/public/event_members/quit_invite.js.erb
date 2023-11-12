@@ -1,0 +1,2 @@
+$('#all_invite').html("<%= j(render 'public/event_members/all_invite', event: @event, event_members: @event_members, residence_members: @residence_members) %>");
+$('#invite').html("<%= j(render 'public/event_members/invite', event: @event, residence_members: @residence_members) %>");

@@ -1,6 +1,8 @@
 <div class="ml-5 mb-3">
   <%= form_with model:reservation, url: path, local: true do |f| %>
-    <%= render 'layouts/errors', obj: reservation %>
+    <div class="ml-5">
+      <%= render 'layouts/errors', obj: reservation %>
+    </div>
     <table class="table table-borderless">
       <tbody>
         <%= f.hidden_field :member_id, :value => current_member.id %>
@@ -12,14 +14,70 @@
               <td>予約品</td>
               <td>
                 <%= Equipment.find(params[:reservation][:equipment_id]).name %>&emsp;
-                <%= link_to ">>他の予約を確認する", public_equipment_path(params[:reservation][:equipment_id]) %>
+                <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#modal_1">
+                  >>他の予約を確認する
+                </button>
+                <!--モーダルウインドウの中身(新規・備品)-->
+                <div class="modal fade" id="modal_1" role="dialog">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title"><%= Equipment.find(params[:reservation][:equipment_id]).name %>の予約一覧</h4>
+                      </div>
+                      <div class="modal-body">
+                        <% Equipment.find(params[:reservation][:equipment_id]).reservations.where('finished_at > ?', Time.now).order(started_at: "ASC", finished_at: "ASC").each do |reservation| %>
+                          <% if reservation.started_at.to_date == reservation.finished_at.to_date %>
+                            - <%= l reservation.started_at %> ~ <%= l reservation.finished_at, format: :short %><br>
+                          <% else %>
+                            - <%= l reservation.started_at %> ~ <%= l reservation.finished_at %><br>
+                          <% end %>
+                        <% end %>
+                        <% if not Equipment.find(params[:reservation][:equipment_id]).reservations.where('finished_at > ?', Time.now).present? %>
+                          現在、他の予約はありません。
+                        <% end %>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--モーダルウインドウの中身(新規・備品)ここまで-->
               </td>
             <% elsif params[:reservation][:facility_id].present? %>
               <%= f.hidden_field :facility_id, :value => params[:reservation][:facility_id] %>
               <td>予約設備</td>
               <td>
                 <%= Facility.find(params[:reservation][:facility_id]).name %>&emsp;
-                <%= link_to ">>他の予約を確認する", public_facility_path(params[:reservation][:facility_id]) %>
+                <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#modal_2">
+                  >>他の予約を確認する
+                </button>
+                <!--モーダルウインドウの中身(新規・設備)-->
+                <div class="modal fade" id="modal_2" role="dialog">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel"><%= Facility.find(params[:reservation][:facility_id]).name %>の予約一覧</h4>
+                      </div>
+                      <div class="modal-body">
+                        <% Facility.find(params[:reservation][:facility_id]).reservations.where('finished_at > ?', Time.now).order(started_at: "ASC", finished_at: "ASC").each do |reservation| %>
+                          <% if reservation.started_at.to_date == reservation.finished_at.to_date %>
+                            - <%= l reservation.started_at %> ~ <%= l reservation.finished_at, format: :short %><br>
+                          <% else %>
+                            - <%= l reservation.started_at %> ~ <%= l reservation.finished_at %><br>
+                          <% end %>
+                        <% end %>
+                        <% if not Facility.find(params[:reservation][:facility_id]).reservations.where('finished_at > ?', Time.now).present? %>
+                          現在、他の予約はありません。
+                        <% end %>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--モーダルウインドウの中身(新規・設備)ここまで-->
               </td>
             <% end %>
           <% else %>
@@ -27,13 +85,79 @@
               <td>予約品</td>
               <td>
                 <%= reservation.equipment.name %>&emsp;
-                <%= link_to ">>他の予約を確認する", public_equipment_path(reservation.equipment) %>
+                <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#modal_3">
+                  >>他の予約を確認する
+                </button>
+                <!--モーダルウインドウの中身(編集・備品)-->
+                <div class="modal fade" id="modal_3" role="dialog">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel"><%= reservation.equipment.name %>の予約一覧</h4>
+                      </div>
+                      <div class="modal-body">
+                        <% reservation.equipment.reservations.where('finished_at > ?', Time.now).order(started_at: "ASC", finished_at: "ASC").each do |equipment_reservation| %>
+                          <% unless reservation == equipment_reservation %>
+                            <% if equipment_reservation.started_at.to_date == equipment_reservation.finished_at.to_date %>
+                              - <%= l equipment_reservation.started_at %> ~ <%= l equipment_reservation.finished_at, format: :short %><br>
+                            <% else %>
+                              - <%= l equipment_reservation.started_at %> ~ <%= l equipment_reservation.finished_at %><br>
+                            <% end %>
+                          <% end %>
+                        <% end %>
+                        <% if reservation.equipment.reservations.where('finished_at > ?', Time.now).count == 1 && reservation.equipment.reservations.where('finished_at > ?', Time.now).find_by(id: reservation.id).present? %>
+                          現在、他の予約はありません。
+                        <% end %>
+                        <% if not reservation.equipment.reservations.where('finished_at > ?', Time.now).present? %>
+                          現在、他の予約はありません。
+                        <% end %>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--モーダルウインドウの中身(編集・備品)ここまで-->
               </td>
             <% elsif reservation.facility_id.present? %>
               <td>予約設備</td>
               <td>
                 <%= reservation.facility.name %>&emsp;
-                <%= link_to ">>他の予約を確認する", public_facility_path(reservation.facility) %>
+                <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#modal_4">
+                  >>他の予約を確認する
+                </button>
+                <!--モーダルウインドウの中身(編集・設備)-->
+                <div class="modal fade" id="modal_4" role="dialog">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel"><%= reservation.facility.name %>の予約一覧</h4>
+                      </div>
+                      <div class="modal-body">
+                        <% reservation.facility.reservations.where('finished_at > ?', Time.now).order(started_at: "ASC", finished_at: "ASC").each do |facility_reservation| %>
+                          <% unless reservation == facility_reservation %>
+                            <% if facility_reservation.started_at.to_date == facility_reservation.finished_at.to_date %>
+                              - <%= l facility_reservation.started_at %> ~ <%= l facility_reservation.finished_at, format: :short %><br>
+                            <% else %>
+                              - <%= l facility_reservation.started_at %> ~ <%= l facility_reservation.finished_at %><br>
+                            <% end %>
+                          <% end %>
+                        <% end %>
+                        <% if reservation.facility.reservations.where('finished_at > ?', Time.now).count == 1 && reservation.facility.reservations.where('finished_at > ?', Time.now).find_by(id: reservation.id).present? %>
+                          現在、他の予約はありません。
+                        <% end %>
+                        <% if not reservation.facility.reservations.where('finished_at > ?', Time.now).present? %>
+                          現在、他の予約はありません。
+                        <% end %>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--モーダルウインドウの中身(編集・設備)ここまで-->
               </td>
             <% end %>
           <% end %>

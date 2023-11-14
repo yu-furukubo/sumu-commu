@@ -49,7 +49,16 @@ class Admin::ResidencesController < ApplicationController
   private
 
   def residence_params
-    params.require(:residence).permit(:admin_id, :housing_type, :name, :address)
+    params.require(:residence).permit(:admin_id,
+                                      :housing_type,
+                                      :name,
+                                      :address,
+                                      :board_is_active,
+                                      :community_is_active,
+                                      :event_is_active,
+                                      :exchange_is_active,
+                                      :reservation_is_active,
+                                      :lost_item_is_active)
   end
 
   def is_matching_login_admin

@@ -5,7 +5,7 @@
         <h2>居住地登録内容変更</h2>
       </div>
       <div>
-      <%= render 'admin/residences/form', residence: @residence, path: admin_residence_path(@residence) %>
+        <%= render 'admin/residences/form', residence: @residence, path: admin_residence_path(@residence) %>
       </div>
       <div class="text-center">
         <%= form_with url: admin_residence_confirm_path, method: :get, local:true do |f| %>

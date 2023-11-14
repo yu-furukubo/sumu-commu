@@ -35,6 +35,75 @@
         </tr>
       </div>
     </table>
+    <h2>機能切り替え</h2>
+    <table class="table table-borderless">
+      <div class="form-group">
+        <tr>
+          <td><%= f.label :掲示板機能 %></td>
+          <td>
+            <%= f.radio_button :board_is_active, true, class: "form-check-input" %>
+            <%= f.label :board_is_active_true, "使用する" %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <%= f.radio_button :board_is_active, false, class: "form-check-input" %>
+            <%= f.label :board_is_active_false, "使用しない" %>
+          </td>
+        </tr>
+      </div>
+      <div class="form-group">
+        <tr>
+          <td><%= f.label :コミュニティ機能 %></td>
+          <td>
+            <%= f.radio_button :community_is_active, true, class: "form-check-input" %>
+            <%= f.label :community_is_active_true, "使用する" %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <%= f.radio_button :community_is_active, false, class: "form-check-input" %>
+            <%= f.label :community_is_active_false, "使用しない" %>
+          </td>
+        </tr>
+      </div>
+      <div class="form-group">
+        <tr>
+          <td><%= f.label :イベント機能 %></td>
+          <td>
+            <%= f.radio_button :event_is_active, true, class: "form-check-input" %>
+            <%= f.label :event_is_active_true, "使用する" %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <%= f.radio_button :event_is_active, false, class: "form-check-input" %>
+            <%= f.label :event_is_active_false, "使用しない" %>
+          </td>
+        </tr>
+      </div>
+      <div class="form-group">
+        <tr>
+          <td><%= f.label :交換機能 %></td>
+          <td>
+            <%= f.radio_button :exchange_is_active, true, class: "form-check-input" %>
+            <%= f.label :exchange_is_active_true, "使用する" %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <%= f.radio_button :exchange_is_active, false, class: "form-check-input" %>
+            <%= f.label :exchange_is_active_false, "使用しない" %>
+          </td>
+        </tr>
+      </div>
+      <div class="form-group">
+        <tr>
+          <td><%= f.label :予約機能 %></td>
+          <td>
+            <%= f.radio_button :reservation_is_active, true, class: "form-check-input" %>
+            <%= f.label :reservation_is_active_true, "使用する" %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <%= f.radio_button :reservation_is_active, false, class: "form-check-input" %>
+            <%= f.label :reservation_is_active_false, "使用しない" %>
+          </td>
+        </tr>
+      </div>
+      <div class="form-group">
+        <tr>
+          <td><%= f.label :忘れ物機能 %></td>
+          <td>
+            <%= f.radio_button :lost_item_is_active, true, class: "form-check-input" %>
+            <%= f.label :lost_item_is_active_true, "使用する" %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <%= f.radio_button :lost_item_is_active, false, class: "form-check-input" %>
+            <%= f.label :lost_item_is_active_false, "使用しない" %>
+          </td>
+        </tr>
+      </div>
+    </table>
     <div class="form-group text-center">
       <% if residence.new_record? %>
         <%= f.submit "新規登録", class: 'btn btn-primary' %>

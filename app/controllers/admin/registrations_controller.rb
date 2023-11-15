@@ -8,10 +8,6 @@ class Admin::RegistrationsController < Devise::RegistrationsController
     new_admin_residence_path
   end
 
-# def after_update_path_for(resource)
-#   リダイレクト先のパス
-# end
-
   protected
 
   def configure_permitted_parameters

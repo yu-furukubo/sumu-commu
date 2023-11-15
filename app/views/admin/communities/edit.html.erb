@@ -4,7 +4,7 @@
       <div class="ml-5 mb-3">
         <h2>コミュニティ編集</h2>
       </div>
-      <%= render 'admin/communities/form', community: @community, path: admin_community_path, residence: @residence %>
+      <%= render 'admin/communities/form', community: @community, path: admin_residence_community_path(params[:residence_id]), residence: @residence %>
     </div>
   </div>
 </div>

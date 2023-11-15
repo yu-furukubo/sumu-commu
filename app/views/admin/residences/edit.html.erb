@@ -7,12 +7,6 @@
       <div>
         <%= render 'admin/residences/form', residence: @residence, path: admin_residence_path(@residence) %>
       </div>
-      <div class="text-center">
-        <%= form_with url: admin_residence_confirm_path, method: :get, local:true do |f| %>
-        <%= f.hidden_field :id, :value => @residence.id %>
-        <%= f.submit "居住地を削除する", class: 'btn btn-danger' %>
-        <% end %>
-      </div>
     </div>
   </div>
 </div>

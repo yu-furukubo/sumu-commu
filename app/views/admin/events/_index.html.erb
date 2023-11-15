@@ -1,22 +1,16 @@
 <table class='table table-borderless'>
   <thead>
     <tr>
-      <% if controller.action_name != "residence_search" %>
-        <th>居住地</th>
-      <% end %>
       <th>イベント名</th>
       <th>開催期間</th>
-      <th>場所</th>
-      <th style="width:9%">参加者</th>
+      <th>開催場所</th>
+      <th style="width:9%">参加人数</th>
     </tr>
   </thead>
   <tbody>
     <% events.each do |event| %>
       <tr>
-        <% if controller.action_name != "residence_search" %>
-          <td><%= event.residence.name %></td>
-        <% end %>
-        <td><%= link_to event.name, admin_event_path(event) %></td>
+        <td><%= link_to event.name, admin_residence_event_path(params[:residence_id], event) %></td>
         <% if event.started_at.to_date == event.finished_at.to_date %>
           <td><%= l event.started_at %> ~ <%= l event.finished_at, format: :short %></td>
         <% else %>

@@ -2,7 +2,12 @@
 
 class Admin::SessionsController < Devise::SessionsController
   def after_sign_in_path_for(resource)
-    admin_admin_path(current_admin)
+    residence = Residence.find_by(admin_id: current_admin.id)
+    if not residence.present?
+      new_admin_residence_path
+    else
+      admin_residence_admin_path(residence, current_admin)
+    end
   end
   # before_action :configure_sign_in_params, only: [:create]
 

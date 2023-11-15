@@ -1,9 +1,6 @@
 <table class='table table-borderless'>
   <thead>
     <tr>
-      <% if controller.action_name != "residence_search" %>
-        <th>居住地</th>
-      <% end %>
       <th>作成者</th>
       <th>品名</th>
       <th style="width:13%">費用</th>
@@ -14,11 +11,8 @@
   <tbody>
     <% exchanges.each do |exchange| %>
       <tr>
-        <% if controller.action_name != "residence_search" %>
-          <td><%= exchange.residence.name %></td>
-        <% end %>
         <td><%= exchange.member.name %></td>
-        <td><%= link_to exchange.name, admin_exchange_path(exchange) %></td>
+        <td><%= link_to exchange.name, admin_residence_exchange_path(params[:residence_id], exchange) %></td>
         <td>
           <% if exchange.price == 0 %>
             無償

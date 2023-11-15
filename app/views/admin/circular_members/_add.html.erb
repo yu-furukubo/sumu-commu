@@ -5,14 +5,14 @@
         <td style="width:30%"><%= member.name %></td>
         <% if board.circular_members.exists?(member_id: member.id) %>
           <td>
-            <%= form_with url: admin_board_circular_members_path(board), method: :delete, local: false do |f| %>
+            <%= form_with url: admin_residence_board_circular_members_path(params[:residence_id], board), method: :delete, local: false do |f| %>
               <%= f.hidden_field :member_id, :value => member.id %>
               <%= f.submit "削除", class: 'btn btn-sm btn-danger' %>
             <% end %>
           </td>
         <% else %>
           <td>
-            <%= form_with model:CircularMember, url: admin_board_circular_members_path(board), local: false do |f| %>
+            <%= form_with model:CircularMember, url: admin_residence_board_circular_members_path(params[:residence_id], board), local: false do |f| %>
               <%= f.hidden_field :board_id, :value => params[:board_id] %>
               <%= f.hidden_field :member_id, :value => member.id %>
               <%= f.submit "追加", class: 'btn btn-sm btn-success' %>

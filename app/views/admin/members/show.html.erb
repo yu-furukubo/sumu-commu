@@ -15,10 +15,10 @@
             </table>
             <div class="row">
               <div class="mx-5">
-                <%= link_to "編集する", edit_admin_member_path, class: "btn btn-success" %>
+                <%= link_to "編集する", edit_admin_residence_member_path(params[:residence_id]), class: "btn btn-success" %>
               </div>
               <div>
-                <%= link_to "削除する", admin_member_path, method: :delete,
+                <%= link_to "削除する", admin_residence_member_path(params[:residence_id]), method: :delete,
                   data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
               </div>
             </div>

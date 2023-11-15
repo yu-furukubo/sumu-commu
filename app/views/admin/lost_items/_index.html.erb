@@ -1,22 +1,16 @@
 <table class='table table-borderless'>
   <thead>
     <tr>
-      <% if controller.action_name != "residence_search" %>
-        <th>居住地</th>
-      <% end %>
       <th>品名</th>
-      <th>場所</th>
-      <th>日時</th>
+      <th>拾った場所</th>
+      <th>拾った日時</th>
       <th>掲載状況</th>
     </tr>
   </thead>
   <tbody>
     <% lost_items.each do |lost_item| %>
       <tr>
-        <% if controller.action_name != "residence_search" %>
-          <td><%= lost_item.residence.name %></td>
-        <% end %>
-        <td><%= link_to lost_item.name, admin_lost_item_path(lost_item) %></td>
+        <td><%= link_to lost_item.name, admin_residence_lost_item_path(params[:residence_id], lost_item) %></td>
         <td><%= lost_item.picked_up_location %></td>
         <td><%= l lost_item.picked_up_at %></td>
         <% if lost_item.is_finished == false %>

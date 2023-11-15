@@ -16,9 +16,32 @@
     <header>
       <div class="container-fluid">
         <div class="row">
+          <% if admin_signed_in? %>
+            <div class="row float-left">
+              <div class="ml-5 mt-2">
+                <%= render 'layouts/residence_search', residences: @residences %>
+              </div>
+            </div>
+          <% end %>
           <div class="logo">
-            <%= link_to root_path, class: "lead" do %>
-              <%= image_tag 'sumu-commu_logo_black.png', :style => "max-height:100px" %>
+            <% if admin_signed_in? %>
+              <% if params[:residence_id].present? %>
+                <%= link_to admin_residence_admin_path(params[:residence_id], current_admin), class: "lead" do %>
+                  <%= image_tag 'sumu-commu_logo_black.png', :style => "max-height:100px" %>
+                <% end %>
+              <% elsif controller.controller_name == "residences" && controller.action_name != "new" %>
+                <%= link_to admin_residence_admin_path(params[:id], current_admin), class: "lead" do %>
+                  <%= image_tag 'sumu-commu_logo_black.png', :style => "max-height:100px" %>
+                <% end %>
+              <% else %>
+                <%= link_to root_path, class: "lead" do %>
+                  <%= image_tag 'sumu-commu_logo_black.png', :style => "max-height:100px" %>
+                <% end %>
+              <% end %>
+            <% else %>
+              <%= link_to root_path, class: "lead" do %>
+                <%= image_tag 'sumu-commu_logo_black.png', :style => "max-height:100px" %>
+              <% end %>
             <% end %>
           </div>
 
@@ -43,10 +66,19 @@
                 </div>
               <% end %>
               <% if admin_signed_in? %>
-                <div class="d-flex align-items-center ml-3">
-                  <%= link_to admin_search_path, class: "text-dark text-center" do %>
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <span class="font-weight-bold">検索</span>
+                <div class="d-flex align-items-center ml-3 mt-2">
+                  <% if controller.controller_name == "residences" %>
+                    <% if controller.action_name != "new" %>
+                      <%= link_to admin_residence_search_path(params[:id]), class: "text-dark text-center" do %>
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <span class="font-weight-bold">検索</span>
+                      <% end %>
+                    <% end %>
+                  <% else %>
+                    <%= link_to admin_residence_search_path(params[:residence_id]), class: "text-dark text-center" do %>
+                      <i class="fa-solid fa-magnifying-glass"></i>
+                      <span class="font-weight-bold">検索</span>
+                    <% end %>
                   <% end %>
                 </div>
               <% end %>

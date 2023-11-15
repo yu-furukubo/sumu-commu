@@ -1,17 +1,11 @@
 class Admin::GenresController < ApplicationController
   before_action :authenticate_admin!
+  before_action :check_adnmin_residence
   before_action :is_matching_login_admin, {only: [:edit, :update]}
 
   def index
     @residences = current_admin.residences
-    @residence_id_array = @residences.pluck(:id)
-    @genres = Genre.where(residence_id: @residence_id_array)
-    @genre = Genre.new
-  end
-
-  def residence_search
-    @residences = current_admin.residences
-    @residence = Residence.find(params[:id])
+    @residence = Residence.find(params[:residence_id])
     @genres = @residence.genres
     @genre = Genre.new
   end
@@ -19,7 +13,7 @@ class Admin::GenresController < ApplicationController
   def create
     @genre = Genre.new(genre_params)
     if @genre.save
-      redirect_to admin_genres_path
+      redirect_to admin_residence_genres_path(params[:residence_id])
     else
       flash.now[:alert] = "ジャンルの追加に失敗しました。"
       @residences = current_admin.residences
@@ -30,13 +24,14 @@ class Admin::GenresController < ApplicationController
   end
 
   def edit
+    @residences = current_admin.residences
     @genre = Genre.find(params[:id])
   end
 
   def update
     @genre = Genre.find(params[:id])
     if @genre.update(genre_params)
-      redirect_to admin_genres_path
+      redirect_to admin_residence_genres_path(params[:residence_id])
     else
       flash[:alert] = "ジャンル名の変更に失敗しました。"
       redirect_to edit_admin_genre_path(@genre)
@@ -54,7 +49,7 @@ class Admin::GenresController < ApplicationController
     admin_genres = Genre.where(residence_id: residences.pluck(:id))
     unless admin_genres.where(id: params[:id]).present?
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to admin_genres_path
+     redirect_to admin_residence_genres_path(params[:residence_id])
     end
   end
 

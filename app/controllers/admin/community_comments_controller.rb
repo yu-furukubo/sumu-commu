@@ -1,5 +1,6 @@
 class Admin::CommunityCommentsController < ApplicationController
   before_action :authenticate_admin!
+  before_action :check_adnmin_residence
   before_action :is_matching_login_admin
 
   def update
@@ -25,7 +26,7 @@ class Admin::CommunityCommentsController < ApplicationController
     admin_communities = Community.where(residence_id: residences.pluck(:id))
     unless admin_communities.where(id: params[:community_id]).present?
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to admin_communities_path
+     redirect_to admin_residence_communities_path(params[:residence_id])
     end
   end
 

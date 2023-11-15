@@ -1,8 +1,10 @@
 class Admin::CommunityMembersController < ApplicationController
   before_action :authenticate_admin!
+  before_action :check_adnmin_residence
   before_action :is_matching_login_admin
 
   def update
+    @residences = current_admin.residences
     @community = Community.find(params[:community_id])
     @community_member = CommunityMember.find(params[:id])
     @community_members = CommunityMember.where(community_id: @community.id)
@@ -15,6 +17,7 @@ class Admin::CommunityMembersController < ApplicationController
   end
 
   def destroy
+    @residences = current_admin.residences
     @community = Community.find(params[:community_id])
     community_member = CommunityMember.find(params[:id])
     @community_members = @community.community_members
@@ -37,7 +40,7 @@ class Admin::CommunityMembersController < ApplicationController
     admin_communities = Community.where(residence_id: residences.pluck(:id))
     unless admin_communities.where(id: params[:community_id]).present?
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to admin_communities_path
+     redirect_to admin_residence_communities_path(params[:residence_id])
     end
   end
 

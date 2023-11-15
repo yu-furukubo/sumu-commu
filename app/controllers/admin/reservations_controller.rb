@@ -1,22 +1,17 @@
 class Admin::ReservationsController < ApplicationController
   before_action :authenticate_admin!
+  before_action :check_adnmin_residence
   before_action :is_matching_login_admin, {only: [:show, :edit, :update, :destroy]}
 
   def index
     @residences = current_admin.residences
-    @residence_id_array = @residences.pluck(:id)
-    @reservations = Reservation.where(residence_id: @residence_id_array).where('finished_at > ?', Time.now).order(started_at: "ASC", finished_at: "ASC")
-    @reservations_past = Reservation.where(residence_id: @residence_id_array).where('finished_at <= ?', Time.now).order(started_at: "DESC", finished_at: "DESC")
-  end
-
-  def residence_search
-    @residences = current_admin.residences
-    @residence = Residence.find(params[:id])
+    @residence = Residence.find(params[:residence_id])
     @reservations = @residence.reservations.where('finished_at > ?', Time.now).order(started_at: "ASC", finished_at: "ASC")
     @reservations_past = @residence.reservations.where('finished_at <= ?', Time.now).order(started_at: "DESC", finished_at: "DESC")
   end
 
   def show
+    @residences = current_admin.residences
     @reservation = Reservation.find(params[:id])
     if @reservation.equipment_id.present?
       @equipment_reserved = @reservation.equipment
@@ -26,6 +21,7 @@ class Admin::ReservationsController < ApplicationController
   end
 
   def new
+    @residences = current_admin.residences
     @reservation = Reservation.new
   end
 
@@ -36,6 +32,7 @@ class Admin::ReservationsController < ApplicationController
       reservations = Reservation.where(facility_id: params[:reservation][:facility_id])
     end
 
+    @residences = current_admin.residences
     @reservation = Reservation.new(reservation_params)
 
     if params[:reservation][:start_date] == "" || params[:reservation][:finish_date] == ""
@@ -63,7 +60,7 @@ class Admin::ReservationsController < ApplicationController
         else
           flash[:notice] = "予約が完了しました。"
           @reservation.save
-          redirect_to admin_reservation_path(@reservation)
+          redirect_to admin_residence_reservation_path(params[:residence_id], @reservation)
           return
         end
       else
@@ -76,7 +73,7 @@ class Admin::ReservationsController < ApplicationController
 
     if @reservation.save
       flash[:notice] = "予約が完了しました。"
-      redirect_to admin_reservation_path(@reservation)
+      redirect_to admin_residence_reservation_path(params[:residence_id], @reservation)
     else
       flash.now[:alert] = "予約に失敗しました。"
       render "new"
@@ -84,10 +81,12 @@ class Admin::ReservationsController < ApplicationController
   end
 
   def edit
+    @residences = current_admin.residences
     @reservation = Reservation.find(params[:id])
   end
 
   def update
+    @residences = current_admin.residences
     @reservation = Reservation.find(params[:id])
 
     if @reservation.equipment.present?
@@ -126,7 +125,7 @@ class Admin::ReservationsController < ApplicationController
             finished_at: @reservation.finished_at
           )
           flash[:notice] = "予約時間の変更が完了しました。"
-          redirect_to admin_reservation_path(@reservation)
+          redirect_to admin_residence_reservation_path(params[:residence_id], @reservation)
           return
         end
       elsif count > 1
@@ -144,7 +143,7 @@ class Admin::ReservationsController < ApplicationController
         finished_at: @reservation.finished_at
       )
       flash[:notice] = "予約時間の変更が完了しました。"
-      redirect_to admin_reservation_path(@reservation)
+      redirect_to admin_residence_reservation_path(params[:residence_id], @reservation)
     else
       flash.now[:alert] = "予約内容の更新に失敗しました。"
       render "edit"
@@ -152,9 +151,10 @@ class Admin::ReservationsController < ApplicationController
   end
 
   def destroy
+    @residences = current_admin.residences
     @reservation = Reservation.find(params[:id])
     if @reservation.destroy
-      redirect_to admin_reservations_path
+      redirect_to admin_residence_reservations_path(params[:residence_id])
     else
       flash.now[:alert] = "予約の削除に失敗しました。"
       if @reservation.equipment_id.present?
@@ -205,7 +205,7 @@ class Admin::ReservationsController < ApplicationController
     admin_reservations = Reservation.where(residence_id: residences.pluck(:id))
     unless admin_reservations.where(id: params[:id]).present?
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to admin_reservations_path
+     redirect_to admin_residence_reservations_path(params[:residence_id])
     end
   end
 

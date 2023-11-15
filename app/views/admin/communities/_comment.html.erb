@@ -17,7 +17,7 @@
           <td class="text-danger">削除済み</td>
         <% else %>
           <td style="width: 15%">
-            <%= form_with model: CommunityComment.new, url: admin_community_community_comment_path(community, community_comment), method: :patch, local: false do |f| %>
+            <%= form_with model: CommunityComment.new, url: admin_residence_community_community_comment_path(params[:residence_id], community, community_comment), method: :patch, local: false do |f| %>
               <%= f.hidden_field :is_deleted, :value => true %>
               <%= button_tag type: "submit", class: 'btn btn-sm' do %>
                 <i class="fa-solid fa-trash"></i>

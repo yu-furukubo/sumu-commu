@@ -1,7 +1,5 @@
-<%= form_with url:admin_search_result_path, method: :get, local: :true do |f| %>
-  <div class="mb-3">
-    <%= f.select :residence_id, options_from_collection_for_select(current_admin.residences, :id, :name), {prompt: "選択してください"}, required: true %>
-  </div>
+<%= form_with url:admin_residence_search_result_path(params[:residence_id]), method: :get, local: :true do |f| %>
+
   <div class="mb-3">
     <%= f.radio_button :category, :all, checked: true %>
     <%= f.label :category_all, "全て" %>

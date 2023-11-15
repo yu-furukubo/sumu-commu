@@ -2,12 +2,9 @@
   <thead>
     <tr>
       <% if controller.controller_name == "reservations" %>
-        <% if controller.action_name != "residence_search" %>
-          <th>居住地</th>
-        <% end %>
-        <th style="width:20%">備品・設備</th>
+        <th style="width:20%">備品・設備名</th>
       <% end %>
-      <th>日程</th>
+      <th>予約日程</th>
       <th>予約者名</th>
     </tr>
   </thead>
@@ -15,17 +12,14 @@
     <% reservations.each do |reservation| %>
       <tr>
         <% if controller.controller_name == "reservations" %>
-          <% if controller.action_name != "residence_search" %>
-            <td><%= reservation.residence.name %></td>
-          <% end %>
           <% if reservation.equipment_id.present? %>
-            <td><%= link_to reservation.equipment.name, admin_equipment_path(reservation.equipment) %></td>
+            <td><%= link_to reservation.equipment.name, admin_residence_equipment_path(params[:residence_id], reservation.equipment) %></td>
           <% elsif reservation.facility_id.present? %>
-            <td><%= link_to reservation.facility.name, admin_facility_path(reservation.facility)%></td>
+            <td><%= link_to reservation.facility.name, admin_residence_facility_path(params[:residence_id], reservation.facility)%></td>
           <% end %>
         <% end %>
         <td>
-          <%= link_to admin_reservation_path(reservation) do %>
+          <%= link_to admin_residence_reservation_path(params[:residence_id], reservation) do %>
             <% if reservation.started_at.to_date == reservation.finished_at.to_date %>
               <%= l reservation.started_at %> ~ <%= l reservation.finished_at, format: :short %>
             <% else %>

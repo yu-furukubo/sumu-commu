@@ -18,38 +18,36 @@
 
           <div class="row">
             <div class="mx-auto">
-              <%= link_to "編集する", edit_admin_event_path, class: "btn btn-success" %>&emsp;&emsp;
-              <%= link_to "削除する", admin_event_path, method: :delete,
+              <%= link_to "編集する", edit_admin_residence_event_path(params[:residence_id]), class: "btn btn-success" %>&emsp;&emsp;
+              <%= link_to "削除する", admin_residence_event_path(params[:residence_id]), method: :delete,
                 data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
             </div>
           </div>
-
           <!--参加メンバー表示用の記述-->
-            <div class="col-6 mt-5">
-              <div class="row mb-3 d-flex align-items-center">
-                <h4>参加メンバー</h4>&emsp;
-                <%= link_to admin_event_event_members_path(@event) do %>
-                  <span class="text-primary font-weight-bold"><%= @event_members.count %>人</span> <span class="text-primary">(招待中 <%= @event_invited_members.count %>人)</span>
-                <% end %>
-              </div>
-              <table class='table table-borderless'>
-                <tbody>
-                  <% @event_members.each do |event_member| %>
-                    <tr>
-                      <td style="width: 35%"><%= event_member.member.name %></td>
-                    </tr>
-                  <% end %>
-                  <% @event_invited_members.each do |event_invited_member| %>
-                    <tr>
-                      <td style="width: 35%"><%= event_invited_member.member.name %> <span class="text-info small">(招待中)</span></td>
-                    </tr>
-                  <% end %>
-
-                </tbody>
-              </table>
+          <div class="col-6 mt-5">
+            <div class="row mb-3 d-flex align-items-center">
+              <h4>参加メンバー</h4>&emsp;
+              <%= link_to admin_residence_event_event_members_path(params[:residence_id], @event) do %>
+                <span class="text-primary font-weight-bold"><%= @event_members.count %>人</span> <span class="text-primary">(招待中 <%= @event_invited_members.count %>人)</span>
+              <% end %>
             </div>
-            <!--参加メンバー表示用の記述ここまで-->
+            <table class='table table-borderless'>
+              <tbody>
+                <% @event_members.each do |event_member| %>
+                  <tr>
+                    <td style="width: 35%"><%= event_member.member.name %></td>
+                  </tr>
+                <% end %>
+                <% @event_invited_members.each do |event_invited_member| %>
+                  <tr>
+                    <td style="width: 35%"><%= event_invited_member.member.name %> <span class="text-info small">(招待中)</span></td>
+                  </tr>
+                <% end %>
 
+              </tbody>
+            </table>
+          </div>
+          <!--参加メンバー表示用の記述ここまで-->
         </div>
       </div>
      </div>

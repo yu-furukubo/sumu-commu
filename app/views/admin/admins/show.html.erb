@@ -8,7 +8,7 @@
         <div class="row">
           <div class="offset-1">
             <table class='table table-borderless'>
-              <tr><th class="align-middle">管理者名</th><td class="align-middle"><%= @admin.name %></td><td><%= link_to "編集する", edit_admin_admin_path, class: "btn btn-success" %></td></tr>
+              <tr><th class="align-middle">管理者名</th><td class="align-middle"><%= @admin.name %></td><td><%= link_to "編集する", edit_admin_residence_admin_path, class: "btn btn-success" %></td></tr>
             </table>
           </div>
         </div>
@@ -36,7 +36,7 @@
                     <td class="align-middle"><%= residence.housing_type_i18n %></td>
                     <td class="align-middle"><%= residence.address %></td>
                     <td class="text-center align-middle">
-                      <%= link_to residence_search_admin_members_path(residence) do %>
+                      <%= link_to admin_residence_members_path(residence) do %>
                         <%= residence.members.count %>人
                       <% end %>
                     </td>

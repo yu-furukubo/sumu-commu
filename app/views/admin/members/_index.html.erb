@@ -2,9 +2,6 @@
   <thead>
     <tr>
       <th>名前</th>
-      <% if controller.action_name != "residence_search" %>
-        <th>居住地</th>
-      <% end %>
       <% if controller.action_name == "residence_search" %>
         <% if Residence.find(params[:id]).housing_type == Residence.housing_types.key(0) %>
           <th>部屋番号</th>
@@ -19,10 +16,7 @@
   <tbody>
     <% members.each do |member| %>
       <tr>
-        <td><%= link_to member.name, admin_member_path(member) %></td>
-        <% if controller.action_name != "residence_search" %>
-          <td><%= member.residence.name %></td>
-        <% end %>
+        <td><%= link_to member.name, admin_residence_member_path(params[:residence_id], member) %></td>
         <td><%= member.house_address %></td>
       </tr>
     <% end %>

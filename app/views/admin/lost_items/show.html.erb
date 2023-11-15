@@ -6,7 +6,7 @@
         <% if @lost_item.member_id == 0 && @lost_item.is_finished == false %>
           <div class="ml-3 d-flex align-items-center">
             <span class="mr-3">掲載終了する場合はクリック >></span>
-            <%= form_with model: LostItem, url: admin_lost_item_path(@lost_item), method: :patch, local: true do |f| %>
+            <%= form_with model: LostItem, url: admin_residence_lost_item_path(params[:residence_id], @lost_item), method: :patch, local: true do |f| %>
               <%= f.hidden_field :is_finished, :value => true %>
               <%= f.submit "掲載終了", class: 'btn btn-sm btn-primary' %>
             <% end %>
@@ -47,8 +47,8 @@
 
           <div class="row">
             <div class="mx-auto">
-              <%= link_to "編集する", edit_admin_lost_item_path, class: "btn btn-success" %>&emsp;&emsp;
-              <%= link_to "削除する", admin_lost_item_path, method: :delete,
+              <%= link_to "編集する", edit_admin_residence_lost_item_path(params[:residence_id]), class: "btn btn-success" %>&emsp;&emsp;
+              <%= link_to "削除する", admin_residence_lost_item_path(params[:residence_id]), method: :delete,
                 data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
             </div>
           </div>

@@ -1,4 +1,4 @@
-<%= form_with model:genre, url: admin_genres_path, local: true do |f| %>
+<%= form_with model:genre, url: admin_residence_genres_path(params[:residence_id]), local: true do |f| %>
   <%= render 'layouts/errors', obj: genre %>
   <div class="form-group align-items-center">
     <table class="table table-borderless">
@@ -6,14 +6,8 @@
         <tr>
           <td><%= f.label :所在地 %></td>
           <td>
-            <% if params[:id].present? %>
-              <%= Residence.find(params[:id]).name %>
-              <%= f.hidden_field :residence_id, :value => Residence.find(params[:id]).id %>
-            <% else %>
-              <%= f.select :residence_id,
-              options_from_collection_for_select(current_admin.residences, :id, :name), {prompt: "選択してください"},
-              class: 'form-control' %>
-            <% end %>
+            <%= Residence.find(params[:residence_id]).name %>
+            <%= f.hidden_field :residence_id, :value => params[:residence_id] %>
           </td>
         </tr>
       </div>

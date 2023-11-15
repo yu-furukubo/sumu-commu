@@ -52,8 +52,8 @@
 
           <div class="row">
             <div class="mx-auto">
-              <%= link_to "編集する", edit_admin_exchange_path, class: "btn btn-success" %>&emsp;&emsp;
-              <%= link_to "削除する", admin_exchange_path, method: :delete,
+              <%= link_to "編集する", edit_admin_residence_exchange_path(params[:residence_id]), class: "btn btn-success" %>&emsp;&emsp;
+              <%= link_to "削除する", admin_residence_exchange_path(params[:residence_id]), method: :delete,
                 data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
             </div>
           </div>

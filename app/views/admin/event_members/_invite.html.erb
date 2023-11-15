@@ -7,12 +7,12 @@
             <%= member.name %>
             <span class="text-success">招待中</span>
           </td>
-          <td><%= link_to "招待を取り消す", admin_event_event_member_quit_invite_path(event.id, event.event_members.find_by(member_id: member.id)), method: :delete, remote: :true, class: "btn btn-secondary" %></td>
+          <td><%= link_to "招待を取り消す", admin_residence_event_event_member_quit_invite_path(params[:residence_id], event.id, event.event_members.find_by(member_id: member.id)), method: :delete, remote: :true, class: "btn btn-secondary" %></td>
         <% end %>
       <% else %>
         <td style="width:30%"><%= member.name %></td>
         <td>
-          <%= form_with model:EventMember.new, url: admin_event_event_members_path(event), local: false do |f| %>
+          <%= form_with model:EventMember.new, url: admin_residence_event_event_members_path(params[:residence_id], event), local: false do |f| %>
             <%= f.hidden_field :event_id, :value => event.id %>
             <%= f.hidden_field :member_id, :value => member.id %>
             <%= f.submit "招待する", class: "btn btn-info" %>

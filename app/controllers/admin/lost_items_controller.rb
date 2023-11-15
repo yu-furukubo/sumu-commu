@@ -1,28 +1,24 @@
 class Admin::LostItemsController < ApplicationController
   before_action :authenticate_admin!
+  before_action :check_adnmin_residence
   before_action :is_matching_login_admin, {only: [:show, :edit, :update, :destroy]}
 
   def index
     @residences = current_admin.residences
-    @residence_id_array = @residences.pluck(:id)
-    @lost_items = LostItem.where(residence_id: @residence_id_array).where(is_finished: false).order(picked_up_at: "DESC")
-    @lost_items_finished = LostItem.where(residence_id: @residence_id_array).where(is_finished: true).order(picked_up_at: "DESC")
-  end
-
-  def residence_search
-    @residences = current_admin.residences
-    @residence = Residence.find(params[:id])
+    @residence = Residence.find(params[:residence_id])
     @lost_items = @residence.lost_items.where(is_finished: false).order(picked_up_at: "DESC")
     @lost_items_finished = @residence.lost_items.where(is_finished: true).order(picked_up_at: "DESC")
   end
 
   def show
+    @residences = current_admin.residences
     @lost_item = LostItem.find(params[:id])
     @lost_item_comments = LostItemComment.where(lost_item_id: @lost_item.id).order(created_at: "desc")
     @lost_item_comments_deleted = @lost_item_comments.where(is_deleted: true)
   end
 
   def new
+    @residences = current_admin.residences
     @lost_item = LostItem.new
     @residence = Residence.find(params[:lost_item][:residence_id])
   end
@@ -31,15 +27,17 @@ class Admin::LostItemsController < ApplicationController
     @lost_item = LostItem.new(lost_item_params)
     @lost_item.member_id = 0
     if @lost_item.save
-      redirect_to admin_lost_item_path(@lost_item)
+      redirect_to admin_residence_lost_item_path(params[:residence_id], @lost_item)
     else
       flash.now[:alert] = "落とし物の登録に失敗しました。"
+      @residences = current_admin.residences
       @residence = Residence.find(params[:lost_item][:residence_id])
       render "new"
     end
   end
 
   def edit
+    @residences = current_admin.residences
     @lost_item = LostItem.find(params[:id])
     @residence = @lost_item.residence
   end
@@ -53,9 +51,10 @@ class Admin::LostItemsController < ApplicationController
       end
     end
     if @lost_item.update(lost_item_params)
-      redirect_to admin_lost_item_path(@lost_item)
+      redirect_to admin_residence_lost_item_path(params[:residence_id], @lost_item)
     else
       flash.now[:alert] = "落とし物内容の変更に失敗しました。"
+      @residences = current_admin.residences
       @residence = @lost_item.residence
       render "edit"
     end
@@ -64,9 +63,10 @@ class Admin::LostItemsController < ApplicationController
   def destroy
     @lost_item = LostItem.find(params[:id])
     if @lost_item.destroy
-      redirect_to admin_lost_items_path
+      redirect_to admin_residence_lost_items_path(params[:residence_id])
     else
       flash.now[:alert] = "落とし物の削除に失敗しました。"
+      @residences = current_admin.residences
       @lost_item_comments = LostItemComment.where(lost_item_id: @lost_item.id)
       render "show"
     end
@@ -83,7 +83,7 @@ class Admin::LostItemsController < ApplicationController
     admin_lost_items = LostItem.where(residence_id: residences.pluck(:id))
     unless admin_lost_items.where(id: params[:id]).present?
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to admin_lost_items_path
+     redirect_to admin_residence_lost_items_path(params[:residence_id])
     end
   end
 end

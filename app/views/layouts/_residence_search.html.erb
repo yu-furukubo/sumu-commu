@@ -1,6 +1,6 @@
 <% if controller.controller_name == "residences" %>
   <% if controller.action_name != "new" %>
-    <span class="ml-3">表示中の居住地 : </span>
+    <span class="ml-2">表示中の居住地 : </span>
     <strong style="font-size:20px"><%= Residence.find(params[:id]).name %></strong>
   <% end %>
 <% else %>
@@ -15,7 +15,7 @@
             <tr>
               <td>
                 <%= f.select :residence,
-                options_from_collection_for_select(residences, :id, :name), {prompt: "居住地選択"},
+                options_from_collection_for_select(residences, :id, :name), {prompt: "居住地切り替え"},
                 class: "form-control"%>
               </td>
               <td class=" align-middle">

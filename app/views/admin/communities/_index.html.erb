@@ -3,6 +3,7 @@
     <tr>
       <th>画像</th>
       <th>コミュニティ名</th>
+      <th>作成者名</th>
       <th>説明</th>
       <th style="width:10%">人数</th>
     </tr>
@@ -12,6 +13,7 @@
       <tr>
         <td><%= image_tag community.get_community_image, width: "50px"%></td>
         <td class="align-middle"><%= link_to community.name, admin_residence_community_path(params[:residence_id], community) %></td>
+        <td class="align-middle"><%= check_member_created(community) %></td>
         <td class="align-middle"><%= community.description.truncate(30) %></td>
         <td class="align-middle"><%= community.community_members.count %> 人</td>
       </tr>

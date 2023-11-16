@@ -9,6 +9,7 @@
         <tr>
           <td>居住地</td>
           <td><%= Residence.find(params[:residence_id]).name %></td>
+          <%= f.hidden_field :residence_id, :value => params[:residence_id] %>
         </tr>
         <tr>
           <% if reservation.new_record? %>　<!--新規登録の場合-->

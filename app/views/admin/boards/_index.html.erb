@@ -3,6 +3,7 @@
     <tr>
       <th>作成者</th>
       <th>名称</th>
+      <th>本文</th>
       <th style="width:7%">回覧</th>
       <th style="width:13%"></th>
     </tr>
@@ -12,6 +13,7 @@
       <tr>
         <td><%= check_member_created(board) %></td>
         <td><%= link_to board.name, admin_residence_board_path(params[:residence_id], board) %></td>
+        <td><%= board.body.truncate(30) %></td>
         <% if board.is_circular == true %>
           <td class="text-center text-weight-bold text-success"><i class="fa-regular fa-circle"></i></td>
           <% if board.circular_members.count == 0 %>

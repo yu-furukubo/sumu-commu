@@ -1,5 +1,4 @@
 class Public::HomesController < ApplicationController
-  before_action :authenticate_member!, except: [:top]
   before_action :admin_signed_in
 
   def top

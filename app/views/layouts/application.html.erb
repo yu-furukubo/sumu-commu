@@ -17,11 +17,23 @@
       <div class="container-fluid">
         <div class="row">
           <% if admin_signed_in? %>
-            <div class="row float-left">
-              <div class="ml-5 mt-2">
-                <%= render 'layouts/residence_search', residences: @residences %>
+            <% if controller.controller_name == "registrations" %>
+              <% if controller.action_name != "new" %>
+                <% if controller.controller_name != "registrations" && controller.action_name != "new" %>
+                  <div class="row float-left">
+                    <div class="ml-5 mt-2">
+                      <%= render 'layouts/residence_search', residences: @residences %>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            <% else %>
+              <div class="row float-left">
+                <div class="ml-5 mt-2">
+                  <%= render 'layouts/residence_search', residences: @residences %>
+                </div>
               </div>
-            </div>
+            <% end %>
           <% end %>
           <div class="logo">
             <% if admin_signed_in? %>
@@ -66,21 +78,41 @@
                 </div>
               <% end %>
               <% if admin_signed_in? %>
-                <div class="d-flex align-items-center ml-3 mt-2">
-                  <% if controller.controller_name == "residences" %>
-                    <% if controller.action_name != "new" %>
-                      <%= link_to admin_residence_search_path(params[:id]), class: "text-dark text-center" do %>
+                <% if controller.controller_name == "registrations" %>
+                  <% if controller.action_name != "new" %>
+                    <div class="d-flex align-items-center ml-3 mt-2">
+                      <% if controller.controller_name == "residences" %>
+                        <% if controller.action_name != "new" %>
+                          <%= link_to admin_residence_search_path(params[:id]), class: "text-dark text-center" do %>
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <span class="font-weight-bold">検索</span>
+                          <% end %>
+                        <% end %>
+                      <% else %>
+                        <%= link_to admin_residence_search_path(params[:residence_id]), class: "text-dark text-center" do %>
+                          <i class="fa-solid fa-magnifying-glass"></i>
+                          <span class="font-weight-bold">検索</span>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <div class="d-flex align-items-center ml-3 mt-2">
+                    <% if controller.controller_name == "residences" %>
+                      <% if controller.action_name != "new" %>
+                        <%= link_to admin_residence_search_path(params[:id]), class: "text-dark text-center" do %>
+                          <i class="fa-solid fa-magnifying-glass"></i>
+                          <span class="font-weight-bold">検索</span>
+                        <% end %>
+                      <% end %>
+                    <% else %>
+                      <%= link_to admin_residence_search_path(params[:residence_id]), class: "text-dark text-center" do %>
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <span class="font-weight-bold">検索</span>
                       <% end %>
                     <% end %>
-                  <% else %>
-                    <%= link_to admin_residence_search_path(params[:residence_id]), class: "text-dark text-center" do %>
-                      <i class="fa-solid fa-magnifying-glass"></i>
-                      <span class="font-weight-bold">検索</span>
-                    <% end %>
-                  <% end %>
-                </div>
+                  </div>
+                <% end %>
               <% end %>
             </div>
           </div>
@@ -88,9 +120,19 @@
       </div>
         <div class="mx-auto header_nav">
           <% if admin_signed_in? %>
-            <%= render 'layouts/admin_header' %>
-          <% else %>
+            <% if controller.controller_name == "registrations" %>
+              <% if controller.action_name != "new" %>
+                <%= render 'layouts/admin_header' %>
+              <% else %>
+                <%= render 'layouts/header' %>
+              <% end %>
+            <% else %>
+              <%= render 'layouts/admin_header' %>
+            <% end %>
+          <% elsif member_signed_in? %>
             <%= render 'layouts/member_header' %>
+          <% else %>
+            <%= render 'layouts/header' %>
           <% end %>
         </div>
     </header>

@@ -1,8 +1,9 @@
 <table class='table table-borderless'>
   <thead>
     <tr>
-      <th>作成者</th>
+      <th>画像</th>
       <th>品名</th>
+      <th>作成者</th>
       <th style="width:13%">費用</th>
       <th>掲載期限</th>
       <th style="width:13%">募集状況</th>
@@ -11,16 +12,25 @@
   <tbody>
     <% exchanges.each do |exchange| %>
       <tr>
-        <td><%= exchange.member.name %></td>
-        <td><%= link_to exchange.name, admin_residence_exchange_path(params[:residence_id], exchange) %></td>
         <td>
+          <% if exchange.exchange_item_images.attached? %>
+            <% exchange.exchange_item_images.limit(1).each do |image| %>
+              <%= image_tag image, width: '50px' %>
+            <% end %>
+          <% else %>
+            <%= image_tag 'no_image_obj.png', width: '50px' %>
+          <% end %>
+        </td>
+        <td class="align-middle"><%= link_to exchange.name, admin_residence_exchange_path(params[:residence_id], exchange) %></td>
+        <td class="align-middle"><%= exchange.member.name %></td>
+        <td class="align-middle">
           <% if exchange.price == 0 %>
             無償
           <% else %>
             <%= exchange.price.to_s(:delimited) %>円
           <% end %>
         </td>
-        <td>
+        <td class="align-middle">
           <% if exchange.deadline.present? %>
             <%= l exchange.deadline %>
           <% else %>
@@ -28,12 +38,12 @@
           <% end %>
         </td>
         <% if exchange.deadline.present? && exchange.deadline < Time.now %>
-          <td class="text-secondary">掲載期限終了</td>
+          <td class="align-middle text-secondary">掲載期限終了</td>
         <% else %>
           <% if exchange.is_finished == false %>
-            <td class="text-success">募集中</td>
+            <td class="align-middle text-success">募集中</td>
           <% else %>
-            <td class="text-secondary">募集終了</td>
+            <td class="align-middle text-secondary">募集終了</td>
           <% end %>
         <% end %>
       </tr>

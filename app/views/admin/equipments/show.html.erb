@@ -13,7 +13,6 @@
       <div class="container">
         <div class="offset-1">
           <table class='table table-borderless'>
-            <tr><th style="width: 20%">居住地</th><td><%= @equipment.residence.name %></td></tr>
             <tr><th>備品画像</th><td><%= image_tag @equipment.get_equipment_image, width: '100px' %></td></tr>
             <tr><th>備品名</th><td><%= @equipment.name %></td></tr>
             <tr><th>説明</th><td><%= @equipment.description %></td></tr>

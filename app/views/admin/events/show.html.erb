@@ -7,9 +7,8 @@
       <div class="container">
         <div class="offset-1">
           <table class='table table-borderless'>
-            <tr><th style="width: 20%">作成者名</th><td><%= check_member_created(@event) %></td></tr>
-            <tr><th>居住地</th><td><%= @event.residence.name %></td></tr>
-            <tr><th>イベント名</th><td><%= @event.name %></td></tr>
+            <tr><th style="width: 20%">イベント名</th><td><%= @event.name %></td></tr>
+            <tr><th>作成者名</th><td><%= check_member_created(@event) %></td></tr>
             <tr><th>説明</th><td><%= @event.description %></td></tr>
             <tr><th>開始時間</th><td><%= l @event.started_at %></td></tr>
             <tr><th>終了時間</th><td><%= l @event.finished_at %></td></tr>

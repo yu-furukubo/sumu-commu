@@ -7,7 +7,6 @@
       <div class="container">
         <div class="offset-1">
           <table class='table table-borderless'>
-            <tr><th>居住地</th><td><%= @exchange.residence.name %></td></tr>
             <tr>
               <th>画像</th>
               <td>
@@ -20,8 +19,8 @@
                 <% end %>
               </td>
             </tr>
-            <tr><th style="width: 20%">作成者名</th><td><%= @exchange.member.name %></td></tr>
-            <tr><th>品名</th><td><%= @exchange.name %></td></tr>
+            <tr><th style="width: 20%">品名</th><td><%= @exchange.name %></td></tr>
+            <tr><th>作成者名</th><td><%= @exchange.member.name %></td></tr>
             <tr><th>説明</th><td><%= @exchange.description %></td></tr>
             <tr>
               <th>費用</th>

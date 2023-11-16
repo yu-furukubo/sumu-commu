@@ -1,7 +1,9 @@
 <table class='table table-borderless'>
   <thead>
     <tr>
+      <th>画像</th>
       <th>名称</th>
+      <th>説明</th>
       <th>ジャンル</th>
       <th></th>
     </tr>
@@ -9,13 +11,15 @@
   <tbody>
     <% facilities.each do |facility| %>
       <tr>
-        <td><%= link_to facility.name, admin_residence_facility_path(params[:residence_id], facility) %></td>
+        <td><%= image_tag facility.get_facility_image, width: '50px' %></td>
+        <td class="align-middle"><%= link_to facility.name, admin_residence_facility_path(params[:residence_id], facility) %></td>
+        <td class="align-middle"><%= facility.description.truncate(30) %></td>
         <% if facility.genre_id == 0 || facility.genre.is_deleted == true %>
-          <td>(未設定)</td>
+          <td class="align-middle">(未設定)</td>
         <% else %>
-          <td><%= facility.genre.name %></td>
+          <td class="align-middle"><%= facility.genre.name %></td>
         <% end %>
-        <td>
+        <td class="align-middle">
           <%= form_with model: Reservation, url: new_admin_residence_reservation_path(params[:residence_id]), method: :get, local: true do |f| %>
             <%= f.hidden_field :facility_id, :value => facility.id %>
             <%= f.submit "予約する", class: 'btn btn-sm btn-success' %>

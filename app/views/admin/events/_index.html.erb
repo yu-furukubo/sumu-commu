@@ -2,6 +2,7 @@
   <thead>
     <tr>
       <th>イベント名</th>
+　　　<th>作成者名</th>
       <th>開催期間</th>
       <th>開催場所</th>
       <th style="width:9%">参加人数</th>
@@ -10,7 +11,8 @@
   <tbody>
     <% events.each do |event| %>
       <tr>
-        <td><%= link_to event.name, admin_residence_event_path(params[:residence_id], event) %></td>
+        <td><%= link_to event.name.truncate(20), admin_residence_event_path(params[:residence_id], event) %></td>
+        <td><%= check_member_created(event) %></td>
         <% if event.started_at.to_date == event.finished_at.to_date %>
           <td><%= l event.started_at %> ~ <%= l event.finished_at, format: :short %></td>
         <% else %>

@@ -1,10 +1,13 @@
 class Admin::SearchesController < ApplicationController
   before_action :authenticate_admin!
+  before_action :check_adnmin_residence
 
   def search
+    @residences = current_admin.residences
   end
 
   def search_result
+    @residences = current_admin.residences
     @category = params[:category]
     @reads = Read.all
 
@@ -16,6 +19,7 @@ class Admin::SearchesController < ApplicationController
       @events = Event.looks(params[:word], params[:residence_id])
       @exchanges = Exchange.looks(params[:word], params[:residence_id])
       @lost_items = LostItem.looks(params[:word], params[:residence_id])
+      @genres = Genre.looks(params[:word], params[:residence_id]).where(is_deleted: false)
       @members = Member.looks(params[:word], params[:residence_id])
     elsif @category == "board"
       @boards = Board.looks(params[:word], params[:residence_id])

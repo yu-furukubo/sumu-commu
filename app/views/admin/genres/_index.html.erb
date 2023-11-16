@@ -1,9 +1,6 @@
 <table class='table table-borderless'>
   <thead>
     <tr>
-      <% if controller.action_name != "residence_search" %>
-        <th style="width: 30%">所在地</th>
-      <% end %>
       <th>ジャンル名</th>
     </tr>
   </thead>
@@ -11,13 +8,10 @@
     <% genres.each do |genre| %>
       <tr>
         <% if genre.is_deleted == false %>
-          <% if controller.action_name != "residence_search" %>
-            <td><%= genre.residence.name %></td>
-          <% end %>
           <td><%= genre.name %></td>
-          <td class="table-borderless text-center"><%= link_to "編集する", edit_admin_genre_path(genre), class: 'btn btn-sm btn-success' %></td>
+          <td class="table-borderless text-center"><%= link_to "編集する", edit_admin_residence_genre_path(params[:residence_id], genre), class: 'btn btn-sm btn-success' %></td>
           <td>
-            <%= form_with model: Genre.new, url: admin_genre_path(genre), method: :patch, local: true do |f| %>
+            <%= form_with model: Genre.new, url: admin_residence_genre_path(params[:residence_id], genre), method: :patch, local: true do |f| %>
               <%= f.hidden_field :is_deleted, :value => true %>
               <%= f.submit "削除", class: 'btn btn-sm btn-danger' %>
             <% end %>

@@ -18,7 +18,7 @@
             <td class="text-danger">削除済み</td>
           <% else %>
             <td style="width: 15%">
-              <%= form_with model: ExchangeComment.new, url: admin_exchange_exchange_comment_path(exchange, exchange_comment), method: :patch, local: false do |f| %>
+              <%= form_with model: ExchangeComment.new, url: admin_residence_exchange_exchange_comment_path(params[:residence_id], exchange, exchange_comment), method: :patch, local: false do |f| %>
                 <%= f.hidden_field :is_deleted, :value => true %>
                 <%= button_tag type: "submit", class: 'btn btn-sm' do %>
                   <i class="fa-solid fa-trash"></i>

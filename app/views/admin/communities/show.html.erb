@@ -8,16 +8,15 @@
         <div class="col-md-10 offset-1">
           <div class="mb-3">
             <table class='table table-borderless'>
-              <tr><th style="width: 25%">居住地</th><td><%= @community.residence.name %></td></tr>
-              <tr><th>作成者名</th><td><%= check_member_created(@community) %></td></td></tr>
               <tr><th>コミュニティ画像</th><td><%= image_tag @community.get_community_image, width: '100px' %></td></tr>
               <tr><th>コミュニティ名</th><td><%= @community.name %></td></tr>
+              <tr><th>作成者名</th><td><%= check_member_created(@community) %></td></td></tr>
               <tr><th>説明</th><td><%= @community.description %></td></tr>
             </table>
             <div class="row">
               <div class="mx-auto">
-                <%= link_to "編集する", edit_admin_community_path, class: "btn btn-success" %>&emsp;&emsp;
-                <%= link_to "削除する", admin_community_path, method: :delete,
+                <%= link_to "編集する", edit_admin_residence_community_path(params[:residence_id]), class: "btn btn-success" %>&emsp;&emsp;
+                <%= link_to "削除する", admin_residence_community_path(params[:residence_id]), method: :delete,
                   data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
               </div>
             </div>

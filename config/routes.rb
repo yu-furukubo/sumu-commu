@@ -3,72 +3,37 @@ Rails.application.routes.draw do
   root to: "public/homes#top"
 
   namespace :admin do
-    resources :communities, except: [:new]  do
-      collection do
-        get "residence/:id" => "communities#residence_search" ,as: "residence_search"
+    get "residence/confirm/:id" => "residences#confirm", as: "residence_confirm"
+    resources :residences, except: [:index, :show] do
+      resources :communities, except: [:new]  do
+        resources :community_comments, only: [:update]
+        resources :community_members, only: [:update, :destroy]
       end
-      resources :community_comments, only: [:update]
-      resources :community_members, only: [:update, :destroy]
-    end
-    resources :exchanges, except: [:new] do
-      collection do
-        get "residence/:id" => "exchanges#residence_search" ,as: "residence_search"
+      resources :exchanges, except: [:new] do
+        resources :exchange_comments, only: [:update]
       end
-      resources :exchange_comments, only: [:update]
-    end
-    resources :lost_items do
-      collection do
-        get "residence/:id" => "lost_items#residence_search" ,as: "residence_search"
+      resources :lost_items do
+        resources :lost_item_comments, only: [:update]
       end
-      resources :lost_item_comments, only: [:update]
-    end
-    resources :genres, only: [:index, :create, :edit, :update] do
-      collection do
-        get "residence/:id" => "genres#residence_search" ,as: "residence_search"
+      resources :genres, only: [:index, :create, :edit, :update]
+      resources :reservations
+      resources :facilities
+      resources :equipments
+      resources :events do
+        resources :event_members, only: [:index, :create]
+        patch "event_members_invite_all" => "event_members#invite_all", as: "event_members_invite_all"
+        delete "event_members/quit_invite/:id" => "event_members#quit_invite", as: "event_member_quit_invite"
       end
-    end
-    resources :reservations do
-      collection do
-        get "residence/:id" => "reservations#residence_search" ,as: "residence_search"
+      resources :members, except: [:new, :create]
+      resources :boards do
+        resource :circular_members, only: [:create, :destroy]
+        get "circuler_members" => "circular_members#index", as: "circular_members_index"
+        patch "circular_members_add_all" => "circular_members#add_all", as: "circular_members_add_all"
       end
+      resources :admins, only: [:show, :edit, :update]
+      get "search" => "searches#search", as: "search"
+      get "search/result" => "searches#search_result", as: "search_result"
     end
-    resources :facilities do
-      collection do
-        get "residence/:id" => "facilities#residence_search" ,as: "residence_search"
-      end
-    end
-    resources :equipments do
-      collection do
-        get "residence/:id" => "equipments#residence_search" ,as: "residence_search"
-      end
-    end
-    resources :events do
-      collection do
-        get "residence/:id" => "events#residence_search" ,as: "residence_search"
-      end
-      resources :event_members, only: [:index, :create]
-      patch "event_members_invite_all" => "event_members#invite_all", as: "event_members_invite_all"
-      delete "event_members/quit_invite/:id" => "event_members#quit_invite", as: "event_member_quit_invite"
-    end
-    resources :members, except: [:new, :create] do
-      collection do
-        get "residence/:id" => "members#residence_search" ,as: "residence_search"
-      end
-    end
-    resources :boards do
-      collection do
-        get "residence/:id" => "boards#residence_search" ,as: "residence_search"
-      end
-      resource :circular_members, only: [:create, :destroy]
-      get "circuler_members" => "circular_members#index", as: "circular_members_index"
-      patch "circular_members_add_all" => "circular_members#add_all", as: "circular_members_add_all"
-    end
-    resources :residences, except: [:index, :show]
-    get "residence/confirm" => "residences#confirm", as: "residence_confirm"
-    resources :admins, only: [:show, :edit, :update]
-
-    get "search" => "searches#search", as: "search"
-    get "search/result" => "searches#search_result", as: "search_result"
   end
 
   namespace :public do

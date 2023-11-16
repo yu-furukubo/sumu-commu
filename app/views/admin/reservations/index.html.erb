@@ -1,15 +1,12 @@
 <div class='container p-5 px-sm-0'>
   <div class='row'>
-    <div class="col-3">
-      <%= render 'layouts/residence_search', residences: @residences %>
-    </div>
-    <div class='col-md-9'>
+    <div class='col-md-12'>
       <div class="row mr-3 mb-3">
         <h2>予約一覧</h2>
         <div class="ml-auto">
           <div>
-            <%= link_to "備品予約",admin_equipments_path, class: 'btn btn-sm btn-success' %>&ensp;
-            <%= link_to "設備予約",admin_facilities_path, class: 'btn btn-sm btn-success' %>
+            <%= link_to "備品予約",admin_residence_equipments_path(params[:residence_id]), class: 'btn btn-sm btn-success' %>&ensp;
+            <%= link_to "設備予約",admin_residence_facilities_path(params[:residence_id]), class: 'btn btn-sm btn-success' %>
           </div>
         </div>
       </div>

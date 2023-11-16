@@ -6,54 +6,42 @@
         <span class="font-weight-bold">会員</span>
       <% end %>
     </li>
-    <% if current_member.residence.board_is_active == true %>
-      <li class="nav-item mr-3">
-        <%= link_to public_boards_path, class: "nav-link text-light text-center" do %>
-          <i class="fa-solid fa-circle-exclamation"></i><br>
-          <span class="font-weight-bold">掲示板</span>
-        <% end %>
-      </li>
-    <% end %>
-    <% if current_member.residence.community_is_active == true %>
+    <li class="nav-item mr-3">
+      <%= link_to public_boards_path, class: "nav-link text-light text-center" do %>
+        <i class="fa-solid fa-circle-exclamation"></i><br>
+        <span class="font-weight-bold">掲示板</span>
+      <% end %>
+    </li>
     <li class="nav-item mr-3">
       <%= link_to public_communities_path, class: "nav-link text-light text-center" do %>
         <i class="fa-solid fa-users"></i><br>
         <span class="font-weight-bold">コミュニティ</span>
       <% end %>
     </li>
-    <% end %>
-    <% if current_member.residence.event_is_active == true %>
-    <li class="nav-item mr-3">
+        <li class="nav-item mr-3">
       <%= link_to public_events_path, class: "nav-link text-light text-center" do %>
         <i class="fa-solid fa-icons"></i><br>
         <span class="font-weight-bold">イベント</span>
       <% end %>
     </li>
-    <% end %>
-    <% if current_member.residence.exchange_is_active == true %>
     <li class="nav-item mr-3">
       <%= link_to public_exchanges_path, class: "nav-link text-light text-center" do %>
         <i class="fa-solid fa-repeat"></i><br>
         <span class="font-weight-bold">ゆずりあい</span>
       <% end %>
     </li>
-    <% end %>
-    <% if current_member.residence.reservation_is_active == true %>
     <li class="nav-item mr-3">
       <%= link_to public_reservations_path, class: "nav-link text-light text-center" do %>
         <i class="fa-solid fa-bookmark"></i><br>
         <span class="font-weight-bold">予約</span>
       <% end %>
     </li>
-    <% end %>
-    <% if current_member.residence.lost_item_is_active == true %>
     <li class="nav-item mr-3">
       <%= link_to public_lost_items_path, class: "nav-link text-light text-center" do %>
         <i class="fa-solid fa-hand-holding-droplet"></i><br>
         <span class="font-weight-bold">落とし物</span>
       <% end %>
     </li>
-    <% end %>
     <li class="nav-item mr-3">
       <%= link_to public_plans_path, class: "nav-link text-light text-center" do %>
         <i class="fa-regular fa-calendar"></i><br>
@@ -61,9 +49,9 @@
       <% end %>
     </li>
     <li class="nav-item mr-3">
-      <%= link_to destroy_member_session_path, method: :delete, class: "nav-link text-light text-center" do %>
-        <i class="fa-solid fa-right-from-bracket"></i><br>
-        <span class="font-weight-bold">ログアウト</span>
+      <%= link_to new_member_session_path, class: "nav-link text-light text-center" do %>
+        <i class="fa-solid fa-right-to-bracket"></i><br>
+        <span class="font-weight-bold">ログイン</span>
       <% end %>
     </li>
   </ul>

@@ -4,7 +4,7 @@
       <div class="ml-5 mb-3">
         <h2>予約内容編集</h2>
       </div>
-      <%= render 'admin/reservations/form', reservation: @reservation, path: admin_reservation_path %>
+      <%= render 'admin/reservations/form', reservation: @reservation, path: admin_residence_reservation_path(params[:residence_id]) %>
     </div>
   </div>
 </div>

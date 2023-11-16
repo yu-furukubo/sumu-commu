@@ -1,28 +1,12 @@
 <div class='container p-5 px-sm-0'>
   <div class='row'>
-    <div class="col-3">
-      <%= render 'layouts/residence_search', residences: @residences %>
-    </div>
-    <div class='col-md-9'>
+    <div class='col-md-12'>
       <div class="row mr-3">
         <h2>イベント一覧</h2>
         <div class="ml-auto">
-          <%= form_with model: Event, url: new_admin_event_path, method: :get, local: true do |f| %>
-            <table class="table table-borderless table-sm">
-              <tr>
-                <td class="align-middle">
-                  <%=
-                    f.select :residence_id,
-                    options_from_collection_for_select(current_admin.residences, :id, :name), {prompt: "選択してください"},
-                    required: true,
-                    class: 'form-control'
-                  %>
-                </td>
-                <td class="align-middle">
-                  <%= f.submit "選択した居住地にイベントを登録", class: 'btn btn-sm btn-success' %></td>
-                </td>
-              </tr>
-            </table>
+          <%= form_with model: Event, url: new_admin_residence_event_path(params[:residence_id]), method: :get, local: true do |f| %>
+            <%= f.hidden_field :residence_id, :value => params[:residence_id] %>
+            <%= f.submit "新規作成", class: 'btn btn-sm btn-success' %>
           <% end %>
         </div>
       </div>

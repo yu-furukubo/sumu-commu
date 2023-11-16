@@ -11,7 +11,7 @@
         <% if community_member.is_admin == true %>
           <td class="text-danger">管理者</td>
           <td class="text-center">
-            <%= form_with model: CommunityMember.new, url: admin_community_community_member_path(community, community_member), method: :patch, local: false do |f| %>
+            <%= form_with model: CommunityMember.new, url: admin_residence_community_community_member_path(params[:residence_id], community, community_member), method: :patch, local: false do |f| %>
               <%= f.hidden_field :is_admin, :value => false %>
               <%= f.submit "メンバーに変更", class: 'btn btn-sm btn-success' %>
             <% end %>
@@ -19,7 +19,7 @@
         <% else %>
           <td class="text-success">メンバー</td>
           <td class="text-center">
-            <%= form_with model: CommunityMember.new, url: admin_community_community_member_path(community, community_member), method: :patch, local: false do |f| %>
+            <%= form_with model: CommunityMember.new, url: admin_residence_community_community_member_path(params[:residence_id], community, community_member), method: :patch, local: false do |f| %>
               <%= f.hidden_field :is_admin, :value => true %>
               <%= f.submit "管理者に変更", class: 'btn btn-sm btn-danger' %>
             <% end %>
@@ -27,7 +27,7 @@
         <% end %>
         <!--管理者かどうかの確認と切り替え処理ここまで-->
         <td style="width:8%">
-          <%= link_to admin_community_community_member_path(community, community_member), method: :delete, remote: :ture, class: 'btn' do %>
+          <%= link_to admin_residence_community_community_member_path(params[:residence_id], community, community_member), method: :delete, remote: :ture, class: 'btn' do %>
             <i class="fa-solid fa-trash"></i>
           <% end %>
         </td>

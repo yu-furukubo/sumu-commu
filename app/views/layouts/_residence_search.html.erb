@@ -1,19 +1,44 @@
-<strong>居住地切り替え</strong>
-<table class="table table-borderless table-sm table-hover">
-  <% residences.each do |residence| %>
-    <tr>
-      <td class="text-center">
-        <% if residence.housing_type == Residence.housing_types.key(0) %>
-          <i class="fa-solid fa-building"></i>
-        <% else %>
-          <i class="fa-solid fa-house"></i>
-        <% end %>
-      </td>
-      <td>
-        <%= link_to my_link_to(residence.id), :style => "color:black" do %>
-          <%= residence.name %>
-        <% end %>
-      </td>
-    </tr>
+<% if controller.controller_name == "residences" %>
+  <% if controller.action_name != "new" %>
+    <span class="ml-2">表示中の居住地 : </span>
+    <strong style="font-size:20px"><%= Residence.find(params[:id]).name %></strong>
   <% end %>
-</table>
+<% else %>
+  <span class="ml-2">表示中の居住地 : </span>
+  <strong style="font-size:20px"><%= Residence.find(params[:residence_id]).name %></strong>
+<% end %>
+<% if current_admin.residences.count > 1 %>
+  <% if controller.controller_name == "residences" %>
+    <% if controller.action_name != "new" || controller.action_name == "create" %>
+      <%= form_with url: admin_residence_admin_path(params[:id], current_admin), method: :get, local: true do |f| %>
+        <table class="table table-borderless table-sm">
+            <tr>
+              <td>
+                <%= f.select :residence,
+                options_from_collection_for_select(residences, :id, :name), {prompt: "居住地切り替え"},
+                class: "form-control"%>
+              </td>
+              <td class=" align-middle">
+                <%= f.submit "切替", class: 'btn btn-success btn-sm' %>
+              </td>
+            </tr>
+        </table>
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= form_with url: admin_residence_admin_path(params[:residence_id], current_admin), method: :get, local: true do |f| %>
+      <table class="table table-borderless table-sm">
+          <tr>
+            <td>
+              <%= f.select :residence,
+              options_from_collection_for_select(residences, :id, :name), {prompt: "居住地切り替え"},
+              class: "form-control"%>
+            </td>
+            <td class="align-middle">
+              <%= f.submit "切替", class: 'btn btn-success btn-sm' %>
+            </td>
+          </tr>
+      </table>
+    <% end %>
+  <% end %>
+<% end %>

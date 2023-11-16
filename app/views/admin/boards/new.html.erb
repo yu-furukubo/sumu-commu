@@ -4,7 +4,7 @@
       <div class="ml-5 mb-3">
         <h2>掲示板新規投稿</h2>
       </div>
-      <%= render 'admin/boards/form', board: @board, path: admin_boards_path, residence: @residence %>
+      <%= render 'admin/boards/form', board: @board, path: admin_residence_boards_path(params[:residence_id]), residence: @residence %>
     </div>
   </div>
 </div>

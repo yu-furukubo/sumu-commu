@@ -4,7 +4,7 @@
       <div class="ml-5 mb-3">
         <h2>イベント新規作成</h2>
       </div>
-      <%= render 'admin/events/form', event: @event, path: admin_events_path, residence: @residence %>
+      <%= render 'admin/events/form', event: @event, path: admin_residence_events_path(params[:residence_id]), residence: @residence %>
     </div>
   </div>
 </div>

@@ -8,15 +8,14 @@
         <div class="offset-1">
           <table class='table table-borderless'>
             <tr><th style="width: 20%">作成者名</th><td><%= check_member_created(@board) %></td></tr>
-            <tr><th>居住地</th><td><%= @board.residence.name %></td></tr>
             <tr><th>件名</th><td><%= @board.name %></td></tr>
             <tr><th>本文</th><td><%= @board.body %></td></tr>
           </table>
 
           <div class="row">
             <div class="mx-auto">
-              <%= link_to "編集する", edit_admin_board_path, class: "btn btn-success" %>&emsp;&emsp;
-              <%= link_to "削除する", admin_board_path, method: :delete,
+              <%= link_to "編集する", edit_admin_residence_board_path(params[:residence_id]), class: "btn btn-success" %>&emsp;&emsp;
+              <%= link_to "削除する", admin_residence_board_path(params[:residence_id]), method: :delete,
                 data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
             </div>
           </div>
@@ -33,7 +32,7 @@
                 <% else %>
                   <span>&emsp;確認済：<%= @board_checked_members.count %>人（<%= @circular_members.count %>人中）</span>
                 <% end %>
-                <%= link_to ">>回覧メンバーを編集する", admin_board_circular_members_index_path(@board), class: "text-success" %>
+                <%= link_to ">>回覧メンバーを編集する", admin_residence_board_circular_members_index_path(params[:residence_id], @board), class: "text-success" %>
               </div>
               <table class='table table-borderless'>
                 <tbody>
@@ -52,7 +51,6 @@
             </div>
           <% end %>
           <!--回覧メンバー表示用の記述ここまで-->
-
         </div>
       </div>
      </div>

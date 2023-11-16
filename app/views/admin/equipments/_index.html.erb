@@ -1,10 +1,9 @@
 <table class='table table-borderless'>
   <thead>
     <tr>
-      <% if controller.action_name != "residence_search" %>
-        <th>居住地</th>
-      <% end %>
+      <th>画像</th>
       <th>名称</th>
+      <th>説明</th>
       <th>ジャンル</th>
       <th>在庫</th>
       <th></th>
@@ -13,18 +12,17 @@
   <tbody>
     <% equipments.each do |equipment| %>
       <tr>
-        <% if controller.action_name != "residence_search" %>
-          <td><%= equipment.residence.name %></td>
-        <% end %>
-        <td><%= link_to equipment.name, admin_equipment_path(equipment) %></td>
+        <td><%= image_tag equipment.get_equipment_image, width: '50px' %></td>
+        <td class="align-middle"><%= link_to equipment.name, admin_residence_equipment_path(params[:residence_id], equipment) %></td>
+        <td class="align-middle"><%= equipment.description.truncate(30) %></td>
         <% if equipment.genre_id == 0 || equipment.genre.is_deleted == true %>
-          <td>(未設定)</td>
+          <td class="align-middle">(未設定)</td>
         <% else %>
-          <td><%= equipment.genre.name %></td>
+          <td class="align-middle"><%= equipment.genre.name %></td>
         <% end %>
-        <td><%= equipment.stock %>個</td>
-        <td>
-          <%= form_with model: Reservation, url: new_admin_reservation_path, method: :get, local: true do |f| %>
+        <td class="align-middle"><%= equipment.stock %>個</td>
+        <td class="align-middle">
+          <%= form_with model: Reservation, url: new_admin_residence_reservation_path(params[:residence_id]), method: :get, local: true do |f| %>
             <%= f.hidden_field :equipment_id, :value => equipment.id %>
             <%= f.submit "予約する", class: 'btn btn-sm btn-success' %>
           <% end %>

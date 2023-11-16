@@ -1,13 +1,16 @@
 class Admin::CircularMembersController < ApplicationController
   before_action :authenticate_admin!
+  before_action :check_adnmin_residence
   before_action :is_matching_login_admin
 
   def index
+    @residences = current_admin.residences
     @board = Board.find(params[:board_id])
     @residence_members = @board.residence.members
   end
 
   def create
+    @residences = current_admin.residences
     @circular_member = CircularMember.new(circular_member_params)
     @board = Board.find(params[:board_id])
     @residence_members = @board.residence.members
@@ -18,6 +21,7 @@ class Admin::CircularMembersController < ApplicationController
   end
 
   def add_all
+    @residences = current_admin.residences
     @board = Board.find(params[:board_id])
     @residence_members = @board.residence.members
     @residence_members.each do |member|
@@ -32,6 +36,7 @@ class Admin::CircularMembersController < ApplicationController
   end
 
   def destroy
+    @residences = current_admin.residences
     @board = Board.find(params[:board_id])
     circular_member = @board.circular_members.find_by(member_id: params[:member_id])
     @residence_members = @board.residence.members
@@ -52,7 +57,7 @@ class Admin::CircularMembersController < ApplicationController
     admin_boards = Board.where(residence_id: residences.pluck(:id))
     unless admin_boards.where(id: params[:board_id]).present?
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to admin_boards_path
+     redirect_to admin_residence_boards_path(params[:residence_id])
     end
   end
 

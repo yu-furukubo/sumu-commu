@@ -4,7 +4,7 @@
       <div class="row ml-5 mb-3">
         <h2>設備詳細</h2>
         <div class="ml-auto mr-3">
-          <%= form_with model: Reservation, url: new_admin_reservation_path, method: :get, local: true do |f| %>
+          <%= form_with model: Reservation, url: new_admin_residence_reservation_path(params[:residence_id]), method: :get, local: true do |f| %>
             <%= f.hidden_field :facility_id, :value => @facility.id %>
             <%= f.submit "予約する", class: 'btn btn-success' %>
           <% end %>
@@ -13,7 +13,6 @@
       <div class="container">
         <div class="offset-1 mb-3">
           <table class='table table-borderless'>
-            <tr><th style="width: 20%">居住地</th><td><%= @facility.residence.name %></td></tr>
             <tr><th>設備画像</th><td><%= image_tag @facility.get_facility_image, width: '100px' %></td></tr>
             <tr><th>設備名</th><td><%= @facility.name %></td></tr>
             <tr><th>説明</th><td><%= @facility.description %></td></tr>
@@ -26,8 +25,8 @@
           </table>
           <div class="row">
             <div class="mx-auto">
-              <%= link_to "編集する", edit_admin_facility_path, class: "btn btn-success" %>&emsp;&emsp;
-              <%= link_to "削除する", admin_facility_path, method: :delete,
+              <%= link_to "編集する", edit_admin_residence_facility_path(params[:residence_id]), class: "btn btn-success" %>&emsp;&emsp;
+              <%= link_to "削除する", admin_residence_facility_path(params[:residence_id]), method: :delete,
                 data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger"
               %>
             </div>

@@ -7,7 +7,7 @@
       <div class="container">
         <div class="row">
       <div class="col-md-8 mx-auto">
-        <%= form_with model:@admin, url: admin_admin_path, local:true do |f| %>
+        <%= form_with model:@admin, url: admin_residence_admin_path(params[:residence_id]), local:true do |f| %>
           <div>
             <%= render 'layouts/errors', obj: @admin %>
           </div>

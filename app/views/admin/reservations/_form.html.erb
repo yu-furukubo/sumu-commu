@@ -8,21 +8,8 @@
         <%= f.hidden_field :member_id, :value => 0 %>
         <tr>
           <td>居住地</td>
-          <% if reservation.new_record? %>
-            <% if params[:reservation][:equipment_id].present? %>
-              <%= f.hidden_field :residence_id, :value => Equipment.find(params[:reservation][:equipment_id]).residence_id %>
-              <td><%= Equipment.find(params[:reservation][:equipment_id]).residence.name %></td>
-            <% elsif params[:reservation][:facility_id].present? %>
-              <%= f.hidden_field :residence_id, :value => Facility.find(params[:reservation][:facility_id]).residence_id %>
-              <td><%= Facility.find(params[:reservation][:facility_id]).residence.name %></td>
-            <% end %>
-          <% else %>
-            <% if reservation.equipment_id.present? %>
-              <td><%= reservation.equipment.residence.name %></td>
-            <% elsif reservation.facility_id.present? %>
-              <td><%= reservation.facility.residence.name %></td>
-            <% end %>
-          <% end %>
+          <td><%= Residence.find(params[:residence_id]).name %></td>
+          <%= f.hidden_field :residence_id, :value => params[:residence_id] %>
         </tr>
         <tr>
           <% if reservation.new_record? %>　<!--新規登録の場合-->

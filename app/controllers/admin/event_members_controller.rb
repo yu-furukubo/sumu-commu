@@ -1,8 +1,10 @@
 class Admin::EventMembersController < ApplicationController
   before_action :authenticate_admin!
+  before_action :check_adnmin_residence
   before_action :is_matching_login_admin
 
   def index
+    @residences = current_admin.residences
     @event = Event.find(params[:event_id])
     @residence_members = @event.residence.members
     @event_members = @event.event_members.where(is_approved: true)
@@ -10,6 +12,7 @@ class Admin::EventMembersController < ApplicationController
   end
 
   def create
+    @residences = current_admin.residences
     @event = Event.find(params[:event_id])
     event_member = EventMember.new(event_member_params)
     @residence_members = @event.residence.members
@@ -22,6 +25,7 @@ class Admin::EventMembersController < ApplicationController
   end
 
   def invite_all
+    @residences = current_admin.residences
     @event = Event.find(params[:event_id])
     @residence_members = @event.residence.members
     @event_members = @event.event_members.where(is_approved: true)
@@ -38,6 +42,7 @@ class Admin::EventMembersController < ApplicationController
   end
 
   def quit_invite
+    @residences = current_admin.residences
     @event = Event.find(params[:event_id])
     event_member = EventMember.find(params[:id])
     @residence_members = @event.residence.members
@@ -60,7 +65,7 @@ class Admin::EventMembersController < ApplicationController
     admin_events = Event.where(residence_id: residences.pluck(:id))
     unless admin_events.where(id: params[:event_id]).present?
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to admin_events_path
+     redirect_to admin_residence_events_path(params[:residence_id])
     end
   end
 

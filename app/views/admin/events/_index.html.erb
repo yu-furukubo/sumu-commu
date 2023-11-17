@@ -19,7 +19,7 @@
           <td><%= l event.started_at %> ~ <%= l event.finished_at %></td>
         <% end %>
         <td><%= event.venue %></td>
-        <td class="text-center"><%= event.event_members.count %>人</td>
+        <td class="text-center"><%= event.event_members.where(is_approved: true).count %>人</td>
       </tr>
     <% end %>
   </tbody>

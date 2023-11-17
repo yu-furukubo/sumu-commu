@@ -1,140 +1,148 @@
 <nav class="navbar navbar-expand-md", style="background-color:#696969">
-  <ul class="navbar-nav mx-auto">
-    <li class="nav-item mr-3">
+  <div class="mx-auto">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                  aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="text-light">Menu <br><i class="fa-solid fa-caret-down"></i></span>
+    </button>
+  </div>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav mx-auto">
+      <li class="nav-item mr-3">
+        <% if controller.controller_name == "residences" %>
+          <% if controller.action_name != "new" %>
+            <%= link_to "管理情報", admin_residence_admin_path(params[:id], current_admin), class: "nav-link text-light text-center" %>
+          <% end %>
+        <% else %>
+          <%= link_to "管理情報", admin_residence_admin_path(params[:residence_id], current_admin), class: "nav-link text-light text-center" %>
+        <% end %>
+      </li>
+      <li class="nav-item mr-3">
+        <% if controller.controller_name == "residences" %>
+          <% if controller.action_name != "new" %>
+            <%= link_to "会員", admin_residence_members_path(params[:id]), class: "nav-link text-light text-center" %>
+          <% end %>
+        <% else %>
+          <%= link_to "会員", admin_residence_members_path(params[:residence_id]), class: "nav-link text-light text-center" %>
+        <% end %>
+      </li>
       <% if controller.controller_name == "residences" %>
         <% if controller.action_name != "new" %>
-          <%= link_to "管理情報", admin_residence_admin_path(params[:id], current_admin), class: "nav-link text-light" %>
+          <% if Residence.find(params[:id]).board_is_active == true %>
+            <li class="nav-item mr-3">
+              <%= link_to "掲示板", admin_residence_boards_path(params[:id]), class: "nav-link text-light text-center" %>
+            </li>
+          <% end %>
         <% end %>
       <% else %>
-        <%= link_to "管理情報", admin_residence_admin_path(params[:residence_id], current_admin), class: "nav-link text-light" %>
+        <% if Residence.find(params[:residence_id]).board_is_active == true %>
+          <li class="nav-item mr-3">
+            <%= link_to "掲示板", admin_residence_boards_path(params[:residence_id]), class: "nav-link text-light text-center" %>
+          </li>
+        <% end %>
       <% end %>
-    </li>
-    <li class="nav-item mr-3">
       <% if controller.controller_name == "residences" %>
         <% if controller.action_name != "new" %>
-          <%= link_to "会員", admin_residence_members_path(params[:id]), class: "nav-link text-light" %>
+          <% if Residence.find(params[:id]).community_is_active == true %>
+            <li class="nav-item mr-3">
+              <%= link_to "コミュニティ", admin_residence_communities_path(params[:id]), class: "nav-link text-light text-center" %>
+            </li>
+          <% end %>
         <% end %>
       <% else %>
-        <%= link_to "会員", admin_residence_members_path(params[:residence_id]), class: "nav-link text-light" %>
-      <% end %>
-    </li>
-    <% if controller.controller_name == "residences" %>
-      <% if controller.action_name != "new" %>
-        <% if Residence.find(params[:id]).board_is_active == true %>
+        <% if Residence.find(params[:residence_id]).community_is_active == true %>
           <li class="nav-item mr-3">
-            <%= link_to "掲示板", admin_residence_boards_path(params[:id]), class: "nav-link text-light" %>
+            <%= link_to "コミュニティ", admin_residence_communities_path(params[:residence_id]), class: "nav-link text-light text-center" %>
           </li>
         <% end %>
       <% end %>
-    <% else %>
-      <% if Residence.find(params[:residence_id]).board_is_active == true %>
-        <li class="nav-item mr-3">
-          <%= link_to "掲示板", admin_residence_boards_path(params[:residence_id]), class: "nav-link text-light" %>
-        </li>
-      <% end %>
-    <% end %>
-    <% if controller.controller_name == "residences" %>
-      <% if controller.action_name != "new" %>
-        <% if Residence.find(params[:id]).community_is_active == true %>
-          <li class="nav-item mr-3">
-            <%= link_to "コミュニティ", admin_residence_communities_path(params[:id]), class: "nav-link text-light" %>
-          </li>
-        <% end %>
-      <% end %>
-    <% else %>
-      <% if Residence.find(params[:residence_id]).community_is_active == true %>
-        <li class="nav-item mr-3">
-          <%= link_to "コミュニティ", admin_residence_communities_path(params[:residence_id]), class: "nav-link text-light" %>
-        </li>
-      <% end %>
-    <% end %>
-    <% if controller.controller_name == "residences" %>
-      <% if controller.action_name != "new" %>
-        <% if Residence.find(params[:id]).event_is_active == true %>
-          <li class="nav-item mr-3">
-            <%= link_to "イベント", admin_residence_events_path(params[:id]), class: "nav-link text-light" %>
-          </li>
-        <% end %>
-      <% end %>
-    <% else %>
-      <% if Residence.find(params[:residence_id]).event_is_active == true %>
-        <li class="nav-item mr-3">
-          <%= link_to "イベント", admin_residence_events_path(params[:residence_id]), class: "nav-link text-light" %>
-        </li>
-      <% end %>
-    <% end %>
-    <% if controller.controller_name == "residences" %>
-      <% if controller.action_name != "new" %>
-        <% if Residence.find(params[:id]).exchange_is_active == true %>
-          <li class="nav-item mr-3">
-            <%= link_to "ゆずりあい", admin_residence_exchanges_path(params[:id]), class: "nav-link text-light" %>
-          </li>
-        <% end %>
-      <% end %>
-    <% else %>
-      <% if Residence.find(params[:residence_id]).exchange_is_active == true %>
-        <li class="nav-item mr-3">
-          <%= link_to "ゆずりあい", admin_residence_exchanges_path(params[:residence_id]), class: "nav-link text-light" %>
-        </li>
-      <% end %>
-    <% end %>
-    <% if controller.controller_name == "residences" %>
-      <% if controller.action_name != "new" %>
-        <% if Residence.find(params[:id]).lost_item_is_active == true %>
-          <li class="nav-item mr-3">
-            <%= link_to "落とし物", admin_residence_lost_items_path(params[:id]), class: "nav-link text-light" %>
-          </li>
-        <% end %>
-      <% end %>
-    <% else %>
-      <% if Residence.find(params[:residence_id]).lost_item_is_active == true %>
-        <li class="nav-item mr-3">
-          <%= link_to "落とし物", admin_residence_lost_items_path(params[:residence_id]), class: "nav-link text-light" %>
-        </li>
-      <% end %>
-    <% end %>
-    <li class="nav-item mr-3">
       <% if controller.controller_name == "residences" %>
         <% if controller.action_name != "new" %>
-          <%= link_to "ジャンル", admin_residence_genres_path(params[:id]), class: "nav-link text-light" %>
+          <% if Residence.find(params[:id]).event_is_active == true %>
+            <li class="nav-item mr-3">
+              <%= link_to "イベント", admin_residence_events_path(params[:id]), class: "nav-link text-light text-center" %>
+            </li>
+          <% end %>
         <% end %>
       <% else %>
-        <%= link_to "ジャンル", admin_residence_genres_path(params[:residence_id]), class: "nav-link text-light" %>
-      <% end %>
-    </li>
-    <% if controller.controller_name == "residences" %>
-      <% if controller.action_name != "new" %>
-        <% if Residence.find(params[:id]).reservation_is_active == true %>
+        <% if Residence.find(params[:residence_id]).event_is_active == true %>
           <li class="nav-item mr-3">
-            <%= link_to "備品", admin_residence_equipments_path(params[:id]), class: "nav-link text-light" %>
-          </li>
-          <li class="nav-item mr-3">
-            <%= link_to "設備", admin_residence_facilities_path(params[:id]), class: "nav-link text-light" %>
-          </li>
-          <li class="nav-item mr-3">
-            <%= link_to "予約", admin_residence_reservations_path(params[:id]), class: "nav-link text-light" %>
+            <%= link_to "イベント", admin_residence_events_path(params[:residence_id]), class: "nav-link text-light text-center" %>
           </li>
         <% end %>
       <% end %>
-    <% else %>
-      <% if Residence.find(params[:residence_id]).reservation_is_active == true %>
-        <li class="nav-item mr-3">
-          <%= link_to "備品", admin_residence_equipments_path(params[:residence_id]), class: "nav-link text-light" %>
-        </li>
-        <li class="nav-item mr-3">
-          <%= link_to "設備", admin_residence_facilities_path(params[:residence_id]), class: "nav-link text-light" %>
-        </li>
-        <li class="nav-item mr-3">
-          <%= link_to "予約", admin_residence_reservations_path(params[:residence_id]), class: "nav-link text-light" %>
-        </li>
-      <% end %>
-    <% end %>
-    <li class="nav-item">
-      <% if controller.controller_name == "residences" && controller.action_name == "new" %>
-        <span class="text-light nav-link">「すむこみゅ」を使用する居住地の情報を入力してください。</span>
+      <% if controller.controller_name == "residences" %>
+        <% if controller.action_name != "new" %>
+          <% if Residence.find(params[:id]).exchange_is_active == true %>
+            <li class="nav-item mr-3">
+              <%= link_to "ゆずりあい", admin_residence_exchanges_path(params[:id]), class: "nav-link text-light text-center" %>
+            </li>
+          <% end %>
+        <% end %>
       <% else %>
-        <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link text-light" %>
+        <% if Residence.find(params[:residence_id]).exchange_is_active == true %>
+          <li class="nav-item mr-3">
+            <%= link_to "ゆずりあい", admin_residence_exchanges_path(params[:residence_id]), class: "nav-link text-light text-center" %>
+          </li>
+        <% end %>
       <% end %>
-    </li>
-  </ul>
+      <% if controller.controller_name == "residences" %>
+        <% if controller.action_name != "new" %>
+          <% if Residence.find(params[:id]).lost_item_is_active == true %>
+            <li class="nav-item mr-3">
+              <%= link_to "落とし物", admin_residence_lost_items_path(params[:id]), class: "nav-link text-light text-center" %>
+            </li>
+          <% end %>
+        <% end %>
+      <% else %>
+        <% if Residence.find(params[:residence_id]).lost_item_is_active == true %>
+          <li class="nav-item mr-3">
+            <%= link_to "落とし物", admin_residence_lost_items_path(params[:residence_id]), class: "nav-link text-light text-center" %>
+          </li>
+        <% end %>
+      <% end %>
+      <li class="nav-item mr-3">
+        <% if controller.controller_name == "residences" %>
+          <% if controller.action_name != "new" %>
+            <%= link_to "ジャンル", admin_residence_genres_path(params[:id]), class: "nav-link text-light text-center" %>
+          <% end %>
+        <% else %>
+          <%= link_to "ジャンル", admin_residence_genres_path(params[:residence_id]), class: "nav-link text-light text-center" %>
+        <% end %>
+      </li>
+      <% if controller.controller_name == "residences" %>
+        <% if controller.action_name != "new" %>
+          <% if Residence.find(params[:id]).reservation_is_active == true %>
+            <li class="nav-item mr-3">
+              <%= link_to "備品", admin_residence_equipments_path(params[:id]), class: "nav-link text-light text-center" %>
+            </li>
+            <li class="nav-item mr-3">
+              <%= link_to "設備", admin_residence_facilities_path(params[:id]), class: "nav-link text-light text-center" %>
+            </li>
+            <li class="nav-item mr-3">
+              <%= link_to "予約", admin_residence_reservations_path(params[:id]), class: "nav-link text-light text-center" %>
+            </li>
+          <% end %>
+        <% end %>
+      <% else %>
+        <% if Residence.find(params[:residence_id]).reservation_is_active == true %>
+          <li class="nav-item mr-3">
+            <%= link_to "備品", admin_residence_equipments_path(params[:residence_id]), class: "nav-link text-light text-center" %>
+          </li>
+          <li class="nav-item mr-3">
+            <%= link_to "設備", admin_residence_facilities_path(params[:residence_id]), class: "nav-link text-light text-center" %>
+          </li>
+          <li class="nav-item mr-3">
+            <%= link_to "予約", admin_residence_reservations_path(params[:residence_id]), class: "nav-link text-light text-center" %>
+          </li>
+        <% end %>
+      <% end %>
+      <li class="nav-item">
+        <% if controller.controller_name == "residences" && controller.action_name == "new" %>
+          <span class="text-light nav-link text-center">「すむこみゅ」を使用する居住地の情報を入力してください。</span>
+        <% else %>
+          <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link text-light text-center" %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
 </nav>

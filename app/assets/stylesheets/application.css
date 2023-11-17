@@ -63,6 +63,10 @@ footer{
   width: 100%;
 }
 
+.navbar-toggler{
+  transform: translate(-10%, 0);
+}
+
 .profile_image {
   border-radius: 25px;
 }

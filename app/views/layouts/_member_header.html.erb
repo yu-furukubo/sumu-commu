@@ -1,70 +1,78 @@
 <nav class="navbar navbar-expand-md p-1", style="background-color:#4169e1">
-  <ul class="navbar-nav mx-auto">
-    <li class="nav-item mr-3">
-      <%= link_to public_members_information_path, class: "nav-link text-light text-center" do %>
-        <i class="fa-solid fa-user"></i><br>
-        <span class="font-weight-bold">会員</span>
-      <% end %>
-    </li>
-    <% if current_member.residence.board_is_active == true %>
+  <div class="mx-auto">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                  aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="text-light">Menu <br><i class="fa-solid fa-caret-down"></i></span>
+    </button>
+  </div>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav mx-auto">
       <li class="nav-item mr-3">
-        <%= link_to public_boards_path, class: "nav-link text-light text-center" do %>
-          <i class="fa-solid fa-circle-exclamation"></i><br>
-          <span class="font-weight-bold">掲示板</span>
+        <%= link_to public_members_information_path, class: "nav-link text-light text-center" do %>
+          <i class="fa-solid fa-user"></i><br>
+          <span class="font-weight-bold">会員</span>
         <% end %>
       </li>
-    <% end %>
-    <% if current_member.residence.community_is_active == true %>
-    <li class="nav-item mr-3">
-      <%= link_to public_communities_path, class: "nav-link text-light text-center" do %>
-        <i class="fa-solid fa-users"></i><br>
-        <span class="font-weight-bold">コミュニティ</span>
+      <% if current_member.residence.board_is_active == true %>
+        <li class="nav-item mr-3">
+          <%= link_to public_boards_path, class: "nav-link text-light text-center" do %>
+            <i class="fa-solid fa-circle-exclamation"></i><br>
+            <span class="font-weight-bold">掲示板</span>
+          <% end %>
+        </li>
       <% end %>
-    </li>
-    <% end %>
-    <% if current_member.residence.event_is_active == true %>
-    <li class="nav-item mr-3">
-      <%= link_to public_events_path, class: "nav-link text-light text-center" do %>
-        <i class="fa-solid fa-icons"></i><br>
-        <span class="font-weight-bold">イベント</span>
+      <% if current_member.residence.community_is_active == true %>
+      <li class="nav-item mr-3">
+        <%= link_to public_communities_path, class: "nav-link text-light text-center" do %>
+          <i class="fa-solid fa-users"></i><br>
+          <span class="font-weight-bold">コミュニティ</span>
+        <% end %>
+      </li>
       <% end %>
-    </li>
-    <% end %>
-    <% if current_member.residence.exchange_is_active == true %>
-    <li class="nav-item mr-3">
-      <%= link_to public_exchanges_path, class: "nav-link text-light text-center" do %>
-        <i class="fa-solid fa-repeat"></i><br>
-        <span class="font-weight-bold">ゆずりあい</span>
+      <% if current_member.residence.event_is_active == true %>
+      <li class="nav-item mr-3">
+        <%= link_to public_events_path, class: "nav-link text-light text-center" do %>
+          <i class="fa-solid fa-icons"></i><br>
+          <span class="font-weight-bold">イベント</span>
+        <% end %>
+      </li>
       <% end %>
-    </li>
-    <% end %>
-    <% if current_member.residence.reservation_is_active == true %>
-    <li class="nav-item mr-3">
-      <%= link_to public_reservations_path, class: "nav-link text-light text-center" do %>
-        <i class="fa-solid fa-bookmark"></i><br>
-        <span class="font-weight-bold">予約</span>
+      <% if current_member.residence.exchange_is_active == true %>
+      <li class="nav-item mr-3">
+        <%= link_to public_exchanges_path, class: "nav-link text-light text-center" do %>
+          <i class="fa-solid fa-repeat"></i><br>
+          <span class="font-weight-bold">ゆずりあい</span>
+        <% end %>
+      </li>
       <% end %>
-    </li>
-    <% end %>
-    <% if current_member.residence.lost_item_is_active == true %>
-    <li class="nav-item mr-3">
-      <%= link_to public_lost_items_path, class: "nav-link text-light text-center" do %>
-        <i class="fa-solid fa-hand-holding-droplet"></i><br>
-        <span class="font-weight-bold">落とし物</span>
+      <% if current_member.residence.reservation_is_active == true %>
+      <li class="nav-item mr-3">
+        <%= link_to public_reservations_path, class: "nav-link text-light text-center" do %>
+          <i class="fa-solid fa-bookmark"></i><br>
+          <span class="font-weight-bold">予約</span>
+        <% end %>
+      </li>
       <% end %>
-    </li>
-    <% end %>
-    <li class="nav-item mr-3">
-      <%= link_to public_plans_path, class: "nav-link text-light text-center" do %>
-        <i class="fa-regular fa-calendar"></i><br>
-        <span class="font-weight-bold">予定</span>
+      <% if current_member.residence.lost_item_is_active == true %>
+      <li class="nav-item mr-3">
+        <%= link_to public_lost_items_path, class: "nav-link text-light text-center" do %>
+          <i class="fa-solid fa-hand-holding-droplet"></i><br>
+          <span class="font-weight-bold">落とし物</span>
+        <% end %>
+      </li>
       <% end %>
-    </li>
-    <li class="nav-item mr-3">
-      <%= link_to destroy_member_session_path, method: :delete, class: "nav-link text-light text-center" do %>
-        <i class="fa-solid fa-right-from-bracket"></i><br>
-        <span class="font-weight-bold">ログアウト</span>
-      <% end %>
-    </li>
-  </ul>
+      <li class="nav-item mr-3">
+        <%= link_to public_plans_path, class: "nav-link text-light text-center" do %>
+          <i class="fa-regular fa-calendar"></i><br>
+          <span class="font-weight-bold">予定</span>
+        <% end %>
+      </li>
+      <li class="nav-item mr-3">
+        <%= link_to destroy_member_session_path, method: :delete, class: "nav-link text-light text-center" do %>
+          <i class="fa-solid fa-right-from-bracket"></i><br>
+          <span class="font-weight-bold">ログアウト</span>
+        <% end %>
+      </li>
+    </ul>
+  </div>
 </nav>

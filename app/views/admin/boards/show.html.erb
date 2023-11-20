@@ -9,7 +9,7 @@
           <table class='table table-borderless'>
             <tr><th style="width: 20%">作成者名</th><td><%= check_member_created(@board) %></td></tr>
             <tr><th>件名</th><td><%= @board.name %></td></tr>
-            <tr><th>本文</th><td><%= @board.body %></td></tr>
+            <tr><th>本文</th><td><%= simple_format(@board.body) %></td></tr>
           </table>
 
           <div class="row">

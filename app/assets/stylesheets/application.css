@@ -41,6 +41,7 @@ body{
 
 main{
   overflow: hidden;
+  padding-bottom: 50px;
 }
 
 footer{
@@ -69,6 +70,10 @@ footer{
 
 .profile_image {
   border-radius: 25px;
+}
+
+.profile_image_150{
+  border-radius: 75px;
 }
 
 .top{

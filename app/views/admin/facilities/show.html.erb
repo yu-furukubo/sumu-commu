@@ -13,7 +13,7 @@
       <div class="container">
         <div class="offset-1 mb-3">
           <table class='table table-borderless'>
-            <tr><th>設備画像</th><td><%= image_tag @facility.get_facility_image, width: '100px' %></td></tr>
+            <tr><th>設備画像</th><td><%= image_tag @facility.get_facility_image, width: '150px' %></td></tr>
             <tr><th>設備名</th><td><%= @facility.name %></td></tr>
             <tr><th>説明</th><td><%= @facility.description %></td></tr>
             <% if @facility.genre_id == 0 || @facility.genre.is_deleted == true %>

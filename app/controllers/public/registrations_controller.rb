@@ -12,7 +12,7 @@ class Public::RegistrationsController < Devise::RegistrationsController
   end
 
   def after_update_path_for(resource)
-    public_member_information_path(current_member)
+    member_information_path
   end
 
   def update_resource(resource, params)

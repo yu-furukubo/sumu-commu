@@ -9,7 +9,7 @@
   </thead>
   <tbody>
     <% equipments.each do |equipment| %>
-      <tr class="index_tr" data-href="/public/equipments/<%= equipment.id %>">
+      <tr class="index_tr" data-href="/equipments/<%= equipment.id %>">
         <td><%= equipment.name %></td>
         <% if equipment.genre_id == 0 %>
           <td>(未設定)</td>
@@ -18,7 +18,7 @@
         <% end %>
         <td><%= equipment.stock %>個</td>
         <td>
-          <%= form_with model: Reservation, url: new_public_reservation_path, method: :get, local: true do |f| %>
+          <%= form_with model: Reservation, url: new_reservation_path, method: :get, local: true do |f| %>
             <%= f.hidden_field :equipment_id, :value => equipment.id %>
             <%= f.submit "予約する", class: 'btn btn-sm btn-success' %>
           <% end %>

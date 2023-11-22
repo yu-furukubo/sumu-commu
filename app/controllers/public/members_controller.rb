@@ -18,7 +18,7 @@ class Public::MembersController < ApplicationController
   # def update
   #   @member = current_member
   #   if @member.update(member_params)
-  #     redirect_to member_public_members_path
+  #     redirect_to member_members_path
   #   else
   #     render "edit"
   #   end
@@ -33,7 +33,7 @@ class Public::MembersController < ApplicationController
   def ensure_guest_member
     @member = current_member
     if @member.email == "guest@example.com"
-      redirect_to public_member_information_path , notice: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
+      redirect_to member_information_path , notice: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
     end
   end
 

@@ -12,10 +12,10 @@
               <td>
                 <% if @exchange.exchange_item_images.attached? %>
                   <% @exchange.exchange_item_images.each do |image| %>
-                    <%= image_tag image, width: '100px' %>
+                    <%= image_tag image, width: '150px' %>
                   <% end %>
                 <% else %>
-                  <%= image_tag 'no_image_obj.png', width: '50px' %>
+                  <%= image_tag 'no_image_obj.png', width: '150px' %>
                 <% end %>
               </td>
             </tr>

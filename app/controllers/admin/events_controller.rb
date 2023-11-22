@@ -22,7 +22,13 @@ class Admin::EventsController < ApplicationController
     @event.member_id = 0
     @residence = Residence.find(params[:event][:residence_id])
 
-    if @event.started_at > @event.finished_at
+    if params[:event][:started_at] == "" || params[:event][:finished_at] == ""
+      flash.now[:alert] ="日時を正しく入力してください。"
+      render "new"
+      return
+    end
+
+    if params[:event][:started_at] > params[:event][:finished_at]
       flash.now[:alert] = "終了日時は、開始日時より後の日時を指定してください。"
       render "new"
       return
@@ -53,6 +59,12 @@ class Admin::EventsController < ApplicationController
     @residences = current_admin.residences
     @event = Event.find(params[:id])
     @residence = @event.residence
+
+    if params[:event][:started_at] == "" || params[:event][:finished_at] == ""
+      flash.now[:alert] ="日時を正しく入力してください。"
+      render "edit"
+      return
+    end
 
     if params[:event][:started_at] > params[:event][:finished_at]
       flash.now[:alert] = "終了日時は、開始日時より後の日時を指定してください。"

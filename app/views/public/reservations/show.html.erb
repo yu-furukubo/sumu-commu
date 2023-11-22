@@ -10,7 +10,7 @@
                 <tr>
                   <th>予約品</th>
                   <td>
-                    <%= link_to public_equipment_path(@reservation.equipment) do %>
+                    <%= link_to equipment_path(@reservation.equipment) do %>
                       <%= image_tag @reservation.equipment.get_equipment_image, width: '100px' %>&ensp;
                       <%= @reservation.equipment.name %>
                     <% end %>
@@ -20,7 +20,7 @@
                 <tr>
                   <th>予約設備</th>
                   <td>
-                    <%= link_to public_facility_path(@reservation.facility) do %>
+                    <%= link_to facility_path(@reservation.facility) do %>
                       <%= image_tag @reservation.facility.get_facility_image, width: '100px' %>&ensp;
                       <%= @reservation.facility.name %>
                     <% end %>
@@ -42,8 +42,8 @@
             <% if @reservation.member == current_member %>
             <div class="row">
               <div class="mx-auto">
-                <%= link_to "編集する", edit_public_reservation_path, class: "btn btn-success" %>&emsp;&emsp;
-                <%= link_to "削除する", public_reservation_path, method: :delete,
+                <%= link_to "編集する", edit_reservation_path, class: "btn btn-success" %>&emsp;&emsp;
+                <%= link_to "削除する", reservation_path, method: :delete,
                   data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
               </div>
             </div>

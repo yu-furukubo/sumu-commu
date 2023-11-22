@@ -44,7 +44,7 @@ class Admin::MembersController < ApplicationController
   private
 
   def member_params
-    params.require(:member).permit(:name, :house_address, :email)
+    params.require(:member).permit(:name, :house_address, :email, :profile_image)
   end
 
   def is_matching_login_admin

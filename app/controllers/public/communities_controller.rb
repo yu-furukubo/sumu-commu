@@ -26,7 +26,7 @@ class Public::CommunitiesController < ApplicationController
     @community = Community.new(community_params)
     if @community.save
       CommunityMember.create(community_id: @community.id, member_id: current_member.id, is_admin: true)
-      redirect_to public_community_path(@community)
+      redirect_to community_path(@community)
     else
       flash.now[:alert] = "コミュニティの作成に失敗しました。"
       render "new"
@@ -40,7 +40,7 @@ class Public::CommunitiesController < ApplicationController
   def update
     @community = Community.find(params[:id])
     if @community.update(community_params)
-      redirect_to public_community_path(@community)
+      redirect_to community_path(@community)
     else
       flash.now[:alert] = "コミュニティの更新に失敗しました。"
       render "edit"
@@ -50,7 +50,7 @@ class Public::CommunitiesController < ApplicationController
   def destroy
     @community = Community.find(params[:id])
     if @community.destroy
-      redirect_to public_communities_path
+      redirect_to communities_path
     else
       flash.now[:alert] = "コミュニティの削除に失敗しました。"
       @community_members = CommunityMember.where(community_id: @community.id)
@@ -71,7 +71,7 @@ class Public::CommunitiesController < ApplicationController
     community = Community.find(params[:id])
     unless community.community_members.find_by(member_id: current_member.id, is_admin: true)
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_communities_path
+     redirect_to communities_path
     end
   end
 
@@ -80,7 +80,7 @@ class Public::CommunitiesController < ApplicationController
     community = Community.find(params[:id])
     unless community.residence == residence
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_communities_path
+     redirect_to communities_path
     end
   end
 

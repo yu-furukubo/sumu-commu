@@ -113,7 +113,7 @@ class Public::EventMembersController < ApplicationController
     event = Event.find(params[:event_id])
     unless event.member_id == current_member.id
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_events_path
+     redirect_to events_path
     end
   end
 
@@ -122,7 +122,7 @@ class Public::EventMembersController < ApplicationController
     event = Event.find(params[:event_id])
     unless event.residence == residence
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_events_path
+     redirect_to events_path
     end
   end
 

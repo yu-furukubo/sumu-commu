@@ -8,6 +8,7 @@
         <div class="row">
           <div class="offset-1">
             <table class='table table-borderless'>
+              <tr><th>画像</th><td><%= image_tag @member.get_profile_image, width: "150px", class: "profile_image_150" %></td></tr>
               <tr><th>氏名</th><td><%= @member.name %></td></tr>
               <% if current_member.residence.housing_type == Residence.housing_types.key(0) %>
                 <tr><th>住所</th><td><%= @member.residence.address + " " + @member.residence.name + @member.house_address %></td></tr>

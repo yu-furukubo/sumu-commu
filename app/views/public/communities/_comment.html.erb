@@ -7,7 +7,7 @@
 </div>
 <div>
   <% if community_members.find_by(member_id: current_member.id).present? %>
-    <%= form_with model: CommunityComment.new, url: public_community_community_comments_path(community), method: :post, local: false do |f| %>
+    <%= form_with model: CommunityComment.new, url: community_community_comments_path(community), method: :post, local: false do |f| %>
       <%= f.hidden_field :community_id, :value => community.id %>
       <%= f.hidden_field :member_id, :value => current_member.id %>
       <%= f.text_area :comment, class: "form-control" %>
@@ -37,7 +37,7 @@
               <% if community_members.find_by(member_id: current_member.id, is_admin: true).present? %>
                 <% if comment.is_deleted == false %>
                   <div>
-                    <%= form_with model: CommunityComment.new, url: public_community_community_comment_path(community, comment), method: :patch, local: false do |f| %>
+                    <%= form_with model: CommunityComment.new, url: community_community_comment_path(community, comment), method: :patch, local: false do |f| %>
                       <%= f.hidden_field :is_deleted, :value => true %>
                       <%= button_tag type: "submit", class: 'btn btn-sm' do %>
                         <i class="fa-solid fa-trash"></i>
@@ -67,7 +67,7 @@
             <div>
               <% if community_members.find_by(member_id: current_member.id, is_admin: true).present? %>
                 <% if comment.is_deleted == false %>
-                  <%= form_with model: CommunityComment.new, url: public_community_community_comment_path(community, comment), method: :patch, local: false do |f| %>
+                  <%= form_with model: CommunityComment.new, url: community_community_comment_path(community, comment), method: :patch, local: false do |f| %>
                     <%= f.hidden_field :is_deleted, :value => true %>
                     <%= button_tag type: "submit", class: 'btn btn-sm' do %>
                       <i class="fa-solid fa-trash"></i>

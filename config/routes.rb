@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :public do
+  scope module: :public do
     resources :plans
     resources :events do
       resources :event_members, only: [:index, :create, :update, :destroy]

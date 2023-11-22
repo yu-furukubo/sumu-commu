@@ -34,7 +34,7 @@ class Public::CommunityCommentsController < ApplicationController
   #   community = Community.find(params[:community_id])
   #   community_comment = CommunityComment.find(params[:id])
   #   if community_comment.destroy
-  #     redirect_to public_community_path(community)
+  #     redirect_to community_path(community)
   #   else
   #     flash.now[:notice] = "更新に失敗しました"
   #     render template: "public/communities/show"
@@ -51,7 +51,7 @@ class Public::CommunityCommentsController < ApplicationController
     community = Community.find(params[:community_id])
     unless community.community_members.find_by(member_id: current_member.id, is_admin: true)
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_communities_path
+     redirect_to communities_path
     end
   end
 
@@ -60,7 +60,7 @@ class Public::CommunityCommentsController < ApplicationController
     community = Community.find(params[:community_id])
     unless community.residence == residence
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_communities_path
+     redirect_to communities_path
     end
   end
 

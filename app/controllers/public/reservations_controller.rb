@@ -62,7 +62,7 @@ class Public::ReservationsController < ApplicationController
         else
           @reservation.save
           flash[:notice] = "予約が完了しました。"
-          redirect_to public_reservations_path
+          redirect_to reservations_path
           return
         end
       else
@@ -75,7 +75,7 @@ class Public::ReservationsController < ApplicationController
 
     if @reservation.save
       flash[:notice] = "予約が完了しました。"
-      redirect_to public_reservations_path
+      redirect_to reservations_path
     else
       flash.now[:alert] = "予約に失敗しました。"
       render "new"
@@ -125,7 +125,7 @@ class Public::ReservationsController < ApplicationController
             finished_at: @reservation.finished_at
           )
           flash[:notice] = "予約時間の変更が完了しました。"
-          redirect_to public_reservations_path
+          redirect_to reservations_path
           return
         end
       elsif count > 1
@@ -143,7 +143,7 @@ class Public::ReservationsController < ApplicationController
         finished_at: @reservation.finished_at
       )
       flash[:notice] = "予約時間の変更が完了しました。"
-      redirect_to public_reservations_path
+      redirect_to reservations_path
     else
       flash.now[:alert] = "予約内容の更新に失敗しました。"
       render "edit"
@@ -153,7 +153,7 @@ class Public::ReservationsController < ApplicationController
   def destroy
     @reservation = Reservation.find(params[:id])
     if @reservation.destroy
-      redirect_to public_reservations_path
+      redirect_to reservations_path
     else
       flash.now[:alert] = "予約の削除に失敗しました。"
       if @reservation.equipment_id.present?
@@ -203,7 +203,7 @@ class Public::ReservationsController < ApplicationController
     reservation = Reservation.find(params[:id])
     unless reservation.member_id == current_member.id
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_reservations_path
+     redirect_to reservations_path
     end
   end
 
@@ -212,7 +212,7 @@ class Public::ReservationsController < ApplicationController
     reservation = Reservation.find(params[:id])
     unless reservation.residence == residence
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_reservations_path
+     redirect_to reservations_path
     end
   end
 end

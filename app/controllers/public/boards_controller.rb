@@ -26,7 +26,7 @@ class Public::BoardsController < ApplicationController
   def create
     @board = Board.new(board_params)
     if @board.save
-      redirect_to public_board_path(@board)
+      redirect_to board_path(@board)
     else
       flash.now[:alert] = "掲示板の投稿に失敗しました。"
       render "new"
@@ -40,7 +40,7 @@ class Public::BoardsController < ApplicationController
   def update
     @board = Board.find(params[:id])
     if @board.update(board_params)
-      redirect_to public_board_path(@board)
+      redirect_to board_path(@board)
     else
       flash.now[:alert] = "掲示板の更新に失敗しました。"
       render "edit"
@@ -50,7 +50,7 @@ class Public::BoardsController < ApplicationController
   def destroy
     @board = Board.find(params[:id])
     if @board.destroy
-      redirect_to public_boards_path
+      redirect_to boards_path
     else
       flash.now[:alert] = "掲示板の削除に失敗しました。"
       @circular_members = @board.circular_members
@@ -71,7 +71,7 @@ class Public::BoardsController < ApplicationController
     board = Board.find(params[:id])
     unless board.member_id == current_member.id
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_boards_path
+     redirect_to boards_path
     end
   end
 
@@ -80,7 +80,7 @@ class Public::BoardsController < ApplicationController
     board = Board.find(params[:id])
     unless board.residence == residence
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_boards_path
+     redirect_to boards_path
     end
   end
 

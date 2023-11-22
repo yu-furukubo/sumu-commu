@@ -33,7 +33,7 @@ class Public::PlansController < ApplicationController
     end
 
     if @plan.save
-      redirect_to public_plan_path(@plan)
+      redirect_to plan_path(@plan)
     else
       flash.now[:alert] = "予定の作成に失敗しました。"
       render "new"
@@ -70,7 +70,7 @@ class Public::PlansController < ApplicationController
           venue: params[:plan][:venue],
           memo: params[:plan][:memo]
         )
-      redirect_to public_plan_path(@plan)
+      redirect_to plan_path(@plan)
     else
       flash.now[:alert] = "予定の修正に失敗しました。"
       render "edit"
@@ -80,7 +80,7 @@ class Public::PlansController < ApplicationController
   def destroy
     @plan = Plan.find(params[:id])
     if @plan.destroy
-      redirect_to public_plans_path
+      redirect_to plans_path
     else
       flash.now[:alert] = "予定の削除に失敗しました。"
       render "show"
@@ -125,7 +125,7 @@ class Public::PlansController < ApplicationController
     plan = Plan.find(params[:id])
     unless plan.member_id == current_member.id
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_plans_path
+     redirect_to plans_path
     end
   end
 

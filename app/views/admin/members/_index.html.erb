@@ -1,6 +1,7 @@
 <table class='table table-borderless'>
   <thead>
     <tr>
+      <th>画像</th>
       <th>名前</th>
       <% if controller.action_name == "residence_search" %>
         <% if Residence.find(params[:id]).housing_type == Residence.housing_types.key(0) %>
@@ -16,8 +17,9 @@
   <tbody>
     <% members.each do |member| %>
       <tr>
-        <td><%= link_to member.name, admin_residence_member_path(params[:residence_id], member) %></td>
-        <td><%= member.house_address %></td>
+        <td><%= image_tag member.get_profile_image, width: '50px', class: "profile_image" %></td>
+        <td class="align-middle"><%= link_to member.name, admin_residence_member_path(params[:residence_id], member) %></td>
+        <td class="align-middle"><%= member.house_address %></td>
       </tr>
     <% end %>
   </tbody>

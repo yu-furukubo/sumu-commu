@@ -51,7 +51,7 @@ class Public::CircularMembersController < ApplicationController
     board = Board.find(params[:board_id])
     unless board.member_id == current_member.id
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_boards_path
+     redirect_to boards_path
     end
   end
 

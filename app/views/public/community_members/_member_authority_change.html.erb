@@ -9,7 +9,7 @@
             <td class="text-danger">管理者</td>
             <!--管理者からメンバーへの変更ボタン-->
             <td>
-              <%= form_with model: CommunityMember, url: public_community_community_member_path(community, community_member), method: :patch, local: false do |f| %>
+              <%= form_with model: CommunityMember, url: community_community_member_path(community, community_member), method: :patch, local: false do |f| %>
                 <%= f.hidden_field :is_admin, :value => false %>
                 <%= f.submit "メンバーに変更", class: 'btn btn-sm btn-success' %>
               <% end %>
@@ -20,7 +20,7 @@
             <td class="text-success">メンバー</td>
             <!--メンバーから管理者への変更ボタン-->
             <td>
-              <%= form_with model: CommunityMember, url: public_community_community_member_path(community, community_member), method: :patch, local: false do |f| %>
+              <%= form_with model: CommunityMember, url: community_community_member_path(community, community_member), method: :patch, local: false do |f| %>
                 <%= f.hidden_field :is_admin, :value => true %>
                 <%= f.submit "管理者に変更", class: 'btn btn-sm btn-danger' %>
               <% end %>
@@ -29,7 +29,7 @@
 
             <td>
               <!--メンバーの追放ボタン(管理者のみ表示)-->
-              <%= link_to public_community_community_member_path(community, community_member), method: :delete, remote: :true, class: 'btn btn-sm btn-secondary' do %>
+              <%= link_to community_community_member_path(community, community_member), method: :delete, remote: :true, class: 'btn btn-sm btn-secondary' do %>
                 <i class="fa-solid fa-trash-can fa-2xs"></i>
               <% end %>
               <!--メンバーの追放ボタンここまで-->

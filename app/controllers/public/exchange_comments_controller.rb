@@ -32,7 +32,7 @@ class Public::ExchangeCommentsController < ApplicationController
   #   exchange = Exchange.find(params[:exchange_id])
   #   exchange_comment = ExchangeComment.find(params[:id])
   #   if exchange_comment.destroy
-  #     redirect_to public_exchange_path(exchange)
+  #     redirect_to exchange_path(exchange)
   #   else
   #     flash.now[:notice] = "更新に失敗しました"
   #     render template: "public/exchanges/show"
@@ -49,16 +49,16 @@ class Public::ExchangeCommentsController < ApplicationController
     exchange = Exchange.find(params[:exchange_id])
     unless exchange.member_id == current_member.id
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_exchanges_path
+     redirect_to exchanges_path
     end
   end
 
-   def is_matching_residence
+  def is_matching_residence
     residence = current_member.residence
     exchange = Exchange.find(params[:exchange_id])
     unless exchange.residence == residence
-     flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_exchanges_path
+      flash[:alert] = "そのURLにはアクセスできません。"
+      redirect_to exchanges_path
     end
   end
 

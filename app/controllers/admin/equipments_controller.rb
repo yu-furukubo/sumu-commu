@@ -73,7 +73,7 @@ class Admin::EquipmentsController < ApplicationController
   private
 
   def equipment_params
-    params.require(:equipment).permit(:genre_id, :name, :description, :stock, :storage_location, :return_location, :note, :residence_id, :image)
+    params.require(:equipment).permit(:genre_id, :name, :description, :stock, :storage_location, :return_location, :note, :residence_id, :equipment_image)
   end
 
   def is_matching_login_admin

@@ -6,7 +6,7 @@
       </div>
       <div class="ml-5 mb-3">
         <table><tr><td>
-          <%= form_with url: public_residences_path, method: :get, local: true do |f| %>
+          <%= form_with url: residences_path, method: :get, local: true do |f| %>
             <%= f.text_field :word, placeholder: "絞り込み検索" %>&ensp;
             <%= f.submit "検索", class: 'btn btn-sm btn-success' %>
           <% end %>

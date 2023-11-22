@@ -14,9 +14,9 @@
     <% members.each do |member| %>
       <% if member.email != "guest@example.com" %>
         <tr>
-          <td><%= image_tag member.get_profile_image, width: "50px" %></td>
+          <td><%= image_tag member.get_profile_image, width: "50px", class: "profile_image" %></td>
           <% if member.id == current_member.id %>
-            <td class="align-middle"><%= link_to member.name, public_member_information_path %></td>
+            <td class="align-middle"><%= link_to member.name, member_information_path %></td>
           <% else %>
             <td class="align-middle"><%= member.name %></td>
           <% end %>

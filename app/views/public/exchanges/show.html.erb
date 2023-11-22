@@ -4,7 +4,7 @@
     <% if @exchange.member == current_member && @exchange.is_finished == false %>
       <div class="ml-3 d-flex align-items-center">
         <span class="mr-3">取引が完了したらクリック >></span>
-        <%= form_with model: Exchange, url: public_exchange_path(@exchange), method: :patch, local: true do |f| %>
+        <%= form_with model: Exchange, url: exchange_path(@exchange), method: :patch, local: true do |f| %>
           <%= f.hidden_field :is_finished, :value => true %>
           <%= f.submit "完了", class: 'btn btn-sm btn-primary' %>
         <% end %>
@@ -57,8 +57,8 @@
         <% if @exchange.member == current_member %>
           <div class="row">
             <div class="mx-auto">
-              <%= link_to "編集する", edit_public_exchange_path(@exchange), class: "btn btn-success" %>&emsp;&emsp;
-              <%= link_to "削除する", public_exchange_path(@exchange), method: :delete,
+              <%= link_to "編集する", edit_exchange_path(@exchange), class: "btn btn-success" %>&emsp;&emsp;
+              <%= link_to "削除する", exchange_path(@exchange), method: :delete,
                 data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
             </div>
           </div>

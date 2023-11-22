@@ -32,7 +32,7 @@ class Public::LostItemCommentsController < ApplicationController
   #   lost_item = LostItem.find(params[:lost_item_id])
   #   lost_item_comment = LostItemComment.find(params[:id])
   #   if lost_item_comment.destroy
-  #     redirect_to public_lost_item_path(lost_item)
+  #     redirect_to lost_item_path(lost_item)
   #   else
   #     flash.now[:notice] = "更新に失敗しました"
   #     render template: "public/lost_items/show"
@@ -49,7 +49,7 @@ class Public::LostItemCommentsController < ApplicationController
     lost_item = LostItem.find(params[:lost_item_id])
     unless lost_item.member_id == current_member.id
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_lost_items_path
+     redirect_to lost_items_path
     end
   end
 
@@ -58,7 +58,7 @@ class Public::LostItemCommentsController < ApplicationController
     lost_item = LostItem.find(params[:lost_item_id])
     unless lost_item.residence == residence
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_lost_items_path
+     redirect_to lost_items_path
     end
   end
 

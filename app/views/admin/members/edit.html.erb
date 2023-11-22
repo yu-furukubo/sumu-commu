@@ -13,6 +13,12 @@
                 <tbody>
                   <div class="form-group">
                     <tr>
+                      <td><%= f.label :写真 %></td>
+                      <td><%= f.file_field :profile_image %></td>
+                    </tr>
+                  </div>
+                  <div class="form-group">
+                    <tr>
                       <td><%= f.label :名前 %></td>
                       <td><%= f.text_field :name, placeholder: "名前", class: 'form-control' %></td>
                     </tr>

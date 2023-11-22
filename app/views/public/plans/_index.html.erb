@@ -8,7 +8,7 @@
   </thead>
   <tbody>
     <% plans.each do |plan| %>
-      <tr class="index_tr" data-href="/public/plans/<%= plan.id %>">
+      <tr class="index_tr" data-href="/plans/<%= plan.id %>">
         <td><%= plan.subject %></td>
         <% if plan.started_at.to_date == plan.finished_at.to_date %>
           <td><%= l plan.started_at %> ~ <%= l plan.finished_at, format: :short %></td>

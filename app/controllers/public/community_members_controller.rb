@@ -74,7 +74,7 @@ class Public::CommunityMembersController < ApplicationController
     community_admin = community.community_members.where(is_admin: true)
     unless community_admin.find_by(member_id: current_member.id).present?
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_communities_path
+     redirect_to communities_path
     end
   end
 
@@ -83,7 +83,7 @@ class Public::CommunityMembersController < ApplicationController
     community = Community.find(params[:community_id])
     unless community.residence == residence
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_communities_path
+     redirect_to communities_path
     end
   end
 

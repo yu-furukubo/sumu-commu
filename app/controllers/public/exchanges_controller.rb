@@ -24,7 +24,7 @@ class Public::ExchangesController < ApplicationController
   def create
     @exchange = Exchange.new(exchange_params)
     if @exchange.save
-      redirect_to public_exchange_path(@exchange)
+      redirect_to exchange_path(@exchange)
     else
       flash.now[:alert] = "ゆずりあいの登録に失敗しました。"
       render "new"
@@ -44,7 +44,7 @@ class Public::ExchangesController < ApplicationController
       end
     end
     if @exchange.update(exchange_params)
-      redirect_to public_exchange_path(@exchange)
+      redirect_to exchange_path(@exchange)
     else
       flash.now[:alert] = "ゆずりあいの内容変更に失敗しました。"
       render "edit"
@@ -54,7 +54,7 @@ class Public::ExchangesController < ApplicationController
   def destroy
     @exchange = Exchange.find(params[:id])
     if @exchange.destroy
-      redirect_to public_exchanges_path
+      redirect_to exchanges_path
     else
       flash.now[:alert] = "ゆずりあいの削除に失敗しました。"
       @exchange_comments = ExchangeComment.where(exchange_id: @exchange.id).order(created_at: "DESC")
@@ -73,7 +73,7 @@ class Public::ExchangesController < ApplicationController
     exchange = Exchange.find(params[:id])
     unless exchange.member_id == current_member.id
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_exchanges_path
+     redirect_to exchanges_path
     end
   end
 
@@ -82,7 +82,7 @@ class Public::ExchangesController < ApplicationController
     exchange = Exchange.find(params[:id])
     unless exchange.residence == residence
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_exchanges_path
+     redirect_to exchanges_path
     end
   end
 

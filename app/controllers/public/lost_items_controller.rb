@@ -29,7 +29,7 @@ class Public::LostItemsController < ApplicationController
     end
 
     if @lost_item.save
-      redirect_to public_lost_item_path(@lost_item)
+      redirect_to lost_item_path(@lost_item)
     else
       flash.now[:alert] = "落とし物の登録に失敗しました。"
       render "new"
@@ -56,7 +56,7 @@ class Public::LostItemsController < ApplicationController
       end
     end
     if @lost_item.update(lost_item_params)
-      redirect_to public_lost_item_path(@lost_item)
+      redirect_to lost_item_path(@lost_item)
     else
       flash.now[:alert] = "落とし物内容の変更に失敗しました。"
       render "edit"
@@ -66,7 +66,7 @@ class Public::LostItemsController < ApplicationController
   def destroy
     @lost_item = LostItem.find(params[:id])
     if @lost_item.destroy
-      redirect_to public_lost_items_path
+      redirect_to lost_items_path
     else
       flash.now[:alert] = "落とし物の削除に失敗しました。"
       @lost_item_comments = LostItemComment.where(lost_item_id: @lost_item.id).order(created_at: "DESC")
@@ -85,7 +85,7 @@ class Public::LostItemsController < ApplicationController
     lost_item = LostItem.find(params[:id])
     unless lost_item.member_id == current_member.id
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_lost_items_path
+     redirect_to lost_items_path
     end
   end
 
@@ -94,7 +94,7 @@ class Public::LostItemsController < ApplicationController
     lost_item = LostItem.find(params[:id])
     unless lost_item.residence == residence
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_lost_items_path
+     redirect_to lost_items_path
     end
   end
 

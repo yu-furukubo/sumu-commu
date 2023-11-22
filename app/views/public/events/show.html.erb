@@ -30,8 +30,8 @@
           <% if @event.member == current_member %>
             <div class="row">
               <div class="mx-auto">
-                <%= link_to "編集する", edit_public_event_path, class: "btn btn-success" %>&emsp;&emsp;
-                <%= link_to "削除する", public_event_path, method: :delete,
+                <%= link_to "編集する", edit_event_path, class: "btn btn-success" %>&emsp;&emsp;
+                <%= link_to "削除する", event_path, method: :delete,
                   data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
               </div>
             </div>

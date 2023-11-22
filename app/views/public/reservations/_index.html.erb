@@ -10,7 +10,7 @@
   </thead>
   <tbody>
     <% reservations.each do |reservation| %>
-      <tr class="index_tr" data-href="/public/reservations/<%= reservation.id %>">
+      <tr class="index_tr" data-href="/reservations/<%= reservation.id %>">
         <% if controller.controller_name == "reservations" %>
           <% if reservation.equipment_id.present? %>
             <td><%= reservation.equipment.name %></td>

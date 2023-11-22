@@ -12,15 +12,15 @@
       <div class="col-8 offset-1">
         <table class='table table-borderless'>
           <tr><th style="width: 25%">作成者名</th><td><%= check_member_created(@community) %></td></tr>
-          <tr><th>コミュニティ画像</th><td><%= image_tag @community.get_community_image, width: '100px' %></td></tr>
+          <tr><th>コミュニティ画像</th><td><%= image_tag @community.get_community_image, width: '150px' %></td></tr>
           <tr><th>コミュニティ名</th><td><%= @community.name %></td></tr>
           <tr><th>説明</th><td><%= @community.description %></td></tr>
         </table>
         <% if @community_members.find_by(member_id: current_member.id, is_admin: true) %>
           <div class="row">
             <div class="mx-auto">
-              <%= link_to "編集する", edit_public_community_path(@community), class: "btn btn-success" %>&emsp;&emsp;
-              <%= link_to "削除する", public_community_path(@community), method: :delete,
+              <%= link_to "編集する", edit_community_path(@community), class: "btn btn-success" %>&emsp;&emsp;
+              <%= link_to "削除する", community_path(@community), method: :delete,
                 data: {confirm:'本当に削除してよろしいですか？'}, class: "btn btn-danger" %>
             </div>
           </div>

@@ -73,7 +73,7 @@ class Admin::FacilitiesController < ApplicationController
   private
 
   def facility_params
-    params.require(:facility).permit(:genre_id, :name, :description, :note, :residence_id, :image)
+    params.require(:facility).permit(:genre_id, :name, :description, :note, :residence_id, :facility_image)
   end
 
   def is_matching_login_admin

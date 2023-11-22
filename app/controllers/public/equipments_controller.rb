@@ -14,7 +14,7 @@ class Public::EquipmentsController < ApplicationController
     equipment = Equipment.find(params[:id])
     unless equipment.residence == residence
      flash[:alert] = "そのURLにはアクセスできません。"
-     redirect_to public_reservations_path
+     redirect_to reservations_path
     end
   end
 end

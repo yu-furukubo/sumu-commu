@@ -1,6 +1,6 @@
 <div class="row mb-3 d-flex align-items-center">
   <h4>参加メンバー</h4>&emsp;
-  <%= link_to public_event_event_members_path(event) do %>
+  <%= link_to event_event_members_path(event) do %>
     <span class="text-primary font-weight-bold"><%= event_members.count %>人</span>
   <% end %>
 </div>

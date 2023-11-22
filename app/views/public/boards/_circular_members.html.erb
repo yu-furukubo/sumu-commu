@@ -9,7 +9,7 @@
       <span>&emsp;確認済：<%= board_checked_members.count %>人（<%= circular_members.count %>人中）</span>
     <% end %>
     <% if board.member_id == current_member.id %>
-      <%= link_to ">>回覧メンバーを編集する", public_board_circular_members_index_path(board), class: "text-success" %>
+      <%= link_to ">>回覧メンバーを編集する", board_circular_members_index_path(board), class: "text-success" %>
     <% end %>
   </div>
   <table class='table table-borderless'>
